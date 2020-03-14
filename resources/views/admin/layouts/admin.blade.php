@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>{{ setting('website_name') }} | Admin | @yield('title')</title>
+		<title>{{ setting('website_name') }} | {{ __('Admin Panel') }} | @yield('title')</title>
 		@include('admin.layouts.partials.head')
 		@yield('head')
 	</head>

@@ -2,7 +2,7 @@
 	<div class="app-sidebar__user">
 	    <div class="dropdown">
 			<a class="nav-link pl-2 pr-2 leading-none d-flex" data-toggle="dropdown" href="#">
-				<img alt="image" src="/admin-assets/img/avatar/avatar-1.jpeg" class=" avatar-md rounded-circle">
+				<img alt="image" src="{{ Auth::user()->profile_picture() }}" class=" avatar-md rounded-circle">
 				<span class="ml-2 d-lg-block">
 					<span class="text-dark app-sidebar__user-name mt-5">{{ Auth::user()->name }}</span><br>
 					<span class="text-muted app-sidebar__user-name text-sm">{{ Auth::user()->role() }}</span>

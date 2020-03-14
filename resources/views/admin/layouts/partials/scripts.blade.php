@@ -32,17 +32,10 @@
 <script src="/admin-assets/plugins/toastr/build/toastr.min.js"></script>
 <!--Sweetalert-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<!--lightbox-->
-<script src="/admin-assets/plugins/lightbox/js/lightbox.min.js"></script>
+<!--fancybox-->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <!--bootstrap fileinput-->
 <script src="/admin-assets/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    lightbox.option({
-      'resizeDuration': 200,
-      'wrapAround': true
-    })
-</script>
 
 <script type="text/javascript">
 	$('.select2').select2();

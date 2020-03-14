@@ -5,28 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\FileHandler;
 
-class Category extends Model
+class SubCategory extends Model
 {
     use FileHandler;
 
-    public $images_path = "/assets/images/category/";
+    public $images_path = "/assets/images/sub-category/";
     
     public function getRouteKeyName() {
         return 'slug';
     }
 
-    public function sub_categories()
+    public function category()
     {
-        return $this->hasMany(SubCategory::class, 'category_id');
+        return $this->belongsTo(Category::class);
     }
 
     // this is a recommended way to declare event handlers
     protected static function boot() {
         parent::boot();
 
-        static::deleting(function(Category $category) {
+        static::deleting(function(SubCategory $sub_category) {
             // before delete() method call this
-            $category->delete_category_image();
+            $sub_category->delete_category_image();
         });
     }
 }

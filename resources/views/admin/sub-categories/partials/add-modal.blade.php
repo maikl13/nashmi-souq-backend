@@ -3,13 +3,14 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content text-right">
 			<div class="modal-header">
-				<h5 class="modal-title"> اضافة قسم جديد </h5>
+				<h5 class="modal-title"> {{ $category->name }} - اضافة قسم فرعي </h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
             <form action="/admin/categories/add" method="POST" enctype="multipart/form-data" class="add">
             	@csrf()
+            	<input type="hidden" name="category_id" value="{{ $category->id }}">
 				<div class="modal-body" dir="rtl">
                     <div class="form-group">
 						<label for="name" class="form-control-label"> الاسم :</label>

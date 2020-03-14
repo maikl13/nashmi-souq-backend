@@ -21,10 +21,6 @@ class SettingsTableSeeder extends Seeder
                 'value' => 'Website Description'
             ],
             [
-                'name' => 'address',
-                'value' => 'Egypt - Cairo -Ring-road'
-            ],
-            [
                 'name' => 'email',
                 'value' => 'info@app_name.net'
             ],

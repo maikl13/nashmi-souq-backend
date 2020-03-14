@@ -51,7 +51,7 @@
 
 
 
-
+  "Admin Panel": "لوحة التحكم",
   "Admin": "مسؤول",
   "User": "عضو",
   "Privileges": "ادارة الصلاحيات",
@@ -77,6 +77,7 @@
   "Admins": "المديرين",
   "Save": "حفظ",
   "Cancel": "إلغاء",
+  "Admin Dashboard": "نظرة عامة",
   "Dashboard": "نظرة عامة",
   "Wrong Password": "كلمة المرور غير صحيحة.",
   "Saved Successfully": "تم حفظ البيانات بنجاح.",

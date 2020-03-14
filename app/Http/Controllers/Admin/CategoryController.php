@@ -31,14 +31,17 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
+            'image' => 'image|max:8192'
         ]);
 
         $category = new Category;
         $category->name = $request->name;
         $category->slug = Str::slug( $request->name );
 
-        if($category->save())
+        if($category->save()){
+            $category->image = $category->upload_category_image($request->image);
             return response()->json('تم الحفظ بنجاح!', 200);
+        }
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
@@ -78,13 +81,16 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
+            'image' => 'image|max:8192'
         ]);
 
         $category->name = $request->name;
         $category->slug = Str::slug( $request->name );
 
-        if($category->save())
+        if($category->save()){
+            $category->image = $category->upload_category_image($request->image);
             return redirect()->route('categories')->with('success', 'تم تعديل البيانات بنجاح.');
+        }
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
@@ -100,5 +106,9 @@ class CategoryController extends Controller
         if( $category->delete() )
             return response()->json('تم الحذف بنجاح.', 200);
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
+    }
+
+    public function delete_category_image(Category $category){
+        return $category->delete_category_image();
     }
 }

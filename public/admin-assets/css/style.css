@@ -6741,24 +6741,26 @@ ul.label-inbox li a:hover, ul.label-inbox li.active a, ul.label-inbox li a:focus
 	.dataTable tfoot { display: none; }
 }
 
+.app-sidebar__user img {box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.4) !important;}
+
 .card .card-header .btn {
 	padding: 0 15px !important;
     width: auto !important;
 }
-.file-drop-zone-title { font-size: 15px; padding: 15px 10px; }
-.file-drop-zone { border: 2px dashed #ddd; border-radius: 0; margin: 0; }
-.file-preview { border-radius: 0; border: none; padding: 0; margin-bottom: 15px; }
-.krajee-default.file-preview-frame { border: none; box-shadow: 0 0 3px 0 rgba(0,0,0,0.2); }
+.file-drop-zone-title { font-size: 15px !important; padding: 15px 10px !important; }
+.file-drop-zone { border: 2px dashed #ddd !important; border-radius: 0 !important; margin: 0 !important; }
+.file-preview { border-radius: 0 !important; border: none !important; padding: 0 !important; margin-bottom: 15px !important; }
+.krajee-default.file-preview-frame { border: none !important; box-shadow: 0 0 3px 0 rgba(0,0,0,0.2) !important; }
 @media (max-width: 767px){
-	.file-preview-thumbnails { display: block; }
+	.file-preview-thumbnails { display: block !important; }
 }
 .krajee-default.file-preview-frame:not(.file-preview-error):hover {
-    border: none; box-shadow: 0 0 5px 0 rgba(0,0,0,0.3);
+    border: none; box-shadow: 0 0 5px 0 rgba(0,0,0,0.3) !important;
 }
-.kv-zoom-actions { display: none; }
-.btn-file, .btn-file:hover, .btn-file:focus { cursor: copy; box-shadow: none; }
-.file-drag-handle {display: none;}
-.kv-file-remove, .kv-file-zoom { background-color: #01b8ff; color: white; border: none; line-height: 20px; font-size: 11px !important; padding: 2px 7px 0px !important; }
+.kv-zoom-actions { display: none !important; }
+.btn-file, .btn-file:hover, .btn-file:focus { cursor: copy !important; box-shadow: none !important; }
+.file-drag-handle {display: none !important;}
+.kv-file-remove, .kv-file-zoom { background-color: #01b8ff !important; color: white !important; border: none !important; line-height: 20px !important; font-size: 11px !important; padding: 2px 7px 0px !important; }
 
 
 .toast {font-weight: bold;}

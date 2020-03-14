@@ -5,3 +5,7 @@
     right: 0 !important;
     left: auto;
 }
+input, textarea {
+	direction: rtl;
+	text-align: right;
+}

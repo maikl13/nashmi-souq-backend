@@ -10,18 +10,20 @@
         <div class=" form-inline mr-auto horizontal" id="headerMenuCollapse">
 			<div class="d-none d-lg-block">
 				<ul class="nav">
-					<li class="nav-item with-sub">
-						<a class="nav-link mr-0" href="#">
-							<i class="fa fa-cog"></i>
-							<span>{{ __('Website Settings') }}</span>
-						</a>
-						<div class="sub-item dropdown-menu-right">
-							<ul>
-								<li> <a href="/admin/site-settings">{{ __('Website Settings') }}</a> </li>
-								<li> <a href="/admin/site-sections">{{ __('Website Sections') }}</a> </li>
-							</ul>
-						</div><!-- sub-item -->
-					</li>
+					@if(Auth::user()->is_superadmin())
+						<li class="nav-item with-sub">
+							<a class="nav-link mr-0" href="#">
+								<i class="fa fa-cog"></i>
+								<span>{{ __('Website Settings') }}</span>
+							</a>
+							<div class="sub-item dropdown-menu-right">
+								<ul>
+									<li> <a href="/admin/site-settings">{{ __('Website Settings') }}</a> </li>
+									<li> <a href="/admin/site-sections">{{ __('Website Sections') }}</a> </li>
+								</ul>
+							</div><!-- sub-item -->
+						</li>
+					@endif
 				</ul>
 		    </div>
 		</div>

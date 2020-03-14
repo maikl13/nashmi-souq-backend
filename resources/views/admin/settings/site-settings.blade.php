@@ -44,15 +44,15 @@
                                             <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
                                             	@csrf
                                                 <div class="form-group row">
-                                                    <label for="name" class="col-md-3 col-form-label">{{ __('Website Name') }}</label>
+                                                    <label for="website_name" class="col-md-3 col-form-label">{{ __('Website Name') }}</label>
                                                     <div class="col-md-9" dir="ltr">
-                                                        <input type="text" required class="form-control" id="name" name="name"  value="{{ setting('website_name', false) }}">
+                                                        <input type="text" required class="form-control" id="website_name" name="website_name"  value="{{ setting('website_name', false) }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="description" class="col-md-3 col-form-label">{{ __('Website Description') }}</label>
+                                                    <label for="website_description" class="col-md-3 col-form-label">{{ __('Website Description') }}</label>
                                                     <div class="col-md-9" dir="ltr">
-                                                        <textarea name="description" id="description" class="form-control" rows="7" style="line-height: 23px;">{{ setting('website_description', false) }}</textarea>
+                                                        <textarea name="website_description" id="website_description" class="form-control" rows="7" style="line-height: 23px;">{{ setting('website_description', false) }}</textarea>
                                                     </div>
                                                 </div>
                                                 @if(false)

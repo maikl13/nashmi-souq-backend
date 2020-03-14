@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="/admin-assets/plugins/toggle-menu/sidemenu.css">
 <!-- Toastr Plugin -->
 <link rel="stylesheet" href="/admin-assets/plugins/toastr/build/toastr.css">
-<!-- lightbox -->
-<link rel="stylesheet" href="/admin-assets/plugins/lightbox/css/lightbox.min.css">
+<!-- fancybox -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <!-- select2 -->
 <link rel="stylesheet" href="/admin-assets/plugins/select2/select2.css">
 <!--bootstrap fileinput-->

@@ -43,10 +43,38 @@ trait FileHandler {
 
 
 
-    // ==============================================================
-    // Another image
-    // ==============================================================
 
+    // ==============================================================
+    // Category image
+    // ==============================================================
+    public function category_image( $return_default=false ){
+        return $this->image && !$return_default ?
+            $this->images_path.$this->id."/".$this->image :
+            $this->images_path.'default.png';
+    }
+
+    public function upload_category_image($file, $w=256, $h=256){
+        $path = public_path($this->images_path.$this->id."/");
+        if($filename = $this->upload_image($file, $path , $w, $h, 'png')){
+            // delete old image
+            $this->delete_category_image();
+            // save new one
+            $this->image = $filename;
+            $this->save();
+        }
+    }
+
+    public function delete_category_image(){
+        if(!$this->image) return;
+        $path = public_path($this->images_path.$this->id."/");
+        $file =$path.$this->image;
+        if(!File::exists($file) or File::delete($file)){
+            $this->delete_folder_if_empty($path);
+            $this->image = null;
+            if($this->save())
+                return response()->json('', 200);
+        }
+    }
 
 
 

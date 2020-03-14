@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Category;
+use App\Models\SubCategory;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CategoriesDataTable extends DataTable
+class SubCategoriesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,23 +19,25 @@ class CategoriesDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        $query = request()->category ? $query->where('category_id', request()->category->id) : $query;
         return datatables()
             ->eloquent($query)
             ->addColumn('image', function ($record) {
                 return '<a href="'.$record->category_image().'" data-fancybox="categories"><img src="'.$record->category_image().'" border="0" width="40" class="img-rounded" align="center"/></a>';
             })
+            ->addColumn('category', function($record){ return $record->category->name; })
             ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
-            ->addColumn('action', 'admin.categories.partials.action')->setRowId(function ($record){return $record->id;})
+            ->addColumn('action', 'admin.sub-categories.partials.action')->setRowId(function ($record){return $record->id;})
             ->rawColumns(['image','action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Category $model
+     * @param \App\SubCategory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Category $model)
+    public function query(SubCategory $model)
     {
         return $model->newQuery();
     }
@@ -78,6 +80,7 @@ class CategoriesDataTable extends DataTable
             Column::make('id'),
             Column::make('image')->title('الصورة'),
             Column::make('name')->title('الاسم'),
+            Column::make('category')->title('القسم الرئيسي'),
             Column::make('created_at')->title('تاريخ الاضافة'),
             Column::computed('action')
                   ->width(60)
@@ -93,6 +96,6 @@ class CategoriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Categories_' . date('YmdHis');
+        return 'SubCategories_' . date('YmdHis');
     }
 }
