@@ -1,0 +1,7 @@
+*:not(.fa):not(.glyphicon):not(.mce-ico) {
+    font-family: 'El Messiri', sans-serif !important;
+}
+.card .card-header:before {
+    right: 0 !important;
+    left: auto;
+}
