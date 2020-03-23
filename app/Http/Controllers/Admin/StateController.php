@@ -3,23 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Country;
+use App\Models\State;
 use Illuminate\Http\Request;
-use App\DataTables\CategoriesDataTable;
+use App\DataTables\StatesDataTable;
 use Str;
 
-class CategoryController extends Controller
+class StateController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CategoriesDataTable $dataTable)
+    public function index(Country $country, StatesDataTable $dataTable)
     {
-        return $dataTable->render('admin.categories.categories');
+        return $dataTable
+                ->render('admin.states.states', ['country' => $country]);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -31,72 +32,65 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
-            'image' => 'image|max:8192'
         ]);
 
-        $category = new Category;
-        $category->name = $request->name;
-        $category->slug = Str::slug( $request->name );
+        $state = new State;
+        $state->name = $request->name;
+        $state->slug = Str::slug( $request->name );
+        $state->country_id = $request->country_id;
 
-        if($category->save()){
-            $category->image = $category->upload_category_image($request->image);
+        if($state->save()){
             return response()->json('تم الحفظ بنجاح!', 200);
         }
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(State $state)
     {
-        return view('admin.categories.edit-category')->with('category', $category);
+        return view('admin.states.edit-state')->with([
+            'country' => $state->country,
+            'state' => $state
+        ]);
     }
-
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, State $state)
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
-            'image' => 'image|max:8192'
         ]);
 
-        $category->name = $request->name;
-        $category->slug = Str::slug( $request->name );
+        $state->name = $request->name;
+        $state->slug = Str::slug( $request->name );
 
-        if($category->save()){
-            $category->image = $category->upload_category_image($request->image);
-            return redirect()->route('categories')->with('success', 'تم تعديل البيانات بنجاح.');
+        if($state->save()){
+            return redirect()->route('states', $state->country)->with('success', 'تم تعديل البيانات بنجاح.');
         }
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(State $state)
     {
-        if( $category->delete() )
+        if( $state->delete() )
             return response()->json('تم الحذف بنجاح.', 200);
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
-    }
-
-    public function delete_category_image(Category $category){
-        return $category->delete_category_image();
     }
 }

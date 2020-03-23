@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\SubCategory;
+use App\Models\Area;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class SubCategoriesDataTable extends DataTable
+class AreasDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,26 +19,21 @@ class SubCategoriesDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $query = request()->category ? $query->where('category_id', request()->category->id) : $query;
-        
+        $query = request()->state ? $query->where('state_id', request()->state->id) : $query;
+
         return datatables()
             ->eloquent($query)
-            ->addColumn('image', function ($record) {
-                return '<a href="'.$record->category_image().'" data-fancybox="categories"><img src="'.$record->category_image().'" border="0" width="40" class="img-rounded" align="center"/></a>';
-            })
-            ->addColumn('category', function($record){ return $record->category->name; })
-            ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
-            ->addColumn('action', 'admin.sub-categories.partials.action')->setRowId(function ($record){return $record->id;})
-            ->rawColumns(['image','action']);
+            ->addColumn('state', function($record){ return $record->state->name; })
+            ->addColumn('action', 'admin.areas.partials.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\SubCategory $model
+     * @param \App\Area $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(SubCategory $model)
+    public function query(Area $model)
     {
         return $model->newQuery();
     }
@@ -79,10 +74,9 @@ class SubCategoriesDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('image')->title('الصورة'),
             Column::make('name')->title('الاسم'),
-            Column::make('category')->title('القسم الرئيسي'),
-            Column::make('created_at')->title('تاريخ الاضافة'),
+            Column::make('slug')->title('المعرف'),
+            Column::make('state')->title('المدينة'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')
@@ -97,6 +91,6 @@ class SubCategoriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'SubCategories_' . date('YmdHis');
+        return 'Areas_' . date('YmdHis');
     }
 }

@@ -18,7 +18,6 @@ class SubCategoryController extends Controller
      */
     public function index(Category $category, SubCategoriesDataTable $dataTable)
     {
-        // dd($dataTable->query( new SubCategory ));
         return $dataTable
                 ->render('admin.sub-categories.sub-categories', ['category' => $category]);
     }

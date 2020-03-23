@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\SubCategory;
+use App\Models\Country;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class SubCategoriesDataTable extends DataTable
+class CountriesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,26 +19,18 @@ class SubCategoriesDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $query = request()->category ? $query->where('category_id', request()->category->id) : $query;
-        
         return datatables()
             ->eloquent($query)
-            ->addColumn('image', function ($record) {
-                return '<a href="'.$record->category_image().'" data-fancybox="categories"><img src="'.$record->category_image().'" border="0" width="40" class="img-rounded" align="center"/></a>';
-            })
-            ->addColumn('category', function($record){ return $record->category->name; })
-            ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
-            ->addColumn('action', 'admin.sub-categories.partials.action')->setRowId(function ($record){return $record->id;})
-            ->rawColumns(['image','action']);
+            ->addColumn('action', 'admin.countries.partials.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\SubCategory $model
+     * @param \App\Country $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(SubCategory $model)
+    public function query(Country $model)
     {
         return $model->newQuery();
     }
@@ -79,10 +71,8 @@ class SubCategoriesDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('image')->title('الصورة'),
             Column::make('name')->title('الاسم'),
-            Column::make('category')->title('القسم الرئيسي'),
-            Column::make('created_at')->title('تاريخ الاضافة'),
+            Column::make('slug')->title('المعرف'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')
@@ -97,6 +87,6 @@ class SubCategoriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'SubCategories_' . date('YmdHis');
+        return 'Countries_' . date('YmdHis');
     }
 }

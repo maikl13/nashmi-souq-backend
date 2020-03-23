@@ -29,6 +29,12 @@
 				<span class="side-menu__label">{{ __('Categories') }}</span>
 			</a>
 		</li>
+		<li>
+			<a class="side-menu__item" href="/admin/countries">
+				<i class="side-menu__icon fa fa-tags"></i>
+				<span class="side-menu__label">البلاد</span>
+			</a>
+		</li>
 		<li class="slide d-lg-none">
 			<a class="side-menu__item"  data-toggle="slide" href="#">
 				<i class="side-menu__icon fa fa-gear"></i>

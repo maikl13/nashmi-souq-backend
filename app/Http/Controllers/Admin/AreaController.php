@@ -3,23 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\State;
+use App\Models\Area;
 use Illuminate\Http\Request;
-use App\DataTables\CategoriesDataTable;
+use App\DataTables\AreasDataTable;
 use Str;
 
-class CategoryController extends Controller
+class AreaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CategoriesDataTable $dataTable)
+    public function index(State $state, AreasDataTable $dataTable)
     {
-        return $dataTable->render('admin.categories.categories');
+        return $dataTable
+                ->render('admin.areas.areas', ['state' => $state]);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -31,72 +32,65 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
-            'image' => 'image|max:8192'
         ]);
 
-        $category = new Category;
-        $category->name = $request->name;
-        $category->slug = Str::slug( $request->name );
+        $area = new Area;
+        $area->name = $request->name;
+        $area->slug = Str::slug( $request->name );
+        $area->state_id = $request->state_id;
 
-        if($category->save()){
-            $category->image = $category->upload_category_image($request->image);
+        if($area->save()){
             return response()->json('تم الحفظ بنجاح!', 200);
         }
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Area $area)
     {
-        return view('admin.categories.edit-category')->with('category', $category);
+        return view('admin.areas.edit-area')->with([
+            'state' => $area->state,
+            'area' => $area
+        ]);
     }
-
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Area $area)
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
-            'image' => 'image|max:8192'
         ]);
 
-        $category->name = $request->name;
-        $category->slug = Str::slug( $request->name );
+        $area->name = $request->name;
+        $area->slug = Str::slug( $request->name );
 
-        if($category->save()){
-            $category->image = $category->upload_category_image($request->image);
-            return redirect()->route('categories')->with('success', 'تم تعديل البيانات بنجاح.');
+        if($area->save()){
+            return redirect()->route('areas', $area->state)->with('success', 'تم تعديل البيانات بنجاح.');
         }
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Area $area)
     {
-        if( $category->delete() )
+        if( $area->delete() )
             return response()->json('تم الحذف بنجاح.', 200);
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
-    }
-
-    public function delete_category_image(Category $category){
-        return $category->delete_category_image();
     }
 }

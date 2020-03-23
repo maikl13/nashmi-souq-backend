@@ -8,7 +8,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-            <form action="/admin/categories/add" method="POST" enctype="multipart/form-data" class="add">
+            <form action="/admin/categories/" method="POST" enctype="multipart/form-data" class="add">
             	@csrf()
             	<input type="hidden" name="category_id" value="{{ $category->id }}">
 				<div class="modal-body" dir="rtl">

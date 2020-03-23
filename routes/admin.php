@@ -34,6 +34,27 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 	Route::put('sub-categories/{sub_category}', 'SubCategoryController@update');
 	Route::delete('sub-categories/{sub_category}', 'SubCategoryController@destroy');
 	Route::post('sub-categories/{sub_category}/delete-image', 'SubCategoryController@delete_category_image');
+
+	// Countries
+	Route::get('countries', 'CountryController@index')->name('countries');
+	Route::post('countries', 'CountryController@store');
+	Route::get('countries/{country}/edit', 'CountryController@edit')->name('edit-country');
+	Route::put('countries/{country}', 'CountryController@update');
+	Route::delete('countries/{country}', 'CountryController@destroy');
+
+	// states
+	Route::get('countries/{country}/states', 'StateController@index')->name('states');
+	Route::post('states', 'StateController@store');
+	Route::get('states/{state}/edit', 'StateController@edit')->name('edit-state');
+	Route::put('states/{state}', 'StateController@update');
+	Route::delete('states/{state}', 'StateController@destroy');
+
+	// areas
+	Route::get('states/{state}/areas', 'AreaController@index')->name('areas');
+	Route::post('areas', 'AreaController@store');
+	Route::get('areas/{area}/edit', 'AreaController@edit')->name('edit-area');
+	Route::put('areas/{area}', 'AreaController@update');
+	Route::delete('areas/{area}', 'AreaController@destroy');
 });
 
 
