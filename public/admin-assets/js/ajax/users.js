@@ -108,14 +108,14 @@ $(document).on("click", '.toggle-active-state',function(e){
     });
 });
 
-$(document).on("change", '.role-filter',function(e){
+$(document).on("change", '.filter',function(e){
 	var role_id;
 	if($(this).val() == 0){
 		role_id = '';
 	} else {
 		role_id = $(this).val();
 	}
-	window.LaravelDataTables["users-table"].column(4).search( role_id ).draw()
+	window.LaravelDataTables["data-table"].column(4).search( role_id ).draw()
 });
 
 

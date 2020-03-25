@@ -11,7 +11,7 @@
 		<div class="card-header text-right">
 			<h4 class="d-inline float-right">{{ __('Users') }}</h4>
 
-			<select class="role-filter form-control form-control-sm d-inline h-auto w-auto p-1 mr-2">
+			<select class="filter form-control form-control-sm d-inline h-auto w-auto p-1 mr-2">
 				<option value="">{{ __('All') }}</option>
 				<option value="1">{{ __('Users') }}</option>
 				<option value="2">{{ __('Admins') }}</option>

@@ -55,6 +55,13 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 	Route::get('areas/{area}/edit', 'AreaController@edit')->name('edit-area');
 	Route::put('areas/{area}', 'AreaController@update');
 	Route::delete('areas/{area}', 'AreaController@destroy');
+
+	// Transactions
+	Route::get('transactions', 'TransactionController@index')->name('transactions');
+	Route::post('transactions', 'TransactionController@store');
+	Route::get('transactions/{transaction}/edit', 'TransactionController@edit')->name('edit-transaction');
+	Route::put('transactions/{transaction}', 'TransactionController@update');
+	Route::delete('transactions/{transaction}', 'TransactionController@destroy');
 });
 
 

@@ -46,6 +46,12 @@ class User extends Authenticatable
     ];
 
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+
     // this is a recommended way to declare event handlers
     protected static function boot() {
         parent::boot();

@@ -31,7 +31,7 @@
   "Send Password Reset Link": "أرسل رابط استعادة كلمة المرور",
   "Server Error": "خطأ في الإستضافة",
   "Service Unavailable": "الخدمة غير متوفرة",
-  "This action is unauthorized.": "عملية غير مصرّح بها.",
+  "This action is unauthorized.": "عملية غير مصرّح بها, ليست لديك الصلاحيات الكافية",
   "This password reset link will expire in :count minutes.": "ستنتهي صلاحية رابط استعادة كلمة المرور خلال :count دقيقة.",
   "Toggle navigation": "إظهار/إخفاء القائمة",
   "Too Many Attempts.": "عدد كبير من المحاولات.",
