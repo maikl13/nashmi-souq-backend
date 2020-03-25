@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
     	// delete all users before seeding to avoid unique fields error
-        DB::table('users')->truncate();
+        // DB::table('users')->truncate();
 
     	$date = date("Y-m-d H:i:s");
         $password = Hash::make('password');

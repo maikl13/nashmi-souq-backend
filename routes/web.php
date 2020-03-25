@@ -32,4 +32,7 @@ Route::get('/deactivated', 'MainController@deactivated')->name('deactivated');
 Route::group(['middleware' => 'auth'], function () {
 	Route::post('profile-picture/delete', 'UserController@delete_profile_picture');
 
+	Route::get('account', 'UserController@edit');
+	Route::put('account/edit', 'UserController@update');
+
 });

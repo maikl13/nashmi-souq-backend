@@ -17,6 +17,11 @@ trait UserInfo {
         return false;
     }
 
+    public function status()
+    {
+        return $this->is_active() ? 'نشط' : 'غير مفعل';
+    }
+
     // check user role
     public function is_user(){
         return $this->role_id == Self::ROLE_USER;

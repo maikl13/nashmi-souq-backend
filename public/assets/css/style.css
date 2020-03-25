@@ -1,0 +1,22 @@
+.header-action-layout1 ul .header-login-icon a {
+    font-size: 1rem;
+}
+
+.file-drop-zone-title { font-size: 15px !important; padding: 15px 10px !important; }
+.file-drop-zone { border: 2px dashed #ddd !important; border-radius: 0 !important; margin: 0 !important; }
+.file-preview { border-radius: 0 !important; border: none !important; padding: 0 !important; margin-bottom: 15px !important; }
+.krajee-default.file-preview-frame { border: none !important; box-shadow: 0 0 3px 0 rgba(0,0,0,0.2) !important; }
+@media (max-width: 767px){
+	.file-preview-thumbnails { display: block !important; }
+}
+.krajee-default.file-preview-frame:not(.file-preview-error):hover {
+    border: none; box-shadow: 0 0 5px 0 rgba(0,0,0,0.3) !important;
+}
+.kv-zoom-actions { display: none !important; }
+.btn-file, .btn-file:hover, .btn-file:focus { cursor: copy !important; box-shadow: none !important; }
+.file-drag-handle {display: none !important;}
+.kv-file-remove, .kv-file-zoom { background-color: #01b8ff !important; color: white !important; border: none !important; line-height: 20px !important; font-size: 11px !important; padding: 2px 7px 0px !important; }
+
+.toast {font-weight: bold;}
+.toast-message {direction: rtl; text-align: right;}
+#toast-container>.toast:before {top: 17px !important;}

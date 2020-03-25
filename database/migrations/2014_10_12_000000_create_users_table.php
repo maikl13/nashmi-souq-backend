@@ -19,10 +19,23 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone');
             $table->string('password');
             $table->tinyInteger('role_id')->default(1);
             $table->boolean('active')->default(true);
             $table->string('profile_picture')->nullable();
+
+            //store details
+            $table->string('store_name')->nullable();
+            $table->string('store_slogan')->nullable();
+            $table->string('store_website')->nullable();
+            $table->string('store_email')->nullable();
+            $table->text('store_address')->nullable();
+            $table->text('store_description')->nullable();
+            $table->text('store_social_accounts')->nullable();
+            $table->text('store_banner')->nullable();
+            $table->text('store_logo')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

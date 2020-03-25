@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function edit()
     {
-        return view('main.users.edit-profile')->with('user', Auth::user());
+        return view('main.users.account');
     }
 
     public function update(Request $request)
@@ -24,12 +24,12 @@ class UserController extends Controller
         $user = Auth::user();
 
         if(!isset($request->password) || !Hash::check($request->password, $user->password))
-        	return redirect()->back()->with('failure', "Password is not Correct.");
+        	return redirect()->back()->with('failure', "كلمة المرور غير صحيحة.");
 
         $request->validate([
             'name' => 'required|min:2|max:255',
+            'username' => 'required|min:2|max:255',
             'email' => 'required|email|max:255|unique:users,email,'.$user->id,
-            'email' => 'nullable|max:20',
             'profile_picture' => 'image|max:8192',
         ]);
 
@@ -37,12 +37,12 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
 
-        // $user->upload_profile_picture($request->file('profile_picture'));
+        $user->upload_profile_picture($request->file('profile_picture'));
         if($user->save()){
-        	return redirect()->back()->with('success', "Data Saved Successfully.");
+        	return redirect()->back()->with('success', "تم تحديث البيانات بنجاح.");
         }
 
-        return redirect()->back()->with('success', "Data Saved Successfully.");
+        return redirect()->back()->with('failure', "حدث خطأ ما! من فضلك حاول مجددا.");
     }
 
 
