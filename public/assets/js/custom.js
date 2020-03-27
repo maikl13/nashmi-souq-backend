@@ -6,6 +6,7 @@ var footerTemplate = '<div class="wt-uploadingbar"><span class="uploadprogressba
 
 var fileInputOptions = {
     // overwriteInitial: false,
+    language: "ar",
     maxFileSize: 8096,
     showClose: false,
     showCaption: false,

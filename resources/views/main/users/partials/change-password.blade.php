@@ -1,7 +1,7 @@
 <div class="tab-pane fade" id="change-password" role="tabpanel">
     <div class="light-shadow-bg post-ad-box-layout1 myaccount-store-settings myaccount-detail">
         <div class="light-box-content">
-            <form action="/account/change-password" method="post" enctype="multipart/form-data" class="edit">
+            <form action="/account/change-password" method="post" enctype="multipart/form-data" class="ajax">
                 @csrf
                 @method('put')
                 <div class="post-section basic-information">
@@ -48,7 +48,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="submit" class="submit-btn" value="تغيير">
+                                <button type="submit" class="submit-btn">تغيير</button>
                             </div>
                         </div>
                     </div>

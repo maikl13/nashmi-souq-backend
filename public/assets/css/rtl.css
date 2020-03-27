@@ -1,5 +1,6 @@
 body {
     direction: rtl;
+    text-align: right;
     font-family: 'Almarai', 'Roboto', sans-serif;
 }
 
@@ -224,3 +225,37 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
     right: auto;
     left: 0;
 }
+
+.product-box-layout3 .item-img {
+    margin-left: 1.5625rem;
+    margin-right: auto;
+}
+.myaccount-listing .btn-group a {
+    margin-left: 0.3125rem;
+    margin-right: 0;
+}
+.myaccount-listing .btn-group a:last-child {
+    margin-left: 0;
+    margin-left: 0;
+}
+.product-box-layout3 .product-info .item-content .item-title span {
+    margin-right: 0.9375rem;
+    margin-left: 0;
+}
+.product-box-layout3 .product-info .item-right {
+    margin-right: 1.875rem;
+    margin-left: 0;
+}
+.product-box-layout3 .product-info .item-right .item-price {
+    text-align: right;
+}
+.pagination-layout1 {
+    direction: ltr;
+}
+
+
+
+
+
+
+

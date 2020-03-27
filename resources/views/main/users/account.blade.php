@@ -6,7 +6,7 @@
     <!--=====================================-->
     <!--=        Inner Banner Start         =-->
     <!--=====================================-->
-    <section class="inner-page-banner" data-bg-image="media/banner/banner1.jpg">
+    <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -76,17 +76,40 @@
 @endsection
 
 @section('scripts')
+    <script src="/assets/js/ajax/ajax.js"></script>
 
     <script type="text/javascript">
+        var profile_picture_fileInputOptions = fileInputOptions,
+            store_banner_fileInputOptions = fileInputOptions,
+            store_logo_fileInputOptions = fileInputOptions;
+
         @if(Auth::user()->profile_picture)
             var profile_picture = '{{ Auth::user()->profile_picture() }}';
-            var fileInputOptions = $.extend(true,{
+            profile_picture_fileInputOptions = $.extend(true,{
                 initialPreview: [profile_picture],
                 initialPreviewConfig : [{caption: "Profile Picture"}],
                 deleteUrl: "/profile-picture/delete",
             },fileInputOptions);
         @endif
+        @if(Auth::user()->store_banner)
+            var store_banner = '{{ Auth::user()->store_banner() }}';
+            store_banner_fileInputOptions = $.extend(true,{
+                initialPreview: [store_banner],
+                initialPreviewConfig : [{caption: "Store Banner"}],
+                deleteUrl: "/profile-picture/delete",
+            },fileInputOptions);
+        @endif
+        @if(Auth::user()->store_logo)
+            var store_logo = '{{ Auth::user()->store_logo() }}';
+            store_logo_fileInputOptions = $.extend(true,{
+                initialPreview: [store_logo],
+                initialPreviewConfig : [{caption: "Store Logo"}],
+                deleteUrl: "/profile-picture/delete",
+            },fileInputOptions);
+        @endif
 
-        var profilePicture = $("[type=file].profile-picture").fileinput(fileInputOptions);
+        $("[type=file].profile-picture").fileinput(profile_picture_fileInputOptions);
+        $("[type=file].store-banner").fileinput(store_banner_fileInputOptions);
+        $("[type=file].store-logo").fileinput(store_logo_fileInputOptions);
     </script>
 @endsection

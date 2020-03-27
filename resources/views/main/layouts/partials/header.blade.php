@@ -13,7 +13,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-7 d-flex justify-content-end" dir="ltr">
+                <div class="col-lg-6 d-flex justify-content-end" dir="ltr">
                     <nav id="dropdown" class="template-main-menu">
                         <ul>
                             <li><a href="/">الرئيسية</a></li>
@@ -21,7 +21,7 @@
                     </nav>
                 </div>
 
-                <div class="col-lg-3 d-flex justify-content-end">
+                <div class="col-lg-4 d-flex justify-content-end">
                     <div class="header-action-layout1">
                         <ul>
                             @guest

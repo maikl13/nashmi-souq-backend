@@ -28,8 +28,11 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4"></script>
 <!--bootstrap fileinput-->
 <script src="/admin-assets/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="/admin-assets/plugins/bootstrap-fileinput/js/locales/ar.js" type="text/javascript"></script>
 <!-- Toast Plugin -->
 <script src="/admin-assets/plugins/toastr/build/toastr.min.js"></script>
+<!--Sweetalert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- Site Scripts -->
 <script src="assets/js/app.js"></script>
 <script src="assets/js/custom.js"></script>

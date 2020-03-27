@@ -34,5 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('account', 'UserController@edit');
 	Route::put('account/edit', 'UserController@update');
+	Route::put('account/change-password', 'UserController@update_password');
+	Route::put('account/update-store', 'UserController@update_store');
 
 });

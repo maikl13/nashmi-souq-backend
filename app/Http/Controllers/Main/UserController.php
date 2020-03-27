@@ -24,7 +24,7 @@ class UserController extends Controller
         $user = Auth::user();
 
         if(!isset($request->password) || !Hash::check($request->password, $user->password))
-        	return redirect()->back()->with('failure', "كلمة المرور غير صحيحة.");
+            return response()->json('كلمة المرور غير صحيحة.', 500);
 
         $request->validate([
             'name' => 'required|min:2|max:255',
@@ -38,11 +38,11 @@ class UserController extends Controller
         $user->phone = $request->phone;
 
         $user->upload_profile_picture($request->file('profile_picture'));
-        if($user->save()){
-        	return redirect()->back()->with('success', "تم تحديث البيانات بنجاح.");
-        }
 
-        return redirect()->back()->with('failure', "حدث خطأ ما! من فضلك حاول مجددا.");
+        if($user->save()){
+            return response()->json('تم تحديث البيانات بنجاح!', 200);
+        }
+        return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
 
@@ -58,14 +58,50 @@ class UserController extends Controller
         if(Hash::check($request->password, $user->password)){
             $user->password = Hash::make($request->new_password);
         
-            if($user->save()){
-                return response()->json('تم حفظ البيانات بنجاح.', 200);
-            } else {
-                return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
-            }
+            if($user->save())
+                return response()->json('تم تحديث كلمة المرور!', 200);
+
+            return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
         } else {
-        	return redirect()->back()->with('failure', "Password is not Correct.");
+            return response()->json('كلمة المرور غير صحيحة.', 500);
         }
-        return redirect()->back()->with('success', "Password changed successfully.");
+    }
+
+    public function update_store(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'store_name' => 'required|min:2|max:255',
+            'store_slogan' => 'nullable|min:20|max:255',
+            'store_website' => 'nullable|url|max:255',
+            'store_email' => 'nullable|email|max:255',
+            'store_address' => 'nullable|max:1000',
+            'store_description' => 'nullable|max:3000',
+            'social.*' => 'nullable|url',
+            'store_banner' => 'nullable|image|max:8192',
+            'store_logo' => 'nullable|image|max:8192',
+        ]);
+
+        $user->store_name = $request->store_name;
+        $user->store_slogan = $request->store_slogan;
+        $user->store_website = $request->store_website;
+        $user->store_email = $request->store_email;
+        $user->store_address = $request->store_address;
+        $user->store_description = $request->store_description;
+
+        $social_links = [];
+        foreach ($request->social as $social_link)
+            if($social_link) $social_links[] = $social_link;
+        $user->store_social_accounts = json_encode($social_links);
+
+        $user->upload_store_banner($request->file('store_banner'));
+        $user->upload_store_logo($request->file('store_logo'));
+
+        if($user->save()){
+            return response()->json('تم تحديث بيانات المتجر بنجاح!', 200);
+        }
+        return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
+
     }
 }

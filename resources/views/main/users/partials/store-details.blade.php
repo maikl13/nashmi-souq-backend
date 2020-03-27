@@ -2,211 +2,134 @@
 <div class="tab-pane fade" id="store" role="tabpanel">
     <div class="light-shadow-bg post-ad-box-layout1 myaccount-store-settings">
         <div class="light-box-content">
-            <form action="#">
-                <div class="post-section store-banner">
-                    <div class="post-ad-title">
-                        <i class="far fa-image"></i>
-                        <h3 class="item-title">Store Images</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="control-label">
-                                Store Banner
-                            </label>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="store-banner-wrapper">
-                                    <div class="banenr-img">
-                                        <img src="media/figure/store-banner.jpg" alt="Store Banner">
-                                        <div class="media-action">
-                                            <a href="#" class="media-add"><i class="fas fa-plus"></i></a>
-                                            <a href="#" class="media-delete"><i class="far fa-trash-alt"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="alert alert-danger">
-                                        Recommended image size to (1180x300)px, Maximum file size 3 MB, Allowed image type (png, jpg, jpeg)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="control-label">
-                                Store Logo
-                            </label>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="store-banner-wrapper">
-                                    <div class="banenr-img">
-                                        <img src="media/figure/store10.png" alt="Store Banner">
-                                        <div class="media-action">
-                                            <a href="#" class="media-add"><i class="fas fa-plus"></i></a>
-                                            <a href="#" class="media-delete"><i class="far fa-trash-alt"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="alert alert-danger">
-                                        Recommended image size to (180x140)px, Maximum file size 3 MB, Allowed image type (png, jpg, jpeg)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-section store-schedule">
-                    <div class="post-ad-title">
-                        <i class="far fa-calendar"></i>
-                        <h3 class="item-title">Store Schedule</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="control-label">
-                                Opening Hours
-                            </label>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="form-check form-radio-btn">
-                                    <input class="form-check-input" type="radio" id="exampleRadios1" name="exampleRadios1" value="new">
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Always open
-                                    </label>
-                                </div>
-                                <div class="form-check form-radio-btn">
-                                    <input class="form-check-input" type="radio" id="exampleRadios2" name="exampleRadios1" value="used">
-                                    <label class="form-check-label" for="exampleRadios2">
-                                        Select Opening Hours
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <form action="/account/update-store" method="post" enctype="multipart/form-data" class="ajax">
+                @csrf
+                @method('PUT')
                 <div class="post-section store-information">
                     <div class="post-ad-title">
                         <i class="fas fa-folder-open"></i>
-                        <h3 class="item-title">Store Information</h3>
+                        <h3 class="item-title">بيانات المتجر</h3>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">
-                                Id
-                            </label>
+                            <label class="control-label">إسم المتجر <span>*</span></label>
                         </div>
                         <div class="col-sm-9">
                             <div class="form-group">
-                                <input type="text" value="123" class="form-control" name="id" id="store-id" readonly>
+                                <div class="input-group">
+                                    <input class="form-control" id="store_name" type="text" name="store_name" placeholder="إسم المتجر" value="{{ old('store_name') ? old('store_name') : Auth::user()->store_name }}">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">
-                                Name
-                            </label>
+                            <label class="control-label">نبذة مختصرة</label>
                         </div>
                         <div class="col-sm-9">
                             <div class="form-group">
-                                <input type="text" value="Saymon" class="form-control" name="name" id="store-name">
+                                <div class="input-group">
+                                    <input class="form-control" id="store_slogan" type="text" name="store_slogan" placeholder="نبذة مختصرة" value="{{ old('store_slogan') ? old('store_slogan') : Auth::user()->store_slogan }}">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">
-                                Slogan
-                            </label>
+                            <label class="control-label">الموقع الإلكتروني للمتجر</label>
                         </div>
                         <div class="col-sm-9">
                             <div class="form-group">
-                                <input type="text" value="ok very good" class="form-control" name="slogan" id="store-slogan">
+                                <div class="input-group">
+                                    <input class="form-control" id="store_website" type="text" name="store_website" placeholder="الموقع الإلكتروني للمتجر" value="{{ old('store_website') ? old('store_website') : Auth::user()->store_website }}">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">
-                                Email
-                            </label>
+                            <label class="control-label">البريد الإلكتروني الرسمي للمتجر</label>
                         </div>
                         <div class="col-sm-9">
                             <div class="form-group">
-                                <input type="email" value="ok@gmail.com" class="form-control" name="email" id="store-email">
+                                <div class="input-group">
+                                    <input class="form-control" id="store_email" type="text" name="store_email" placeholder="البريد الإلكتروني الرسمي للمتجر" value="{{ old('store_email') ? old('store_email') : Auth::user()->store_email }}">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">
-                                Email
-                            </label>
+                            <label class="control-label">عنوان المتجر</label>
                         </div>
                         <div class="col-sm-9">
                             <div class="form-group">
-                                <input type="text" value="123456" class="form-control" name="phone" id="store-phone">
+                                <div class="input-group">
+                                    <textarea name="store_address" class="form-control textarea" id="store_address" cols="30" rows="2" placeholder="عنوان المتجر">{{ old('store_address') ? old('store_address') : Auth::user()->store_address }}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">
-                                Website
-                            </label>
+                            <label class="control-label">وصف المتجر</label>
                         </div>
                         <div class="col-sm-9">
                             <div class="form-group">
-                                <input type="text" value="https://www.radiustheme.com" class="form-control" name="website" id="store-website">
+                                <textarea name="store_description" class="form-control textarea" id="store_description" cols="30" rows="4" placeholder="وصف المتجر">{{ old('store_description') ? old('store_description') : Auth::user()->store_description }}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">
-                                Address
-                            </label>
+                            <label class="control-label">حسابات مواقع التواصل الإجتماعي</label>
                         </div>
                         <div class="col-sm-9">
-                            <div class="form-group">
-                                <textarea name="address" class="form-control textarea" id="address" cols="30" rows="2">https://www.radiustheme.com</textarea>
+                            <div class="form-group store-social" style="margin-bottom: 1.5rem !important;">
+                                <?php 
+                                    $social_links = is_array( json_decode(Auth::user()->store_social_accounts) ) ? json_decode(Auth::user()->store_social_accounts) : [];
+                                ?>
+                                <input type="text" class="form-control" name="social[]" value="{{ isset($social_links[0]) ? $social_links[0] : '' }}">
+                                <input type="text" class="form-control" name="social[]" value="{{ isset($social_links[1]) ? $social_links[1] : '' }}">
+                                <input type="text" class="form-control" name="social[]" value="{{ isset($social_links[2]) ? $social_links[2] : '' }}">
+                                <input type="text" class="form-control" name="social[]" value="{{ isset($social_links[3]) ? $social_links[3] : '' }}">
+                                <input type="text" class="form-control" name="social[]" value="{{ isset($social_links[4]) ? $social_links[4] : '' }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-section store-banner">
+                    <div class="post-ad-title">
+                        <i class="far fa-image"></i>
+                        <h3 class="item-title">صور المتجر</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="control-label">صورة غلاف المتجر</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group text-right">
+                                <input class="form-control store-banner" id="store_banner" type="file" accept="image/*" name="store_banner">
+                                <div class="alert alert-danger text-right mt-2"><small>يفضل أن تكون أبعاد الصوره <span dir="ltr">1180x300 px</span>, الحد الأقصى لحجم الملف <span dir="ltr">8 MB</span>.</small></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">
-                                Description
-                            </label>
+                            <label class="control-label">شعار المتجر</label>
                         </div>
                         <div class="col-sm-9">
-                            <div class="form-group">
-                                <textarea name="discription" class="form-control textarea" id="discription" cols="30" rows="6">https://www.radiustheme.com</textarea>
+                            <div class="form-group text-right">
+                                <input class="form-control store-logo" id="store_logo" type="file" accept="image/*" name="store_logo">
+                                <div class="alert alert-danger text-right mt-2"><small>يفضل أن تكون أبعاد الصوره <span dir="ltr">512x512 px</span>, الحد الأقصى لحجم الملف <span dir="ltr">8 MB</span>.</small></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
-                            <label class="control-label">
-                                Socials
-                            </label>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="form-group store-social">
-                                <input type="text" value="https://www.radiustheme.com" class="form-control" name="facebook" id="store-facebook" placeholder="Facebook">
-                                <input type="text" class="form-control" name="twitter" id="store-twitter" placeholder="Twitter">
-                                <input type="text" class="form-control" name="youtube" id="store-youtube" placeholder="Youtube">
-                                <input type="text" class="form-control" name="linkedin" id="store-linkedin" placeholder="Linkedin">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-
-                        </div>
+                        <div class="col-sm-3"></div>
                         <div class="col-sm-9">
                             <div class="form-group">
-                                <input type="submit" class="submit-btn" value="Update Store">
+                                <button type="submit" class="submit-btn">تحديث</button>
                             </div>
                         </div>
                     </div>

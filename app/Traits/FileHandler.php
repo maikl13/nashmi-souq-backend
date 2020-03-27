@@ -44,6 +44,81 @@ trait FileHandler {
 
 
 
+
+    // ==============================================================
+    // Store Banner
+    // ==============================================================
+
+    public function store_banner( $return_default=false ){
+        return $this->store_banner && !$return_default ?
+            $this->images_path.$this->id."/".$this->store_banner :
+            $this->images_path.'default-user.png';
+    }
+
+    public function upload_store_banner($file, $w=1180, $h=300){
+        $path = public_path($this->images_path.$this->id."/");
+        if($filename = $this->upload_image($file, $path , $w, $h)){
+            // delete old image
+            $this->delete_store_banner();
+            // save new one
+            $this->store_banner = $filename;
+            $this->save();
+        }
+    }
+
+    public function delete_store_banner(){
+        if(!$this->store_banner) return;
+        $path = public_path($this->images_path.$this->id."/");
+        $file =$path.$this->store_banner;
+        if(!File::exists($file) or File::delete($file)){
+            $this->delete_folder_if_empty($path);
+            $this->store_banner = null;
+            if($this->save())
+                return response()->json('', 200);
+        }
+    }
+
+
+
+
+
+    // ==============================================================
+    // Store Logo
+    // ==============================================================
+
+    public function store_logo( $return_default=false ){
+        return $this->store_logo && !$return_default ?
+            $this->images_path.$this->id."/".$this->store_logo :
+            $this->images_path.'default-user.png';
+    }
+
+    public function upload_store_logo($file, $w=512, $h=512){
+        $path = public_path($this->images_path.$this->id."/");
+        if($filename = $this->upload_image($file, $path , $w, $h, 'png')){
+            // delete old image
+            $this->delete_store_logo();
+            // save new one
+            $this->store_logo = $filename;
+            $this->save();
+        }
+    }
+
+    public function delete_store_logo(){
+        if(!$this->store_logo) return;
+        $path = public_path($this->images_path.$this->id."/");
+        $file =$path.$this->store_logo;
+        if(!File::exists($file) or File::delete($file)){
+            $this->delete_folder_if_empty($path);
+            $this->store_logo = null;
+            if($this->save())
+                return response()->json('', 200);
+        }
+    }
+
+
+
+
+
     // ==============================================================
     // Category image
     // ==============================================================
