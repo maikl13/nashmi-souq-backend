@@ -96,7 +96,7 @@
             store_banner_fileInputOptions = $.extend(true,{
                 initialPreview: [store_banner],
                 initialPreviewConfig : [{caption: "Store Banner"}],
-                deleteUrl: "/profile-picture/delete",
+                deleteUrl: "/store-banner/delete",
             },fileInputOptions);
         @endif
         @if(Auth::user()->store_logo)
@@ -104,7 +104,7 @@
             store_logo_fileInputOptions = $.extend(true,{
                 initialPreview: [store_logo],
                 initialPreviewConfig : [{caption: "Store Logo"}],
-                deleteUrl: "/profile-picture/delete",
+                deleteUrl: "/store-logo/delete",
             },fileInputOptions);
         @endif
 

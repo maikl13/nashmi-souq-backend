@@ -36,6 +36,7 @@
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <!--bootstrap fileinput-->
 <script src="/admin-assets/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="/admin-assets/plugins/bootstrap-fileinput/js/locales/ar.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	$('.select2').select2();
@@ -60,6 +61,7 @@
 
 	var fileInputOptions = {
 	    // overwriteInitial: false,
+	    language: "ar",
 	    maxFileSize: 8096,
 	    showClose: false,
 	    showCaption: false,

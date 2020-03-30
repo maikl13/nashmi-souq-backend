@@ -93,4 +93,12 @@ class StateController extends Controller
             return response()->json('تم الحذف بنجاح.', 200);
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
     }
+
+    public function areas(State $state){
+        $areas = array();
+        foreach($state->areas as $area){
+            $areas[$area->slug] = $area->name;
+        }
+        return json_encode($areas);
+    }
 }

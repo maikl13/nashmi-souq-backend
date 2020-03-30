@@ -1834,7 +1834,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     margin-right: 0.75rem;
 }
 
-.widget-accordian .accordion-box .card .card-header .parent-list:after {
+.widget-accordian .accordion-box .card .card-header .parent-list:not(.single):after {
     content: "\f107";
     font-family: "Font Awesome 5 Free";
     font-size: 0.9375rem;

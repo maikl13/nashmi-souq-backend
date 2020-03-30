@@ -34,8 +34,8 @@
 <!--Sweetalert-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- Site Scripts -->
-<script src="assets/js/app.js"></script>
-<script src="assets/js/custom.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/custom.js"></script>
 
 <script type="text/javascript">
     toastr.options.progressBar = true;

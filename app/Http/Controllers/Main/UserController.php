@@ -13,6 +13,12 @@ class UserController extends Controller
     public function delete_profile_picture(){
         return Auth::user()->delete_profile_picture();
     }
+    public function delete_store_banner(){
+        return Auth::user()->delete_store_banner();
+    }
+    public function delete_store_logo(){
+        return Auth::user()->delete_store_logo();
+    }
 
     public function edit()
     {
@@ -31,11 +37,13 @@ class UserController extends Controller
             'username' => 'required|min:2|max:255',
             'email' => 'required|email|max:255|unique:users,email,'.$user->id,
             'profile_picture' => 'image|max:8192',
+            'country' => 'integer|exists:countries,id',
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
+        $user->country_id = $request->country;
 
         $user->upload_profile_picture($request->file('profile_picture'));
 
@@ -102,6 +110,10 @@ class UserController extends Controller
             return response()->json('تم تحديث بيانات المتجر بنجاح!', 200);
         }
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
+    }
 
+    public function show(User $user)
+    {
+        return view('main.users.profile')->with('user', $user);
     }
 }

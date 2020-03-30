@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TransactionSeeder extends Seeder
+class ListingsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class TransactionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Models\Listing::class, 20)->create();
     }
 }

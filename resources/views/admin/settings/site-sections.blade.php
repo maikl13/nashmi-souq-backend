@@ -19,7 +19,7 @@
                         <div class="col-12 col-sm-12 col-lg-3">
                             <ul class="nav nav-pills flex-column pr-0" id="myTab4" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="tab1" data-toggle="tab" href="#tab1-panel" role="tab" aria-controls="tab1" aria-selected="true">{{ __('About Us') }}</a>
+                                    <a class="nav-link active" id="about" data-toggle="tab" href="#about-panel" role="tab" aria-controls="about" aria-selected="true">{{ __('About Us') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="privacy" data-toggle="tab" href="#privacy-panel" role="tab" aria-controls="contact" aria-selected="false">{{ __('Privacy Policy') }}</a>
@@ -27,12 +27,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="terms" data-toggle="tab" href="#terms-panel" role="tab" aria-controls="contact" aria-selected="false">{{ __('Terms And Conditions') }}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="safety" data-toggle="tab" href="#safety-panel" role="tab" aria-controls="contact" aria-selected="false">قواعد السلامة</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-12 col-sm-12 col-lg-9">
                             <div class="tab-content border p-3" id="myTab3Content">
 
-                                <div class="tab-pane fade show active p-0" id="tab1-panel" role="tabpanel" aria-labelledby="tab1">
+                                <div class="tab-pane fade show active p-0" id="about-panel" role="tabpanel" aria-labelledby="about">
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>{{ __('About Us') }}</h4>
@@ -41,18 +44,9 @@
 
                                             <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
                                                 @csrf
-                                                <div class="form-group row">
-                                                    <label for="about" class="col-md-3 col-form-label">{{ __('About Us') }}</label>
-                                                    <div class="col-md-9" dir="ltr">
-                                                        <textarea name="about" id="about" class="form-control" rows="7" style="line-height: 23px;">{{ setting('about', false) }}</textarea>
-                                                    </div>
-                                                </div>
-
                                                 <div class="form-group">
-                                                    <label for="about_image" class="col-md-3 col-form-label">{{ __('Image') }}</label>
-                                                    <div class="text-right">
-                                                        <input class="form-control about_image" id="about_image" type="file" accept="image/*" name="about_image">
-                                                    </div>
+                                                    <label for="about" class="col-form-label">{{ __('About Us') }}</label>
+                                                    <textarea name="about" id="about" class="form-control editor" cols="30" rows="10" style="line-height: 23px;">{{ setting('about', false) }}</textarea>
                                                 </div>
 
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">
@@ -102,6 +96,30 @@
                                                 <div class="form-group">
                                                     <label for="terms" class="col-form-label">{{ __('Terms And Conditions') }}</label>
                                                     <textarea name="terms" id="terms" cols="30" rows="10" class="form-control editor">{{ setting('terms', true) }}</textarea>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade p-0" id="safety-panel" role="tabpanel" aria-labelledby="safety">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>قواعد السلامة</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="safety" class="col-form-label">قواعد السلامة</label>
+                                                    <textarea name="safety" id="safety" cols="30" rows="10" class="form-control editor">{{ setting('safety', true) }}</textarea>
                                                 </div>
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">
                                                     <div class="col-md-9">

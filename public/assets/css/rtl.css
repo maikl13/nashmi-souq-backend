@@ -143,7 +143,7 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
 
 .product-box-layout3 .product-info .item-content {
     flex: initial;
-    margin-right: 2em;
+    /*margin-right: 2em;*/
 }
 
 .product-box-layout3 .product-info .item-content .entry-meta li {
@@ -165,15 +165,15 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
     padding-right: 1em;
 }
 
-.widget-filter .accordion-box .filter-item-list>.card-header>.parent-list:after {
+.widget-accordian .accordion-box .card .card-header .parent-list:not(.single):after {
+    left: 0;
+    right: auto
+}
+.widget-filter .accordion-box .filter-item-list>.card-header>.parent-list:not(.single):after {
     left: 1.25rem;
     right: auto;
 }
 
-.widget-accordian .accordion-box .card .card-header .parent-list:after {
-    left: 1.25rem;
-    right: auto
-}
 
 .widget-accordian .accordion-box .card .card-body .sub-list li a {
     padding-right: 1.25rem;
@@ -249,13 +249,76 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
 .product-box-layout3 .product-info .item-right .item-price {
     text-align: right;
 }
-.pagination-layout1 {
-    direction: ltr;
+.pagination-layout1 .btn-prev a i {
+    margin-left: 0.5rem;
+    margin-right: auto;
 }
 
-
-
-
-
-
-
+@media only screen and (max-width: 575px){
+    .post-ad-box-layout1 .post-section .control-label {
+        text-align: right;
+    }
+}
+.single-product-box-layout1 .product-info .product-content .single-entry-meta ul li i {
+    margin-left: 0.4375rem;
+    margin-right: auto;
+}
+.widget-author-info .author-content .phone-number .number i {
+    margin-left: 0.625rem;
+    margin-right: auto;
+}
+.widget-author-info .author-content .author-mail .mail-btn i {
+    margin-left: 0.9375rem;
+    margin-right: auto;
+}
+.widget-safty-tip .safty-tip-content ul li {
+    padding-right: 1.25rem;
+    padding-left: auto;
+}
+.widget-safty-tip .safty-tip-content ul li:after {
+    content: '\f104';
+    right: 0;
+    left: auto;
+}
+.single-product-box-layout1 .product-info .product-content .item-action-area ul li {
+    margin-left: 1.625rem;
+    margin-right: auto;
+}
+.single-product-box-layout1 .product-info .product-content .item-action-area ul .inline-item a i {
+    margin-left: 0.625rem;
+    margin-right: auto;
+}
+.widget-author-info .author-content .author-meta ul li i {
+    right: 0;
+    left: auto;
+}
+.widget-author-info .author-content .author-meta ul li {
+    padding-right: 1.5625rem;
+    padding-left: auto;
+}
+.widget-author-info .author-content .author-name .item-img,
+.widget-store-info .author-content .store-website a i,
+.widget-store-info .author-content .store-opening-hour .item-title i {
+    margin-left: 0.625rem;
+    margin-right: 0;
+}
+.store-banner-box .banner-content .store-logo {
+    margin-left: 1.5625rem;
+    margin-right: auto;
+}
+.store-banner-box .banner-content .store-content .item-meta li {
+    margin-left: 0.9375rem;
+    margin-right: auto;
+}
+.store-banner-box .banner-content .store-content .item-meta li i {
+    margin-left: 0.625rem;
+    margin-right: auto;
+}
+.product-box-layout3 .product-info .item-right .right-meta span i {
+    margin-left: 0.375rem;
+    margin-right: auto;
+}
+.search-box-layout1 form .form-group .input-search-btn:after {
+    left: 0;
+    right: auto;
+}

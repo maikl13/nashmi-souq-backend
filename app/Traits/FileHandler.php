@@ -52,7 +52,7 @@ trait FileHandler {
     public function store_banner( $return_default=false ){
         return $this->store_banner && !$return_default ?
             $this->images_path.$this->id."/".$this->store_banner :
-            $this->images_path.'default-user.png';
+            $this->images_path.'default-store-banner.jpg';
     }
 
     public function upload_store_banner($file, $w=1180, $h=300){
@@ -89,7 +89,7 @@ trait FileHandler {
     public function store_logo( $return_default=false ){
         return $this->store_logo && !$return_default ?
             $this->images_path.$this->id."/".$this->store_logo :
-            $this->images_path.'default-user.png';
+            $this->images_path.'default-store-logo.png';
     }
 
     public function upload_store_logo($file, $w=512, $h=512){
@@ -150,6 +150,57 @@ trait FileHandler {
                 return response()->json('', 200);
         }
     }
+
+
+
+
+
+    // ==============================================================
+    // Listing images
+    // ==============================================================
+    public function listing_images( $return_default=false ){
+        $images = json_decode($this->images);
+        $imgs = [];
+        if(is_array($images))
+            foreach ($images as $image) 
+                $imgs[] = $this->images_path.$this->id."/".$image ;
+
+        return !empty($imgs) && !$return_default ? $imgs : [$this->images_path.'default.png'];
+    }
+
+    public function listing_image(){
+        $images = $this->listing_images();
+        return array_shift($images);
+    }
+
+    public function upload_listing_images($files, $w=false, $h=false){
+        $path = public_path($this->images_path.$this->id."/");
+        $images = is_array( json_decode($this->images) ) ? json_decode($this->images) : array();
+        if($files && is_array($files)){
+            foreach ($files as $file) {
+                if($filename = $this->upload_image($file, $path , $w, $h, 'png')){
+                    $images[] = $filename;
+                }
+            }
+        }
+        $this->images = json_encode($images);
+        $this->save();
+    }
+
+    public function delete_listing_image($image){
+        $path = public_path($this->images_path.$this->id."/");
+        $file =$path.$image;
+        if(!File::exists($file) or File::delete($file)){
+            $this->delete_folder_if_empty($path);
+            $images = json_decode($this->images);
+            $key = array_search($image, $images);
+            unset($images[$key]);
+            $this->images = json_encode($images);
+            if($this->save())
+                return response()->json('', 200);
+        }
+    }
+
 
 
 

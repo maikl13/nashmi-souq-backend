@@ -41,16 +41,18 @@
 				<span class="side-menu__label">العمليات المالية</span>
 			</a>
 		</li>
-		<li class="slide d-lg-none">
-			<a class="side-menu__item"  data-toggle="slide" href="#">
-				<i class="side-menu__icon fa fa-gear"></i>
-				<span class="side-menu__label">{{ __('Website Settings') }}</span>
-				<i class="angle fa fa-angle-right"></i>
-			</a>
-			<ul class="slide-menu">
-				<li> <a class="slide-item" href="/admin/site-settings">{{ __('Website Settings') }}</a> </li>
-				<li> <a class="slide-item" href="/admin/site-sections">{{ __('Website Sections') }}</a> </li>
-			</ul>
-		</li>
+		@if(Auth::user()->is_superadmin())
+			<li class="slide d-lg-none">
+				<a class="side-menu__item"  data-toggle="slide" href="#">
+					<i class="side-menu__icon fa fa-gear"></i>
+					<span class="side-menu__label">{{ __('Website Settings') }}</span>
+					<i class="angle fa fa-angle-right"></i>
+				</a>
+				<ul class="slide-menu">
+					<li> <a class="slide-item" href="/admin/site-settings">{{ __('Website Settings') }}</a> </li>
+					<li> <a class="slide-item" href="/admin/site-sections">{{ __('Website Sections') }}</a> </li>
+				</ul>
+			</li>
+		@endif
 	</ul>
 </aside>

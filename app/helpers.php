@@ -14,6 +14,7 @@ function default_setting($name){
 		'website_name' => config('app.name'),
 		'website_description' => 'Website Description.',
 		'logo' => '/assets/images/logo.png',
+		'footer_logo' => '/assets/images/footer-logo.png',
 	];
 
     $setting = isset( $defaults[$name] ) ? $defaults[$name] : null;

@@ -9,14 +9,15 @@
                 <div class="col-lg-2">
                     <div class="logo-area">
                         <a href="/" class="temp-logo">
-                            <img src="/assets/images/logo-dark.png" alt="logo" class="img-fluid">
+                            <img src="{{ setting('logo') }}" alt="logo" class="img-fluid" width="100">
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex justify-content-end" dir="ltr">
                     <nav id="dropdown" class="template-main-menu">
-                        <ul>
+                        <ul dir="rtl">
                             <li><a href="/">الرئيسية</a></li>
+                            <li><a href="/listings">الإعلانات</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -43,6 +44,7 @@
                                             </a>
                                         @endif
                                         <a class="dropdown-item" href="/account">إعدادات الحساب</a>
+                                        <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
@@ -57,7 +59,7 @@
                             @endguest
 
                             <li class="header-btn">
-                                <a href="post-ad.html" class="item-btn"><i class="fas fa-plus"></i>Post Your Ad</a>
+                                <a href="/listings/add" class="item-btn"><i class="fas fa-plus"></i>نشر إعلان جديد</a>
                             </li>
                         </ul>
                     </div>

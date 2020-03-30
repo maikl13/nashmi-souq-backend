@@ -9,6 +9,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/admin-assets/plugins/iconfonts/Glyphicons/glyphicon.css">
 <!-- FontAwesome CSS -->
 <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
 <!-- Flaticon CSS -->
@@ -30,9 +31,9 @@
 <!-- Toastr Plugin -->
 <link rel="stylesheet" href="/admin-assets/plugins/toastr/build/toastr.css">
 <!-- Site Stylesheet -->
-<link rel="stylesheet" href="assets/css/app.css">
-<link rel="stylesheet" href="assets/css/rtl.css">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/app.css">
+<link rel="stylesheet" href="/assets/css/rtl.css">
+<link rel="stylesheet" href="/assets/css/style.css">
 
 <!-- Google Web Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">

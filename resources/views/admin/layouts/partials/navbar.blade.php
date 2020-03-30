@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg main-navbar">
 	<a class="header-brand" href="/">
-		<img src="{{ setting('logo') }}" class="header-brand-img" alt="  Asta-Admin  logo">
+		<img src="{{ setting('logo') }}" width="80" alt="Admin logo">
 	</a>
 	<form class="form-inline mr-auto">
 		<ul class="navbar-nav">
@@ -12,14 +12,14 @@
 				<ul class="nav">
 					@if(Auth::user()->is_superadmin())
 						<li class="nav-item with-sub">
-							<a class="nav-link mr-0" href="#">
+							<a class="nav-link mr-0" href="/admin/site-settings">
 								<i class="fa fa-cog"></i>
 								<span>{{ __('Website Settings') }}</span>
 							</a>
 							<div class="sub-item dropdown-menu-right">
 								<ul>
-									<li> <a href="/admin/site-settings">{{ __('Website Settings') }}</a> </li>
-									<li> <a href="/admin/site-sections">{{ __('Website Sections') }}</a> </li>
+									<li> <a href="/admin/site-settings" class="text-right">{{ __('Website Settings') }}</a> </li>
+									<li> <a href="/admin/site-sections" class="text-right">{{ __('Website Sections') }}</a> </li>
 								</ul>
 							</div><!-- sub-item -->
 						</li>

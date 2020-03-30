@@ -178,6 +178,7 @@ return [
 
         // Account Details
         'phone'                 => 'رقم الهاتف',
+        'country'               => 'الدولة',
         'profile_picture'       => 'الصورة الشخصية',
         'new_password'          => 'كلمة المرور الجديدة',
         'new_password_confirmation' => 'تأكيد كلمة المرور',

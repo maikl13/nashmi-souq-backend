@@ -18,9 +18,11 @@ $('form.ajax').on('submit', function(e){
             Form.find("[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i> ');
         },
         success: function(data){
-            // Form.trigger('reset');
-            // $('#add-modal').modal('hide')
             toastr.success(data);
+            if(Form.hasClass('should-reset'))
+                Form.trigger('reset');
+            if (data.redirect)
+                window.location.href = data.redirect;
         },
         error: function(data){
             var errMsg = '';
@@ -59,10 +61,9 @@ $(document).on("click", '.delete',function(e){
         confirmButtonText: 'حذف!'
     }).then((result) => {
         if (result.value) {
-            var btn = $(this),
-                id = btn.data('id');
+            var btn = $(this);
             $.ajax({
-                url: '/admin/'+ records +'/'+id+'/',
+                url: btn.attr('href'),
                 type: 'DELETE',
                 data: [],
                 beforeSend: function(){
@@ -71,9 +72,9 @@ $(document).on("click", '.delete',function(e){
                     $('.error').remove();
                 },
                 success: function(data){
-                    var row = btn.parent().parent();
+                    var row = btn.parents('.deletable');
                     row.fadeOut(300, function(){
-                        datatable.draw();
+                        row.remove();
                     });
                     Swal.fire('تم الحذف!', data, 'success');
                 },

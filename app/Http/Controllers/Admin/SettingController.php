@@ -51,11 +51,11 @@ class SettingController extends Controller
             // social
             'facebook', 'twitter', 'instagram', 'youtube', 'linkedin',
             // sections
-            'about', 'about_image',
+            'about',
             // pages
-            'privacy', 'terms'
+            'privacy', 'terms', 'safety'
         ];
-        $images = ['logo', 'footer_logo', 'about_image'];
+        $images = ['logo', 'footer_logo'];
         $html = [];
 
         foreach($request->all() as $name => $value){

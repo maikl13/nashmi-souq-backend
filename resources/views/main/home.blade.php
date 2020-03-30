@@ -15,7 +15,7 @@
                         <b>بيع و أشترى و أجر بضغطة زر واحدة</b>
                     </span>
                 </h1>
-                <div class="item-subtitle">Search from over 2000+ Active Ads in 29+ Categories for Free</div>
+                <div class="item-subtitle">إبحث في أكثر من {{ App\Models\Listing::count() }} إعلان موزعين بين أكثر من {{ App\Models\Category::count() }} قسم</div>
                 <div class="search-box-layout1">
                     <form action="#">
                         <div class="row no-gutters">

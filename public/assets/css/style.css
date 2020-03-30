@@ -1,11 +1,12 @@
 .header-action-layout1 ul .header-login-icon a {
     font-size: 1rem;
+    text-align: right;
 }
 
 .file-drop-zone-title { font-size: 15px !important; padding: 15px 10px !important; }
 .file-drop-zone { border: 2px dashed #ddd !important; border-radius: 0 !important; margin: 0 !important; }
 .file-preview { border-radius: 0 !important; border: none !important; padding: 0 !important; margin-bottom: 15px !important; }
-.krajee-default.file-preview-frame { border: none !important; box-shadow: 0 0 3px 0 rgba(0,0,0,0.2) !important; }
+.krajee-default.file-preview-frame { border: none !important; box-shadow: 0 0 3px 0 rgba(0,0,0,0.2) !important; float: right; }
 @media (max-width: 767px){
 	.file-preview-thumbnails { display: block !important; }
 }
@@ -20,3 +21,69 @@
 .toast {font-weight: bold;}
 .toast-message {direction: rtl; text-align: right;}
 #toast-container>.toast:before {top: 17px !important;}
+
+
+.select2-container .select2-selection--multiple,
+.select2-container--default .select2-selection--single {
+	line-height: 11px;
+	border: 0.0625rem solid #ced4da !important;
+    border-radius: 2px !important;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--open .select2-selection--multiple,
+.select2-container--default.select2-container--open .select2-selection--single {
+    border-color: #ff5851;
+    outline: none;
+}
+.select2-container--default .select2-search__field {
+	height: 35px;
+	padding: 0 15px;
+    outline: none;
+    direction: rtl;
+}
+.select2-container,
+.select2-container--default .select2-search--inline .select2-search__field {
+	width: 100% !important;
+}
+.select2-container--default .select2-selection__rendered {
+	direction: rtl !important;
+	/*height: 45px;*/
+}
+.select2-results {
+	direction: rtl
+}
+.select2-results__option {
+	list-style: none;
+	padding-left: 15px;
+}
+.select2-container--default .select2-selection__rendered li {
+	line-height: 37px;
+	padding-left: 12px;
+}
+.wt-select2-multiple::after {
+	line-height: 60px;
+}
+.wt-select2::after {
+	line-height: 50px;
+}
+.select2-selection__arrow {
+	display: none;
+}
+.select2-container .select2-selection--single {
+	height: 42px !important;
+	padding: 5px 0px;
+}
+.select2-container--default .select2-selection--single .select2-selection__clear {
+	opacity: .5;
+    margin: 0 10px;
+    font-size: 18px;
+    float: left !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	line-height: 50px;
+	padding: 0 20px;
+}
+.product-box-layout3 .item-img a {
+    width: 11rem;
+}

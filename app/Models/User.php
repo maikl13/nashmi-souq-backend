@@ -6,11 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\UserInfo;
+use App\Traits\StoreInfo;
 use App\Traits\FileHandler;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserInfo, FileHandler;
+    use Notifiable, UserInfo, FileHandler, StoreInfo;
 
     const ROLE_USER = 1;
     const ROLE_SUPERADMIN = 2;
@@ -49,6 +50,16 @@ class User extends Authenticatable
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
+
+    public function url()
+    {
+        return '/users/'.$this->id;
     }
 
 

@@ -99,4 +99,12 @@ class CategoryController extends Controller
     public function delete_category_image(Category $category){
         return $category->delete_category_image();
     }
+
+    public function sub_categories(Category $category){
+        $sub_categories = array();
+        foreach($category->sub_categories as $sub_category){
+            $sub_categories[$sub_category->slug] = $sub_category->name;
+        }
+        return json_encode($sub_categories);
+    }
 }

@@ -17,6 +17,39 @@ class MainController extends Controller
         return view('main.home');
     }
 
+
+    public function privacy_policy()
+    {
+        return view('main.page')->with([
+            'title' => 'سياسة الخصوصية',
+            'content' => setting('privacy')
+        ]);
+    }
+
+    public function terms_and_conditions()
+    {
+        return view('main.page')->with([
+            'title' => 'الشروط و الأحكام',
+            'content' => setting('terms')
+        ]);
+    }
+
+    public function about()
+    {
+        return view('main.page')->with([
+            'title' => 'من نحن',
+            'content' => setting('about')
+        ]);
+    }
+
+    public function safety()
+    {
+        return view('main.page')->with([
+            'title' => 'قواعد السلامة',
+            'content' => setting('safety')
+        ]);
+    }
+
     // User in not active
     public function deactivated()
     {

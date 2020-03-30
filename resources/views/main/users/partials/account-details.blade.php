@@ -59,6 +59,22 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
+                            <label class="control-label">الدولة</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select name="country" id="country" class="form-control">
+                                        @foreach(App\Models\Country::get() as $country)
+                                            <option value="{{ $country->id }}" {{ Auth::user()->country_id == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
                             <label class="control-label">الصورة الشخصية</label>
                         </div>
                         <div class="col-sm-9">
