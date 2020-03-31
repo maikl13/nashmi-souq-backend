@@ -23,7 +23,7 @@
                         <h1>{{ $user->store_name() }}</h1>
                         <ul>
                             <li> <a href="/">الرئيسية</a> </li>
-                            <li> <a href="/">المتاجر</a> </li>
+                            <li> <a href="/stores">المتاجر</a> </li>
                             <li>{{ $user->store_name() }}</li>
                         </ul>
                     </div>

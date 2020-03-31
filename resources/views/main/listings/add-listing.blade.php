@@ -126,7 +126,7 @@
                         </div>
                         <div class="post-section post-category mb-4">
                             <div class="post-ad-title">
-                                <i class="fas fa-tags"></i>
+                                <i class="fas fa-map-marker-alt"></i>
                                 <h3 class="item-title">الموقع</h3>
                             </div>
                             <div class="row">

@@ -10,6 +10,12 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        $stores = User::whereNotNull('store_name')->orderBy('store_logo', 'desc')->paginate(18);
+        return view('main.users.stores')->with('stores', $stores);
+    }
+
     public function delete_profile_picture(){
         return Auth::user()->delete_profile_picture();
     }

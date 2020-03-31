@@ -51,4 +51,15 @@ class Listing extends Model
     {
     	return '/listings/'. $this->slug;
     }
+
+    public function type()
+    {
+        switch ($this->type) {
+            case Self::TYPE_SELL: return 'بيع'; break;
+            case Self::TYPE_BUY: return 'شراء'; break;
+            case Self::TYPE_EXCHANGE: return 'إستبدال'; break;
+            case Self::TYPE_JOB: return 'وظيفة'; break;
+            case Self::TYPE_RENT: return 'إيجار'; break;
+        }
+    }
 }

@@ -50,6 +50,7 @@ Route::get('/deactivated', 'MainController@deactivated')->name('deactivated');
 Route::get('listings', 'ListingController@index');
 Route::get('listings/{listing}', 'ListingController@show');
 Route::get('users/{user}', 'UserController@show');
+Route::get('stores', 'UserController@index');
 
 Route::get('privacy-policy', 'MainController@privacy_policy');
 Route::get('terms-and-conditions', 'MainController@terms_and_conditions');

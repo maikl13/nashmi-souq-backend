@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Listing;
+use App\Models\Listing;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,7 +21,23 @@ class ListingsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'listings.action');
+            ->addColumn('image', function ($record) {
+                return '<a href="'.$record->listing_image().'" data-fancybox="categories"><img src="'.$record->listing_image().'" border="0" width="40" class="img-rounded" align="center"/></a>';
+            })
+            ->addColumn('type', function($record){ return $record->type(); })
+            ->addColumn('category', function($record){ 
+                $c = $record->category->name;
+                $c .= $record->sub_category ? '<br>'. $record->sub_category->name : '';
+                return $c; 
+            })
+            ->addColumn('area', function($record){ 
+                $a = $record->state->country->name;
+                $a .= '<br>'. $record->state->name;
+                $a .= $record->area ? ' - '. $record->area->name : '';
+                return $a; 
+            })
+            ->addColumn('action', 'admin.listings.partials.action')
+            ->rawColumns(['action', 'category', 'area', 'image']);
     }
 
     /**
@@ -42,13 +58,18 @@ class ListingsDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()
-                    ->setTableId('listings-table')
+        return $this->builder()->parameters([
+                        'responsive' => true,
+                        'autoWidth' => false,
+                        'pageLength' => 25,
+                    ])
+                    ->setTableId('data-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->dom('Blfrtip')
+                    ->orderBy(0, 'desc')
                     ->buttons(
+                        Button::make('delete'),
                         Button::make('create'),
                         Button::make('export'),
                         Button::make('print'),
@@ -65,15 +86,17 @@ class ListingsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('image')->title('الصورة'),
+            Column::make('type')->title('النوع'),
+            Column::make('title')->title('العنوان'),
+            Column::make('category')->title('القسم'),
+            Column::make('area')->title('المنطقة'),
+            Column::make('views')->title('المشاهدات'),
+            Column::computed('action')
+                  ->width(60)
+                  ->addClass('text-center')
+                  ->searchable(false)->title('⚙'),
         ];
     }
 

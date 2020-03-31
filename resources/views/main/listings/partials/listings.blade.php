@@ -72,6 +72,7 @@
                 </div>
             </div>
         @empty
+            <?php $msg = 'لم يتم نشر أي إعلانات حتى الآن !'; ?>
             @include('main.layouts.partials.empty')
         @endforelse
     </div>

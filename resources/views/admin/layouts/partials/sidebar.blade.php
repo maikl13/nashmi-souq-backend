@@ -24,6 +24,12 @@
 			</a>
 		</li>
 		<li>
+			<a class="side-menu__item" href="/admin/listings">
+				<i class="side-menu__icon fa fa-list"></i>
+				<span class="side-menu__label">الإعلانات</span>
+			</a>
+		</li>
+		<li>
 			<a class="side-menu__item" href="/admin/categories">
 				<i class="side-menu__icon fa fa-tags"></i>
 				<span class="side-menu__label">{{ __('Categories') }}</span>
@@ -31,13 +37,13 @@
 		</li>
 		<li>
 			<a class="side-menu__item" href="/admin/countries">
-				<i class="side-menu__icon fa fa-tags"></i>
+				<i class="side-menu__icon fa fa-map-marker"></i>
 				<span class="side-menu__label">البلاد</span>
 			</a>
 		</li>
 		<li>
 			<a class="side-menu__item" href="/admin/transactions">
-				<i class="side-menu__icon fa fa-tags"></i>
+				<i class="side-menu__icon fa fa-dollar"></i>
 				<span class="side-menu__label">العمليات المالية</span>
 			</a>
 		</li>

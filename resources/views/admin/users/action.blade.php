@@ -1,7 +1,10 @@
 <?php $user = App\Models\User::find($id); ?>
 
-<a class="btn btn-info btn-sm" title="preview" href="/admin/users/{{ $user->id }}">
+<a class="btn btn-info btn-sm" title="preview" href="{{ $user->url() }}">
 	<i class="fa fa-eye"></i>
+</a>
+<a class="btn btn-primary btn-sm" title="preview" href="/admin/users/{{ $user->id }}">
+	<i class="fa fa-address-card"></i>
 </a>
 	
 @if(!$user->is_superadmin() && Auth::user()->id != $user->id)

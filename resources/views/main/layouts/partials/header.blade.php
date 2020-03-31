@@ -18,6 +18,10 @@
                         <ul dir="rtl">
                             <li><a href="/">الرئيسية</a></li>
                             <li><a href="/listings">الإعلانات</a></li>
+                            <li><a href="/stores">المتاجر</a></li>
+                            <li><a href="/about">من نحن</a></li>
+                            <li><a href="/contact">اتصل بنا</a></li>
+                            <li><a href="/advertize">أعلن لدينا</a></li>
                         </ul>
                     </nav>
                 </div>

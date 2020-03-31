@@ -28,5 +28,16 @@ $factory->define(User::class, function (Faker $faker) {
         'role_id' => 1,
         'country_id' => 1,
         'active' => true,
+        'phone' => $faker->phoneNumber,
+
+        'store_name' => $faker->company,
+        'store_slogan' => $faker->catchPhrase,
+        'store_website' => $faker->url,
+        'store_email' => $faker->safeEmail,
+        'store_address' => $faker->address,
+        'store_description' => $faker->paragraph,
+        'store_social_accounts' => '[]',
+        'store_banner' => null,
+        'store_logo' => null,
     ];
 });

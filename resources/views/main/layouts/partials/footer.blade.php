@@ -41,7 +41,7 @@
                                 <li><a href="/terms-and-conditions">شروط الإستخدام</a></li>
                                 <li><a href="/safety-tips">قواعد السلامة</a></li>
                                 <li><a href="/privacy-policy">سياسة الخصوصية</a></li>
-                                <li><a href="/contact">تواصل معنا</a></li>
+                                <li><a href="/contact">إتصل بنا</a></li>
                             </ul>
                         </div>
                     </div>
