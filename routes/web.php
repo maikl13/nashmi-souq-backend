@@ -55,5 +55,7 @@ Route::get('stores', 'UserController@index');
 Route::get('privacy-policy', 'MainController@privacy_policy');
 Route::get('terms-and-conditions', 'MainController@terms_and_conditions');
 Route::get('about', 'MainController@about');
-Route::get('contact', 'MainController@contact');
 Route::get('safety-tips', 'MainController@safety');
+
+Route::get('contact-us', 'ContactMessageController@create');
+Route::post('contact-us', 'ContactMessageController@store');

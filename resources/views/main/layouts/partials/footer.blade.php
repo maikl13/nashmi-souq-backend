@@ -41,7 +41,7 @@
                                 <li><a href="/terms-and-conditions">شروط الإستخدام</a></li>
                                 <li><a href="/safety-tips">قواعد السلامة</a></li>
                                 <li><a href="/privacy-policy">سياسة الخصوصية</a></li>
-                                <li><a href="/contact">إتصل بنا</a></li>
+                                <li><a href="/contact-us">إتصل بنا</a></li>
                             </ul>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="copyright-text text-center">
                         جميع الحقوق محفوظة © 
                         <span style="text-transform: uppercase;">{{ setting('website_name') }} {{ date('Y') == '2020' ? '2020' : '2020 - '.date('Y') }}</span>
-                        , تطوير <a href="https://brmjyat.com">برمجيات</a>
+                        , تطوير <a href="https://brmjyat.com" target="_blank">برمجيات</a>
                     </div>
                 </div>
             </div>

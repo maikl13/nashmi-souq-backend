@@ -24,7 +24,7 @@
 							<li class="ml-auto d-lg-flex d-none">
 								<span class="sparkline_bar mr-2 float-left"></span>
 								<span class="float-left border-">
-									<span class="mb-0 mt-1 mr-2">{{ App\Models\User::count() }}</span><small class="mb-0 mr-3">[ Users ]</small>
+									<span class="mb-0 mt-1 mr-2">{{ App\Models\User::count() }}</span><small class="mb-0 mr-3">[ مستخدمين ]</small>
 								</span>
 							</li>
                         </ol>

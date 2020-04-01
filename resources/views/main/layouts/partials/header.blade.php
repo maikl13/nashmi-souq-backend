@@ -20,8 +20,10 @@
                             <li><a href="/listings">الإعلانات</a></li>
                             <li><a href="/stores">المتاجر</a></li>
                             <li><a href="/about">من نحن</a></li>
-                            <li><a href="/contact">اتصل بنا</a></li>
-                            <li><a href="/advertize">أعلن لدينا</a></li>
+                            <li><a href="/contact-us">اتصل بنا</a></li>
+
+                            <li class="d-lg-none"><a href="/listings/add">تسجيل الدخول</a></li>
+                            <li class="d-lg-none"><a href="{{ route('login') }}">نشر إعلان جديد</a></li>
                         </ul>
                     </nav>
                 </div>

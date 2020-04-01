@@ -22,6 +22,9 @@
                                     <a class="nav-link active" id="home-tab4" data-toggle="tab" href="#home4" role="tab" aria-controls="home" aria-selected="true">{{ __('Basic Details') }}</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" id="maps-tab4" data-toggle="tab" href="#maps4" role="tab" aria-controls="maps" aria-selected="false">إعدادات خرائط جوجل</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4" role="tab" aria-controls="contact" aria-selected="false">{{ __('Contact Details') }}</a>
                                 </li>
                                 <li class="nav-item">
@@ -152,6 +155,38 @@
                                     </div>
                                 </div>
 
+                                <div class="tab-pane fade p-0" id="maps4" role="tabpanel" aria-labelledby="maps-tab4">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>إعدادات خرائط جوجل</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <label for="latitude" class="col-md-3 col-form-label">خط الطول Latitude</label>
+                                                    <div class="col-md-9 text-right" dir="ltr">
+                                                        <input type="text" class="form-control" id="latitude" name="latitude"  value="{{ setting('latitude', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="longitude" class="col-md-3 col-form-label">دائرة العرض Longitude</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <input type="text" class="form-control" id="longitude" name="longitude"  value="{{ setting('longitude', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="tab-pane fade p-0" id="logo4" role="tabpanel" aria-labelledby="logo-tab4">
                                     <div class="card">
                                         <div class="card-header text-right">
@@ -236,7 +271,7 @@
                                                     <label for="linkedin" class="col-md-3 col-form-label">{{ __('Linked-in') }}</label>
                                                     <div class="col-md-9 input-group" dir="ltr">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="fa fa-linkedin-in"></i></span>
+                                                            <span class="input-group-text"><i class="fa fa-linkedin"></i></span>
                                                         </div>
                                                         <input type="text" class="form-control" id="linkedin" name="linkedin"  value="{{ setting('linkedin', false) }}">
                                                     </div>

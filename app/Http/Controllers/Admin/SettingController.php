@@ -50,6 +50,8 @@ class SettingController extends Controller
             'website_name', 'website_description', 'logo', 'footer_logo', 'phone', 'phone2', 'whatsapp', 'fax', 'email', 'address', 'hide_developer_names',
             // social
             'facebook', 'twitter', 'instagram', 'youtube', 'linkedin',
+            // google maps
+            'latitude', 'longitude',
             // sections
             'about',
             // pages

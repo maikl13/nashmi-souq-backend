@@ -91,13 +91,12 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
     content: "\f104";
 }
 
-.with-errors {
+.has-danger .with-errors {
     color: #fff;
-    padding: 0.1em 0.5em;
+    padding: .6em 1em;
     margin-top: 1em;
-    font-size: 18px;
+    font-size: 16px;
     background-color: #f85c70;
-    font-weight: 600;
 }
 
 .welcome {
@@ -253,7 +252,10 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
     margin-left: 0.5rem;
     margin-right: auto;
 }
-
+.pagination-layout1 .btn-next a i {
+    margin-right: 0.5rem;
+    margin-left: auto;
+}
 @media only screen and (max-width: 575px){
     .post-ad-box-layout1 .post-section .control-label {
         text-align: right;
@@ -321,4 +323,12 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
 .search-box-layout1 form .form-group .input-search-btn:after {
     left: 0;
     right: auto;
+}
+.contact-page-box-layout1 .contact-info ul li i {
+    margin-left: 0.75rem;
+    margin-right: auto;
+}
+.counter-box-layout1 .item-icon {
+    margin-left: 1.625rem;
+    margin-right: auto;
 }

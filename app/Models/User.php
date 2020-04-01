@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany(Listing::class);
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     public function url()
     {
         return '/users/'.$this->id;

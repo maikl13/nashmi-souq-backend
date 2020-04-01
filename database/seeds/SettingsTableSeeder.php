@@ -34,11 +34,23 @@ class SettingsTableSeeder extends Seeder
             ],
             [
                 'name' => 'facebook',
-                'value' => 'https://www.facebook.com/'
+                'value' => 'https://www.facebook.com'
+            ],
+            [
+                'name' => 'twitter',
+                'value' => 'https://www.twitter.com'
+            ],
+            [
+                'name' => 'instagram',
+                'value' => 'https://www.instagram.com'
             ],
             [
                 'name' => 'youtube',
-                'value' => 'https://www.youtube.com/'
+                'value' => 'https://www.youtube.com'
+            ],
+            [
+                'name' => 'linkedin',
+                'value' => 'https://www.linkedin.com'
             ],
             [
                 'name' => "privacy",
@@ -208,7 +220,15 @@ class SettingsTableSeeder extends Seeder
                 </div>
                 <p>يرجى&nbsp;<a href="../contact" target="_blank">التواصل معنا</a>&nbsp;فوراً، في حال شككت بمصداقية إعلان أحد المستخدمين على أوليكس. بالإضافة إلى ذلك، نحثّك على التوجه إلى الشرطة إن وقعت في فخ الاحتيال. نحن مستعدون لتزويد الشرطة بأي معلومات تخدم التحقيق، بناءً على طلب رسمي منهم. سارع إلى تعبئة طلب لنتمكن من إيقاف حساب الشخص بعد القيام بالتحرّيات اللازمة</p>
                 </div>'
-            ]
+            ],
+            [
+                'name' => 'latitude',
+                'value' => '30.0596185'
+            ],
+            [
+                'name' => 'longitude',
+                'value' => '31.1884238'
+            ],
     	]);
     }
 }

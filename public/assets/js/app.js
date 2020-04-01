@@ -10,25 +10,23 @@
             var $this = $(this),
                 $target = contactForm.find('.form-response');
             if (e.isDefaultPrevented()) {
-                $target.html("<div class='alert alert-danger'><p>Please select all required field.</p></div>");
+                $target.html("<div class='alert alert-danger'><p>من فضلك قم بملأ كافة البيانات المطلوبة.</p></div>");
             } else {
                 $.ajax({
-                    url: "php/form-process.php",
+                    url: "/contact-us",
                     type: "POST",
                     data: contactForm.serialize(),
                     beforeSend: function () {
-                        $target.html("<div class='alert alert-info'><p>Loading ...</p></div>");
+                        $target.html("<div class='alert alert-info'><p>يرجى الإنتظار ...</p></div>");
                     },
                     success: function (response) {
-                        var res = JSON.parse(response);
-                        console.log(res);
-                        if (res.success) {
+                        if (response['success']) {
                             $this[0].reset();
-                            $target.html("<div class='alert alert-success'><p>Message has been sent successfully.</p></div>");
+                            $target.html("<div class='alert alert-success'><p>تم الإرسال بنجاح.</p></div>");
                         } else {
-                            if (res.message.length) {
+                            if (response['success'].length) {
                                 var messages = null;
-                                res.message.forEach(function (message) {
+                                response['success'].forEach(function (message) {
                                     messages += "<p>" + message + "</p>";
                                 });
                                 $target.html("<div class='alert alert-success'><p>" + messages + "</p></div>");
@@ -36,7 +34,7 @@
                         }
                     },
                     error: function () {
-                        $target.html("<div class='alert alert-success'><p>Error !!!</p></div>");
+                        $target.html("<div class='alert alert-success'><p>حدث خطأ ما من فضلك حاول مجددا !!!</p></div>");
                     }
                 });
                 return false;
@@ -112,7 +110,7 @@
     --------------------------------------*/
     if ($.fn.meanmenu) {
         $('nav#dropdown').meanmenu({
-            siteLogo: "<div class='mobile-menu-nav-back'><a class='logo-mobile' href='index.html'><img src='/assets/images/mobile-logo.png' alt='logo' class='img-fluid'/></a></div>"
+            siteLogo: "<div class='mobile-menu-nav-back'><a class='logo-mobile' href='index.html'><img src='"+mobileLogo+"' alt='logo' width='60' class='img-fluid'/></a></div>"
         });
     }
 
