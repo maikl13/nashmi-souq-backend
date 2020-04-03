@@ -15,34 +15,10 @@
                         <b>بيع و أشترى و أجر بضغطة زر واحدة</b>
                     </span>
                 </h1>
+                
                 <div class="item-subtitle">إبحث في أكثر من {{ App\Models\Listing::count() }} إعلان موزعين بين أكثر من {{ App\Models\Category::count() }} قسم</div>
-                <div class="search-box-layout1">
-                    <form action="#">
-                        <div class="row no-gutters">
-                            <div class="col-lg-3 form-group">
-                                <div class="input-search-btn search-location" data-toggle="modal" data-target="#modal-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <label>اختر الموقع</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-group">
-                                <div class="input-search-btn search-category" data-toggle="modal" data-target="#modal-category">
-                                    <i class="fas fa-tags"></i>
-                                    <label>اختر التصنيف</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 form-group">
-                                <div class="input-search-btn search-keyword">
-                                    <i class="fas fa-text-width"></i>
-                                    <input type="text" class="form-control" placeholder="أدخل كلمة للبحث ..." name="keyword">
-                                </div>
-                            </div>
-                            <div class="col-lg-2 form-group">
-                                <button type="submit" class="submit-btn"><i class="fas fa-search"></i>بحث</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+
+                @include('main.layouts.partials.search-box')
             </div>
         </div>
     </section>
@@ -114,73 +90,5 @@
 @endsection
 
 @section('modals')
-    <!--=====================================-->
-    <!--=       Modal Start                 =-->
-    <!--=====================================-->
-    <div class="modal fade modal-location" id="modal-location" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
-                    <span class="fas fa-times" aria-hidden="true"></span>
-                </button>
-                <div class="location-list">
-                    <h4 class="item-title">Location</h4>
-                    <ul>
-                        <li><a href="#">California</a></li>
-                        <li><a href="#">Kansas</a></li>
-                        <li><a href="#">Louisiana</a></li>
-                        <li><a href="#">New Jersey</a></li>
-                        <li><a href="#">New York</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade modal-location" id="modal-category" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
-                    <span class="fas fa-times" aria-hidden="true"></span>
-                </button>
-                <div class="location-list">
-                    <h4 class="item-title">Category</h4>
-                    <ul>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category5.png" alt="icon"></span>Business &amp; Industry</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category7.png" alt="icon"></span>Cars &amp; Vehicles</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category14.png" alt="icon"></span>Electronics</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category4.png" alt="icon"></span>Health &amp; Beauty</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category18.png" alt="icon"></span>Hobby, Sport &amp; Kids</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category8.png" alt="icon"></span>Home Appliances</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category6.png" alt="icon"></span>Jobs</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category12.png" alt="icon"></span>Others</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category11.png" alt="icon"></span>Pets &amp; Animals</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category3.png" alt="icon"></span>Property</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="item-icon"><img src="/assets/images/category/category1.png" alt="icon"></span>Services</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('main.layouts.partials.search-modals')
 @endsection

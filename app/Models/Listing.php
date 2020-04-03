@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\FileHandler;
+use App\Traits\SearchableTrait;
 
 class Listing extends Model
 {
-    use FileHandler;
+    use FileHandler, SearchableTrait;
 
     const TYPE_SELL = 1;
     const TYPE_BUY = 2;
@@ -62,4 +63,12 @@ class Listing extends Model
             case Self::TYPE_RENT: return 'إيجار'; break;
         }
     }
+
+    protected static $searchable = [
+        'columns' => [
+            'listings.title' => 3,
+            'listings.slug' => 2,
+            'listings.description' => 1,
+        ],
+    ];
 }

@@ -332,3 +332,16 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
     margin-left: 1.625rem;
     margin-right: auto;
 }
+.modal-location .modal-dialog .modal-content .location-list ul li a:after {
+    content: "\f104";
+    right: auto;
+    left: 0;
+}
+.modal-location .modal-dialog .modal-content .location-list ul li a .item-icon {
+    margin-left: 0.5rem;
+    margin-right: auto;
+}
+.modal-location .modal-dialog .modal-content .modal-close {
+    left: 0.625rem;
+    right: auto;
+}

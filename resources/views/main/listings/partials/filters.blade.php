@@ -1,7 +1,7 @@
 <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area" id="accordion">
     <div class="widget-bottom-margin-md widget-accordian widget-filter">
         <h3 class="widget-bg-title">فلترة الإعلانات</h3>
-        <form action="#">
+        <form action="/listings">
             <div class="accordion-box">
                 <div class="card filter-type filter-item-list">
                     <div class="card-header">
@@ -10,28 +10,21 @@
                     <div id="collapseOne" class="collapse show" data-parent="#accordion">
                         <div class="card-body">
                             <div class="filter-type-content">
-                                <ul>
-                                    <li class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioexample" id="radio1" value="Sell">
-                                        <label class="form-check-label" for="radio1">بيع</label>
-                                    </li>
-                                    <li class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioexample" id="radio2" value="Buy">
-                                        <label class="form-check-label" for="radio2">شراء</label>
-                                    </li>
-                                    <li class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioexample" id="radio3" value="Exchange">
-                                        <label class="form-check-label" for="radio3">تبديل</label>
-                                    </li>
-                                    <li class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioexample" id="radio4" value="Job">
-                                        <label class="form-check-label" for="radio4">وظيفة</label>
-                                    </li>
-                                    <li class="form-check">
-                                        <input class="form-check-input" type="radio" name="radioexample" id="radio5" value="To-Let">
-                                        <label class="form-check-label" for="radio5">إيجار</label>
-                                    </li>
-                                </ul>
+                                <?php 
+                                    $types = [
+                                        App\Models\Listing::TYPE_SELL => 'بيع',
+                                        App\Models\Listing::TYPE_BUY => 'شراء',
+                                        App\Models\Listing::TYPE_EXCHANGE => 'تبديل',
+                                        App\Models\Listing::TYPE_JOB => 'وظيفة',
+                                        App\Models\Listing::TYPE_RENT => 'إيجار',
+                                    ];
+                                ?>
+                                @foreach ($types as $key => $type)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="type" id="radio{{ $key }}" value="{{ $key }}" {{ request()->type == $key ? 'checked' : '' }}>
+                                        <label class="form-check-label mr-1" for="radio{{ $key }}">{{ $type }}</label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -42,20 +35,25 @@
                     </div>
                     <div id="collapseTwo" class="collapse show" data-parent="#accordion">
                         <div class="card-body">
-                            <div class="multi-accordion-content" id="accordion2">
+                            <div class="multi-accordion-content" id="accordion1">
                                 @forelse(App\Models\Category::get() as $category)
                                     <div class="card">
                                         <div class="card-header">
-                                            <a class="parent-list {{ !$category->sub_categories()->count() ? 'single' : '' }} collapsed" role="button" data-toggle="collapse" href="#category{{ $category->id }}" aria-expanded="false">
-                                                {{ $category->name }}
-                                            </a>
+                                            <div class="parent-list py-1 {{ !$category->sub_categories()->count() ? 'single' : '' }}">
+                                                <input type="checkbox" name="categories[]" id="c_{{ $category->id }}" value="{{ $category->id }}" {{ request()->categories && in_array($category->id, request()->categories) ? 'checked' : '' }}>
+                                                <a class="mr-2 collapsed" role="button" data-toggle="collapse" href="#category{{ $category->id }}" aria-expanded="false" style="color: #646464;">{{ $category->name }}</a>
+                                            </div>
                                         </div>
+
                                         @if($category->sub_categories()->count())
-                                            <div id="category{{ $category->id }}" class="collapse" data-parent="#accordion2">
+                                            <div id="category{{ $category->id }}" class="mr-3 collapse" data-parent="#accordion1">
                                                 <div class="card-body">
                                                     <ul class="sub-list">
                                                         @foreach($category->sub_categories as $sub_category)
-                                                            <li><a href="#">{{ $sub_category->name }}</a></li>
+                                                            <li>
+                                                                <input type="checkbox" name="sub_categories[]" id="sc_{{ $sub_category->id }}" value="{{ $sub_category->id }}" {{ request()->sub_categories && in_array($sub_category->id, request()->sub_categories) ? 'checked' : '' }}>
+                                                                <label for="sc_{{ $sub_category->id }}" style="font-size: 15px;">{{ $sub_category->name }}</label>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -77,20 +75,25 @@
                     </div>
                     <div id="collapseThree" class="collapse show" data-parent="#accordion">
                         <div class="card-body">
-                            <div class="multi-accordion-content" id="accordion3">
+                            <div class="multi-accordion-content" id="accordion2">
                                 @forelse(Auth::user()->country->states as $state)
                                     <div class="card">
                                         <div class="card-header">
-                                            <a class="parent-list {{ !$state->areas()->count() ? 'single' : '' }} collapsed" role="button" data-toggle="collapse" href="#state{{ $state->id }}" aria-expanded="false">
-                                                {{ $state->name }}
-                                            </a>
+                                            <div class="parent-list py-1 {{ !$state->areas()->count() ? 'single' : '' }}">
+                                                <input type="checkbox" name="states[]" id="s_{{ $state->id }}" value="{{ $state->id }}" {{ request()->states && in_array($state->id, request()->states) ? 'checked' : '' }}>
+                                                <a class="mr-2 collapsed" role="button" data-toggle="collapse" href="#state{{ $state->id }}" aria-expanded="false" style="color: #646464;">{{ $state->name }}</a>
+                                            </div>
                                         </div>
+
                                         @if($state->areas()->count())
-                                            <div id="state{{ $state->id }}" class="collapse" data-parent="#accordion2">
+                                            <div id="state{{ $state->id }}" class="mr-3 collapse" data-parent="#accordion2">
                                                 <div class="card-body">
                                                     <ul class="sub-list">
-                                                        @foreach($state->areas as $sub_category)
-                                                            <li><a href="#">{{ $sub_category->name }}</a></li>
+                                                        @foreach($state->areas as $area)
+                                                            <li>
+                                                                <input type="checkbox" name="areas[]" id="sc_{{ $area->id }}" value="{{ $area->id }}" {{ request()->areas && in_array($area->id, request()->areas) ? 'checked' : '' }}>
+                                                                <label for="sc_{{ $area->id }}" style="font-size: 15px;">{{ $area->name }}</label>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -107,12 +110,12 @@
                     </div>
                 </div>
                 <div class="card filter-price-range filter-item-list">
-                    <div id="collapseFour" class="collapse show" data-parent="#accordion">
+                    <div id="collapseFour" class="" data-parent="">
                         <div class="card-body">
                             <div class="price-range-content">
                                 <div class="row">
                                     <div class="col-12 form-group">
-                                        <button type="submit" class="filter-btn">Apply Filters</button>
+                                        <button type="submit" class="filter-btn">فلترة</button>
                                     </div>
                                 </div>
                             </div>

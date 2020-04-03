@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ManageTransactions;
 
 class Transaction extends Model
 {
+    use ManageTransactions;
+
     const TYPE_DEPOSIT = 1;
     const TYPE_WITHDRAWAL = 2;
 

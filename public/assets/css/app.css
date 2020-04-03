@@ -1910,7 +1910,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     border-bottom: 0.0625rem solid #dddddd;
 }
 
-.widget-filter .accordion-box .filter-item-list > .card-header > .parent-list:after {
+.widget-filter .accordion-box .filter-item-list > .card-header > .parent-list:not(.single):after {
     height: 1.375rem;
     width: 1.375rem;
     line-height: 1.4375rem;
@@ -1925,7 +1925,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     color: #2a2a2a;
 }
 
-.widget-filter .accordion-box .filter-item-list > .card-header .collapsed.parent-list:after {
+.widget-filter .accordion-box .filter-item-list > .card-header .collapsed.parent-list:not(.single):after {
     background-color: #a9a9a9;
 }
 

@@ -14,9 +14,49 @@ use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('main.listings.listings')->with('listings', Listing::latest()->paginate(9));
+        $request->validate([
+            'type' => 'nullable|in:'.Listing::TYPE_SELL.','.Listing::TYPE_BUY.','.Listing::TYPE_EXCHANGE.','.Listing::TYPE_JOB.','.Listing::TYPE_RENT,
+            'categories.*' => 'nullable|exists:categories,id',
+            'sub_categories.*' => 'nullable|exists:sub_categories,id',
+            'states.*' => 'nullable|exists:states,id',
+            'areas.*' => 'nullable|exists:areas,id',
+        ]);
+
+        $listings = Listing::query();
+
+        $categories = empty($request->categories) || $request->categories == [null] ? [] : $request->categories;
+        $sub_categories = empty($request->sub_categories) || $request->sub_categories == [null] ? [] : $request->sub_categories;
+        $states = empty($request->states) || $request->states == [null] ? [] : $request->states;
+        $areas = empty($request->areas) || $request->areas == [null] ? [] : $request->areas;
+
+        //search
+        if($request->q && !empty($request->q)) 
+            $listings = $listings->search($request->q);
+        // filter by type
+        if($request->type && !empty($request->type)) 
+            $listings = $listings->where('type', $request->type);
+
+        // filter by category
+        if( !empty($categories) || !empty($sub_categories) ){
+            $listings = $listings->Where(function($query) use ($categories, $sub_categories){
+                $query->whereIn('category_id', $categories)
+                    ->orWhereIn('sub_category_id', $sub_categories);
+            });
+        }
+
+        // filter by location
+        if( !empty($states) || !empty($areas) ){
+            $listings = $listings->Where(function($query) use ($states, $areas){
+                $query->whereIn('state_id', $states)
+                    ->orWhereIn('area_id', $areas);
+            });
+        }
+
+        $listings = $listings->latest()->paginate(12);
+
+        return view('main.listings.listings')->with('listings', $listings);
     }
 
     public function show(Listing $listing)
