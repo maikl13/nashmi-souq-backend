@@ -20,6 +20,11 @@ class Category extends Model
         return $this->hasMany(SubCategory::class, 'category_id');
     }
 
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
+
     // this is a recommended way to declare event handlers
     protected static function boot() {
         parent::boot();

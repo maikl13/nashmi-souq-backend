@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Setting;
+use App\Models\Country;
 
 function setting($name, $return_defaults_if_setting_does_not_exist=true){
     $setting = Setting::where('name', $name)->first();
@@ -19,4 +20,12 @@ function default_setting($name){
 
     $setting = isset( $defaults[$name] ) ? $defaults[$name] : null;
     return $setting;
+}
+
+function country(){
+	$ip_address = request()->ip();
+	$location = Location::get($ip_address);
+	$country = Country::first();
+	if(Auth::check()) $contry = Auth::user()->country ?? null;
+	return $country;
 }

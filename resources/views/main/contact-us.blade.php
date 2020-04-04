@@ -41,10 +41,10 @@
                                         <li><i class="fas fa-paper-plane"></i>{{ setting('address') }}</li>
                                     @endif
                                     @if( setting('phone') )
-                                        <li><i class="fas fa-phone-volume"></i>{{ setting('phone') }}</li>
+                                        <li><i class="fas fa-phone-volume"></i><span dir="ltr">{{ setting('phone') }}</span></li>
                                     @endif
                                     @if( setting('phone2') )
-                                        <li><i class="fas fa-phone-volume"></i>{{ setting('phone2') }}</li>
+                                        <li><i class="fas fa-phone-volume"></i><span dir="ltr">{{ setting('phone2') }}</span></li>
                                     @endif
                                     @if( setting('email') )
                                         <li><i class="far fa-envelope"></i>{{ setting('email') }}</li>

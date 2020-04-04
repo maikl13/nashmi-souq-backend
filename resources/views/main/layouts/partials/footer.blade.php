@@ -7,8 +7,9 @@
             <div class="row">
                 <div class="col-lg-9 col-sm-6">
                     <div class="footer-box-layout1">
-                        <div class="footer-logo">
-                            <img src="{{ setting('footer_logo') }}" alt="logo" width="130">
+                        <div class="footer-logo mb-2">
+                            <img src="{{ setting('footer_logo') }}" alt="logo" width="130"> <br>
+                            <span style="line-height: 37px;font-size: 13px;;color: #999; font-family: sans-serif;">احدي شركات <span style="font-size: 14px;">حلول نعم</span></span>
                         </div>
                         <p>{{ setting('website_description') }}</p>
                         <ul class="footer-social">

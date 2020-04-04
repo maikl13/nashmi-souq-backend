@@ -31,12 +31,14 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
-            'image' => 'image|max:8192'
+            'image' => 'image|max:8192',
+            'icon' => 'required|min:3',
         ]);
 
         $category = new Category;
         $category->name = $request->name;
         $category->slug = Str::slug( $request->name );
+        $category->icon = $request->icon;
 
         if($category->save()){
             $category->image = $category->upload_category_image($request->image);
@@ -69,11 +71,13 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
-            'image' => 'image|max:8192'
+            'image' => 'image|max:8192',
+            'icon' => 'required|min:3',
         ]);
 
         $category->name = $request->name;
         $category->slug = Str::slug( $request->name );
+        $category->icon = $request->icon;
 
         if($category->save()){
             $category->image = $category->upload_category_image($request->image);

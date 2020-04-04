@@ -16,9 +16,13 @@
 						<input type="text" class="form-control text-right" id="name" name="name" value="{{ old('name') }}" required>
 					</div>
                     <div class="form-group">
+						<label for="icon" class="form-control-label"> الأيقونة :</label>
+						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="" required>
+					</div>
+                    {{-- <div class="form-group">
 						<label for="image" class="form-control-label"> الصورة :</label>
 						<input type="file" id="image" name="image" value="{{ old('image') }}">
-					</div>
+					</div> --}}
 				</div>
 				<div class="modal-footer"> 
 					<button type="submit" class="btn btn-primary"> حفظ </button>

@@ -76,7 +76,8 @@
                     <div id="collapseThree" class="collapse show" data-parent="#accordion">
                         <div class="card-body">
                             <div class="multi-accordion-content" id="accordion2">
-                                @forelse(Auth::user()->country->states as $state)
+                                <?php $states = country() ? country()->states : []; ?>
+                                @forelse($states as $state)
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="parent-list py-1 {{ !$state->areas()->count() ? 'single' : '' }}">

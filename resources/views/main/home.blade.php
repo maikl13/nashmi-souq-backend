@@ -30,19 +30,19 @@
         <section class="section-padding-top-heading">
             <div class="container">
                 <div class="heading-layout1">
-                    <h2 class="heading-title">أشهر الاأقسام</h2>
+                    <h2 class="heading-title">أشهر الأقسام</h2>
                 </div>
                 <div class="row">
                     @foreach(App\Models\Category::limit(8)->inRandomOrder()->get() as $category)
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="category-box-layout1">
-                                <a href="#">
+                                <a href="/listings?categories[]={{ $category->id }}">
                                     <div class="item-icon">
-                                        <i class="far fa-building"></i>
+                                        <i class="{{ $category->icon }}"></i>
                                     </div>
                                     <div class="item-content">
                                         <h3 class="item-title">{{ $category->name }}</h3>
-                                        <div class="item-count">1 Ad</div>
+                                        <div class="item-count">{{ $category->listings()->count() }} إعلان</div>
                                     </div>
                                 </a>
                             </div>
@@ -91,4 +91,8 @@
 
 @section('modals')
     @include('main.layouts.partials.search-modals')
+@endsection
+
+@section('scripts')
+    @include('main.layouts.partials.search-box-scripts')
 @endsection

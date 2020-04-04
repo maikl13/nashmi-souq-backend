@@ -46,6 +46,7 @@
                                     <ul>
                                         <li><i class="far fa-clock"></i>{{ $listing->created_at->format('M d, Y h:i A') }}</li>
                                         <li><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
+                                        <li><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}{{ $listing->sub_category ? ', '.$listing->sub_category->name : '' }}</li>
                                         <li><i class="far fa-eye"></i>{{ $listing->views }} مشاهدة</li>
                                     </ul>
                                 </div>

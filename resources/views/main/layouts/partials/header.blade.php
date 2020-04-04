@@ -10,6 +10,7 @@
                     <div class="logo-area">
                         <a href="/" class="temp-logo">
                             <img src="{{ setting('logo') }}" alt="logo" class="img-fluid" width="100">
+                            <div style="font-size: 10px; color: #777; font-weight: bold; font-family: sans-serif;line-height: 25px;">إحدى شركات <span style="font-size: 11px;">حلول نعم</span></div>
                         </a>
                     </div>
                 </div>
@@ -73,4 +74,11 @@
             </div>
         </div>
     </div>
+    <div class="text-center text-white py-3 px-3" style="background: #f85c70; position: absolute; width: 100%; opacity: .93;">
+        لا إله إلا الله وحده لا شريك له، له الملك وله الحمد يحيي ويميت وهو حي لا يموت، بيده الخير كله وهو على كل شيء قدير.
+    </div>
 </header>
+
+<div class="text-center text-white py-3 px-3" style="background: #f85c70;">
+    لا إله إلا الله وحده لا شريك له، له الملك وله الحمد يحيي ويميت وهو حي لا يموت، بيده الخير كله وهو على كل شيء قدير.
+</div>

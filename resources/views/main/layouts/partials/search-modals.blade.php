@@ -10,7 +10,8 @@
             <div class="location-list">
                 <h4 class="item-title">الموقع</h4>
                 <ul>
-                    @foreach(Auth::user()->country->states as $state)
+                    <?php $states = country() ? country()->states : []; ?>
+                    @foreach($states as $state)
                         <li><a href="#" class="state-id" data-id="{{ $state->id }}">{{ $state->name }}</a></li>
                     @endforeach
                 </ul>

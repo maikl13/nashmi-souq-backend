@@ -106,11 +106,38 @@ class CategoriesTableSeeder extends Seeder
         	],
         ];
 
+        $icons = [
+            'fas fa-align-justify',
+            'fas fa-adjust',
+            'fas fa-ambulance',
+            'fab fa-amazon',
+            'fab fa-angellist',
+            'fab fa-angular',
+            'fab fa-apple',
+            'fas fa-archive',
+            'fas fa-asterisk',
+            'fas fa-balance-scale',
+            'fas fa-bath',
+            'far fa-bell',
+            'fas fa-bicycle',
+            'fas fa-binoculars',
+            'fas fa-birthday-cake',
+            'fas fa-bullhorn',
+            'far fa-building',
+            'fas fa-car',
+            'fas fa-chart-pie',
+            'fas fa-code',
+            'fas fa-cogs',
+            'fas fa-coffee',
+            'fas fa-dolly-flatbed',
+        ];
+
 
         foreach($categories as $category){
         	$c = Category::create([
         		'name' => $category[0],
-        		'slug' => Str::slug($category[0])
+                'slug' => Str::slug($category[0]),
+        		'icon' => $icons[rand(0,21)],
         	]);
 
         	if( isset($category[1]) ){
@@ -120,7 +147,8 @@ class CategoriesTableSeeder extends Seeder
 		        	Subcategory::create([
 		        		'name' => $sub_category,
 		        		'slug' => $slug,
-		        		'category_id' => $c->id
+		        		'category_id' => $c->id,
+                        'icon' => $icons[rand(0,21)],
 		        	]);
 		        }
         	}
