@@ -12,6 +12,15 @@
             	@csrf()
 				<div class="modal-body" dir="rtl">
                     <div class="form-group">
+						<label for="country_selector" class="form-control-label"> الدولة :</label>
+						<div dir="ltr">
+							<input type="text" class="form-control text-right w-100" id="country" name="country" value="{{ old('country') }}" required>
+							<input type="hidden" id="country_code" name="country_code" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-body" dir="rtl">
+                    <div class="form-group">
 						<label for="name" class="form-control-label"> الاسم :</label>
 						<input type="text" class="form-control text-right" id="name" name="name" value="{{ old('name') }}" required>
 					</div>

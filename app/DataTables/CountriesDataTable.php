@@ -19,9 +19,14 @@ class CountriesDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        //
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'admin.countries.partials.action');
+            ->addColumn('code', function($record){ 
+                return '<img src="https://www.countryflags.io/'.$record->code.'/flat/24.png" /> <span class="text-uppercase">'.$record->code.'</span>'; 
+            })
+            ->addColumn('action', 'admin.countries.partials.action')
+            ->rawColumns(['code','action']);
     }
 
     /**
@@ -71,6 +76,7 @@ class CountriesDataTable extends DataTable
     {
         return [
             Column::make('id'),
+            Column::make('code')->title('كود الدولة'),
             Column::make('name')->title('الاسم'),
             Column::make('slug')->title('المعرف'),
             Column::computed('action')

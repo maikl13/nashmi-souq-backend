@@ -137,9 +137,11 @@
                                     <div class="form-group">
                                         <select name="state" class="state-select states-select2 form-control @error('state') is-invalid @enderror" required>
                                             <option value="">- اختر المحافظة <span>*</span></option>
-                                            @foreach( App\Models\State::where('country_id', Auth::user()->country_id)->get() as $state)
-                                                <option value="{{ $state->slug }}" {{ old('state') == $state->slug ? 'selected' : '' }}>{{ $state->name }}</option>
-                                            @endforeach
+                                            @if (country())
+                                                @foreach( country()->states as $state)
+                                                    <option value="{{ $state->slug }}" {{ old('state') == $state->slug ? 'selected' : '' }}>{{ $state->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>

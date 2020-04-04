@@ -146,16 +146,21 @@
                                     <div class="form-group">
                                         <select name="state" class="state-select states-select2 form-control @error('state') is-invalid @enderror" required>
                                             <option value="">- اختر المحافظة <span>*</span></option>
-                                            @foreach( App\Models\State::where('country_id', Auth::user()->country_id)->get() as $state)
-                                                <option value="{{ $state->slug }}" {{ $s == $state->slug ? 'selected' : '' }}>{{ $state->name }}</option>
-                                            @endforeach
+                                            @if (country() && country()->id != $listing->country_id)
+                                                <option value="{{ $listing->state->slug }}" selected>{{ $listing->state->name }}</option>
+                                            @endif
+                                            @if (country())
+                                                @foreach( country()->states as $state)
+                                                    <option value="{{ $state->slug }}" {{ $s == $state->slug ? 'selected' : '' }}>{{ $state->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             @if( $s )
                                 <?php 
-                                    $state = App\Models\State::where( 'slug', $s)->first(); 
+                                    $state = App\Models\State::where('slug', $s)->first(); 
                                     $areas_count = 0;
                                     if($state) $areas_count = $state->areas()->count();
                                     if($listing->area) $a = $listing->area->slug;

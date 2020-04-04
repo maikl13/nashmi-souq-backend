@@ -30,10 +30,12 @@ class CountryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
+            'country_code' => 'required'
         ]);
 
         $country = new Country;
         $country->name = $request->name;
+        $country->code = $request->country_code;
         $country->slug = Str::slug( $request->name );
 
         if($country->save()){
@@ -75,9 +77,11 @@ class CountryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
+            'country_code' => 'required'
         ]);
 
         $country->name = $request->name;
+        $country->code = $request->country_code;
         $country->slug = Str::slug( $request->name );
 
         if($country->save()){
