@@ -1,7 +1,7 @@
 @extends('main.layouts.main')
 
 @section('content')
-    <section class="inner-page-banner" data-bg-image="{{ Url('project/main/media/banner/banner1.jpg') }}">
+    <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-12">

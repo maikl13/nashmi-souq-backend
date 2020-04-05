@@ -34,6 +34,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('listings/{listing}/edit', 'ListingController@edit');
 	Route::put('listings/{listing}', 'ListingController@update');
 	Route::post('listings/{listing}/delete-image', 'ListingController@delete_listing_image');
+
+	Route::get('messages', function(){
+		return view('main.messages');
+	});
 });
 
 // ====================================================================

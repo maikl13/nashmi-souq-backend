@@ -59,34 +59,54 @@
     <section class="section-padding-top-heading bg-accent">
         <div class="container">
             <div class="heading-layout1">
-                <h2 class="heading-title">Featured Ads</h2>
+                <h2 class="heading-title">إعلانات مميزة</h2>
             </div>
             <div class="row">
-                @for ($i = 0; $i < 8; $i++)
+                @foreach (App\Models\Listing::latest()->limit(8)->get() as $listing)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product-box-layout1">
                             <div class="item-img">
-                                <a href="single-product1.html"><img src="/assets/images/product/product2.jpg" alt="Product"></a>
+                                <a href="{{ $listing->url() }}"><img src="{{ $listing->listing_image() }}" alt="Product"></a>
                             </div>
                             <div class="item-content">
-                                <h3 class="item-title"><a href="single-product1.html">New Banded Smart Watch from China</a></h3>
+                                <h3 class="item-title"><a href="{{ $listing->url() }}">{{ $listing->title }}</a></h3>
                                 <ul class="entry-meta">
-                                    <li><i class="far fa-clock"></i>3 months ago</li>
-                                    <li><i class="fas fa-map-marker-alt"></i>Kansas, Emporia</li>
+                                    <li><i class="far fa-clock"></i>{{ $listing->created_at->diffForHumans() }}</li>
+                                    <li class="d-inline"><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
+                                    <li class="d-inline mr-2"><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}</li>
                                 </ul>
-                                <div class="item-price">
-                                    <span class="currency-symbol">$</span>
-                                    47
-                                </div>
                             </div>
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
         </div>
     </section>
 
     @include('main.layouts.partials.counter')
+
+    <!--=====================================-->
+    <!--=          Brnad Start              =-->
+    <!--=====================================-->
+    <section class="brand-wrap-layout1" dir="ltr">
+        <div class="container py-5">
+            <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="3000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="3" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="3" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="4" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="4" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
+                <div class="brand-box-layout1">
+                    <img src="/assets/images/brand/brand1.jpg" alt="brand">
+                </div>
+                <div class="brand-box-layout1">
+                    <img src="/assets/images/brand/brand2.jpg" alt="brand">
+                </div>
+                <div class="brand-box-layout1">
+                    <img src="/assets/images/brand/brand3.jpg" alt="brand">
+                </div>
+                <div class="brand-box-layout1">
+                    <img src="/assets/images/brand/brand4.jpg" alt="brand">
+                </div>
+            </div>
+        </div>
+
+    </section>
 @endsection
 
 @section('modals')

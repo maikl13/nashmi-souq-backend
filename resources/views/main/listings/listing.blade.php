@@ -3,7 +3,7 @@
 @section('title', 'معاينة الإعلان | '. $listing->title)
 
 @section('head')
-    <!-- Fancybox -->
+    <link rel="stylesheet" href="/assets/css/chat.css">
     <link rel="stylesheet" type="text/css" href="/assets/plugins/fancybox-master/jquery.fancybox.min.css">
 @endsection
 
@@ -101,7 +101,13 @@
     </section>
 @endsection
 
+@section('modals')
+    <?php $recipient = $listing->user; ?>
+    @include('main.layouts.partials.chat-box')
+@endsection
+
 @section('scripts')
+    <script src="/assets/js/chat.js"></script>
     <!-- Fancybox -->
     <script src="/assets/plugins/fancybox-master/jquery.fancybox.min.js"></script>
     <script>

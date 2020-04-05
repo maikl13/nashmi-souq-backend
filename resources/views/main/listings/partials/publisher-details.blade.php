@@ -21,7 +21,7 @@
         @endif
 
         <div class="author-mail">
-            <a href="#" class="mail-btn" data-toggle="modal" data-target="#author-mail">
+            <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}">
                 <i class="fas fa-envelope"></i> التحدث مع ناشر الإعلان
             </a>
         </div>
