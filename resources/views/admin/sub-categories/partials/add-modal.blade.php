@@ -16,10 +16,10 @@
 						<label for="name" class="form-control-label"> الاسم :</label>
 						<input type="text" class="form-control text-right" id="name" name="name" value="{{ old('name') }}" required>
 					</div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
 						<label for="icon" class="form-control-label"> الأيقونة :</label>
 						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="fas fa-align-justify" required>
-					</div>
+					</div> --}}
                     {{-- <div class="form-group">
 						<label for="image" class="form-control-label"> الصورة :</label>
 						<input type="file" id="image" name="image" value="{{ old('image') }}">

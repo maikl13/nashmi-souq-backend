@@ -1,16 +1,16 @@
 @extends('admin.layouts.admin')
 
 @section('head')
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-	<link rel="stylesheet" href="/admin-assets/plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css">
-	<style>
+	{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"> --}}
+	{{-- <link rel="stylesheet" href="/admin-assets/plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css"> --}}
+	{{-- <style>
 		.iconpicker-popover {
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) !important;
 			right: 15px !important;
 		}
 		.iconpicker-popover.fade.in {opacity: 1; margin-top: -20px !important;}
 		.iconpicker-popover .arrow {display: none !important;}
-	</style>
+	</style> --}}
 @endsection
 
 @section('breadcrumb')
@@ -33,10 +33,10 @@
 						<label for="name" class="form-control-label"> الاسم :</label>
 						<input type="text" class="form-control" id="name" name="name" value="{{ old('name') ? old('name') : $sub_category->name }}" required>
 					</div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
 						<label for="icon" class="form-control-label"> الأيقونة :</label>
 						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="{{ old('icon') ? old('icon') : $sub_category->icon }}" required>
-					</div>
+					</div> --}}
                     {{-- <div class="form-group">
 						<label for="image" class="form-control-label"> الصورة :</label>
 						<input type="file" id="image" name="image" value="{{ old('image') }}">
@@ -51,9 +51,9 @@
 @endsection
 
 @section('scripts')
-	<script rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" type="text/javascript"></script>
-	<script src="/admin-assets/plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js" type="text/javascript"></script>
-	<script> $('.icon').iconpicker(); </script>
+	{{-- <script rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" type="text/javascript"></script> --}}
+	{{-- <script src="/admin-assets/plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js" type="text/javascript"></script> --}}
+	{{-- <script> $('.icon').iconpicker(); </script> --}}
 
 	<script type="text/javascript">
 		@if($sub_category->image)

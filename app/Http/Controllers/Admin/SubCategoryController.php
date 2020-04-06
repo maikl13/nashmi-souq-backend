@@ -34,14 +34,14 @@ class SubCategoryController extends Controller
         $request->validate([
             'name' => 'required|min:2|max:255',
             'image' => 'image|max:8192',
-            'icon' => 'required|min:3',
+            // 'icon' => 'required|min:3',
         ]);
 
         $sub_category = new SubCategory;
         $sub_category->name = $request->name;
         $sub_category->slug = Str::slug( $request->name );
         $sub_category->category_id = $request->category_id;
-        $sub_category->icon = $request->icon;
+        // $sub_category->icon = $request->icon;
 
         if($sub_category->save()){
             $sub_category->image = $sub_category->upload_category_image($request->image);
@@ -78,12 +78,12 @@ class SubCategoryController extends Controller
         $request->validate([
             'name' => 'required|min:2|max:255',
             'image' => 'image|max:8192',
-            'icon' => 'required|min:3',
+            // 'icon' => 'required|min:3',
         ]);
 
         $sub_category->name = $request->name;
         $sub_category->slug = Str::slug( $request->name );
-        $sub_category->icon = $request->icon;
+        // $sub_category->icon = $request->icon;
 
         if($sub_category->save()){
             $sub_category->image = $sub_category->upload_category_image($request->image);
