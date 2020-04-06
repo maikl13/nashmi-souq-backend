@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 // * Authenticated Users Routes
 // ====================================================================
 Route::group(['middleware' => 'auth'], function () {
+	Route::get('/deactivated', 'MainController@deactivated')->name('deactivated');
+});
+
+Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::post('profile-picture/delete', 'UserController@delete_profile_picture');
 	Route::post('store-banner/delete', 'UserController@delete_store_banner');
 	Route::post('store-logo/delete', 'UserController@delete_store_logo');
@@ -51,7 +55,6 @@ Route::namespace('\App\Http\Controllers')->group(function () {
 });
 
 Route::get('/', 'MainController@index')->name('home');
-Route::get('/deactivated', 'MainController@deactivated')->name('deactivated');
 
 Route::get('listings', 'ListingController@index');
 Route::get('listings/{listing}', 'ListingController@show');
