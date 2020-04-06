@@ -25,6 +25,11 @@
             @yield('content')
             
             @include('main.layouts.partials.footer')
+
+            @auth
+                @include('main.layouts.partials.chat-box')
+            @endauth
+            
             @yield('modals')
         </div>
 

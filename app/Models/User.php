@@ -8,10 +8,11 @@ use Illuminate\Notifications\Notifiable;
 use App\Traits\UserInfo;
 use App\Traits\StoreInfo;
 use App\Traits\FileHandler;
+use App\Traits\ChatHandler;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserInfo, FileHandler, StoreInfo;
+    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler;
 
     const ROLE_USER = 1;
     const ROLE_SUPERADMIN = 2;

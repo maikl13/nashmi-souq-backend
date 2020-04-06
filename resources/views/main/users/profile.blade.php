@@ -3,7 +3,6 @@
 @section('title', $user->store_name())
 
 @section('head')
-    <link rel="stylesheet" href="/assets/css/chat.css">
     <style>
         body { background-color: #f5f7fa; }
         .store-banner-box {
@@ -89,7 +88,7 @@
                             @endif
 
                             <div class="author-mail">
-                                <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}">
+                                <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $user->name }}" data-logo="{{ $user->store_logo() }}" data-username="{{ $user->username }}">
                                     <i class="fas fa-envelope"></i> التحدث مع {{ $user->store_name ? 'ادارة المتجر' : 'المستخدم' }}
                                 </a>
                             </div>
@@ -99,13 +98,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section('modals')
-    <?php $recipient = $user; ?>
-    @include('main.layouts.partials.chat-box')
-@endsection
-
-@section('scripts')
-    <script src="/assets/js/chat.js"></script>
 @endsection

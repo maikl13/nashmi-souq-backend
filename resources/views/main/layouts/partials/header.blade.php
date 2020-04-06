@@ -1,6 +1,9 @@
 <!--=====================================-->
 <!--=            Header Start           =-->
 <!--=====================================-->
+<style>
+    .mean-container .mean-nav ul li a {font-weight: normal;}
+</style>
 <header class="header">
     <div id="rt-sticky-placeholder"></div>
     <div id="header-menu" class="header-menu menu-layout2">
@@ -23,8 +26,37 @@
                             <li><a href="/about">من نحن</a></li>
                             <li><a href="/contact-us">اتصل بنا</a></li>
 
-                            <li class="d-lg-none"><a href="/listings/add">تسجيل الدخول</a></li>
-                            <li class="d-lg-none"><a href="{{ route('login') }}">نشر إعلان جديد</a></li>
+                            <li class="d-lg-none"><a href="/listings/add">نشر إعلان جديد</a></li>
+
+                            @guest
+                                <li class="d-lg-none"><a href="{{ route('login') }}">تسجيل الدخول</a></li>
+                            @else
+                                <li class="nav-item dropdown d-lg-none">
+                                    <a id="navbarDropdown" class="nav-link color-primary w-100" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre title="بيانات الحساب">
+                                         حسابي <span class="caret"></span>
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="navbarDropdown" dir="rtl">
+                                        <a class="dropdown-item">{{ Auth::user()->name }}</a>
+                                        @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
+                                            <a class="dropdown-item" href="/admin">
+                                                {{ __('Admin Panel') }}
+                                            </a>
+                                        @endif
+                                        <a class="dropdown-item" href="/account">إعدادات الحساب</a>
+                                        <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
                         </ul>
                     </nav>
                 </div>
@@ -45,6 +77,7 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" dir="rtl">
+                                        <a class="dropdown-item">{{ Auth::user()->name }}</a>
                                         @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
                                             <a class="dropdown-item" href="/admin">
                                                 {{ __('Admin Panel') }}

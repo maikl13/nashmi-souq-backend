@@ -1,16 +1,23 @@
 (function() {
-
-  $('.toggle-chat').on('click', function(e) {
-    e.preventDefault();
-    $('.chat').slideToggle(300, 'swing');
-    $('.chat-message-counter').fadeToggle(300, 'swing');
+    $('.toggle-chat').on('click', function(e) {
+        e.preventDefault();
+        $('.chat').slideToggle(300, 'swing');
         $(".chat-history").animate({ scrollTop: 1000000 });
-  });
 
-  $('.chat-close').on('click', function(e) {
-    e.preventDefault();
-    $('#live-chat').fadeOut(300);
-  });
+        // if it's the first time to open the chatbox for that user
+        if($('#live-chat').attr('data-recipient') != $(this).data('username')){
+            $('.recipient-name').text( $(this).data('name') );
+            $('.recipient-username').val( $(this).data('username') );
+            $('.recipient-logo').attr('src', $(this).data('logo') );
+            $('#live-chat').attr('data-recipient', $(this).data('username') );
+
+            get_conversation( $(this).data('username') );
+        }
+    });
+
+    $('.chat-box-header').on('click', function(e) {
+        $('.chat').slideToggle(300, 'swing');
+    });
 
     $("#chat-message").keypress(function (e) {
         if(e.keyCode === 13 && !e.shiftKey) {
@@ -20,72 +27,27 @@
     });
 
     var textarea = document.getElementById('chat-message');
-  textarea.addEventListener('keydown', autosize);
-  function autosize(){
-    var el = this;
-    setTimeout(function(){
-      el.style.cssText = 'height:auto; padding:20px 0';
-      // for box-sizing other than "content-box" use:
-      // el.style.cssText = '-moz-box-sizing:content-box';
-      el.style.cssText = 'height:' + el.scrollHeight + 'px';
-    },0);
-  }
+    textarea.addEventListener('keydown', autosize);
+    function autosize(){
+        var el = this;
+        setTimeout(function(){
+            el.style.cssText = 'height:auto; padding:15px 0';
+            el.style.cssText = 'height:' + el.scrollHeight + 'px';
+        },0);
+    }
 }) ();
 
 
 
 
-// AJAX
-$('.guest-info-form').on('submit', function(e){
-    e.preventDefault();
-    var Form = $(this);
-    $.ajax({
-        url: '/guests/add',
-        type: 'POST',
-        data: new FormData(this),
-        contentType: false,
-        processData:false,
-        beforeSend: function(){
-            Form.find('.error').hide();
-            Form.find('button[type=submit]').attr("disabled", true);
-            Form.find("button[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i>');
-        },
-        success: function(data){
-            Form.hide();
-            $('.chat-box').fadeIn();
-            $('meta[name=uid]').attr('content', data['uid']);
-            $('meta[name=conversation_id]').attr('content', data['conversation_id']);
-        },
-        error: function(data){
-            var errMsg = '';
-            var errors = data.responseJSON;
-            if(data.responseJSON.errors){
-                errors = data.responseJSON.errors;
-                $.each(errors , function( key, value ) {
-                    errMsg += value[0] + '</br>';
-                });
-            } else if(errors.message) {
-                errMsg += "Error: " + errors.message;
-            } else {
-                errMsg += errors;
-            }
-            Form.find('.error').show();
-            Form.find('.error').html( errMsg );
-            // Swal.fire('خطأ!', errMsg, 'error');
-        },
-        complete: function (data){
-            Form.find('button[type=submit]').attr("disabled", false);
-            Form.find(".fa-spin").remove();
-        }
-    });
-});
-
-
+$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
 $('.chat-form').on('submit', function(e){
     e.preventDefault();
     var Form = $(this),
-        messageBox = $('.chat-history');
+        messageBox = $('.chat-history'),
+        btnText = Form.find("button[type='submit']").html();
+
     $.ajax({
         url: '/messages/add',
         type: 'POST',
@@ -93,96 +55,69 @@ $('.chat-form').on('submit', function(e){
         contentType: false,
         processData:false,
         beforeSend: function(){
-            Form.find('.error').hide();
             Form.find('button[type=submit]').attr("disabled", true);
-            Form.find("button[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i>');
+            Form.find("button[type='submit']").html('<i class="fa fa-spinner fa-spin" style="padding: 2px 0px;"></i>');
         },
         success: function(data){
             Form.trigger('reset');
             messageBox.html(data['message']);
-            if( !$('meta[name=conversation_id]').attr('content') ) {
-                $('meta[name=conversation_id]').attr('content', data['conversation_id']);
-                open_channel(data['conversation_id']);
-            }
+            // if( !$('meta[name=conversation_id]').attr('content') ) {
+                // $('meta[name=conversation_id]').attr('content', data['conversation_id']);
+                // open_channel(data['conversation_id']);
+            // }
             $(".chat-history").animate({ scrollTop: 1000000 });
         },
         error: function(data){
-            var errMsg = '';
-            var errors = data.responseJSON;
-            if(data.responseJSON.errors){
-                errors = data.responseJSON.errors;
-                $.each(errors , function( key, value ) {
-                    errMsg += value[0] + '</br>';
-                });
-            } else if(errors.message) {
-                errMsg += "Error: " + errors.message;
-            } else {
-                errMsg += errors;
-            }
-            Form.find('.error').show();
-            Form.find('.error').html( errMsg );
-            // Swal.fire('خطأ!', errMsg, 'error');
+            var errMsg = get_error_msg(data);
+            Swal.fire('خطأ!', errMsg, 'error');
         },
         complete: function (data){
             Form.find('button[type=submit]').attr("disabled", false);
-            Form.find(".fa-spin").remove();
+            Form.find('button[type=submit]').html( btnText );
         }
     });
 });
 
 
-function get_conversation(){
+function get_conversation(username){
     var messageBox = $('.chat-history');
     $.ajax({
-        url: '/conversation',
+        url: '/conversation/' + username,
         type: 'GET',
         beforeSend: function(){
-            $('.error').hide();
-            var spinner = '<div class="text-center" style="padding: 200px 15px; font-size: 40px">'+
-                            '<i class="fa fa-spinner fa-spin" style="opacity:.7"></i>'+
-                        '</div>';
-            messageBox.html(spinner);
+            messageBox.append('<div class="text-center preloader"><i class="fa fa-spinner fa-spin"></i></div>');
         },
         success: function(data){
-            messageBox.html(data);
+            if(data.length) messageBox.html(data);
+            $(".preloader").fadeOut();
             $(".chat-history").animate({ scrollTop: 1000000 });
         },
         error: function(data){
-            var errMsg = '';
-            var errors = data.responseJSON;
-            if(data.responseJSON.errors){
-                errors = data.responseJSON.errors;
-                $.each(errors , function( key, value ) {
-                    errMsg += value[0] + '</br>';
-                });
-            } else if(errors.message) {
-                errMsg += "Error: " + errors.message;
-            } else {
-                errMsg += errors;
-            }
-            messageBox.find('.fa-spin').remove();
-            $('.chat-form .error').html( errMsg );
-        },
-        complete: function (data){
-            $('.contacts-list .fa-spin').remove();
+            var errMsg = get_error_msg(data);
+            Swal.fire('خطأ!', errMsg, 'error');
+            messageBox.html('<div class="text-center preloader"><i class="fa fa-times"></i><span style="font-size: 15px;">'+
+                                '<br>حدث خطأ ما! قم بتحديث الصفحة و المحاولة مجددا<span></div>');
         }
     });
 }
 
 
-$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-function open_channel(id){
-    window.Echo.channel('messages.'+ id)
-    .listen('MessageSent', (e) => {
-        console.log('get-conversation');
-        get_conversation();
+function open_channel(username){
+    window.Echo.private('messages.'+ username)
+    .listen('NewMessage', (e) => {
+        console.log('You\'v got a new message :)');
+        console.log(e.sender_username);
+        if($('#live-chat').data('recipient') == e.sender_username){
+            get_conversation(e.sender_username);
+        }
     });
 }
+
 $(document).ready(function(){
-    var id = $('meta[name=conversation_id]').attr('content');
-    open_channel(id);
+    var username = $('meta[name=username]').attr('content');
+    open_channel(username);
 });
 
 $(document).on('click', '.dropdown-menu', function (e) {
-  e.stopPropagation();
+    e.stopPropagation();
 });

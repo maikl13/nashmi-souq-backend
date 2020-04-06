@@ -25,18 +25,7 @@ $('form.ajax').on('submit', function(e){
                 window.location.href = data.redirect;
         },
         error: function(data){
-            var errMsg = '';
-            var errors = data.responseJSON;
-            if(data.responseJSON.errors){
-                errors = data.responseJSON.errors;
-                $.each(errors , function( key, value ) {
-                    errMsg += value[0] + '</br>';
-                });
-            } else if(errors.message) {
-                errMsg += "Error: " + errors.message;
-            } else {
-                errMsg += errors;
-            }
+            var errMsg = get_error_msg(data);
             Swal.fire('خطأ!', errMsg, 'error');
         },
         complete: function (data){
@@ -79,18 +68,7 @@ $(document).on("click", '.delete',function(e){
                     Swal.fire('تم الحذف!', data, 'success');
                 },
                 error: function(data){
-                    var errMsg = '';
-                    var errors = data.responseJSON;
-                    if(data.responseJSON.errors){
-                        errors = data.responseJSON.errors;
-                        $.each(errors , function( key, value ) {
-                            errMsg += value[0] + '</br>';
-                        });
-                    } else if(errors.message) {
-                        errMsg += errors.message;
-                    } else {
-                        errMsg += errors;
-                    }
+                    var errMsg = get_error_msg(data);
                     Swal.fire('خطأ!', errMsg, 'error');
                 },
                 complete: function (data){

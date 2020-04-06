@@ -36,6 +36,10 @@
 <!-- Site Scripts -->
 <script>var mobileLogo = '{{ setting('logo') }}';</script>
 <script src="/assets/js/app.js"></script>
+@auth
+	<script src="/assets/js/realtime.js"></script>
+	<script src="/assets/js/chat.js"></script>
+@endauth
 <script src="/assets/js/custom.js"></script>
 
 <script type="text/javascript">

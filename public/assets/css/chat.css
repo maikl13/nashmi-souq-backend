@@ -11,42 +11,36 @@
 
 #live-chat {
   bottom: 0;
-  font-size: 12px;
+  font-size: 13px;
   right: 19px;
   position: fixed;
-  z-index: 999999;
+  z-index: 1000;
   box-shadow: 0 0 8px rgba(248, 92, 112, 0.35);
+}
+
+#live-chat .chat-box-header {
+  line-height: 1rem; 
+  cursor: pointer; 
+  background: #f85c70; 
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#live-chat .preloader {
+  font-size: 20px; 
+  color: #f85c70; 
+  padding: 32px;
+}
+
+#live-chat .fa-spin {
+    -webkit-animation: fa-spin 1.5s linear infinite;
+    animation: fa-spin 1.5s linear infinite;
 }
 
 #live-chat .chat {
   width: 300px;
 }
 
-#live-chat header {
-  background: #293239;
-  border-radius: 5px 5px 0 0;
-  color: #fff;
-  cursor: pointer;
-    padding: 13px 13px;
-    border-radius: 50%;
-    right: 0px;
-    top: -17px;
-    position: relative;
-  box-shadow: 3px 2px 4px rgba(0,0,0,0.2);
-}
-}
-#live-chat header .icon {
-  display: none;
-}
-#live-chat.closed header {
-  display: inline-block;
-}
-#live-chat.closed header .icon {
-  display: inline;
-}
-#live-chat.closed header .text {
-  display: none;
-}
 
 #live-chat h4:before {
   background: #1a8a34;
@@ -65,11 +59,7 @@
 }
 
 #live-chat h5 {
-  font-size: 10px;
-}
-
-#live-chat form {
-  line-height: normal;
+  font-size: 12px;
 }
 
 #live-chat input[type="text"] {
@@ -80,36 +70,6 @@
   width: 234px;
 }
 
-.chat-message-counter {
-  background: #e62727;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    display: none;
-    font-size: 13px;
-    font-weight: bold;
-    height: 21px;
-    left: 0;
-    line-height: 20px;
-    margin: -11px 0 0 -2px;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    width: 21px;
-}
-
-.chat-close {
-  background: #1b2126;
-  border-radius: 50%;
-  color: #fff;
-  display: block;
-  float: right;
-  font-size: 10px;
-  height: 16px;
-  line-height: 16px;
-  margin: 2px 0 0 0;
-  text-align: center;
-  width: 16px;
-}
 
 .chat {
   background: #fff;
@@ -131,17 +91,18 @@
 
 .chat-message img {
   border-radius: 50%;
-  float: left;
+  float: right;
   width: 50px;
   height: 50px;
 }
 
 .chat-message-content {
-  margin-left: 56px;
+  margin-right: 52px;
+  line-height: 20px;
 }
 
 .chat-time {
-  float: right;
+  float: left;
   font-size: 10px;
 }
 
@@ -152,29 +113,54 @@
 
 #chat-message {
   width: 100%;
-  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  box-shadow: 0 0 6px rgba(248, 92, 112, 0.4);
   border: none;
   resize: none;
   max-height: 70px !important;
   outline: none;
-  padding: 20px 0;
+  padding: 15px 0;
   line-height: 1.3rem;
   font-size: 13px;
   color: #2a2a2a;
+  border-radius: 23px;
+  overflow: hidden;
 }
 #chat-message:focus {
   box-shadow: 0 0 2px rgba(0,0,0,0.4);
 }
 
+#live-chat form {
+  position: relative;
+  line-height: normal;
+  padding: 0 5px 3px 5px;
+}
 #live-chat form button {
   position: absolute;
-  left: 0;
+  left: 3px;
   border: none;
   border-right: 1px solid #eee;
-  font-size: 16px;
+  font-size: 17px;
   background: #f85c70;
   color: white;
   border-radius: 50%;
-  padding: 14px;
-  margin: 8px 10px;
+  padding: 11px;
+  margin: 2px 8px;
+  width: 42px;
+  height: 42px;
+  top: 5%;
+}
+
+
+.chat-message.lefttoright {
+  text-align: left;
+}
+.chat-message.lefttoright img {
+  float: left;
+}
+.chat-message.lefttoright .chat-message-content {
+  margin-left: 52px;
+  margin-right: 0;
+}
+.chat-message.lefttoright .chat-time {
+  float: right;
 }

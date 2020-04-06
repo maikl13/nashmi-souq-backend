@@ -5,7 +5,7 @@
     <div class="footer-top-wrap">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-sm-6">
+                <div class="col-lg-9 col-sm-8">
                     <div class="footer-box-layout1">
                         <div class="footer-logo mb-2">
                             <img src="{{ setting('footer_logo') }}" alt="logo" width="130"> <br>
@@ -31,7 +31,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-4">
                     <div class="footer-box-layout1">
                         <div class="footer-title">
                             <h3>معلومات</h3>

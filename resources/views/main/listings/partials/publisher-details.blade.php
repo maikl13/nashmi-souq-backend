@@ -21,7 +21,7 @@
         @endif
 
         <div class="author-mail">
-            <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}">
+            <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->name }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}">
                 <i class="fas fa-envelope"></i> التحدث مع ناشر الإعلان
             </a>
         </div>

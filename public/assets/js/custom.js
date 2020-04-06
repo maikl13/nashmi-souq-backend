@@ -33,3 +33,19 @@ if (url.match('#')) {
 $('.nav-tabs a').on('shown.bs.tab', function (e) {
     history.replaceState({}, '', location.pathname + e.target.hash);
 })
+
+function get_error_msg(data){
+    var errMsg = '';
+    var errors = data.responseJSON;
+    if(data.responseJSON.errors){
+        errors = data.responseJSON.errors;
+        $.each(errors , function( key, value ) {
+            errMsg += value[0] + '</br>';
+        });
+    } else if(errors.message) {
+        errMsg += "Error: " + errors.message;
+    } else {
+        errMsg += errors;
+    }
+    return errMsg;
+}
