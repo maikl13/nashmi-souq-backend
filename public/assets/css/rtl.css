@@ -23,7 +23,8 @@ nav.template-main-menu>ul>li ul.sub-menu {
 
 .mean-container .mean-bar .mobile-menu-nav-back {
     padding-left: 0;
-    padding-right: 0.9375rem;
+    /*padding-right: 0.9375rem;*/
+    padding: .75rem 1rem;
 }
 
 .mean-container a.meanmenu-reveal {

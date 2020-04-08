@@ -1,6 +1,8 @@
 .header-action-layout1 ul .header-login-icon a {
-    font-size: 1rem;
+    /*font-size: 1rem;*/
     text-align: right;
+    font-size: 13px;
+    font-weight: 100;
 }
 
 .file-drop-zone-title { font-size: 15px !important; padding: 15px 10px !important; }
@@ -86,4 +88,30 @@
 }
 .product-box-layout3 .item-img a {
     width: 11rem;
+}
+
+
+
+.mobile-nav-icon {
+    position: fixed;
+    top: 0;
+    padding: 1.3rem;
+    z-index: 21;
+    font-size: 19px;
+}
+.mean-bar .dropdown-menu {
+	transform: translate3d(0px, 42px, 0px) !important;
+    padding: 0 !important;
+}
+.unread {
+	font-size: 11px;
+    border-radius: 50%;
+    background: #f85c70;
+    color: white;
+    top: -15px;
+    right: 13px;
+    padding: 2px 4px;
+    font-weight: bold;
+    position: relative;
+    outline: 3px solid white;
 }

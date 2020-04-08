@@ -13,6 +13,10 @@ class Conversation extends Model
     public function recipient() {
         return $this->belongsTo(User::class, 'sender_id');
     }
+
+    public function other_partey () {
+        return auth()->user()->id == $this->sender->id ? $this->recipient : $this->sender;
+    }
     
     public function messages() {
         return $this->hasMany(Message::class);

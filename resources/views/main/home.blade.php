@@ -6,7 +6,7 @@
     <!--=====================================-->
     <!--=            Banner Start           =-->
     <!--=====================================-->
-    <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common minus-mgt-90" data-bg-image="/assets/images/banner/banner1.jpg">
+    <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common {{-- minus-mgt-90 --}}" data-bg-image="/assets/images/banner/banner1.jpg">
         <div class="container">
             <div class="main-banner-box-layout1 animated-headline">
                 <h1 class="ah-headline item-title" style="line-height: 60px; font-size: 2.5rem">

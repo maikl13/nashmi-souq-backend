@@ -88,7 +88,7 @@
                             @endif
 
                             <div class="author-mail">
-                                <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $user->name }}" data-logo="{{ $user->store_logo() }}" data-username="{{ $user->username }}">
+                                <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $user->store_name() }}" data-logo="{{ $user->store_logo() }}" data-username="{{ $user->username }}">
                                     <i class="fas fa-envelope"></i> التحدث مع {{ $user->store_name ? 'ادارة المتجر' : 'المستخدم' }}
                                 </a>
                             </div>

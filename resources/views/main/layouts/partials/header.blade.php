@@ -60,7 +60,6 @@
                         </ul>
                     </nav>
                 </div>
-
                 <div class="col-lg-4 d-flex justify-content-end">
                     <div class="header-action-layout1">
                         <ul>
@@ -71,35 +70,20 @@
                                     </a>
                                 </li>
                             @else
-                                <li class="nav-item dropdown header-login-icon">
-                                    <a id="navbarDropdown" class="nav-link color-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre title="بيانات الحساب" style="font-size: 1.25rem">
-                                         <i class="far fa-user"></i> <span class="caret"></span>
+                                <li class="nav-item header-login-icon mr-0">
+                                    <a class="nav-link color-primary toggle-conversations" href="#" title="بيانات الحساب" style="font-size: 1.25rem">
+                                        <span class="unread">2</span>
+                                        <i class="far fa-comment"></i>
                                     </a>
-
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" dir="rtl">
-                                        <a class="dropdown-item">{{ Auth::user()->name }}</a>
-                                        @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
-                                            <a class="dropdown-item" href="/admin">
-                                                {{ __('Admin Panel') }}
-                                            </a>
-                                        @endif
-                                        <a class="dropdown-item" href="/account">إعدادات الحساب</a>
-                                        <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
                                 </li>
+
+                                @include('main.layouts.partials.user-dropdown')
                             @endguest
 
                             <li class="header-btn">
-                                <a href="/listings/add" class="item-btn"><i class="fas fa-plus"></i>نشر إعلان جديد</a>
+                                <a href="/listings/add" class="item-btn">
+                                    <i class="fas fa-plus"></i> أضف إعلانك
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -107,11 +91,18 @@
             </div>
         </div>
     </div>
-    <div class="text-center text-white py-3 px-3" style="background: #f85c70; position: absolute; width: 100%; opacity: .93;">
-        لا إله إلا الله وحده لا شريك له، له الملك وله الحمد يحيي ويميت وهو حي لا يموت، بيده الخير كله وهو على كل شيء قدير.
-    </div>
 </header>
 
+@auth
+    <a class="d-lg-none mobile-nav-icon toggle-conversations" style="left: 60px;">
+        <span class="unread">2</span>
+        <i class="far fa-comment"></i>
+    </a>
+
+    @include('main.layouts.partials.conversations-dropdown')
+@endauth
+
 <div class="text-center text-white py-3 px-3" style="background: #f85c70;">
+    <span>( دعاء دخول السوق )</span> <br>
     لا إله إلا الله وحده لا شريك له، له الملك وله الحمد يحيي ويميت وهو حي لا يموت، بيده الخير كله وهو على كل شيء قدير.
 </div>

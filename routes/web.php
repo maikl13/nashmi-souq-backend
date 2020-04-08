@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 
 	Route::post('messages/add', 'MessageController@store');
 	Route::get('conversation/{user}', 'MessageController@get_conversation');
+	Route::get('conversations', 'MessageController@get_conversations');
 	Route::get('messages', function(){
 		return view('main.messages');
 	});

@@ -1,17 +1,27 @@
 (function() {
-    $('.toggle-chat').on('click', function(e) {
+    $(document).on('click', '.toggle-chat', function(e) {
         e.preventDefault();
-        $('.chat').slideToggle(300, 'swing');
-        $(".chat-history").animate({ scrollTop: 1000000 });
 
         // if it's the first time to open the chatbox for that user
         if($('#live-chat').attr('data-recipient') != $(this).data('username')){
+            $('.chat').slideDown(300)
+            $(".chat-history").animate({ scrollTop: 1000000 });
+            $('.chat').addClass('shown')
+
             $('.recipient-name').text( $(this).data('name') );
             $('.recipient-username').val( $(this).data('username') );
             $('.recipient-logo').attr('src', $(this).data('logo') );
             $('#live-chat').attr('data-recipient', $(this).data('username') );
 
             get_conversation( $(this).data('username') );
+        } else {
+            if($('.chat').hasClass('shown')){
+                $('.chat').removeClass('shown')
+                $('.chat').slideUp(300, 'swing');
+            } else {
+                $('.chat').slideDown(300)
+                $('.chat').addClass('shown')
+            }
         }
     });
 
@@ -61,10 +71,6 @@ $('.chat-form').on('submit', function(e){
         success: function(data){
             Form.trigger('reset');
             messageBox.html(data['message']);
-            // if( !$('meta[name=conversation_id]').attr('content') ) {
-                // $('meta[name=conversation_id]').attr('content', data['conversation_id']);
-                // open_channel(data['conversation_id']);
-            // }
             $(".chat-history").animate({ scrollTop: 1000000 });
         },
         error: function(data){
@@ -121,3 +127,38 @@ $(document).ready(function(){
 $(document).on('click', '.dropdown-menu', function (e) {
     e.stopPropagation();
 });
+
+$(document).ready(function () {
+    $(document).click(function (e) {        
+        var clickover = $(e.target);
+        if (!clickover.is(".toggle-conversations *") && !clickover.is(".toggle-conversations") && 
+            !clickover.is(".conversations-dropdown *") && !clickover.is(".conversations-dropdown")) {
+            $('.conversations-dropdown').hide();
+        } else if (!clickover.is(".conversations-dropdown *") && !clickover.is(".conversations-dropdown")) {
+            e.preventDefault();
+            $('.conversations-dropdown').toggle();
+            if(!$('.conversations-dropdown').hasClass('loaded')){
+                get_conversations();
+            }
+        }
+    });
+}); 
+
+
+
+function get_conversations(username){
+    $.ajax({
+        url: '/conversations',
+        type: 'GET',
+        success: function(data){
+            $('.conversations-box').html(data);
+            $('.conversations-dropdown').addClass('loaded');
+        },
+        error: function(data){
+            var errMsg = get_error_msg(data);
+            Swal.fire('خطأ!', errMsg, 'error');
+            $('.conversations-box').html('<div class="text-center preloader py-5"><i class="fa fa-times"></i><span style="font-size: 15px;">'+
+                                '<br>حدث خطأ ما! قم بتحديث الصفحة و المحاولة مجددا<span></div>');
+        }
+    });
+}

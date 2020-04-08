@@ -62,4 +62,9 @@ class MessageController extends Controller
 
         return response()->json('', 200);
     }
+
+    public function get_conversations()
+    {        
+        return response()->json( view('main.layouts.partials.latest-conversations')->render() , 200);
+    }
 }
