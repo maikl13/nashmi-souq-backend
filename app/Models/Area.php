@@ -14,4 +14,9 @@ class Area extends Model
     {
         return $this->belongsTo(State::class);
     }
+
+    public function url()
+    {
+        return '/listings?areas[]='.$this->id;
+    }
 }

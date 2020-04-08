@@ -115,3 +115,8 @@
     position: relative;
     outline: 3px solid white;
 }
+
+#product-view ul a,
+.product-info ul a {
+    color: #999999;
+}

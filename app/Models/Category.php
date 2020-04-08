@@ -25,6 +25,11 @@ class Category extends Model
         return $this->hasMany(Listing::class);
     }
 
+    public function url()
+    {
+        return '/listings?categories[]='.$this->id;
+    }
+
     // this is a recommended way to declare event handlers
     protected static function boot() {
         parent::boot();

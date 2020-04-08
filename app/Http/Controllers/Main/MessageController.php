@@ -29,8 +29,10 @@ class MessageController extends Controller
             $conversation->uid = uniqid('', true);
             $conversation->sender_id = $sender->id;
             $conversation->recipient_id = $recipient->id;
-            $conversation->save();
         }
+        // save conversation anyway to update updated_at field 
+        // to make it appear top in the latest conversations
+        $conversation->save();
         
         $message = new Message;
         $message->message = $request->message;

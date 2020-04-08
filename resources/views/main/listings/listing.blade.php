@@ -43,9 +43,25 @@
 
                                 <div class="single-entry-meta">
                                     <ul>
-                                        <li><i class="far fa-clock"></i>{{ $listing->created_at->format('M d, Y h:i A') }}</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
-                                        <li><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}{{ $listing->sub_category ? ', '.$listing->sub_category->name : '' }}</li>
+                                        <li>
+                                            <i class="far fa-clock"></i>
+                                            {{ $listing->created_at->diffForHumans() }}
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            @if($listing->state)
+                                                <a href="{{ $listing->state->url() }}">{{ $listing->state->name }}</a>
+                                            @endif
+                                            @if($listing->area)
+                                                <a href="{{ $listing->area->url() }}">{{ ', '.$listing->area->name }}</a>
+                                            @endif
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-tags"></i>
+                                            @if($listing->category)
+                                                <a href="{{ $listing->category->url() }}">{{ $listing->category->name }}</a>
+                                            @endif
+                                        </li>
                                         <li><i class="far fa-eye"></i>{{ $listing->views }} مشاهدة</li>
                                     </ul>
                                 </div>

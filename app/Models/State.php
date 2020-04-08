@@ -19,4 +19,9 @@ class State extends Model
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function url()
+    {
+        return '/listings?states[]='.$this->id;
+    }
 }

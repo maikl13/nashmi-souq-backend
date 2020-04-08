@@ -43,8 +43,21 @@
                                 <h3 class="item-title"><a href="{{ $listing->url() }}">{{ $listing->title }}</a></h3>
                                 <ul class="entry-meta" dir="rtl">
                                     <li><i class="far fa-clock"></i>{{ $listing->created_at->diffForHumans() }}</li>
-                                    <li class="d-inline"><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
-                                    <li class="d-inline mr-2"><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}</li>
+                                    <li class="d-inline">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        @if($listing->state)
+                                            <a href="{{ $listing->state->url() }}">{{ $listing->state->name }}</a>
+                                        @endif
+                                        @if($listing->area)
+                                            <a href="{{ $listing->area->url() }}">{{ ', '.$listing->area->name }}</a>
+                                        @endif
+                                    </li>
+                                    <li class="d-inline mr-2">
+                                        <i class="fas fa-tags"></i>
+                                        @if($listing->category)
+                                            <a href="{{ $listing->category->url() }}">{{ $listing->category->name }}</a>
+                                        @endif
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -61,8 +74,21 @@
                                     <h3 class="item-title"><a href="{{ $listing->url() }}">{{ $listing->title }}</a></h3>
                                     <ul class="entry-meta">
                                         <li><i class="far fa-clock"></i>{{ $listing->created_at->diffForHumans() }}</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
-                                        <li><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}{{ $listing->sub_category ? ', '.$listing->sub_category->name : '' }}</li>
+                                        <li>
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            @if($listing->state)
+                                                <a href="{{ $listing->state->url() }}">{{ $listing->state->name }}</a>
+                                            @endif
+                                            @if($listing->area)
+                                                <a href="{{ $listing->area->url() }}">{{ ', '.$listing->area->name }}</a>
+                                            @endif
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-tags"></i>
+                                            @if($listing->category)
+                                                <a href="{{ $listing->category->url() }}">{{ $listing->category->name }}</a>
+                                            @endif
+                                        </li>
                                     </ul>
                                     <p>{{ Str::limit( strip_tags($listing->description), 230, '...') }}</p>
                                 </div>
