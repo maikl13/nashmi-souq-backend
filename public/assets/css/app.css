@@ -4871,12 +4871,16 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 .single-product-box-layout1 .product-info .product-content .item-img-gallery .nav-tabs .nav-item .nav-link {
     border: none;
     padding: 0;
+    height: 100%;
+    padding-bottom: 10px;
 }
 
 .single-product-box-layout1 .product-info .product-content .item-img-gallery .nav-tabs .nav-item .nav-link img {
     opacity: 0.6;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    width: 100%;
+    height: 100%;
 }
 
 .single-product-box-layout1 .product-info .product-content .item-img-gallery .nav-tabs .nav-item .nav-link:hover img {

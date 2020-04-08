@@ -195,7 +195,7 @@ trait FileHandler {
             $images = json_decode($this->images);
             $key = array_search($image, $images);
             unset($images[$key]);
-            $this->images = json_encode($images);
+            $this->images = json_encode(array_values($images));
             if($this->save())
                 return response()->json('', 200);
         }

@@ -24,6 +24,7 @@ class AreasDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('state', function($record){ return $record->state->name; })
+            ->addColumn('listings', function($record){ return $record->listings()->count(); })
             ->addColumn('action', 'admin.areas.partials.action');
     }
 
@@ -77,6 +78,7 @@ class AreasDataTable extends DataTable
             Column::make('name')->title('الاسم'),
             Column::make('slug')->title('المعرف'),
             Column::make('state')->title('المدينة'),
+            Column::make('listings')->title('عدد الاعلانات'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')

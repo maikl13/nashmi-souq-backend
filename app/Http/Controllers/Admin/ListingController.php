@@ -18,4 +18,9 @@ class ListingController extends Controller
     {
         return $dataTable->render('admin.listings.listings');
     }
+
+    public function show(Listing $listing)
+    {
+    	return view('admin.listings.listing')->with('listing', $listing);
+    }
 }

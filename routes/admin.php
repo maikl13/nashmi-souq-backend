@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 	Route::delete('transactions/{transaction}', 'TransactionController@destroy');
 
 	Route::get('listings', 'ListingController@index')->name('listings');
+	Route::get('listings/{listing}', 'ListingController@show');
 });
 
 

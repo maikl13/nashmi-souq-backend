@@ -43,7 +43,7 @@ function country(){
 	$location = Location::get($ip_address);
 	$country_code = $location && $location->countryCode ? $location->countryCode : '';
 
-	$country = Country::whereRaw( 'LOWER(`code`) = ?', strtolower($country_code))->first() ?? Country::latest()->first();
+	$country = Country::whereRaw( 'LOWER(`code`) = ?', strtolower($country_code))->first() ?? Country::first();
 	if(Auth::check() && Auth::user()->country) $country = Auth::user()->country;
 	return $country;
 }

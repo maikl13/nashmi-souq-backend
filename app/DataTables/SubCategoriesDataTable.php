@@ -29,6 +29,7 @@ class SubCategoriesDataTable extends DataTable
             // ->addColumn('icon', function ($record) { return '<i class="'. $record->icon .'"></i>'; })
             ->addColumn('category', function($record){ return $record->category->name; })
             ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
+            ->addColumn('listings', function($record){ return $record->listings()->count(); })
             ->addColumn('action', 'admin.sub-categories.partials.action')->setRowId(function ($record){return $record->id;})
             ->rawColumns(['image','icon','action']);
     }
@@ -85,6 +86,7 @@ class SubCategoriesDataTable extends DataTable
             Column::make('name')->title('الاسم'),
             Column::make('category')->title('القسم الرئيسي'),
             Column::make('created_at')->title('تاريخ الاضافة'),
+            Column::make('listings')->title('عدد الاعلانات'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')

@@ -24,6 +24,7 @@ class StatesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('country', function($record){ return $record->country->name; })
+            ->addColumn('listings', function($record){ return $record->listings()->count(); })
             ->addColumn('action', 'admin.states.partials.action');
     }
 
@@ -77,6 +78,7 @@ class StatesDataTable extends DataTable
             Column::make('name')->title('الاسم'),
             Column::make('slug')->title('المعرف'),
             Column::make('country')->title('الدولة'),
+            Column::make('listings')->title('عدد الاعلانات'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')

@@ -26,6 +26,7 @@ class CategoriesDataTable extends DataTable
             // })
             ->addColumn('icon', function ($record) { return '<i class="'. $record->icon .'"></i>'; })
             ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
+            ->addColumn('listings', function($record){ return $record->listings()->count(); })
             ->addColumn('action', 'admin.categories.partials.action')->setRowId(function ($record){return $record->id;})
             ->rawColumns(['image','icon','action']);
     }
@@ -81,6 +82,7 @@ class CategoriesDataTable extends DataTable
             Column::make('icon')->title('الأيقونة'),
             Column::make('name')->title('الاسم'),
             Column::make('created_at')->title('تاريخ الاضافة'),
+            Column::make('listings')->title('عدد الاعلانات'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')

@@ -32,7 +32,8 @@
 			<span><strong>{{ __('Name') }}:</strong> {{ $user->name }}</span><br>
 			<span><strong>{{ __('Email') }}:</strong> {{ $user->email }}</span><br>
 			<span><strong>{{ __('Role') }}:</strong> {{ $user->role() }}</span><br>
-			<span><strong>{{ __('Registered At') }}:</strong> {{ $user->created_at->diffForHumans() }}</span><br><br>
+			<span><strong>{{ __('Registered At') }}:</strong> {{ $user->created_at->diffForHumans() }}</span><br>
+			<span><strong>عدد الإعلانات:</strong> {{ $user->listings()->count() }}</span><br><br>
 		</div>
 	</div>
 </div>

@@ -15,6 +15,11 @@ class Area extends Model
         return $this->belongsTo(State::class);
     }
 
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
+
     public function url()
     {
         return '/listings?areas[]='.$this->id;
