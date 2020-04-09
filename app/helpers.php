@@ -78,7 +78,7 @@ function ad_space($type='')
 	}
 	// return '<div style="width: '. $width .'px; height: '. $height .'px; background: #f85c70; color: #fff; line-height: '. $height .'px; text-align: center; max-width: 100%; margin: 0 auto; font-size: 14x; overflow: hidden;">أعلن لدينا '. Str::title(str_replace('_', ' ', $type)) .' ( '.$width.'x'.$height.' )</div>';
 
-	return '<a href="https://brmjyat.com"><img style="width: '. $width .'px; height: auto; max-width: 100%; margin: 0 auto;" src="/assets/images/bs/'.$type.'.png"></a>';
+	return '<a href="https://brmjyat.com" target="_blank"><img style="width: '. $width .'px; height: auto; max-width: 100%; margin: 0 auto;" src="/assets/images/bs/'.$type.'.png"></a>';
 }
 
 function ad($type='')

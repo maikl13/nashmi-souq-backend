@@ -32,11 +32,11 @@
     <!--=          Store List Start         =-->
     <!--=====================================-->
     <section class="store-wrap-layout1 bg-accent">
-        <div class="row">
-            <div class="col mb-5 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
-            <div class="col mb-5 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-        </div>
         <div class="container">
+            <div class="row">
+                <div class="col mb-5 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+                <div class="col mb-5 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+            </div>
             <div class="row">
                 @forelse($stores as $store)
                     <div class="col-xl-2 col-lg-4 col-md-6">

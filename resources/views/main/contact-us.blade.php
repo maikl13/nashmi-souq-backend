@@ -26,11 +26,11 @@
     <!--=        Contact Page Start         =-->
     <!--=====================================-->
     <section class="section-padding-equal-70">
-        <div class="row">
-            <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
-            <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-        </div>
         <div class="container">
+            <div class="row">
+                <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+                <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+            </div>
             <div class="contact-page-box-layout1 light-shadow-bg">
                 <div class="light-box-content">
                     <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q={{ setting('latitude') }},{{ setting('longitude') }}&z=15&output=embed" aria-label="" style="border:0; width:100%; min-height:350px; height: 100%;"></iframe>

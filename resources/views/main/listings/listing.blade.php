@@ -32,11 +32,11 @@
     <!--=          Product Start         =-->
     <!--=====================================-->
     <section class="single-product-wrap-layout1 section-padding-equal-70 bg-accent">
-        <div class="row">
-            <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
-            <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-        </div>
         <div class="container">
+            <div class="row">
+                <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+                <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+            </div>
             <div class="row">
                 <div class="col-xl-9 col-lg-8">
                     <div class="single-product-box-layout1">
