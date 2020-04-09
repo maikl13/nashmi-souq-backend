@@ -120,3 +120,27 @@
 .product-info ul a {
     color: #999999;
 }
+
+.add-listing-btn {
+    left: 50px;
+}
+.add-listing-btn a {
+    background: #f85c70;
+    color: white;
+    font-size: 16px;
+    padding: 12px 19px;
+    border-radius: 26px;
+}
+.mobile-nav-icon.toggle-conversations {
+    left: 210px; 
+    color: #f85c70 !important;
+    line-height: 34px;
+}
+@media (max-width: 399px){
+    .add-listing-btn {left: 38px;}
+    .add-listing-btn a { font-size: 14px; padding: 12px 10px; border-radius: 14px; font-weight: bold; }
+    .mobile-nav-icon.toggle-conversations { left: 163px; }
+}
+@media (max-width: 319px){
+    .logo-mobile { display: none; }
+}

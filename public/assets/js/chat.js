@@ -131,8 +131,10 @@ $(document).on('click', '.dropdown-menu', function (e) {
 $(document).ready(function () {
     $(document).click(function (e) {        
         var clickover = $(e.target);
-        if (!clickover.is(".toggle-conversations *") && !clickover.is(".toggle-conversations") && 
-            !clickover.is(".conversations-dropdown *") && !clickover.is(".conversations-dropdown")) {
+        if (
+            !clickover.is(".toggle-conversations *") && !clickover.is(".toggle-conversations")
+            // && !clickover.is(".conversations-dropdown *") && !clickover.is(".conversations-dropdown")
+        ) {
             $('.conversations-dropdown').hide();
         } else if (!clickover.is(".conversations-dropdown *") && !clickover.is(".conversations-dropdown")) {
             e.preventDefault();

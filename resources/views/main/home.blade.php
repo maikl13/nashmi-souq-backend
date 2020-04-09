@@ -6,7 +6,7 @@
     <!--=====================================-->
     <!--=            Banner Start           =-->
     <!--=====================================-->
-    <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common {{-- minus-mgt-90 --}}" data-bg-image="/assets/images/banner/banner1.jpg">
+    <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common {{-- minus-mgt-90 --}}" data-bg-image="/assets/images/banner/banner1.jpg" style="padding: 8rem 0 7rem;">
         <div class="container">
             <div class="main-banner-box-layout1 animated-headline">
                 <h1 class="ah-headline item-title" style="line-height: 60px; font-size: 2.5rem">
@@ -19,6 +19,11 @@
                 <div class="item-subtitle">إبحث في أكثر من {{ App\Models\Listing::count() }} إعلان موزعين بين أكثر من {{ App\Models\Category::count() }} قسم</div>
 
                 @include('main.layouts.partials.search-box')
+
+                <div class="row mt-4">
+                    <div class="col mt-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+                    <div class="col mt-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+                </div>
             </div>
         </div>
     </section>
@@ -32,6 +37,15 @@
                 <div class="heading-layout1">
                     <h2 class="heading-title">أشهر الأقسام</h2>
                 </div>
+                
+                {{-- ad spaces --}}
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
+                    <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+                    <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
+                    <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+                </div>
+
                 <div class="row">
                     @foreach(App\Models\Category::limit(8)->inRandomOrder()->get() as $category)
                         <div class="col-lg-3 col-md-4 col-sm-6">
@@ -53,6 +67,8 @@
         </section>
     @endif
 
+    @include('main.layouts.partials.open-store-promo')
+
     <!--=====================================-->
     <!--=       Product Box Start           =-->
     <!--=====================================-->
@@ -61,6 +77,7 @@
             <div class="heading-layout1">
                 <h2 class="heading-title">إعلانات مميزة</h2>
             </div>
+
             <div class="row">
                 @foreach (App\Models\Listing::latest()->limit(8)->get() as $listing)
                     <div class="col-lg-3 col-md-4 col-sm-6">
@@ -80,6 +97,14 @@
                     </div>
                 @endforeach
             </div>
+                
+            {{-- ad spaces --}}
+            <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+            </div>
         </div>
     </section>
 
@@ -90,19 +115,11 @@
     <!--=====================================-->
     <section class="brand-wrap-layout1" dir="ltr">
         <div class="container py-5">
-            <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="3000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="3" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="3" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="4" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="5" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
-                <div class="brand-box-layout1">
-                    <img src="/assets/images/brand/brand1.jpg" alt="brand">
-                </div>
-                <div class="brand-box-layout1">
-                    <img src="/assets/images/brand/brand2.jpg" alt="brand">
-                </div>
-                <div class="brand-box-layout1">
-                    <img src="/assets/images/brand/brand3.jpg" alt="brand">
-                </div>
-                <div class="brand-box-layout1">
-                    <img src="/assets/images/brand/brand4.jpg" alt="brand">
-                </div>
+            <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="3000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="2" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="3" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="4" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
+                {!! ad('mobile_banner') !!}
+                {!! ad('mobile_banner') !!}
+                {!! ad('mobile_banner') !!}
+                {!! ad('mobile_banner') !!}
             </div>
         </div>
 

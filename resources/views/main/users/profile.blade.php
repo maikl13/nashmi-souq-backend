@@ -35,6 +35,10 @@
     <!--=          Store Banner Start       =-->
     <!--=====================================-->
     <section class="store-banner-wrap-layout1">
+        <div class="row">
+            <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+            <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+        </div>
         <div class="container">
             <div class="store-banner-box">
                 <div class="banner-content">
@@ -92,6 +96,12 @@
                                     <i class="fas fa-envelope"></i> التحدث مع {{ $user->store_name ? 'ادارة المتجر' : 'المستخدم' }}
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="widget widget-banner">
+                        <div class="row">
+                            <div class="col text-center d-none d-md-block">{!! ad('large_rectangle') !!}</div>
                         </div>
                     </div>
                 </div>

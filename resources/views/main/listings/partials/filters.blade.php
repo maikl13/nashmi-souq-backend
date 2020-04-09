@@ -31,9 +31,9 @@
                 </div>
                 <div class="card filter-category multi-accordion filter-item-list">
                     <div class="card-header">
-                        <a class="parent-list" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true"> الأقسام </a>
+                        <a class="parent-list" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="false"> الأقسام </a>
                     </div>
-                    <div id="collapseTwo" class="collapse show" data-parent="#accordion">
+                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
                         <div class="card-body">
                             <div class="multi-accordion-content" id="accordion1">
                                 @forelse(App\Models\Category::get() as $category)
@@ -71,9 +71,9 @@
                 </div>
                 <div class="card filter-location multi-accordion filter-item-list">
                     <div class="card-header">
-                        <a class="parent-list" role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true"> الموقع </a>
+                        <a class="parent-list" role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="false"> الموقع </a>
                     </div>
-                    <div id="collapseThree" class="collapse show" data-parent="#accordion">
+                    <div id="collapseThree" class="collapse" data-parent="#accordion">
                         <div class="card-body">
                             <div class="multi-accordion-content" id="accordion2">
                                 <?php $states = country() ? country()->states : []; ?>
@@ -125,5 +125,9 @@
                 </div>
             </div>
         </form>
+    </div>
+
+    <div class="row">
+        <div class="col mt-2 mb-4 text-center d-none d-md-block">{!! ad('large_rectangle') !!}</div>
     </div>
 </div>

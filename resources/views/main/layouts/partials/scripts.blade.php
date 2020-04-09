@@ -34,7 +34,7 @@
 <!--Sweetalert-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- Site Scripts -->
-<script>var mobileLogo = '{{ setting('logo') }}';</script>
+<script>var mobileLogo = '{{ setting('logo') }}', countryCode = '{{ country()->code }}';</script>
 <script src="/assets/js/app.js"></script>
 @auth
 	<script src="/assets/js/realtime.js"></script>

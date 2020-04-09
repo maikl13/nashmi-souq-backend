@@ -32,6 +32,10 @@
     <!--=          Store List Start         =-->
     <!--=====================================-->
     <section class="store-wrap-layout1 bg-accent">
+        <div class="row">
+            <div class="col mb-5 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+            <div class="col mb-5 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+        </div>
         <div class="container">
             <div class="row">
                 @forelse($stores as $store)
@@ -54,7 +58,15 @@
                 @endforelse
 
             </div>
-                {{ $stores->links() }}
+
+            {{ $stores->links() }}
+
+            <div class="row mt-5">
+                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+            </div>
         </div>
     </section>
 @endsection

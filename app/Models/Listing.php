@@ -11,10 +11,10 @@ class Listing extends Model
     use FileHandler, SearchableTrait;
 
     // override newquery to get visitors country ads
-    // public function newQuery($excludeDeleted = true) {
-    //     return parent::newQuery($excludeDeleted)
-    //         ->whereIn('state_id', country()->states()->pluck('id')->toArray());
-    // }
+    public function newQuery($excludeDeleted = true) {
+        return parent::newQuery($excludeDeleted)
+            ->whereIn('state_id', country()->states()->pluck('id')->toArray());
+    }
 
     const TYPE_SELL = 1;
     const TYPE_BUY = 2;

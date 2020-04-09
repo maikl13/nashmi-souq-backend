@@ -42,9 +42,6 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::post('messages/add', 'MessageController@store');
 	Route::get('conversation/{user}', 'MessageController@get_conversation');
 	Route::get('conversations', 'MessageController@get_conversations');
-	Route::get('messages', function(){
-		return view('main.messages');
-	});
 });
 
 // ====================================================================
@@ -69,3 +66,5 @@ Route::get('safety-tips', 'MainController@safety');
 
 Route::get('contact-us', 'ContactMessageController@create');
 Route::post('contact-us', 'ContactMessageController@store');
+
+Route::get('c/{country}', 'MainController@change_country');

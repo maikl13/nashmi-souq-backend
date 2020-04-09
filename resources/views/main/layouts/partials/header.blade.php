@@ -11,10 +11,13 @@
             <div class="row d-flex align-items-center">
                 <div class="col-lg-2">
                     <div class="logo-area">
-                        <a href="/" class="temp-logo">
+                        <a href="/" class="temp-logo float-right">
                             <img src="{{ setting('logo') }}" alt="logo" class="img-fluid" width="100">
                             <div style="font-size: 10px; color: #777; font-weight: bold; font-family: sans-serif;line-height: 25px;">إحدى شركات <span style="font-size: 11px;">حلول نعم</span></div>
                         </a>
+                        <div class="float-right mr-3" style="line-height: 48px;">
+                            <img src="https://www.countryflags.io/{{ country()->code }}/shiny/32.png"/>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex justify-content-end" dir="ltr">
@@ -72,7 +75,7 @@
                             @else
                                 <li class="nav-item header-login-icon mr-0">
                                     <a class="nav-link color-primary toggle-conversations" href="#" title="بيانات الحساب" style="font-size: 1.25rem">
-                                        <span class="unread">2</span>
+                                        {{-- <span class="unread">2</span> --}}
                                         <i class="far fa-comment"></i>
                                     </a>
                                 </li>
@@ -93,9 +96,13 @@
     </div>
 </header>
 
+
+<span class="d-lg-none mobile-nav-icon add-listing-btn"> 
+    <a href="/listings/add" class="item-btn"><i class="fas fa-plus"></i> أضف إعلانك</a>
+</span>
 @auth
-    <a class="d-lg-none mobile-nav-icon toggle-conversations" style="left: 60px;">
-        <span class="unread">2</span>
+    <a class="d-lg-none mobile-nav-icon toggle-conversations">
+        {{-- <span class="unread">2</span> --}}
         <i class="far fa-comment"></i>
     </a>
 

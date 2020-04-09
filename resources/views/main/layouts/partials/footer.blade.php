@@ -5,12 +5,18 @@
     <div class="footer-top-wrap">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-sm-8">
+                <div class="col-lg-5 col-sm-12">
                     <div class="footer-box-layout1">
                         <div class="footer-logo mb-2">
-                            <img src="{{ setting('footer_logo') }}" alt="logo" width="130"> <br>
-                            <span style="line-height: 37px;font-size: 13px;;color: #bbb; font-family: sans-serif;">احدي شركات <span style="font-size: 14px;">حلول نعم</span></span>
+                            <div class="float-right">
+                                <img src="{{ setting('footer_logo') }}" alt="logo" width="130"> <br>
+                                <span style="line-height: 37px;font-size: 13px;;color: #bbb; font-family: sans-serif;">احدي شركات <span style="font-size: 14px;">حلول نعم</span></span>
+                            </div>
+                            <div class="float-right mr-3" style="line-height: 48px;">
+                                <img src="https://www.countryflags.io/{{ country()->code }}/shiny/48.png"/>
+                            </div>
                         </div>
+                        <div class="clearfix"></div>
                         <p>{{ setting('website_description') }}</p>
                         <ul class="footer-social">
                             @if( setting('facebook') )
@@ -31,7 +37,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-4">
+                <div class="col-lg-2 col-sm-4 col-xs-6">
                     <div class="footer-box-layout1">
                         <div class="footer-title">
                             <h3>معلومات</h3>
@@ -47,6 +53,40 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-2 col-sm-4 col-xs-6">
+                    <div class="footer-box-layout1">
+                        <div class="footer-title">
+                            <h3>مواقع صديقة</h3>
+                        </div>
+                        <div class="footer-menu-box">
+                            <ul>
+                                @foreach (App\Models\Country::get() as $country)
+                                    <li><a href="/c/{{ $country->code }}">سوق {{ $country->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-4 col-xs-6">
+                    <div class="footer-box-layout1">
+                        <div class="footer-title">
+                            <h3>إعلانات</h3>
+                        </div>
+                        <div class="footer-menu-box">
+                            <ul>
+                                <li>{!! ad('text') !!}</li>
+                                <li>{!! ad('text') !!}</li>
+                                <li>{!! ad('text') !!}</li>
+                                <li>{!! ad('text') !!}</li>
+                                <li>{!! ad('text') !!}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mt-3 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+                <div class="col mt-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
             </div>
         </div>
     </div>

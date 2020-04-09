@@ -30,6 +30,11 @@
                 @endforeach
 
             </div>
+
+                                <div class="row">
+                                    <div class="col mt-4 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
+                                    <div class="col mt-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+                                </div>
         </div>
     </div>
 @endif

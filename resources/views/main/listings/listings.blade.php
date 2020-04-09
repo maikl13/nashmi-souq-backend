@@ -61,11 +61,18 @@
             <div class="row">
 
                 @include('main.listings.partials.filters')
-                
+
                 <div class="col-xl-9 col-lg-8">
-                    @include('main.listings.partials.listings')                        
+                    @include('main.listings.partials.listings')
+
+                    <div class="row mt-3">
+                        <div class="col-sm-6 col-md-4 text-center mb-2">{!! ad('large_rectangle') !!}</div>
+                        <div class="col-sm-6 col-md-4 text-center mb-2">{!! ad('large_rectangle') !!}</div>
+                        <div class="col-sm-6 col-md-4 text-center mb-2">{!! ad('large_rectangle') !!}</div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
 @endsection

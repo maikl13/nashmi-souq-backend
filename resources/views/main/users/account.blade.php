@@ -26,6 +26,10 @@
     <!--=        Account Page Start         =-->
     <!--=====================================-->
     <section class="section-padding-equal-70">
+        <div class="row">
+            <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+            <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 sidebar-break-sm sidebar-widget-area mt-0">

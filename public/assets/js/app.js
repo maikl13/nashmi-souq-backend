@@ -110,8 +110,9 @@
     --------------------------------------*/
     if ($.fn.meanmenu) {
         $('nav#dropdown').meanmenu({
-            siteLogo: "<div class='mobile-menu-nav-back'><a class='logo-mobile' href='/'>"+
-                        "<img src='"+mobileLogo+"' alt='logo' width='60' class='img-fluid'/></a></div>",
+            siteLogo: "<div class='mobile-menu-nav-back float-right px-2'><a class='logo-mobile' href='/'>"+
+                        "<img src='"+mobileLogo+"' alt='logo' width='85' class='img-fluid'/>"+
+                        "<br><span style='font-size: 9px;font-family: sans-serif;color: #555;display: block;line-height: 1.5;font-weight: bold'>إحدى شركات حلول نعم</span></a></div><div class='float-right' style='line-height: 75px;'><img src='https://www.countryflags.io/"+countryCode+"/shiny/32.png'/></div>",
             navPush: 'fff'
         });
     }

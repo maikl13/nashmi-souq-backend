@@ -55,4 +55,9 @@ class MainController extends Controller
     {
         return auth()->user()->is_active() ? redirect()->route('home') : view('main.deactivated');
     }
+
+    public function change_country($country_code){
+        cookie()->queue('country', $country_code, 3*12*30*24*60);
+        return redirect()->back();
+    }
 }
