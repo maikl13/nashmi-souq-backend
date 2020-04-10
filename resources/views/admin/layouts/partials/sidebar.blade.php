@@ -47,6 +47,12 @@
 				<span class="side-menu__label">العمليات المالية</span>
 			</a>
 		</li>
+		<li>
+			<a class="side-menu__item" href="/admin/bs">
+				<i class="side-menu__icon fa fa-rocket"></i>
+				<span class="side-menu__label">البانرات الإعلانية</span>
+			</a>
+		</li>
 		@if(Auth::user()->is_superadmin())
 			<li class="slide d-lg-none">
 				<a class="side-menu__item"  data-toggle="slide" href="#">

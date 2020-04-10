@@ -2,6 +2,7 @@
 
 use App\Models\Setting;
 use App\Models\Country;
+use App\Models\Banner;
 
 function setting($name, $return_defaults_if_setting_does_not_exist=true){
     $setting = Setting::where('name', $name)->first();
@@ -39,11 +40,16 @@ function getUserIP() {
 }
 
 function country(){
-	$ip_address = getUserIP();
-	$location = Location::get($ip_address);
-	$country_code = $location && $location->countryCode ? $location->countryCode : '';
+	if( env('APP_ENV') == 'local' ){
+		$country = Country::first();
+	} else {
+		$ip_address = getUserIP();
+		$location = Location::get($ip_address);
+		$country_code = $location && $location->countryCode ? $location->countryCode : '';
+		$country = Country::whereRaw( 'LOWER(`code`) = ?', strtolower($country_code))
+						->first() ?? Country::first();
+	}
 
-	$country = Country::whereRaw( 'LOWER(`code`) = ?', strtolower($country_code))->first() ?? Country::first();
 	if(Auth::check() && Auth::user()->country) $country = Auth::user()->country;
 
     if( request()->cookie('country'))
@@ -51,37 +57,37 @@ function country(){
 	return $country;
 }
 
-function ad_space($type='')
+function ad_space($type='', $banner)
 {
-	if ($type == 'text')
-		return '<a href="#">أعلن لدينا - إعلان نصي</a>';
-
-	// Large Rectangle - 336x280
-	// Leaderboard - 728x90
-	// Large Leaderboard - 970x90
-	// Mobile Banner - 320x50
-
 	switch ($type) {
-		// case 'small_square': $width = 200; $height = 200; break;
-		// case 'square': $width = 250; $height = 250; break;
-		// case 'medium_rectangle': $width = 300; $height = 250; break;
 		case 'large_rectangle': $width = 336; $height = 280; break;
 		case 'leaderboard': $width = 728; $height = 90; break;
 		case 'large_leaderboard': $width = 970; $height = 90; break;
-		// case 'full_banner': $width = 468; $height = 60; break;
 		case 'mobile_banner': $width = 320; $height = 50; break;
-		// case 'skyscraper': $width = 120; $height = 600; break;
-		// case 'wide_skyscraper': $width = 160; $height = 600; break;
-		// case 'half_page': $width = 300; $height = 600; break;
-		
-		// default: $type = 'full_banner'; $width = 468; $height = 60; break;
 	}
-	// return '<div style="width: '. $width .'px; height: '. $height .'px; background: #f85c70; color: #fff; line-height: '. $height .'px; text-align: center; max-width: 100%; margin: 0 auto; font-size: 14x; overflow: hidden;">أعلن لدينا '. Str::title(str_replace('_', ' ', $type)) .' ( '.$width.'x'.$height.' )</div>';
 
-	return '<a href="https://brmjyat.com" target="_blank"><img style="width: '. $width .'px; height: auto; max-width: 100%; margin: 0 auto;" src="/assets/images/bs/'.$type.'.png"></a>';
+	$src = $banner ? $banner->banner_image() : '/assets/images/bs/'.$type.'.png';
+	$url = $banner ? $banner->url : 'javascript:void(0)';
+
+	return '<a href="'.$url.'" target="_blank"><img style="width: '. $width .'px; height: auto; max-width: 100%; margin: 0 auto;" src="'.$src.'"></a>';
 }
 
-function ad($type='')
+function ad($type='leaderboard')
 {
-	return ad_space($type);
+	switch ($type) {
+		case 'large_rectangle': 
+			$banner = Banner::valid()->where('type', Banner::TYPE_LARGE_RECTANGLE)->inRandomOrder()->first();
+			break;
+		case 'leaderboard': 
+			$banner = Banner::valid()->where('type', Banner::TYPE_LEADERBOARD)->inRandomOrder()->first();
+			break;
+		case 'large_leaderboard': 
+			$banner = Banner::valid()->where('type', Banner::TYPE_LARGE_LEADERBOARD)->inRandomOrder()->first();
+			break;
+		case 'mobile_banner': 
+			$banner = Banner::valid()->where('type', Banner::TYPE_MOBILE_BANNER)->inRandomOrder()->first();
+			break;
+	}
+
+	return ad_space($type, $banner);
 }

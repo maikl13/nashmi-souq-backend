@@ -5,7 +5,7 @@
     <div class="footer-top-wrap">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-sm-12">
+                <div class="col-lg-7 col-sm-12">
                     <div class="footer-box-layout1">
                         <div class="footer-logo mb-2">
                             <div class="float-right">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
+                <div class="col-lg-3 col-sm-4 col-xs-6">
                     <div class="footer-box-layout1">
                         <div class="footer-title">
                             <h3>مواقع صديقة</h3>
@@ -66,22 +66,6 @@
                                 @foreach (App\Models\Country::get() as $country)
                                     <li><a href="/c/{{ $country->code }}">سوق {{ $country->name }}</a></li>
                                 @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-4 col-xs-6">
-                    <div class="footer-box-layout1">
-                        <div class="footer-title">
-                            <h3>إعلانات</h3>
-                        </div>
-                        <div class="footer-menu-box">
-                            <ul>
-                                <li>{!! ad('text') !!}</li>
-                                <li>{!! ad('text') !!}</li>
-                                <li>{!! ad('text') !!}</li>
-                                <li>{!! ad('text') !!}</li>
-                                <li>{!! ad('text') !!}</li>
                             </ul>
                         </div>
                     </div>

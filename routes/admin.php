@@ -65,6 +65,13 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 
 	Route::get('listings', 'ListingController@index')->name('listings');
 	Route::get('listings/{listing}', 'ListingController@show');
+
+	// Banners
+	Route::get('bs', 'BannerController@index')->name('banners');
+	Route::post('bs', 'BannerController@store');
+	Route::get('bs/{banner}/edit', 'BannerController@edit')->name('edit-banner');
+	Route::put('bs/{banner}', 'BannerController@update');
+	Route::delete('bs/{banner}', 'BannerController@destroy');
 });
 
 
