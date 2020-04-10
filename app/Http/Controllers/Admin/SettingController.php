@@ -53,9 +53,9 @@ class SettingController extends Controller
             // google maps
             'latitude', 'longitude',
             // sections
-            'about',
+            'notification', 'notification2', 'slogan', 'open_store_section_header', 'open_store_section',
             // pages
-            'privacy', 'terms', 'safety'
+            'about', 'privacy', 'terms', 'safety'
         ];
         $images = ['logo', 'footer_logo'];
         $html = [];

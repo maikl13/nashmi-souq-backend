@@ -11,8 +11,8 @@
             <div class="main-banner-box-layout1 animated-headline">
                 <h1 class="ah-headline item-title" style="line-height: 60px; font-size: 2.5rem">
                     <span class="ah-words-wrapper">
-                        <b class="is-visible">بيع و أشترى و أجر بضغطة زر واحدة</b>
-                        <b>بيع و أشترى و أجر بضغطة زر واحدة</b>
+                        <b class="is-visible">{{ setting('slogan') }}</b>
+                        <b>{{ setting('slogan') }}</b>
                     </span>
                 </h1>
                 

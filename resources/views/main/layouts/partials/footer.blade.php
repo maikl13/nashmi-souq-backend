@@ -34,6 +34,9 @@
                             @if( setting('youtube') )
                                 <li><a href="{{ setting('youtube') }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
                             @endif
+                            @if( setting('whatsapp') )
+                                <li><a href="https://wa.me/{{ str_replace('+', '', setting('whatsapp') ) }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>

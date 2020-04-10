@@ -109,7 +109,13 @@
     @include('main.layouts.partials.conversations-dropdown')
 @endauth
 
-<div class="text-center text-white py-3 px-3" style="background: #f85c70;">
-    <span>( دعاء دخول السوق )</span> <br>
-    لا إله إلا الله وحده لا شريك له، له الملك وله الحمد يحيي ويميت وهو حي لا يموت، بيده الخير كله وهو على كل شيء قدير.
-</div>
+@if (setting('notification'))
+    <div class="text-center text-white py-3 px-3" style="background: #f85c70;">
+        <div class="container">{!! nl2br(e(setting('notification'))) !!}</div>
+    </div>
+@endif
+@if (setting('notification2'))
+    <div class="text-center py-3 px-3" style="background: #efeef1; color: #555;">
+        <div class="container">{!! nl2br(e(setting('notification2'))) !!}</div>
+    </div>
+@endif
