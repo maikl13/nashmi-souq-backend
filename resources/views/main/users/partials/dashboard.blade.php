@@ -25,6 +25,9 @@
                     </div>
                 </div>
             </div>
+            
+            @include('main.users.partials.balance')
+
         </div>
     </div>
 </div>

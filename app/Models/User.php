@@ -9,10 +9,11 @@ use App\Traits\UserInfo;
 use App\Traits\StoreInfo;
 use App\Traits\FileHandler;
 use App\Traits\ChatHandler;
+use App\Traits\ManageTransactions;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler;
+    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions;
 
     const ROLE_USER = 1;
     const ROLE_SUPERADMIN = 2;

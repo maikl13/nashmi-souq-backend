@@ -233,6 +233,7 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
 .myaccount-listing .btn-group a {
     margin-left: 0.3125rem;
     margin-right: 0;
+    font-weight: 100;
 }
 .myaccount-listing .btn-group a:last-child {
     margin-left: 0;
@@ -346,3 +347,9 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
     left: 0.625rem;
     right: auto;
 }
+
+
+/* Promote Listing Modal */
+
+.modal-header .close {margin: -1rem;}
+.modal .form-group .form-control {border: 1px solid #ced4da; height: auto;}

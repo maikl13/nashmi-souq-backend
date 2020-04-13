@@ -2,6 +2,33 @@
 
 @section('title', 'إعدادات الحساب')
 
+@section('head')
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/labelauty/source/jquery-labelauty.css">
+    <style type="text/css">
+        input.labelauty + label {
+            width: 100%;
+            display: inline-block;
+            font-size: 15px;
+            padding: 12px 8px 25px 0px;
+            color: #5f5f5f;
+        }
+        input.labelauty:not(:checked):not([disabled]) + label:hover {
+            background-color: #ddd;
+            color: #5f5f5f;
+        }
+        input.labelauty:checked + label,
+        input.labelauty:checked:not([disabled]) + label:hover {
+            background-color: rgba(255, 88, 81, 0.75);
+            font-weight: bold;
+        }
+        div#recaptcha-element>div {
+            padding: 1px;
+        }
+        input.labelauty + label > span.labelauty-unchecked-image,
+        input.labelauty + label > span.labelauty-checked-image {margin-left: 7px;}
+    </style>
+@endsection
+
 @section('content')
     <!--=====================================-->
     <!--=        Inner Banner Start         =-->
@@ -79,6 +106,10 @@
     </section>
 @endsection
 
+@section('modals')
+    @include('main.users.partials.promote-listing-modal')
+@endsection
+
 @section('scripts')
     <script src="/assets/js/ajax/ajax.js"></script>
 
@@ -116,4 +147,23 @@
         $("[type=file].store-banner").fileinput(store_banner_fileInputOptions);
         $("[type=file].store-logo").fileinput(store_logo_fileInputOptions);
     </script>
+
+    <script src="/assets/plugins/labelauty/source/jquery-labelauty.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(":radio.labelauty").labelauty();
+        });
+
+        $(':radio[name=user_role]').on('change', function(e){
+            if( $(this).val() == 'employer' ){
+                $('.referrer-info').hide();
+                $('.employer-info').show();
+            } else {
+                $('.referrer-info').show();
+                $('.employer-info').hide();
+            }
+        });
+    </script>
 @endsection
+
+

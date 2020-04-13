@@ -37,10 +37,13 @@
                                 </ul>
                                 <div class="btn-group">
                                     @if ($listing->is_active())
-                                        <a href="{{ $listing->url() }}/edit">تعديل</a>
+                                        <a href="{{ $listing->url() }}/edit"><i class="fa fa-edit ml-1"></i> تعديل</a>
                                     @endif
-                                    <a class="delete" href="{{ $listing->url() }}">حذف</a>
-                                    <a href="{{ $listing->url() }}">معاينة</a>
+                                    <a class="delete" href="{{ $listing->url() }}"><i class="fa fa-trash ml-1"></i> حذف</a>
+                                    <a href="{{ $listing->url() }}" style="background: orange;" data-toggle="modal" data-target="#promote">
+                                        <i class="fa fa-crown ml-2"></i>
+                                        ترقيه لإعلان مميز
+                                    </a>
                                 </div>
                             </div>
                         </div>
