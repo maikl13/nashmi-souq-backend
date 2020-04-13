@@ -10,6 +10,12 @@
 	<div class="card">
 		<div class="card-header text-right">
 			<h4 class="d-inline float-right">{{ $listing->title }}</h4>
+            <div class="status-badge badge badge-default mx-2">{{ $listing->status() }}</div>
+            <div class="float-left">
+                <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#change-status-modal">
+                    <i class="fa fa-plus"></i> تغيير حالة الإعلان
+                </a>
+            </div>
 		</div>
 		<div class="card-body text-right" dir="rtl">
             <hr>
@@ -55,8 +61,16 @@
 @endsection
 
 @section('modals')
+    @include('admin.listings.partials.change-status-modal')
 @endsection
 
 @section('scripts')
-
+    <script>
+        $(document).on('change', '#status', function(){
+            $('.note').hide();
+            if($('#status').val() == {{ App\Models\Listing::STATUS_INACTIVE }})
+                $('.note').show();
+        });
+    </script>
+    <script src="/admin-assets/js/ajax/change-listing-status.js"></script>
 @endsection

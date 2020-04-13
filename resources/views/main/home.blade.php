@@ -120,6 +120,10 @@
                 {!! ad('mobile_banner') !!}
                 {!! ad('mobile_banner') !!}
                 {!! ad('mobile_banner') !!}
+                {!! ad('mobile_banner') !!}
+                {!! ad('mobile_banner') !!}
+                {!! ad('mobile_banner') !!}
+                {!! ad('mobile_banner') !!}
             </div>
         </div>
 

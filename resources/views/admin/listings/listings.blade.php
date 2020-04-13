@@ -17,13 +17,6 @@
 	</div>
 @endsection
 
-@section('modals')
-	@include('admin.countries.partials.add-modal')
-@endsection
-
 @section('scripts')
-	<script> $("[type=file]").fileinput(fileInputOptions); </script>
 	{!! $dataTable->scripts() !!}
-	<script> var records = 'listings'; </script>
-	<script src="/admin-assets/js/ajax/crud.js"></script>
 @endsection

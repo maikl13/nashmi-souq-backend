@@ -21,6 +21,9 @@ class Listing extends Model
     const TYPE_EXCHANGE = 3;
     const TYPE_JOB = 4;
     const TYPE_RENT = 5;
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
     
     public $images_path = "/assets/images/listing/";
 
@@ -68,6 +71,19 @@ class Listing extends Model
             case Self::TYPE_JOB: return 'وظيفة'; break;
             case Self::TYPE_RENT: return 'إيجار'; break;
         }
+    }
+
+    public function status()
+    {
+        switch ($this->status) {
+            case Self::STATUS_ACTIVE: return 'فعال'; break;
+            case Self::STATUS_INACTIVE: return 'غير فعال'; break;
+        }
+    }
+
+    public function is_active()
+    {
+        return $this->status == Self::STATUS_ACTIVE;
     }
 
     protected static $searchable = [

@@ -23,4 +23,20 @@ class ListingController extends Controller
     {
     	return view('admin.listings.listing')->with('listing', $listing);
     }
+
+    public function change_status(Listing $listing, Request $request)
+    {
+        $request->validate([
+            'status' => 'required|in:'.Listing::STATUS_ACTIVE.','.Listing::STATUS_INACTIVE,
+            'note' => 'max:1000',
+        ]);
+
+        $listing->status = $request->status;
+        $listing->note = $request->status == Listing::STATUS_ACTIVE ? null : $request->note;
+
+        if($listing->save()){
+            return response()->json($listing->status(), 200);
+        }
+        return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
+    }
 }

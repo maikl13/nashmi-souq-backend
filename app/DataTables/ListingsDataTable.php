@@ -36,8 +36,11 @@ class ListingsDataTable extends DataTable
                 $a .= $record->area ? ' - '. $record->area->name : '';
                 return $a; 
             })
+            ->addColumn('status', function($record){ 
+                return $record->status ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>';
+            })
             ->addColumn('action', 'admin.listings.partials.action')
-            ->rawColumns(['action', 'category', 'area', 'image']);
+            ->rawColumns(['action', 'category', 'area', 'image', 'status']);
     }
 
     /**
@@ -92,7 +95,8 @@ class ListingsDataTable extends DataTable
             Column::make('title')->title('العنوان'),
             Column::make('category')->title('القسم'),
             Column::make('area')->title('المنطقة'),
-            Column::make('views')->title('المشاهدات'),
+            Column::make('views')->title('👁️'),
+            Column::make('status')->title('✓'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')

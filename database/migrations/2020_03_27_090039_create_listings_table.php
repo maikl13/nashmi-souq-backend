@@ -32,6 +32,7 @@ class CreateListingsTable extends Migration
             $table->foreign('area_id')->references('id')->on('areas');
             $table->tinyInteger('status')->default(1);
             $table->integer('views')->default(0);
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

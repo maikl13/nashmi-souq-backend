@@ -63,8 +63,10 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 	Route::put('transactions/{transaction}', 'TransactionController@update');
 	Route::delete('transactions/{transaction}', 'TransactionController@destroy');
 
+	// Listings
 	Route::get('listings', 'ListingController@index')->name('listings');
 	Route::get('listings/{listing}', 'ListingController@show');
+	Route::post('listings/{listing}/change-status', 'ListingController@change_status');
 
 	// Banners
 	Route::get('bs', 'BannerController@index')->name('banners');

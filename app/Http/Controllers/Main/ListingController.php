@@ -61,6 +61,7 @@ class ListingController extends Controller
 
     public function show(Listing $listing)
     {
+        if(!$listing->is_active()) return view('main.listings.inactive');
         $listing->views = $listing->views+1;
         $listing->save();
         return view('main.listings.listing')->with('listing', $listing);

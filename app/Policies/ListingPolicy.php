@@ -12,6 +12,7 @@ class ListingPolicy
 
     public function edit(User $user, Listing $listing)
     {
+    	if(!$listing->is_active()) return false;
         return $listing->user_id === $user->id;
     }
 
