@@ -18,11 +18,17 @@ $('form.ajax').on('submit', function(e){
             Form.find("[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i> ');
         },
         success: function(data){
-            toastr.success(data);
+            if (Form.hasClass('swal-msg')){
+                Swal.fire('', data, 'success');
+            } else {
+                toastr.success(data);
+            }
             if(Form.hasClass('should-reset'))
                 Form.trigger('reset');
             if (data.redirect)
                 window.location.href = data.redirect;
+            if(Form.data('on-success'))
+                executeFunctionByName(Form.data('on-success'), window);
         },
         error: function(data){
             var errMsg = get_error_msg(data);
@@ -79,3 +85,13 @@ $(document).on("click", '.delete',function(e){
         }
     });
 });
+
+function executeFunctionByName(functionName, context /*, args */) {
+  var args = Array.prototype.slice.call(arguments, 2);
+  var namespaces = functionName.split(".");
+  var func = namespaces.pop();
+  for(var i = 0; i < namespaces.length; i++) {
+    context = context[namespaces[i]];
+  }
+  return context[func].apply(context, args);
+}

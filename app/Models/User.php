@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class);
     }
 
+    public function featured_listings()
+    {
+        return $this->hasManyThrough(FeaturedListing::class, Listing::class);
+    }
+
     public function url()
     {
         return '/users/'.$this->id;

@@ -37,11 +37,9 @@ trait ManageTransactions {
         $current_balance = $this->total_balance();
 
         // expenses
-        // foreach($this->jobs()->where('status', Job::STATUS_CLOSED)->get() as $job){
-        //     $current_balance -= $job->hiring_commission;
-        //     if($job->is_managed())
-        //         $current_balance -= $job->management_fees();
-        // }
+        foreach($this->featured_listings()->get() as $featured_listing){
+            $current_balance -= $featured_listing->price;
+        }
 
         return $current_balance;
     }

@@ -149,21 +149,7 @@
     </script>
 
     <script src="/assets/plugins/labelauty/source/jquery-labelauty.js"></script>
-    <script>
-        $(document).ready(function(){
-            $(":radio.labelauty").labelauty();
-        });
-
-        $(':radio[name=user_role]').on('change', function(e){
-            if( $(this).val() == 'employer' ){
-                $('.referrer-info').hide();
-                $('.employer-info').show();
-            } else {
-                $('.referrer-info').show();
-                $('.employer-info').hide();
-            }
-        });
-    </script>
+    <script src="/assets/js/promote.js"></script>
 @endsection
 
 

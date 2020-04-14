@@ -7,45 +7,63 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-            <form action="/admin/countries/" method="POST" enctype="multipart/form-data" class="add">
+            <form action="/listings/promote" method="POST" enctype="multipart/form-data" id="promote-form" class="ajax swal-msg" data-on-success="remove_promote_button">
             	@csrf()
+            	<input type="hidden" name="listing_id" value="">
+
 				<div class="modal-body" dir="rtl">
-					
 					<div class="alert alert-info">
 						<div class="media">
 							<h3 class="pl-3 pt-2"><i class="fa fa-crown text-info"></i></h3>
 							<div class="media-body">
-								ترقية إعلانك لإعلان مميز يضمن حصولك على أضعاف المشاهدات حيث ستزيد نسبة ظهور إعلانك في الصفحة الرئيسية و في النتائج ذات صلة للإعلانات الأخرى و أيضا سيتصدر إعلانك نتائج البحث
+								{!! nl2br(e(setting('featured_ads_benefits'))) !!}
 							</div>
 						</div>
 					</div>
 					<div class="alert alert-warning">
-						{!! Auth::user()->current_balance() ? "رصيدك الحالي <strong>".Auth::user()->current_balance()."$</strong>, هل أنت بحاجة للمزيد لترقية إعلانك بالشكل المطلوب" : "ليس لديك رصيد بالمحفظة" !!}
+						{!! Auth::user()->current_balance() ? 'رصيدك الحالي <strong><span class="current-balance">'.Auth::user()->current_balance()."</span>$</strong>, هل أنت بحاجة للمزيد لترقية إعلانك بالشكل المطلوب" : "ليس لديك رصيد بالمحفظة" !!}
 						<a href="/balance" class="float-left btn btn-warning btn-sm">
-							<i class="fa fa-bolt" style="opacity: .6;"></i> قم بشحن رصيدك الآن 
-							<i class="fa fa-bolt" style="opacity: .6;"></i>
+							<i class="fa fa-bolt mr-1 ml-2" style="opacity: .6;"></i> قم بشحن رصيدك الآن 
+							<i class="fa fa-bolt ml-1 mr-2" style="opacity: .6;"></i>
 						</a>
 						<div class="clearfix"></div>
 					</div>
-
 					<div class="row pt-3 px-2">
-						<div class="px-1 col-xs-12 col-sm-3">
-							<input checked type="radio" name="period" aria-label="7 أيام" data-labelauty="7 أيام - 1$" value="employer" class="labelauty"/>
-						</div>
-						<div class="px-1 col-xs-12 col-sm-3">
-							<input type="radio" name="period" aria-label="15 يوم" data-labelauty="15 يوم - 2$" value="employer" class="labelauty"/>
-						</div>
-						<div class="px-1 col-xs-12 col-sm-3">
-							<input type="radio" name="period" aria-label="شهر" data-labelauty="30 يوم - 3$" value="employer" class="labelauty"/>
-						</div>
-						<div class="px-1 col-xs-12 col-sm-3">
-							<input type="radio" name="period" aria-label="شهر" data-labelauty="90 يوم - 7$" value="employer" class="labelauty"/>
-						</div>
+						<?php
+							$tiers_titles = ['يوم', '3 أيام', 'أسبوع', '15 يوم', 'شهر', '3 شهور', '6 شهور', 'سنة'];
+							$tiers = [];
+							for ($i=1; $i <= 8; $i++) {
+								if(!empty(setting('tier'.$i))) {
+									$tier = [];
+									$tier['index'] = $i;
+									$tier['title'] = $tiers_titles[$i-1];
+									$tier['value'] = setting('tier'.$i)+0;
+									$tiers[] = $tier;
+								}
+							}
+						?>
+						@foreach ($tiers as $key => $tier)
+							@if (sizeof($tiers) > 4)
+								@if ( 24%sizeof($tiers) == 0)
+									<div class="px-1 col-xs-12 col-sm-{{ 24/sizeof($tiers) }}">
+								@else
+									@if ( $key > sizeof($tiers)/2)
+										<div class="px-1 col-xs-12 col-sm-{{ 12/floor(sizeof($tiers)/2) }}">
+									@else
+										<div class="px-1 col-xs-12 col-sm-{{ 12/ceil(sizeof($tiers)/2) }}">
+									@endif
+								@endif
+							@else
+								<div class="px-1 col-xs-12 col-sm-{{ 12%sizeof($tiers) == 0 ? 12/sizeof($tiers) : '4' }}">
+							@endif
+								<input {{ $key == 0 ? 'checked' : '' }} type="radio" data-price="{{ $tier['value'] }}" name="tier" aria-label="{{ $tier['title'] }}" data-labelauty="{{ $tier['title'] }} - {{ $tier['value'] }}$" value="{{ $tier['index'] }}" class="labelauty"/>
+							</div>
+						@endforeach
 					</div>
 				</div>
 				<div class="modal-footer">
                     <button type="button" class="btn btn-default ml-1" data-dismiss="modal"> <small>تراجع</small> </button>
-					<button type="submit" class="btn bgPrimary text-white px-4"> ترقية الإعلان </button>
+					<button type="button" class="btn bgPrimary text-white px-4 promote-btn"> ترقية الإعلان </button>
 				</div>
             </form>
 		</div>

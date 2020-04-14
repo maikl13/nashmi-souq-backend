@@ -34,7 +34,7 @@
                                     <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#profile4" role="tab" aria-controls="profile" aria-selected="false">{{ __('Social Accounts') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="promoted-listing-tab4" data-toggle="tab" href="#promoted-listing4" role="tab" aria-controls="promoted-listing" aria-selected="false">أسعار الإعلانات المميزة</a>
+                                    <a class="nav-link" id="promoted-listing-tab4" data-toggle="tab" href="#promoted-listing4" role="tab" aria-controls="promoted-listing" aria-selected="false">إعدادات الإعلانات المميزة</a>
                                 </li>
                             </ul>
                         </div>
@@ -293,6 +293,29 @@
                                 <div class="tab-pane fade p-0" id="promoted-listing4" role="tabpanel" aria-labelledby="promoted-listing-tab4">
                                     <div class="card">
                                         <div class="card-header text-right">
+                                            <h4>مزايا الإعلانات المميزة</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <label for="featured_ads_benefits" class="col-md-3 col-form-label">مزايا الإعلانات المميزة</label>
+                                                    <div class="col-md-9 text-right" dir="rtl">
+                                                        <textarea type="text" class="form-control" id="featured_ads_benefits" name="featured_ads_benefits" rows="5">{{ setting('featured_ads_benefits', false) }}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header text-right">
                                             <h4>أسعار الإعلانات المميزة</h4>
                                         </div>
                                         <div class="card-body">
@@ -300,12 +323,75 @@
                                             <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group row">
-                                                    <label for="facebook" class="col-md-3 col-form-label">{{ __('Facebook') }}</label>
+                                                    <label for="tier1" class="col-md-3 col-form-label">يوم</label>
                                                     <div class="col-md-9 input-group" dir="ltr">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="fa fa-facebook"></i></span>
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
                                                         </div>
-                                                        <input type="text" class="form-control" id="facebook" name="facebook"  value="{{ setting('facebook', false) }}">
+                                                        <input type="number" step="0.01" class="form-control" id="tier1" name="tier1"  value="{{ setting('tier1', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier2" class="col-md-3 col-form-label">3 أيام</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier2" name="tier2"  value="{{ setting('tier2', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier3" class="col-md-3 col-form-label">أسبوع</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier3" name="tier3"  value="{{ setting('tier3', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier4" class="col-md-3 col-form-label">15 يوم</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier4" name="tier4"  value="{{ setting('tier4', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier5" class="col-md-3 col-form-label">شهر</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier5" name="tier5"  value="{{ setting('tier5', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier6" class="col-md-3 col-form-label">3 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier6" name="tier6"  value="{{ setting('tier6', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier7" class="col-md-3 col-form-label">6 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier7" name="tier7"  value="{{ setting('tier7', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier8" class="col-md-3 col-form-label">سنة</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier8" name="tier8"  value="{{ setting('tier8', false) }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">

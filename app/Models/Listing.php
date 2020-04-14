@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\FileHandler;
 use App\Traits\SearchableTrait;
+use Carbon\Carbon;
 
 class Listing extends Model
 {
@@ -56,6 +57,11 @@ class Listing extends Model
     {
         return $this->belongsTo(Area::class);
     }
+    
+    public function featured_listings()
+    {
+        return $this->hasMany(FeaturedListing::class);
+    }
 
     public function url()
     {
@@ -84,6 +90,25 @@ class Listing extends Model
     public function is_active()
     {
         return $this->status == Self::STATUS_ACTIVE;
+    }
+
+    public function is_featured()
+    {
+        return $this->featured_listings()->where('created_at', '>=', Carbon::now()->subDays( $this->period() ))->first() ? true : false;
+    }
+
+    public function period()
+    {
+        switch ($this->tier) {
+            case 1: return 1; break;
+            case 2: return 3; break;
+            case 3: return 7; break;
+            case 4: return 15; break;
+            case 5: return 30; break;
+            case 6: return 90; break;
+            case 7: return 180; break;
+            case 8: return 365; break;
+        }
     }
 
     protected static $searchable = [

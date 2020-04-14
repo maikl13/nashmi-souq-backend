@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::get('listings', 'ListingController@index');
 	Route::get('listings/add', 'ListingController@create');
 	Route::post('listings', 'ListingController@store');
+	Route::post('listings/promote', 'ListingController@promote');
 	Route::delete('listings/{listing}', 'ListingController@destroy');
 	Route::get('listings/{listing}/edit', 'ListingController@edit');
 	Route::put('listings/{listing}', 'ListingController@update');

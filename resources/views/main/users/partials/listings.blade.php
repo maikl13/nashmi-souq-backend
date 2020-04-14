@@ -3,7 +3,7 @@
         <div class="list-view-layout1">
             @forelse(Auth::user()->listings()->latest()->get() as $listing)
                 <div class="deletable mb-4">
-                    <div class="product-box-layout3 m-0">
+                    <div class="listing-box product-box-layout3 m-0 {{ $listing->is_featured() ? 'item-trending' : '' }}">
                         <div class="item-img">
                             <a href="{{ $listing->url() }}"><img src="{{ $listing->listing_image() }}" alt="Product"></a>
                         </div>
@@ -40,10 +40,12 @@
                                         <a href="{{ $listing->url() }}/edit"><i class="fa fa-edit ml-1"></i> تعديل</a>
                                     @endif
                                     <a class="delete" href="{{ $listing->url() }}"><i class="fa fa-trash ml-1"></i> حذف</a>
-                                    <a href="{{ $listing->url() }}" style="background: orange;" data-toggle="modal" data-target="#promote">
-                                        <i class="fa fa-crown ml-2"></i>
-                                        ترقيه لإعلان مميز
-                                    </a>
+                                    @if( !$listing->is_featured() )
+                                        <a href="{{ $listing->url() }}" style="background: orange;" data-toggle="modal" data-target="#promote" data-listing-id="{{ $listing->id }}" class="promote">
+                                            <i class="fa fa-crown ml-2"></i>
+                                            <strong style="font-weight: bold;">ترقيه لإعلان مميز</strong>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -147,3 +147,9 @@
 
 .country-box a img {transition: opacity .5s;}
 .country-box a:hover img {opacity: 1 !important;}
+
+@media (max-width: 500px){
+    .tab-pane .product-box-layout3 {display: block}
+    .tab-pane .product-box-layout3 .item-img {margin: 0;}
+    .tab-pane .product-box-layout3 .item-img a {width: 100%; margin-bottom: 15px;}
+}

@@ -43,6 +43,15 @@ class SettingController extends Controller
             'instagram' => 'nullable|max:255|url',
             'youtube' => 'nullable|max:255|url',
             'linkedin' => 'nullable|max:255|url',
+
+            'tier1' => 'nullable|numeric',
+            'tier2' => 'nullable|numeric',
+            'tier3' => 'nullable|numeric',
+            'tier4' => 'nullable|numeric',
+            'tier5' => 'nullable|numeric',
+            'tier6' => 'nullable|numeric',
+            'tier7' => 'nullable|numeric',
+            'tier8' => 'nullable|numeric',
         ]);
 
         $allowed_settings = [
@@ -55,7 +64,9 @@ class SettingController extends Controller
             // sections
             'notification', 'notification2', 'slogan', 'open_store_section_header', 'open_store_section',
             // pages
-            'about', 'privacy', 'terms', 'safety', 'advertise', 'balance'
+            'about', 'privacy', 'terms', 'safety', 'advertise', 'balance',
+            // tiers
+            'featured_ads_benefits', 'tier1', 'tier2', 'tier3', 'tier4', 'tier5', 'tier6', 'tier7', 'tier8',
         ];
         $images = ['logo', 'footer_logo'];
         $html = [];

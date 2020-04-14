@@ -37,7 +37,7 @@
                                     <a class="nav-link" id="bs" data-toggle="tab" href="#bs-panel" role="tab" aria-controls="bs" aria-selected="false">أعلن معنا</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="balance" data-toggle="tab" href="#balance-panel" role="tab" aria-controls="balance" aria-selected="false">كيفية شحن المخفظة</a>
+                                    <a class="nav-link" id="balance" data-toggle="tab" href="#balance-panel" role="tab" aria-controls="balance" aria-selected="false">كيفية شحن المحفظة</a>
                                 </li>
                             </ul>
                         </div>
@@ -221,14 +221,14 @@
                                 <div class="tab-pane fade p-0" id="balance-panel" role="tabpanel" aria-labelledby="balance">
                                     <div class="card">
                                         <div class="card-header text-right">
-                                            <h4>طريقة شحن المخفظة</h4>
+                                            <h4>طريقة شحن المحفظة</h4>
                                         </div>
                                         <div class="card-body">
 
                                             <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label for="balance" class="col-form-label">طريقة شحن المخفظة</label>
+                                                    <label for="balance" class="col-form-label">طريقة شحن المحفظة</label>
                                                     <textarea name="balance" id="balance" cols="30" rows="10" class="form-control editor">{{ setting('balance', true) }}</textarea>
                                                 </div>
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">

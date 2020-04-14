@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\State;
 use App\Models\Area;
+use App\Models\FeaturedListing;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,7 @@ class ListingController extends Controller
         }
         $params = $request->all();
         if(isset($params['page'])) unset($params['page']);
-        $listings = $listings->latest()->paginate(2)->appends($params);
+        $listings = $listings->latest()->paginate(24)->appends($params);
 
         return view('main.listings.listings')->with('listings', $listings);
     }
@@ -176,5 +177,35 @@ class ListingController extends Controller
     public function delete_listing_image(Request $request, Listing $listing){
         $this->authorize('delete', $listing);
         return $listing->delete_listing_image($request->key);
+    }
+
+    public function promote(Request $request)
+    {
+        $request->validate([
+            'listing_id' => 'required|exists:listings,id',
+            'tier' => 'required|between:1,8'
+        ]);
+        $listing = Listing::where('id', $request->listing_id)->first();
+
+        $this->authorize('edit', $listing);
+
+        if($listing->is_featured())
+            return response()->json('تم ترقية الإعلان بالفعىل للعضوية المميزة من قبل', 500);
+
+        if(empty( setting('tier'.$request->tier) ))
+            return response()->json('حدث خطأ ما! قم بتحديث الصفحة و حاول مجددا.', 500);
+
+        if(Auth::user()->current_balance() < setting('tier'.$request->tier) )
+            return response()->json('عفوا رصيدك الحالي لا يكفي لإتمام العملية.', 500);
+
+        $featured_listing = new FeaturedListing;
+        $featured_listing->listing_id = $listing->id;
+        $featured_listing->price = setting('tier'.$request->tier);
+        $featured_listing->tier = $request->tier;
+
+        if($featured_listing->save())
+            return response()->json('تم ترقية الإعلان لإعلان مميز.', 200);
+
+        return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 }
