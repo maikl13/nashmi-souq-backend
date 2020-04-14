@@ -53,8 +53,9 @@ class ListingController extends Controller
                     ->orWhereIn('area_id', $areas);
             });
         }
-
-        $listings = $listings->latest()->paginate(12);
+        $params = $request->all();
+        if(isset($params['page'])) unset($params['page']);
+        $listings = $listings->latest()->paginate(2)->appends($params);
 
         return view('main.listings.listings')->with('listings', $listings);
     }

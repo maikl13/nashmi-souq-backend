@@ -50,6 +50,22 @@ class MainController extends Controller
         ]);
     }
 
+    public function advertise()
+    {
+        return view('main.page')->with([
+            'title' => 'أعلن معنا',
+            'content' => setting('advertise')
+        ]);
+    }
+
+    public function balance()
+    {
+        return view('main.page')->with([
+            'title' => 'طريقة شحن المحفظة',
+            'content' => setting('balance')
+        ]);
+    }
+
     // User in not active
     public function deactivated()
     {

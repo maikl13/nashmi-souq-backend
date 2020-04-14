@@ -5,7 +5,7 @@
     <div class="footer-top-wrap">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-sm-12">
+                <div class="col-lg-6 col-sm-12">
                     <div class="footer-box-layout1">
                         <div class="footer-logo mb-2">
                             <div class="float-right">
@@ -40,7 +40,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
+                <div class="col-lg-2 col-sm-4 col-xs-12">
                     <div class="footer-box-layout1">
                         <div class="footer-title">
                             <h3>معلومات</h3>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-4 col-xs-6">
+                <div class="col-lg-4 col-sm-8 col-xs-12">
                     <div class="footer-box-layout1">
                         <div class="footer-title">
                             <h3>مواقع صديقة</h3>
@@ -64,7 +64,12 @@
                         <div class="footer-menu-box">
                             <ul>
                                 @foreach (App\Models\Country::get() as $country)
-                                    <li><a href="/c/{{ $country->code }}">سوق {{ $country->name }}</a></li>
+                                    <li class="w-auto d-inline-block country-box">
+                                        <a href="/c/{{ $country->code }}" class="px-2 py-1 m-1 d-inline-block" style="border: 1px solid #4a4a4a;">
+                                            <img src="https://www.countryflags.io/{{ $country->code }}/shiny/24.png" style="opacity: .5;" />
+                                            سوق {{ $country->name }}
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>

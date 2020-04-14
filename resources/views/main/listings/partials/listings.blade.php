@@ -127,5 +127,5 @@
     <div class="col mt-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
 </div>
 
-{{ $listings->links() }}
+{{ $listings->onEachSide(1)->links() }}
             

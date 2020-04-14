@@ -144,3 +144,6 @@
 @media (max-width: 319px){
     .logo-mobile { display: none; }
 }
+
+.country-box a img {transition: opacity .5s;}
+.country-box a:hover img {opacity: 1 !important;}

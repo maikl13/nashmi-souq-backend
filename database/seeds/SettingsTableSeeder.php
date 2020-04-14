@@ -246,6 +246,30 @@ class SettingsTableSeeder extends Seeder
                 'name' => 'open_store_section',
                 'value' => 'قم بانشاء متجرك الخاص على سوق نشمي بخطوات سهلة و سريعة و أعرض منتجاتك بشكل احترافي لتنال ثقة العملاء , يمكنك تخصيص متجرك بشكل كامل و تحديد شعار و بانر للمتجر و ستتمكن من عرض كافة منتجاتك في الصفحة الخاصة بمتجرك بشكل جذاب'
             ],
+            [
+                'name' => 'advertize',
+                'value' => '<p style="text-align: right;">للإعلان معنا برجاء التواصل ع الارقام الموضحة بالأسفل</p>
+<hr />
+<p style="text-align: right;"><strong><em><br />من داخل مصر</em></strong></p>
+<p style="text-align: right;">01000000000<br />01000000000</p>
+<hr />
+<p style="text-align: right;"><strong><em><br />من داخل المملكة العربية السعودية</em></strong></p>
+<p style="text-align: right;">0120000000<br />0110000000</p>
+<hr />
+'
+            ],
+            [
+                'name' => 'balance',
+                'value' => '<p style="text-align: right;">لشحن محفظتك برجاء التواصل ع الارقام الموضحة بالأسفل</p>
+<hr />
+<p style="text-align: right;"><strong><em><br />من داخل مصر</em></strong></p>
+<p style="text-align: right;">01000000000<br />01000000000</p>
+<hr />
+<p style="text-align: right;"><strong><em><br />من داخل المملكة العربية السعودية</em></strong></p>
+<p style="text-align: right;">0120000000<br />0110000000</p>
+<hr />'
+            ],
+
     	]);
     }
 }

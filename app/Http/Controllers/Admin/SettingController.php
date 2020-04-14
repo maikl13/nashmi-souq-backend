@@ -55,7 +55,7 @@ class SettingController extends Controller
             // sections
             'notification', 'notification2', 'slogan', 'open_store_section_header', 'open_store_section',
             // pages
-            'about', 'privacy', 'terms', 'safety'
+            'about', 'privacy', 'terms', 'safety', 'advertise', 'balance'
         ];
         $images = ['logo', 'footer_logo'];
         $html = [];

@@ -25,13 +25,19 @@
                                     <a class="nav-link" id="about" data-toggle="tab" href="#about-panel" role="tab" aria-controls="about" aria-selected="false">{{ __('About Us') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="privacy" data-toggle="tab" href="#privacy-panel" role="tab" aria-controls="contact" aria-selected="false">{{ __('Privacy Policy') }}</a>
+                                    <a class="nav-link" id="privacy" data-toggle="tab" href="#privacy-panel" role="tab" aria-controls="privacy" aria-selected="false">{{ __('Privacy Policy') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="terms" data-toggle="tab" href="#terms-panel" role="tab" aria-controls="contact" aria-selected="false">{{ __('Terms And Conditions') }}</a>
+                                    <a class="nav-link" id="terms" data-toggle="tab" href="#terms-panel" role="tab" aria-controls="terms" aria-selected="false">{{ __('Terms And Conditions') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="safety" data-toggle="tab" href="#safety-panel" role="tab" aria-controls="contact" aria-selected="false">قواعد السلامة</a>
+                                    <a class="nav-link" id="safety" data-toggle="tab" href="#safety-panel" role="tab" aria-controls="safety" aria-selected="false">قواعد السلامة</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="bs" data-toggle="tab" href="#bs-panel" role="tab" aria-controls="bs" aria-selected="false">أعلن معنا</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="balance" data-toggle="tab" href="#balance-panel" role="tab" aria-controls="balance" aria-selected="false">كيفية شحن المخفظة</a>
                                 </li>
                             </ul>
                         </div>
@@ -176,6 +182,54 @@
                                                 <div class="form-group">
                                                     <label for="safety" class="col-form-label">قواعد السلامة</label>
                                                     <textarea name="safety" id="safety" cols="30" rows="10" class="form-control editor">{{ setting('safety', true) }}</textarea>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade p-0" id="bs-panel" role="tabpanel" aria-labelledby="bs">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>أعلن معنا</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="bs" class="col-form-label">أعلن معنا:</label>
+                                                    <textarea name="advertise" id="bs" cols="30" rows="10" class="form-control editor">{{ setting('advertise', true) }}</textarea>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade p-0" id="balance-panel" role="tabpanel" aria-labelledby="balance">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>طريقة شحن المخفظة</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="balance" class="col-form-label">طريقة شحن المخفظة</label>
+                                                    <textarea name="balance" id="balance" cols="30" rows="10" class="form-control editor">{{ setting('balance', true) }}</textarea>
                                                 </div>
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">
                                                     <div class="col-md-9">

@@ -33,6 +33,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#profile4" role="tab" aria-controls="profile" aria-selected="false">{{ __('Social Accounts') }}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="promoted-listing-tab4" data-toggle="tab" href="#promoted-listing4" role="tab" aria-controls="promoted-listing" aria-selected="false">أسعار الإعلانات المميزة</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-12 col-sm-12 col-lg-9">
@@ -274,6 +277,35 @@
                                                             <span class="input-group-text"><i class="fa fa-linkedin"></i></span>
                                                         </div>
                                                         <input type="text" class="form-control" id="linkedin" name="linkedin"  value="{{ setting('linkedin', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade p-0" id="promoted-listing4" role="tabpanel" aria-labelledby="promoted-listing-tab4">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>أسعار الإعلانات المميزة</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <label for="facebook" class="col-md-3 col-form-label">{{ __('Facebook') }}</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-facebook"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="facebook" name="facebook"  value="{{ setting('facebook', false) }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">
