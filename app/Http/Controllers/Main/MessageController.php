@@ -22,6 +22,9 @@ class MessageController extends Controller
         $sender = Auth::user();
         $recipient = User::where('username', $request->recipient)->first();
 
+        if($sender->id == $recipient->id) 
+            return response()->json('خطأ!', 500);
+
         $conversation = Auth::user()->conversations_with( $recipient )->first();
         
         if(!$conversation){
@@ -48,7 +51,7 @@ class MessageController extends Controller
                     'conversation_id' => $conversation->id
                 ] , 200);
         } else {
-            return response()->json('An error occured, please try again', 500);
+            return response()->json('حدث خطأ ما! من فضلك حاول مجداد', 500);
         }
     }
 

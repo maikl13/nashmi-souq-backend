@@ -20,10 +20,12 @@
             </div>
         @endif
 
-        <div class="author-mail">
-            <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}">
-                <i class="fas fa-envelope"></i> التحدث مع ناشر الإعلان
-            </a>
-        </div>
+        @if(Auth::guest() || Auth::user()->id != $listing->user->id)
+            <div class="author-mail">
+                <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}">
+                    <i class="fas fa-envelope"></i> التحدث مع ناشر الإعلان
+                </a>
+            </div>
+        @endif
     </div>
 </div>  

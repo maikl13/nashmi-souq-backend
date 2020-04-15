@@ -10,6 +10,7 @@
                 {{ __('Admin Panel') }}
             </a>
         @endif
+        <a class="dropdown-item" href="{{ Auth::user()->url() }}">صفحتي الشخصية</a>
         <a class="dropdown-item" href="/account">إعدادات الحساب</a>
         <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
         <a class="dropdown-item" href="{{ route('logout') }}"

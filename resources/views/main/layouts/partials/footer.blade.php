@@ -12,7 +12,7 @@
                                 <img src="{{ setting('footer_logo') }}" alt="logo" width="130"> <br>
                                 <span style="line-height: 37px;font-size: 13px;;color: #bbb; font-family: sans-serif;">احدي شركات <span style="font-size: 14px;">حلول نعم</span></span>
                             </div>
-                            <div class="float-right mr-3" style="line-height: 48px;">
+                            <div class="float-right mr-2" style="line-height: 70px;">
                                 <img src="https://www.countryflags.io/{{ country()->code }}/shiny/48.png"/>
                             </div>
                         </div>

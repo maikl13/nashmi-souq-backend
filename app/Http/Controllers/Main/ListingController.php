@@ -204,7 +204,7 @@ class ListingController extends Controller
         $featured_listing->tier = $request->tier;
 
         if($featured_listing->save())
-            return response()->json('تم ترقية الإعلان لإعلان مميز.', 200);
+            return response()->json('تم ترقية إعلانك لإعلان مميز.', 200);
 
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }

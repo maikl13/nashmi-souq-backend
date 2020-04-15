@@ -44,8 +44,10 @@ $(document).on('click', '.promote-btn', function(){
 function remove_promote_button(){
     var id = $('#promote-form input[name=listing_id]').val();
     var price = $('input[name=tier]:checked').data('price'),
-        newPrice = $('.current-balance').text() - price;
-    $('.current-balance').text( newPrice );
+        newCurrentBalance = $('.current-balance').first().text() - price,
+        newExpensedBalance = parseFloat($('.expensed-balance').first().text())+0 + price;
+    $('.current-balance').text( newCurrentBalance );
+    $('.expensed-balance').text( newExpensedBalance );
     $('a.promote[data-listing-id='+id+']').parents('.listing-box').addClass('item-trending');
     $('a.promote[data-listing-id='+id+']').remove();
 }

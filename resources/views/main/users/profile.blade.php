@@ -84,18 +84,34 @@
                                     <a href="{{ $user->store_website }}"><i class="fas fa-globe-asia"></i>الموقع الإلكتروني للمتجر</a>
                                 </div>
                             @endif
+                            @if($user->store_social_accounts && is_array( json_decode($user->store_social_accounts) ))
+                                <div class="mt-3">
+                                    @foreach (json_decode($user->store_social_accounts) as $social_account)
+                                        @foreach(['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest'] as $brand)
+                                            <?php $icon = 'fa fa-globe-africa'; ?>
+                                            @if (strrpos($social_account, $brand.".com"))
+                                                <?php $icon = 'fab fa-'.$brand; break; ?>
+                                            @endif
+                                        @endforeach
+                                        <a href="{{ $social_account }}" class="pl-3 py-5" target="_blank"><i class="{{ $icon }}"></i></a>
+                                    @endforeach
+                                </div>
+                            @endif
+
                             @if($user->phone)
                                 <div class="phone-number classima-phone-reveal not-revealed" data-phone="{{ Auth::check() ? $user->phone : 'قم بتسجيل الدخول' }}">
                                     <div class="number"><i class="fas fa-phone"></i><span>{{ Str::limit($user->phone, 4, 'XXXXXX') }}</span></div>
                                     <div class="item-text">إضغط هنا لإظهار رقم التلفون</div>
                                 </div>
                             @endif
-
-                            <div class="author-mail">
-                                <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $user->store_name() }}" data-logo="{{ $user->store_logo() }}" data-username="{{ $user->username }}">
-                                    <i class="fas fa-envelope"></i> التحدث مع {{ $user->store_name ? 'ادارة المتجر' : 'المستخدم' }}
-                                </a>
-                            </div>
+                            
+                            @if(Auth::guest() || Auth::user()->id != $user->id)
+                                <div class="author-mail">
+                                    <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $user->store_name() }}" data-logo="{{ $user->store_logo() }}" data-username="{{ $user->username }}">
+                                        <i class="fas fa-envelope"></i> التحدث مع {{ $user->store_name ? 'ادارة المتجر' : 'المستخدم' }}
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     

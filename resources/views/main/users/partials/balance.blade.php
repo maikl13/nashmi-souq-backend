@@ -19,7 +19,7 @@
                 	<h3 class="text-success pb-2 pt-3" style="font-size: 30px;"><i class="fa fa-money-bill-alt"></i></h3>
                 @endif
                 <div class="text mb-2"> الرصيد الحالي </div>
-                <h3 class="mb-4">{{ $user->current_balance() }} <small>$</small></h3>
+                <h3 class="mb-4"><span class="current-balance">{{ $user->current_balance() }}</span> <small>$</small></h3>
                 <p>الرصيد الحالي و يمكنك بواسطته ترقية الإعلانات لإعلان مميز.</p>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 	<h3 class="text-danger pb-2 pt-3" style="font-size: 30px;"><i class="fa fa-heart"></i></h3>
                 @endif
                 <div class="text mb-2"> إجمالي المصروفات </div>
-                <h3 class="mb-4">{{ $user->expensed_balance() }} <small>$</small></h3>
+                <h3 class="mb-4"><span class="expensed-balance">{{ $user->expensed_balance() }}</span> <small>$</small></h3>
                 <p>إجمالي المبلغ المستهلك لترقية الإعلانات للعضوية المميزة.</p>
             </div>
         </div>

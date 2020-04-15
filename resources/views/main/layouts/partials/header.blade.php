@@ -12,10 +12,10 @@
                 <div class="col-lg-2">
                     <div class="logo-area">
                         <a href="/" class="temp-logo float-right">
-                            <img src="{{ setting('logo') }}" alt="logo" class="img-fluid" width="100">
-                            <div style="font-size: 10px; color: #777; font-weight: bold; font-family: sans-serif;line-height: 25px;">إحدى شركات <span style="font-size: 11px;">حلول نعم</span></div>
+                            <img src="{{ setting('logo') }}" alt="logo" class="img-fluid" width="90">
+                            <div style="font-size: 9px; color: #777; font-weight: bold; font-family: sans-serif;line-height: 25px;">إحدى شركات <span style="font-size: 10px;">حلول نعم</span></div>
                         </a>
-                        <div class="float-right mr-3" style="line-height: 48px;">
+                        <div class="float-right mr-1" style="line-height: 48px;">
                             <img src="https://www.countryflags.io/{{ country()->code }}/shiny/32.png"/>
                         </div>
                     </div>
