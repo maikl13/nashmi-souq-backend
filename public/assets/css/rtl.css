@@ -142,7 +142,7 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
 }
 
 .product-box-layout3 .product-info .item-content {
-    flex: initial;
+    flex: auto;
     /*margin-right: 2em;*/
 }
 

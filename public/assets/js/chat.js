@@ -2,6 +2,8 @@
     $(document).on('click', '.toggle-chat', function(e) {
         e.preventDefault();
 
+        $(this).removeClass('unseen');
+
         // if it's the first time to open the chatbox for that user
         if($('#live-chat').attr('data-recipient') != $(this).data('username')){
             $('.chat').slideDown(300)
@@ -72,6 +74,7 @@ $('.chat-form').on('submit', function(e){
             Form.trigger('reset');
             messageBox.html(data['message']);
             $(".chat-history").animate({ scrollTop: 1000000 });
+            get_conversations();
         },
         error: function(data){
             var errMsg = get_error_msg(data);
@@ -97,6 +100,7 @@ function get_conversation(username){
             if(data.length) messageBox.html(data);
             $(".preloader").fadeOut();
             $(".chat-history").animate({ scrollTop: 1000000 });
+            update_unseen_messages_counter();
         },
         error: function(data){
             var errMsg = get_error_msg(data);
@@ -111,11 +115,13 @@ function get_conversation(username){
 function open_channel(username){
     window.Echo.private('messages.'+ username)
     .listen('NewMessage', (e) => {
-        console.log('You\'v got a new message :)');
-        console.log(e.sender_username);
+        console.log('You\'v got a new message from'+e.sender_username);
         if($('#live-chat').data('recipient') == e.sender_username){
             get_conversation(e.sender_username);
+        } else {
+            update_unseen_messages_counter();
         }
+        get_conversations();
     });
 }
 
@@ -148,7 +154,7 @@ $(document).ready(function () {
 
 
 
-function get_conversations(username){
+function get_conversations(){
     $.ajax({
         url: '/conversations',
         type: 'GET',
@@ -161,6 +167,20 @@ function get_conversations(username){
             Swal.fire('خطأ!', errMsg, 'error');
             $('.conversations-box').html('<div class="text-center preloader py-5"><i class="fa fa-times"></i><span style="font-size: 15px;">'+
                                 '<br>حدث خطأ ما! قم بتحديث الصفحة و المحاولة مجددا<span></div>');
+        }
+    });
+}
+
+function update_unseen_messages_counter() {
+    $.ajax({
+        url: '/messages/unseen',
+        type: 'GET',
+        success: function(data){
+            $('.unread').text(data);
+            if(data != 0){ $('.unread').show(); } else { $('.unread').hide(); }
+        },
+        error: function(data){
+            $('.unread').hide();
         }
     });
 }

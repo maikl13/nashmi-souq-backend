@@ -36,7 +36,8 @@ class StateController extends Controller
 
         $state = new State;
         $state->name = $request->name;
-        $state->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $state->slug = State::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
         $state->country_id = $request->country_id;
 
         if($state->save()){
@@ -73,7 +74,8 @@ class StateController extends Controller
         ]);
 
         $state->name = $request->name;
-        $state->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $state->slug = State::where('slug', $slug)->where('id', '!=', $state->id)->count() ? $slug.'-'.uniqid() : $slug;
 
         if($state->save()){
             return redirect()->route('states', $state->country)->with('success', 'تم تعديل البيانات بنجاح.');

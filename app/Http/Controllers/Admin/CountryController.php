@@ -36,7 +36,8 @@ class CountryController extends Controller
         $country = new Country;
         $country->name = $request->name;
         $country->code = $request->country_code;
-        $country->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $country->slug = Country::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
 
         if($country->save()){
             return response()->json('تم الحفظ بنجاح!', 200);
@@ -82,7 +83,8 @@ class CountryController extends Controller
 
         $country->name = $request->name;
         $country->code = $request->country_code;
-        $country->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $country->slug = Country::where('slug', $slug)->where('id', '!=', $country->id)->count() ? $slug.'-'.uniqid() : $slug;
 
         if($country->save()){
             return redirect()->route('countries')->with('success', 'تم تعديل البيانات بنجاح.');

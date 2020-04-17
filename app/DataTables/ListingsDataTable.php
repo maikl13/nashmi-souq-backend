@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Listing;
+use App\Models\Country;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -19,6 +20,19 @@ class ListingsDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        if(isset(request()->columns[2]['search']['value']) && is_integer((int)request()->columns[2]['search']['value'])){
+            $query =$query->where('type', request()->columns[2]['search']['value']);
+        }
+
+        if(isset(request()->columns[5]['search']['value']) && is_integer((int)request()->columns[5]['search']['value'])){
+            $country = Country::where('id', request()->columns[5]['search']['value'])->first();
+            $query = $country ? $query->whereIn('state_id', $country->states()->pluck('id')->toArray()) : $query;
+        }
+
+        if(isset(request()->columns[7]['search']['value']) && is_integer((int)request()->columns[7]['search']['value'])){
+            $query = $query->featured(true);
+        }
+
         return datatables()
             ->eloquent($query)
             ->addColumn('image', function ($record) {
@@ -38,7 +52,7 @@ class ListingsDataTable extends DataTable
             })
             ->addColumn('status', function($record){ 
                 $status = $record->status ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>';
-                $status = $record->is_featured() ? '<i class="fa fa-bolt text-warning" style="font-size: large;"></i>' : '';
+                $status = $record->is_featured() ? '<i class="fa fa-bolt text-warning" style="font-size: large;"></i>' : $status;
                 return $status;
             })
             ->addColumn('action', 'admin.listings.partials.action')

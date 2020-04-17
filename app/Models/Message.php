@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
+    public function scopeUnseen($query)
+    {
+    	return $query->whereNull('seen');
+    }
+
     public function sender() {
         return $this->belongsTo(User::class, 'sender_id');
     }

@@ -79,16 +79,16 @@
             </div>
 
             <div class="row">
-                @foreach (App\Models\Listing::localized()->featured()->limit(8)->get() as $listing)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product-box-layout1 {{ $listing->is_featured() ? 'item-trending' : '' }}">
+                @foreach (App\Models\Listing::localized()->featured()->limit(12)->get() as $listing)
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                        <div class="product-box-layout1 home-listing {{ $listing->is_featured() ? 'item-trending' : '' }}">
                             <div class="item-img">
                                 <a href="{{ $listing->url() }}"><img src="{{ $listing->listing_image() }}" alt="Product"></a>
                             </div>
                             <div class="item-content">
-                                <h3 class="item-title"><a href="{{ $listing->url() }}">{{ $listing->title }}</a></h3>
+                                <h3 class="item-title"><a href="{{ $listing->url() }}" class="text-right">{{ $listing->title }}</a></h3>
                                 <ul class="entry-meta">
-                                    <li><i class="far fa-clock"></i>{{ $listing->created_at->diffForHumans() }}</li>
+                                    <li class="d-none d-sm-block"><i class="far fa-clock"></i>{{ $listing->created_at->diffForHumans() }}</li>
                                     <li class="d-inline"><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
                                     <li class="d-inline mr-2"><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}</li>
                                 </ul>

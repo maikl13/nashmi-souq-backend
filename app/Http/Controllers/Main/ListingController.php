@@ -84,6 +84,7 @@ class ListingController extends Controller
     		'sub_category' => 'nullable|exists:sub_categories,slug',
             'state' => 'required|exists:states,slug',
             'area' => 'nullable|exists:areas,slug',
+            'address' => 'nullable|min:10|max:1000',
             'images.*' => 'image|max:8192',
     	]);
 
@@ -102,6 +103,7 @@ class ListingController extends Controller
         $sub_category = SubCategory::where('slug', $request->sub_category)->first();
         $state = State::where('slug', $request->state)->first();
         $area = Area::where('slug', $request->area)->first();
+        $listing->address = $request->address;
 
         $listing->category_id = $category->id;
         $listing->sub_category_id = $sub_category ? $sub_category->id : null;
@@ -134,6 +136,7 @@ class ListingController extends Controller
             'sub_category' => 'nullable|exists:sub_categories,slug',
             'state' => 'required|exists:states,slug',
             'area' => 'nullable|exists:areas,slug',
+            'address' => 'nullable|min:10|max:1000',
             'images.*' => 'image|max:8192',
         ]);
 
@@ -141,8 +144,7 @@ class ListingController extends Controller
         $listing->type = $request->type;
 
         $slug = Str::slug($request->title);
-        $count = Listing::where('slug', $slug)->count();
-        $listing->slug = $count ? $slug.'-'.uniqid() : $slug;
+        $listing->slug = Listing::where('slug', $slug)->where('id', '!=', $listing->id)->count() ? $slug.'-'.uniqid() : $slug;
 
         $listing->description = $request->description;
         $listing->user_id = Auth::user()->id;
@@ -156,6 +158,7 @@ class ListingController extends Controller
         $listing->sub_category_id = $sub_category ? $sub_category->id : null;
         $listing->state_id = $state->id;
         $listing->area_id = $area ? $area->id : null;
+        $listing->address = $request->address;
 
         if($listing->save()){
             $listing->upload_listing_images($request->images);

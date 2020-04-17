@@ -56,6 +56,10 @@
                     <span>{{ $listing->views }} مشاهدة</span>
             </div>
             <div><p>{{ $listing->description }}</p></div>
+
+            @if(!empty(trim($listing->address)))
+                <div class="mt-4"> <strong>العنوان تفصيلي:</strong> {{ $listing->address }}</div>
+            @endif
 		</div>
 	</div>
 @endsection

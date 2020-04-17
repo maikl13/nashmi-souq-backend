@@ -44,7 +44,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <label class="control-label">العنوان <span>*</span></label>
+                                    <label class="control-label">إسم الإعلان <span>*</span></label>
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="form-group">
@@ -167,6 +167,16 @@
                                                 @endforeach
                                             @endif
                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label class="control-label">العنوان تفصيلي</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="address" id="post-address" value="{{ old('address') ? old('address') : '' }}">
                                     </div>
                                 </div>
                             </div>

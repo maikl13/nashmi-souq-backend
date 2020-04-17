@@ -39,7 +39,8 @@ class SubCategoryController extends Controller
 
         $sub_category = new SubCategory;
         $sub_category->name = $request->name;
-        $sub_category->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $sub_category->slug = SubCategory::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
         $sub_category->category_id = $request->category_id;
         // $sub_category->icon = $request->icon;
 
@@ -82,7 +83,8 @@ class SubCategoryController extends Controller
         ]);
 
         $sub_category->name = $request->name;
-        $sub_category->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $sub_category->slug = SubCategory::where('slug', $slug)->where('id', '!=', $sub_category->id)->count() ? $slug.'-'.uniqid() : $slug;
         // $sub_category->icon = $request->icon;
 
         if($sub_category->save()){

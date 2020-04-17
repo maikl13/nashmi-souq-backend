@@ -214,3 +214,6 @@
 @media (min-width: 1230px){
     .conversations-box-container { max-width: 1210px !important; }
 }
+.unseen {
+    background-color: #f2f2f2;
+}

@@ -16,11 +16,16 @@ class Listing extends Model
         return $query->whereIn('state_id', country()->states()->pluck('id')->toArray());
     }
 
-    public function scopeFeatured($query){
+    public function scopeFeatured($query, $strict=false){
+        if($strict){
+            return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+                ->select('listings.*', 'featured_listings.listing_id')
+                ->whereRaw(DB::raw("IF(`featured_listings`.`created_at` >= '".Carbon::now()->subDays( $this->period() )."', 1, Null)"));
+        }
+
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
             ->select('listings.*', 'featured_listings.listing_id', DB::raw("IF(`featured_listings`.`created_at` >= '".Carbon::now()->subDays( $this->period() )."', 1, Null) as `featured`"))
             ->orderByRaw('`featured` desc, rand()');
-        return $query;
     }
 
     const TYPE_SELL = 1;

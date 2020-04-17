@@ -60,8 +60,12 @@ class MessageController extends Controller
     {
         $recipient = User::where('username', $user)->first();
         $conversation = Auth::user()->conversations_with( $recipient )->first();
-        
+
         if($conversation){
+            foreach ($conversation->messages()->where('recipient_id', auth()->user()->id)->unseen()->get() as $message) {
+                $message->seen = now(); // date("Y-m-d H:i:s")
+                $message->save();
+            }
             return response()->json( view('main.layouts.partials.conversation-messages')->with('conversation', $conversation)->render() , 200);
         }
 
@@ -71,5 +75,10 @@ class MessageController extends Controller
     public function get_conversations()
     {        
         return response()->json( view('main.layouts.partials.latest-conversations')->render() , 200);
+    }
+
+    public function get_unseen_messages_count()
+    {
+        return response()->json(Auth::user()->recieved_messages()->unseen()->count(), 200);
     }
 }

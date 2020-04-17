@@ -36,7 +36,8 @@ class AreaController extends Controller
 
         $area = new Area;
         $area->name = $request->name;
-        $area->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $area->slug = Area::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
         $area->state_id = $request->state_id;
 
         if($area->save()){
@@ -73,7 +74,8 @@ class AreaController extends Controller
         ]);
 
         $area->name = $request->name;
-        $area->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $area->slug = Area::where('slug', $slug)->where('id', '!=', $area->id)->count() ? $slug.'-'.uniqid() : $slug;
 
         if($area->save()){
             return redirect()->route('areas', $area->state)->with('success', 'تم تعديل البيانات بنجاح.');

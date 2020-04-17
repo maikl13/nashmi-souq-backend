@@ -5,6 +5,7 @@ namespace App\Traits;
 use Auth;
 use App\Models\Conversation;
 use App\Models\User;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 trait ChatHandler {
@@ -25,7 +26,12 @@ trait ChatHandler {
         });
     }
 
-    public function messages(){
-        return $this->hasMany('App\Models\Message', 'sender_id');
+    
+    public function messages() {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+    
+    public function recieved_messages() {
+        return $this->hasMany(Message::class, 'recipient_id');
     }
 }

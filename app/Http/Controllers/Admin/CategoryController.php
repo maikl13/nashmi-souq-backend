@@ -37,7 +37,8 @@ class CategoryController extends Controller
 
         $category = new Category;
         $category->name = $request->name;
-        $category->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $category->slug = Category::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
         $category->icon = $request->icon;
 
         if($category->save()){
@@ -76,7 +77,8 @@ class CategoryController extends Controller
         ]);
 
         $category->name = $request->name;
-        $category->slug = Str::slug( $request->name );
+        $slug = Str::slug($request->name);
+        $category->slug = Category::where('slug', $slug)->where('id', '!=', $category->id)->count() ? $slug.'-'.uniqid() : $slug;
         $category->icon = $request->icon;
 
         if($category->save()){

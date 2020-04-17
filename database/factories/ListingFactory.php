@@ -27,5 +27,6 @@ $factory->define(Listing::class, function (Faker $faker) {
         'user_id' => $user->id,
         'state_id' => $state->id,
         'area_id' => $area_id,
+        'address' => $faker->address,
     ];
 });

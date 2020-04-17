@@ -74,6 +74,9 @@
                                         <div class="tab-pane fade show active" id="details" role="tabpanel">
                                             <p>{{ $listing->description }}</p>
                                         </div>
+                                        @if(!empty(trim($listing->address)))
+                                            <div class="mt-3 mb-4"> <strong>العنوان تفصيلي:</strong> {{ $listing->address }}</div>
+                                        @endif
                                     </div>
                                 </div>
 

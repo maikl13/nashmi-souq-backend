@@ -75,8 +75,8 @@
                             @else
                                 <li class="nav-item header-login-icon mr-0">
                                     <a class="nav-link color-primary toggle-conversations" href="#" title="بيانات الحساب" style="font-size: 1.25rem">
-                                        {{-- <span class="unread">2</span> --}}
-                                        <i class="far fa-comment"></i>
+                                        <span class="unread" {!! Auth::user()->recieved_messages()->unseen()->count() ? '' : 'style="display: none;"' !!}>{{ Auth::user()->recieved_messages()->unseen()->count() }}</span>
+                                        <i class="far fa-envelope"></i>
                                     </a>
                                 </li>
 
@@ -102,8 +102,8 @@
 </span>
 @auth
     <a class="d-lg-none mobile-nav-icon toggle-conversations">
-        {{-- <span class="unread">2</span> --}}
-        <i class="far fa-comment"></i>
+        <span class="unread" {!! Auth::user()->recieved_messages()->unseen()->count() ? '' : 'style="display: none;"' !!}>{{ Auth::user()->recieved_messages()->unseen()->count() }}</span>
+        <i class="far fa-envelope"></i>
     </a>
 
     @include('main.layouts.partials.conversations-dropdown')
