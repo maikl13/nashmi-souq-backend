@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
 
+@section('title', 'تعديل عملية مالية')
+
 @section('breadcrumb')
 	<li class="breadcrumb-item"><a href="/admin/transactions">العمليات المالية</a></li>
 	<li class="breadcrumb-item active">تعديل عملية مالية</li>

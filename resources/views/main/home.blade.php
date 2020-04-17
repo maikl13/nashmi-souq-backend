@@ -79,7 +79,7 @@
             </div>
 
             <div class="row">
-                @foreach (App\Models\Listing::inRandomOrder()->limit(8)->get() as $listing)
+                @foreach (App\Models\Listing::localized()->featured()->limit(8)->get() as $listing)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product-box-layout1 {{ $listing->is_featured() ? 'item-trending' : '' }}">
                             <div class="item-img">

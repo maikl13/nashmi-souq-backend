@@ -1,5 +1,18 @@
 @extends('admin.layouts.admin')
 
+@section('title', 'الإعلانات')
+
+@section('head')
+	<style>
+		table thead th:nth-child(4),
+		table tbody tr td:nth-child(4) {
+            max-width: 170px;
+            white-space: normal;
+            overflow: hidden;
+        }
+	</style>
+@endsection
+
 @section('breadcrumb')
 	<li class="breadcrumb-item active">الإعلانات</li>
 @endsection

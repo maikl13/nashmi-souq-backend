@@ -37,7 +37,9 @@ class ListingsDataTable extends DataTable
                 return $a; 
             })
             ->addColumn('status', function($record){ 
-                return $record->status ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>';
+                $status = $record->status ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>';
+                $status = $record->is_featured() ? '<i class="fa fa-bolt text-warning" style="font-size: large;"></i>' : '';
+                return $status;
             })
             ->addColumn('action', 'admin.listings.partials.action')
             ->rawColumns(['action', 'category', 'area', 'image', 'status']);
@@ -51,7 +53,7 @@ class ListingsDataTable extends DataTable
      */
     public function query(Listing $model)
     {
-        return $model->newQuery();
+        return $model->newQuery(false);
     }
 
     /**

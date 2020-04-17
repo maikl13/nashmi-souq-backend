@@ -1,6 +1,6 @@
 @extends('main.layouts.main')
 
-@section('title', "Your account has been de-activated")
+@section('title', "تم تعليق حسابك")
 
 @section('content')
     <section class="section-padding-equal-70">

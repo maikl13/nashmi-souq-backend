@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
 
+@section('title', 'العمليات المالية')
+
 @section('breadcrumb')
 	<li class="breadcrumb-item active">العمليات المالية</li>
 @endsection

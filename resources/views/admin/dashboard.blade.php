@@ -73,7 +73,7 @@
                         <div class="col-6">
                             <div class="mt-3 text-center">
                                 <span class="text-white"> الأرباح </span>
-                                <h2 class="text-white mb-0"></h2>
+                                <h2 class="text-white mb-0">{{ App\Models\FeaturedListing::sum('price')+0 }}</h2>
                             </div>
                         </div>
                     </div>

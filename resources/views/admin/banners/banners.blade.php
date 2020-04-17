@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
 
+@section('title', 'البانرات الإعلانية')
+
 @section('head')
 	<style></style>
 @endsection

@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
 
+@section('title', 'المدن')
+
 @section('breadcrumb')
 	<li class="breadcrumb-item"><a href="/admin/countries">الدول</a></li>
 	<li class="breadcrumb-item active">المدن</li>

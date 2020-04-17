@@ -1,9 +1,11 @@
 @extends('admin.layouts.admin')
 
+@section('title', 'تعديل مدينة')
+
 @section('breadcrumb')
 	<li class="breadcrumb-item"><a href="/admin/countries">الدول</a></li>
 	<li class="breadcrumb-item"><a href="/admin/countries/{{ $country->slug }}/states">المدن</a></li>
-	<li class="breadcrumb-item active">تعديل دولة</li>
+	<li class="breadcrumb-item active">تعديل مدينة</li>
 @endsection
 
 @section('content')

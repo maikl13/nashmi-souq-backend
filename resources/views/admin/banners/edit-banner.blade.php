@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
 
+@section('title', 'تعديل بانر إعلاني')
+
 @section('head')
 	<style> .kv-file-remove {display: none;} </style>
 @endsection

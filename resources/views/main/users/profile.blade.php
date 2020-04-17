@@ -85,7 +85,8 @@
                                 </div>
                             @endif
                             @if($user->store_social_accounts && is_array( json_decode($user->store_social_accounts) ))
-                                <div class="mt-3">
+                                <hr>
+                                <div class="mt-3 text-center">
                                     @foreach (json_decode($user->store_social_accounts) as $social_account)
                                         @foreach(['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest'] as $brand)
                                             <?php $icon = 'fa fa-globe-africa'; ?>
@@ -93,7 +94,7 @@
                                                 <?php $icon = 'fab fa-'.$brand; break; ?>
                                             @endif
                                         @endforeach
-                                        <a href="{{ $social_account }}" class="pl-3 py-5" target="_blank"><i class="{{ $icon }}"></i></a>
+                                        <a href="{{ $social_account }}" class="p-2 py-5" target="_blank" style="color: #999;" onMouseOver="this.style.color='#777'" onMouseOut="this.style.color='#999'"><i class="{{ $icon }}"></i></a>
                                     @endforeach
                                 </div>
                             @endif

@@ -25,7 +25,7 @@ class ListingController extends Controller
             'areas.*' => 'nullable|exists:areas,id',
         ]);
 
-        $listings = Listing::query();
+        $listings = Listing::query()->localized();
 
         $categories = empty($request->categories) || $request->categories == [null] ? [] : $request->categories;
         $sub_categories = empty($request->sub_categories) || $request->sub_categories == [null] ? [] : $request->sub_categories;
@@ -34,7 +34,7 @@ class ListingController extends Controller
 
         //search
         if($request->q && !empty($request->q)) 
-            $listings = $listings->search($request->q);
+            $listings = $listings->search($request->q)->featured();
         // filter by type
         if($request->type && !empty($request->type)) 
             $listings = $listings->where('type', $request->type);

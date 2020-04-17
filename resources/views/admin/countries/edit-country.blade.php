@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
 
+@section('title', 'تعديل دولة')
+
 @section('head')
 	<link rel="stylesheet" href="/admin-assets/plugins/country-picker-flags/build/css/countrySelect.min.css">
 	<style>

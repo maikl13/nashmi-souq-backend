@@ -6,15 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\FileHandler;
 use App\Traits\SearchableTrait;
 use Carbon\Carbon;
+use DB;
 
 class Listing extends Model
 {
     use FileHandler, SearchableTrait;
 
-    // override newquery to get visitors country ads
-    public function newQuery($excludeDeleted = true) {
-        return parent::newQuery($excludeDeleted)
-            ->whereIn('state_id', country()->states()->pluck('id')->toArray());
+    public function scopeLocalized($query){
+        return $query->whereIn('state_id', country()->states()->pluck('id')->toArray());
+    }
+
+    public function scopeFeatured($query){
+        return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+            ->select('listings.*', 'featured_listings.listing_id', DB::raw("IF(`featured_listings`.`created_at` >= '".Carbon::now()->subDays( $this->period() )."', 1, Null) as `featured`"))
+            ->orderByRaw('`featured` desc, rand()');
+        return $query;
     }
 
     const TYPE_SELL = 1;
