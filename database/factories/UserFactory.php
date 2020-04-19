@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    $phone = $faker->phoneNumber;
     return [
         'name' => $faker->name,
         'username' => uniqid(),
@@ -27,7 +28,9 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'role_id' => 1,
         'active' => true,
-        'phone' => $faker->phoneNumber,
+        'phone' => $phone,
+        'phone_national' => $phone,
+        'phone_country_code' => 'EG',
 
         'store_name' => $faker->company,
         'store_slogan' => $faker->catchPhrase,

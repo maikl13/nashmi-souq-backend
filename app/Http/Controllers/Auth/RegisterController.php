@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Country;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Propaganistas\LaravelPhone\PhoneNumber;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -29,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -49,11 +53,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $validator = Validator::make($data, [ 'phone' => ['phone:AUTO,EG'] ]);
+
+        if($validator->fails()) return $validator;
+
+        $data['phone'] = phone($data['phone'], $data['phone_phoneCode'])->formatE164();
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            'phone' => ['required', 'string', 'max:255', 'unique:users', 'phone:AUTO,EG'],
+        ],['phone' => 'من فضلك قم بإدخال رقم هاتف صحيح']);
     }
 
     /**
@@ -64,11 +72,38 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'username' => uniqid(),
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $uid = uniqid();
+        $otp = strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8));
+        
+        $user = User::create([
+            'name' => 'User_'.$uid,
+            'username' => $uid,
+            'phone' => phone($data['phone'], $data['phone_phoneCode'])->formatE164(),
+            'phone_national' => phone($data['phone'], $data['phone_phoneCode'])->formatForMobileDialingInCountry($data['phone_phoneCode']),
+            'phone_country_code' => $data['phone_phoneCode'],
+            'password' => Hash::make($otp),
+            'otp' => $otp,
         ]);
+
+        if($user) $user->send_otp();
+        return $user;
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // prevent after registeration login
+        // $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new Response('', 201)
+                    : redirect($this->redirectPath())->withInput(['phone' => $user->phone_national])->with('registered', true);
     }
 }

@@ -41,7 +41,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|min:2|max:255',
             'username' => 'required|min:2|max:255',
-            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
+            'email' => 'nullable|email|max:255|unique:users,email,'.$user->id,
             'profile_picture' => 'image|max:8192',
             'country' => 'integer|exists:countries,id',
         ]);

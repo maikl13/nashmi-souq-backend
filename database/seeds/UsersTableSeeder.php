@@ -21,7 +21,9 @@ class UsersTableSeeder extends Seeder
         	[
         		'name' => 'SuperAdmin',
         		'username' => 'superadmin',
-        		'email' => 'superadmin@example.com',
+                'email' => 'superadmin@example.com',
+                'phone' => '+201099902637',
+        		'phone_national' => '01099902637',
                 'role_id' => '2',
         		'password' => $password ,
                 'email_verified_at' => now(),
@@ -32,6 +34,8 @@ class UsersTableSeeder extends Seeder
         		'name' => 'Admin',
         		'username' => 'admin',
         		'email' => 'admin@example.com',
+                'phone' => '+201099902639',
+                'phone_national' => '01099902639',
                 'role_id' => '3',
         		'password' => $password ,
                 'email_verified_at' => now(),
@@ -39,6 +43,6 @@ class UsersTableSeeder extends Seeder
         		'updated_at' => $date
         	],
         ]);
-        factory(App\Models\User::class, 20)->create();
+        // factory(App\Models\User::class, 20)->create();
     }
 }

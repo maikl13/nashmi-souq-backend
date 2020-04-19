@@ -1,5 +1,9 @@
 @extends('main.layouts.main')
 
+@section('head')
+    @yield('page-head')
+@endsection
+
 @section('content')
     <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
         <div class="container">
@@ -37,4 +41,8 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    @yield('page-scripts')
 @endsection

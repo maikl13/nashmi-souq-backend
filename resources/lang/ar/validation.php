@@ -128,6 +128,8 @@ return [
     |
     */
 
+    'phone' => 'من فضلك قم بإدخال رقم هاتف صحيح',
+    
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

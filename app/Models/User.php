@@ -10,10 +10,11 @@ use App\Traits\StoreInfo;
 use App\Traits\FileHandler;
 use App\Traits\ChatHandler;
 use App\Traits\ManageTransactions;
+use App\Traits\SendOTP;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions;
+    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendOTP;
 
     const ROLE_USER = 1;
     const ROLE_SUPERADMIN = 2;
@@ -27,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'name', 'username', 'email', 'password', 'role_id', 'phone', 'phone_national', 'phone_country_code', 'otp'
     ];
 
     /**

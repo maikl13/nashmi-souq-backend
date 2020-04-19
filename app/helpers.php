@@ -40,6 +40,16 @@ function getUserIP() {
 }
 
 function country(){
+	$country = location();
+
+	if(Auth::check() && Auth::user()->country) $country = Auth::user()->country;
+
+    if( request()->cookie('country'))
+        $country = Country::where('code', request()->cookie('country'))->first() ?? $country;
+	return $country;
+}
+
+function location(){
 	if( env('APP_ENV') == 'local' ){
 		$country = Country::first();
 	} else {
@@ -50,10 +60,6 @@ function country(){
 						->first() ?? Country::first();
 	}
 
-	if(Auth::check() && Auth::user()->country) $country = Auth::user()->country;
-
-    if( request()->cookie('country'))
-        $country = Country::where('code', request()->cookie('country'))->first() ?? $country;
 	return $country;
 }
 

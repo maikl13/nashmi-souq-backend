@@ -5,14 +5,50 @@
 @section('page-content')
     <form method="POST" action="{{ route('login') }}">
         @csrf
+        
+        @if (session('registered'))
+            <div class="form-group row">
+                <div class="col">
+                    <div class="alert alert-warning">
+                        <div class="media">
+                            <div class="media-head pl-3 pt-2">
+                                <i class="fa fa-check-circle" style="font-size: 30px; opacity: .6;"></i>
+                            </div>
+                            <div class="media-body">
+                                لقد قمت بالتسجيل بنجاح من فضلك تفقد حسابك على واتساب, <br>
+                                لقد قمنا بإرسال رسالة تحتوي على كلمة مرور مؤقتة ستتمكن من خلالها الدخول لحسابك.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
+        @if (session('reset'))
+            <div class="form-group row">
+                <div class="col">
+                    <div class="alert alert-warning">
+                        <div class="media">
+                            <div class="media-head pl-3 pt-2">
+                                <i class="fa fa-info-circle" style="font-size: 30px; opacity: .6;"></i>
+                            </div>
+                            <div class="media-body">
+                                من فضلك قم بتفقد حسابك على واتساب, <br>
+                                لقد قمنا بإرسال رسالة تحتوي على كلمة مرور مؤقتة ستتمكن من خلالها الدخول لحسابك.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        
         <div class="form-group row">
-            <label for="email" class="col-md-3 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+            <label for="phone" class="col-md-3 col-form-label text-md-right">{{ __('Phone') }}</label>
 
             <div class="col-md-9">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus dir="ltr">
 
-                @error('email')
+                @error('phone')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -24,7 +60,7 @@
             <label for="password" class="col-md-3 col-form-label text-md-right">{{ __('Password') }}</label>
 
             <div class="col-md-9">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" dir="ltr">
 
                 @error('password')
                     <span class="invalid-feedback" role="alert">
