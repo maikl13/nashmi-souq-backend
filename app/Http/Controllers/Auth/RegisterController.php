@@ -53,14 +53,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $validator = Validator::make($data, [ 'phone' => ['phone:AUTO,EG'] ]);
+        $validator = Validator::make($data, [ 'phone' => ['phone:AUTO,'.$data['phone_phoneCode']] ]);
 
         if($validator->fails()) return $validator;
 
         $data['phone'] = phone($data['phone'], $data['phone_phoneCode'])->formatE164();
 
         return Validator::make($data, [
-            'phone' => ['required', 'string', 'max:255', 'unique:users', 'phone:AUTO,EG'],
+            'phone' => ['required', 'string', 'max:255', 'unique:users', 'phone:AUTO,'.$data['phone_phoneCode']],
         ],['phone' => 'من فضلك قم بإدخال رقم هاتف صحيح']);
     }
 

@@ -22,26 +22,26 @@ class UsersTableSeeder extends Seeder
         		'name' => 'SuperAdmin',
         		'username' => 'superadmin',
                 'email' => 'superadmin@example.com',
-                'phone' => '+201099902637',
-        		'phone_national' => '01099902637',
+                'phone' => '+201004503999',
+        		'phone_national' => '01004503999',
                 'role_id' => '2',
         		'password' => $password ,
                 'email_verified_at' => now(),
         		'created_at' => $date,
         		'updated_at' => $date
         	],
-        	[
-        		'name' => 'Admin',
-        		'username' => 'admin',
-        		'email' => 'admin@example.com',
-                'phone' => '+201099902639',
-                'phone_national' => '01099902639',
-                'role_id' => '3',
-        		'password' => $password ,
-                'email_verified_at' => now(),
-        		'created_at' => $date,
-        		'updated_at' => $date
-        	],
+        	// [
+        	// 	'name' => 'Admin',
+        	// 	'username' => 'admin',
+        	// 	'email' => 'admin@example.com',
+         //        'phone' => '+201099902639',
+         //        'phone_national' => '01099902639',
+         //        'role_id' => '3',
+        	// 	'password' => $password ,
+         //        'email_verified_at' => now(),
+        	// 	'created_at' => $date,
+        	// 	'updated_at' => $date
+        	// ],
         ]);
         // factory(App\Models\User::class, 20)->create();
     }

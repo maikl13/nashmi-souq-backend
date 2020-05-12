@@ -25,7 +25,7 @@ class ListingController extends Controller
             'areas.*' => 'nullable|exists:areas,id',
         ]);
 
-        $listings = Listing::query()->localized();
+        $listings = Listing::query()->localized()->active();
 
         $categories = empty($request->categories) || $request->categories == [null] ? [] : $request->categories;
         $sub_categories = empty($request->sub_categories) || $request->sub_categories == [null] ? [] : $request->sub_categories;
@@ -77,7 +77,7 @@ class ListingController extends Controller
     public function store(Request $request)
     {
     	$request->validate([
-            'title' => 'required|min:10|max:255',
+            'listing_title' => 'required|min:10|max:255',
     		'type' => 'required|in:1,2,3,4,5',
             'description' => 'required|min:10|max:10000',
             'category' => 'required|exists:categories,slug',
@@ -89,10 +89,10 @@ class ListingController extends Controller
     	]);
 
     	$listing = new Listing;
-        $listing->title = $request->title;
+        $listing->title = $request->listing_title;
         $listing->type = $request->type;
 
-        $slug = Str::slug($request->title);
+        $slug = Str::slug($request->listing_title);
         $count = Listing::where('slug', $slug)->count();
         $listing->slug = $count ? $slug.'-'.uniqid() : $slug;
 
@@ -129,7 +129,7 @@ class ListingController extends Controller
         $this->authorize('delete', $listing);
         
         $request->validate([
-            'title' => 'required|min:10|max:255',
+            'listing_title' => 'required|min:10|max:255',
             'type' => 'required|in:1,2,3,4,5',
             'description' => 'required|min:10|max:10000',
             'category' => 'required|exists:categories,slug',
@@ -140,10 +140,10 @@ class ListingController extends Controller
             'images.*' => 'image|max:8192',
         ]);
 
-        $listing->title = $request->title;
+        $listing->title = $request->listing_title;
         $listing->type = $request->type;
 
-        $slug = Str::slug($request->title);
+        $slug = Str::slug($request->listing_title);
         $listing->slug = Listing::where('slug', $slug)->where('id', '!=', $listing->id)->count() ? $slug.'-'.uniqid() : $slug;
 
         $listing->description = $request->description;

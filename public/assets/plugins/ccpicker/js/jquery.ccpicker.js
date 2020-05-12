@@ -29,7 +29,7 @@
     countryCode: "LT",
     dialCodeFieldName: "phoneCode",
     dataUrl: "data.json",
-	countryFilter: true,
+    countryFilter: true,
     searchPlaceHolder: "Search"	
   };
 
@@ -51,17 +51,17 @@
     function setCountryByPhoneCode(code) {
       var cc = self.findCountryByPhoneCode(self, code);
       self._ccPicker.html(self.createCountryListItem(cc.code, cc.phoneCode));
-	  self._ccDialCodeTrackerField.val(cc.phoneCode);
-	  self._ccSelectedCountry = {code: cc.code, phoneCode: cc.phoneCode};
-	  $(self.element).trigger("countrySelect", cc);
+  	  self._ccDialCodeTrackerField.val(cc.phoneCode);
+  	  self._ccSelectedCountry = {code: cc.code, phoneCode: cc.phoneCode};
+  	  $(self.element).trigger("countrySelect", cc);
     }
 
     function setCountryByCode(code) {
       var cc = self.findCountryByCountryCode(self, code);
       self._ccPicker.html(self.createCountryListItem(cc.code, cc.phoneCode));
-	  self._ccDialCodeTrackerField.val(cc.phoneCode);
-	  self._ccSelectedCountry = {code: cc.code, phoneCode: cc.phoneCode};
-	  $(self.element).trigger("countrySelect", cc);
+  	  self._ccDialCodeTrackerField.val(cc.phoneCode);
+  	  self._ccSelectedCountry = {code: cc.code, phoneCode: cc.phoneCode};
+  	  $(self.element).trigger("countrySelect", cc);
     }
 	  
    function disable() {
@@ -150,12 +150,12 @@
           e.selectCountry(e, $(this));
           e.destroyCountryList(e);
         });
-		if(val.phoneCode === e._ccSelectedCountry.phoneCode){
-			$(l).addClass("cc-picker-selected-country");
-		}
+    		if(val.phoneCode === e._ccSelectedCountry.phoneCode){
+    			$(l).addClass("cc-picker-selected-country");
+    		}
       });
 
-	  if (e.options.countryFilter) {
+  	  if (e.options.countryFilter) {
         e._filter = $("<input/>", {"class": "cc-picker-code-filter", "placeholder": e.options.searchPlaceHolder}).insertBefore(e._list);
         e._filter.css({
           top: e._ccPicker.offset().top + e._ccPicker.outerHeight(),
@@ -176,17 +176,17 @@
       e._list.remove();
       e._list = {};
 	  
-	  if (e.options.countryFilter) {
-        e._filter.remove();
-        e._filter = {};
+  	  if (e.options.countryFilter) {
+          e._filter.remove();
+          e._filter = {};
       }
     },
     selectCountry: function (e, c) {
       var i = $(c).data("countryItem");
-	  this._ccSelectedCountry = i;
-      e._ccPicker.html(e.createCountryListItem(i.code, i.phoneCode));
-      e._ccDialCodeTrackerField.val(i.phoneCode, i.code, i.phoneCode);
-	  $(e.element).trigger("countrySelect", i);
+  	  this._ccSelectedCountry = i;
+        e._ccPicker.html(e.createCountryListItem(i.code, i.phoneCode));
+        e._ccDialCodeTrackerField.val(i.code, i.code, i.phoneCode);
+  	  $(e.element).trigger("countrySelect", i);
     },
     createCountryListItem: function (countryCode, dialCode) {
       return '<div class="cc-picker-flag ' + countryCode.toLowerCase() + '"></div><span class="cc-picker-code">' + dialCode + '</span> ';

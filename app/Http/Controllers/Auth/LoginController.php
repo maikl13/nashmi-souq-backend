@@ -52,7 +52,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'phone' => 'required|string|phone:AUTO,EG',
+            'phone' => 'required|string',
             'password' => 'required|string',
         ]);
 
@@ -65,11 +65,11 @@ class LoginController extends Controller
         $authinticated = false;
         
         $user = User::where('phone', $request->phone)->first();
-        if(Auth::attempt(['phone' => $request->phone, 'password' => $request->password]) ) $authinticated = true;
+        if(Auth::attempt(['phone' => $request->phone, 'password' => $request->password], $request->remember) ) $authinticated = true;
 
         if(!$authinticated){
             $user = $user ?? User::where('phone_national', $request->phone)->first();
-            if(Auth::attempt(['phone_national' => $request->phone, 'password' => $request->password]) )
+            if(Auth::attempt(['phone_national' => $request->phone, 'password' => $request->password], $request->remember) )
                 $authinticated = true;
         }
 
@@ -78,7 +78,7 @@ class LoginController extends Controller
             if(!$validator->fails()){
                 $phone = phone($request->phone, location()->code);
                 $user = $user ?? User::where('phone', $phone)->first();
-                if(Auth::attempt(['phone' => $phone, 'password' => $request->password]) ) $authinticated = true;
+                if(Auth::attempt(['phone' => $phone, 'password' => $request->password], $request->remember) ) $authinticated = true;
             }
         }
 
@@ -87,7 +87,7 @@ class LoginController extends Controller
             if(!$validator->fails()){
                 $phone = phone($request->phone, country()->code);
                 $user = $user ?? User::where('phone', $phone)->first();
-                if(Auth::attempt(['phone' => $phone, 'password' => $request->password]) ) $authinticated = true;
+                if(Auth::attempt(['phone' => $phone, 'password' => $request->password], $request->remember) ) $authinticated = true;
             }
         }
 

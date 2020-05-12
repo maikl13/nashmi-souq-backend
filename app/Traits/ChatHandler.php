@@ -25,7 +25,6 @@ trait ChatHandler {
                 ->orWhere('sender_id', $user->id);
         });
     }
-
     
     public function messages() {
         return $this->hasMany(Message::class, 'sender_id');

@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="title" id="post-title" value="{{ old('title') ? old('title') : $listing->title }}" required>
+                                        <input type="text" class="form-control" name="listing_title" id="post-title" value="{{ old('listing_title') ? old('listing_title') : $listing->title }}" required>
                                     </div>
                                 </div>
                             </div>

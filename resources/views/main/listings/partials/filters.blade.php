@@ -103,7 +103,7 @@
                                     </div>
                                 @empty
                                     <div class="card">
-                                        <div class="card-header">لا يوجد أي أقسام</div>
+                                        <div class="card-header">لا يوجد أي مناظق</div>
                                     </div>
                                 @endforelse
                             </div>

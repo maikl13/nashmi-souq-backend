@@ -16,6 +16,10 @@ class Listing extends Model
         return $query->whereIn('state_id', country()->states()->pluck('id')->toArray());
     }
 
+    public function scopeActive($query){
+        return $query->where('status', 1);
+    }
+
     public function scopeFeatured($query, $strict=false){
         if($strict){
             return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
