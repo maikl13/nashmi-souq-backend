@@ -109,6 +109,7 @@ class ListingsDataTable extends DataTable
             Column::make('image')->title('الصورة'),
             Column::make('type')->title('النوع'),
             Column::make('title')->title('العنوان'),
+            Column::make('price')->title('السعر'),
             Column::make('category')->title('القسم'),
             Column::make('area')->title('المنطقة'),
             Column::make('views')->title('👁️'),

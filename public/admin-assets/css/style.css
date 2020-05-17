@@ -6773,3 +6773,16 @@ ul.label-inbox li a:hover, ul.label-inbox li.active a, ul.label-inbox li a:focus
 .select2-container--default .select2-search--inline .select2-search__field {
 	width: 100% !important;
 }
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #666 !important;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #666 !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #666 !important;
+}

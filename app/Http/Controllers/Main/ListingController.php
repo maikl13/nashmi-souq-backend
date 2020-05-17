@@ -86,11 +86,15 @@ class ListingController extends Controller
             'area' => 'nullable|exists:areas,slug',
             'address' => 'nullable|min:10|max:1000',
             'images.*' => 'image|max:8192',
+            'price' => 'nullable|numeric',
     	]);
 
     	$listing = new Listing;
         $listing->title = $request->listing_title;
         $listing->type = $request->type;
+        
+        if(in_array($request->type, [Listing::TYPE_SELL, Listing::TYPE_BUY, Listing::TYPE_RENT]))
+            $listing->price = $request->price;
 
         $slug = Str::slug($request->listing_title);
         $count = Listing::where('slug', $slug)->count();
@@ -138,10 +142,14 @@ class ListingController extends Controller
             'area' => 'nullable|exists:areas,slug',
             'address' => 'nullable|min:10|max:1000',
             'images.*' => 'image|max:8192',
+            'price' => 'nullable|numeric',
         ]);
 
         $listing->title = $request->listing_title;
         $listing->type = $request->type;
+
+        if(in_array($request->type, [Listing::TYPE_SELL, Listing::TYPE_BUY, Listing::TYPE_RENT]))
+            $listing->price = $request->price;
 
         $slug = Str::slug($request->listing_title);
         $listing->slug = Listing::where('slug', $slug)->where('id', '!=', $listing->id)->count() ? $slug.'-'.uniqid() : $slug;

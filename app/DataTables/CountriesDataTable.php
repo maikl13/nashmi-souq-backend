@@ -79,6 +79,9 @@ class CountriesDataTable extends DataTable
             Column::make('code')->title('كود الدولة'),
             Column::make('name')->title('الاسم'),
             Column::make('slug')->title('المعرف'),
+            Column::make('currency')->title('العملة'),
+            Column::make('currency_symbol')->title('رمز العملة'),
+            Column::make('currency_code')->title('كود العملة'),
             Column::make('listings')->title('عدد الاعلانات'),
             Column::computed('action')
                   ->width(60)

@@ -30,12 +30,18 @@ class CountryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
-            'country_code' => 'required'
+            'country_code' => 'required',
+            'currency' => 'required',
+            'currency_symbol' => 'required',
+            'currency_code' => 'required',
         ]);
 
         $country = new Country;
         $country->name = $request->name;
         $country->code = $request->country_code;
+        $country->currency = $request->currency;
+        $country->currency_symbol = $request->currency_symbol;
+        $country->currency_code = $request->currency_code;
         $slug = Str::slug($request->name);
         $country->slug = Country::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
 
@@ -45,16 +51,6 @@ class CountryController extends Controller
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Country $country)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -78,11 +74,17 @@ class CountryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
-            'country_code' => 'required'
+            'country_code' => 'required',
+            'currency' => 'required',
+            'currency_symbol' => 'required',
+            'currency_code' => 'required',
         ]);
 
         $country->name = $request->name;
         $country->code = $request->country_code;
+        $country->currency = $request->currency;
+        $country->currency_symbol = $request->currency_symbol;
+        $country->currency_code = $request->currency_code;
         $slug = Str::slug($request->name);
         $country->slug = Country::where('slug', $slug)->where('id', '!=', $country->id)->count() ? $slug.'-'.uniqid() : $slug;
 

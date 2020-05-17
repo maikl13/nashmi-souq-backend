@@ -47,7 +47,10 @@ class CountriesTableSeeder extends Seeder
 		            ['قنا'],
 		            ['شمال سيناء'],
 		            ['سوهاج'],
-        		]
+        		],
+        		'الجنيه المصري',
+        		'ج م',
+        		'EGP'
         	],
         	[
         		'المملكة العربية السعودية',
@@ -186,7 +189,10 @@ class CountriesTableSeeder extends Seeder
 		            	'طريف',
 		            ]],
 		            ['ينبع'],
-        		]
+        		],
+        		'الريال السعودي',
+        		'ر س',
+        		'SAR'
         	]
         ];
 
@@ -195,7 +201,10 @@ class CountriesTableSeeder extends Seeder
         	$c = Country::create([
         		'name' => $country[0],
         		'code' => $country[1],
-        		'slug' => Str::slug($country[0])
+        		'slug' => Str::slug($country[0]),
+        		'currency' => $country[3],
+        		'currency_symbol' => $country[4],
+        		'currency_code' => $country[5]
         	]);
 
         	if( isset($country[2]) ){

@@ -18,6 +18,9 @@ class CreateCountriesTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('code')->unique();
+            $table->string('currency')->unique();
+            $table->string('currency_symbol')->unique();
+            $table->string('currency_code')->unique();
             $table->timestamps();
         });
     }
