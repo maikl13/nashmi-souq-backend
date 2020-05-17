@@ -90,7 +90,14 @@
                                 <ul class="entry-meta">
                                     <li class="d-none d-sm-block"><i class="far fa-clock"></i>{{ $listing->created_at->diffForHumans() }}</li>
                                     <li class="d-inline"><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
-                                    <li class="d-inline mr-2"><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}</li>
+                                    <li class="d-inline"><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}</li>
+                                    @if ($listing->price)
+                                        <li class="d-inline mr-2">
+                                            <i class="fas fa-money-bill"></i>
+                                            {{ $listing->price() }}
+                                            <span class="currency-symbol" title="ب{{ $listing->country->currency }}">{{ $listing->country->currency_symbol }}</span>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>

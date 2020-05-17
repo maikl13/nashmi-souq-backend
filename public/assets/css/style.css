@@ -154,6 +154,7 @@
     .tab-pane .product-box-layout3 .item-img a {width: 100%; margin-bottom: 15px;}
 }
 
+.home-listing .item-content .item-price { margin-bottom: 5px; font-size: 18px; }
 @media (max-width: 575px){
     .home-listing {
         display: flex;
@@ -170,6 +171,7 @@
         padding: 10px 10px 0;
         width: 70%;
     }
+    .home-listing .item-content .item-price { font-size: 17px; }
     .home-listing .item-content h3 {
         white-space: nowrap;
     }

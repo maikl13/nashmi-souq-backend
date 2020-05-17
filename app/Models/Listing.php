@@ -63,6 +63,11 @@ class Listing extends Model
         return $this->belongsTo(SubCategory::class);
     }
 
+    public function country()
+    {
+        return $this->state->country();
+    }
+
     public function state()
     {
         return $this->belongsTo(State::class);
@@ -124,6 +129,11 @@ class Listing extends Model
             case 7: return 180; break;
             case 8: return 365; break;
         }
+    }
+
+    public function price()
+    {
+        return $this->price+0;
     }
 
     protected static $searchable = [

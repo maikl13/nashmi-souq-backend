@@ -70,7 +70,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <label class="control-label">السعر <small> - بالجنيه المصري</small></label>
+                                    <label class="control-label">السعر <small> - ب{{ country()->currency }}</small></label>
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="form-group">

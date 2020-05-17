@@ -5,7 +5,9 @@
                 <div class="deletable mb-4">
                     <div class="listing-box product-box-layout3 m-0 {{ $listing->is_featured() ? 'item-trending' : '' }}">
                         <div class="item-img">
-                            <a href="{{ $listing->url() }}"><img src="{{ $listing->listing_image() }}" alt="Product"></a>
+                            <a href="{{ $listing->url() }}">
+                                <img src="{{ $listing->listing_image() }}" alt="Product">
+                            </a>
                         </div>
                         <div class="product-info">
                             <div class="item-content">
@@ -31,6 +33,14 @@
                                         @endif
                                     </li>
                                     <li><i class="far fa-eye"></i>{{ $listing->views }} مشاهدة</li>
+
+                                    @if ($listing->price)
+                                        <li class="item-price">
+                                            <i class="fas fa-money-bill"></i>
+                                            {{ $listing->price() }}
+                                            <span class="currency-symbol" title="ب{{ $listing->country->currency }}">{{ $listing->country->currency_symbol }}</span>
+                                        </li>
+                                    @endif
                                 </ul>
                                 <ul class="item-condition">
                                     <li>{{ Str::limit( strip_tags($listing->description), 50, '...') }}</li>
