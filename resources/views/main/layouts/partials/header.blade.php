@@ -25,7 +25,7 @@
                         <ul dir="rtl">
                             <li><a href="/">الرئيسية</a></li>
                             <li><a href="/listings">الإعلانات</a></li>
-                            <li><a href="/stores">المتاجر</a></li>
+                            {{-- <li><a href="/stores">المتاجر</a></li> --}}
                             <li><a href="/about">من نحن</a></li>
                             <li><a href="/contact-us">اتصل بنا</a></li>
 
@@ -33,6 +33,7 @@
 
                             @guest
                                 <li class="d-lg-none"><a href="{{ route('login') }}">تسجيل الدخول</a></li>
+                                <li class="d-lg-none"><a href="{{ route('register') }}">تسجيل حساب جديد</a></li>
                             @else
                                 <li class="nav-item dropdown d-lg-none">
                                     <a id="navbarDropdown" class="nav-link color-primary w-100" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre title="بيانات الحساب">
@@ -48,6 +49,8 @@
                                         @endif
                                         <a class="dropdown-item" href="/account">إعدادات الحساب</a>
                                         <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
+                                        <a class="dropdown-item" href="/my-orders">طلباتي</a>
+                                        <a class="dropdown-item" href="/orders">إدارة المتجر</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
@@ -81,6 +84,10 @@
                                 </li>
 
                                 @include('main.layouts.partials.user-dropdown')
+
+                                <li class="nav-item header-login-icon mr-0 cart-dropdown">
+                                    @include('main.store.partials.cart-dropdown')
+                                </li>
                             @endguest
 
                             <li class="header-btn">
@@ -88,6 +95,7 @@
                                     <i class="fas fa-plus"></i> أضف إعلانك
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 </div>

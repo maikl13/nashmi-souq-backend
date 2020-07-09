@@ -70,6 +70,14 @@ class User extends Authenticatable
         return $this->hasManyThrough(FeaturedListing::class, Listing::class);
     }
 
+    public function orders(){
+        return $this->HasMany(Order::class);
+    }
+
+    public function store_orders(){
+        return $this->HasMany(Order::class, 'store_id');
+    }
+    
     public function url()
     {
         return '/users/'.$this->id;

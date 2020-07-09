@@ -135,7 +135,7 @@ $(document).on('click', '.dropdown-menu', function (e) {
 });
 
 $(document).ready(function () {
-    $(document).click(function (e) {        
+    $(document).click(function (e) {
         var clickover = $(e.target);
         if (
             !clickover.is(".toggle-conversations *") && !clickover.is(".toggle-conversations")
@@ -150,7 +150,7 @@ $(document).ready(function () {
             }
         }
     });
-}); 
+});
 
 
 

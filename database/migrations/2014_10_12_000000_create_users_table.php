@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('role_id')->default(1);
             $table->boolean('active')->default(true);
             $table->string('profile_picture')->nullable();
+            $table->text('address')->nullable();
+            $table->text('shipping_address')->nullable();
 
             //store details
             $table->string('store_name')->nullable();

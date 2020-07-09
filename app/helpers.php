@@ -3,6 +3,7 @@
 use App\Models\Setting;
 use App\Models\Country;
 use App\Models\Banner;
+use App\Models\Cart;
 
 function setting($name, $return_defaults_if_setting_does_not_exist=true){
     $setting = Setting::where('name', $name)->first();
@@ -96,4 +97,10 @@ function ad($type='leaderboard')
 	}
 
 	return ad_space($type, $banner);
+}
+
+
+function cart(){
+    $cart = new Cart;
+    return $cart;
 }

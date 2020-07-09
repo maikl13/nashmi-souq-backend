@@ -5,7 +5,7 @@
     <div class="footer-top-wrap">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-sm-12">
+                <div class="col-lg-5 col-sm-12">
                     <div class="footer-box-layout1">
                         <div class="footer-logo mb-2">
                             <div class="float-right">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-8 col-xs-12">
+                <div class="col-lg-5 col-sm-8 col-xs-12">
                     <div class="footer-box-layout1">
                         <div class="footer-title">
                             <h3>مواقع صديقة</h3>

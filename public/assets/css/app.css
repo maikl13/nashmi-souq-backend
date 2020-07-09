@@ -1232,7 +1232,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     color: #e43d40;
 }
 
-.header-action-layout1 ul .header-btn .item-btn {
+.header-btn .item-btn {
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
@@ -1251,18 +1251,18 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     transition: all 0.3s ease-in-out;
 }
 
-.header-action-layout1 ul .header-btn .item-btn i {
+.header-btn .item-btn i {
     font-size: 1rem;
     margin-right: 0.625rem;
 }
 
 @media only screen and (max-width: 1199px) {
-    .header-action-layout1 ul .header-btn .item-btn {
+    .header-btn .item-btn {
         padding: 0.625rem 1rem;
     }
 }
 
-.header-action-layout1 ul .header-btn .item-btn:hover {
+.header-btn .item-btn:hover {
     background-color: #e43d40;
 }
 

@@ -4,6 +4,9 @@
 
 @section('head')
     <link rel="stylesheet" type="text/css" href="/assets/plugins/fancybox-master/jquery.fancybox.min.css">
+    <style>
+        .cart-form button { border-radius: 0; padding: 20px; }
+    </style>
 @endsection
 
 @section('content')
@@ -105,6 +108,21 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area">
+                    <div class="widget-lg widget-price mb-3">
+                        <div class="item-price">
+                            {{ $listing->price() }}
+                            <small><span class="currency-symbol" title="ب{{ $listing->country->currency }}">{{ $listing->country->currency_symbol }}</span></small>
+                        </div>
+                    </div>
+                    <div class="widget-lg widget-price widget-light-bg">
+                        <form method="post" class="cart-form">
+                            <input type="hidden" value="1" class="quantity" name="demo_vertical2"/>
+                            <input type="hidden" value="{{ $listing->id }}" class="product-id">
+                            <button class="btn btn-info btn-block text-right" type="submit">
+                                <i class="fa fa-cart-plus"></i> إضافة لعربة التسوق
+                            </button>
+                        </form>
+                    </div>
 
                     @include('main.listings.partials.publisher-details')
                     

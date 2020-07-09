@@ -18,18 +18,30 @@ class UsersTableSeeder extends Seeder
         $password = Hash::make('password');
         
         DB::table('users')->insert([
-        	[
-        		'name' => 'SuperAdmin',
-        		'username' => 'superadmin',
+            [
+                'name' => 'SuperAdmin',
+                'username' => 'superadmin',
                 'email' => 'superadmin@example.com',
                 'phone' => '+201004503999',
-        		'phone_national' => '01004503999',
+                'phone_national' => '01004503999',
                 'role_id' => '2',
-        		'password' => $password ,
+                'password' => $password ,
                 'email_verified_at' => now(),
-        		'created_at' => $date,
-        		'updated_at' => $date
-        	],
+                'created_at' => $date,
+                'updated_at' => $date
+            ],
+            [
+                'name' => 'Mahmoud Abdelhamid',
+                'username' => 'mahmoud',
+                'email' => 'mahmoud@example.com',
+                'phone' => '+201099902638',
+                'phone_national' => '01099902638',
+                'role_id' => '1',
+                'password' => $password ,
+                'email_verified_at' => now(),
+                'created_at' => $date,
+                'updated_at' => $date
+            ],
         	// [
         	// 	'name' => 'Admin',
         	// 	'username' => 'admin',

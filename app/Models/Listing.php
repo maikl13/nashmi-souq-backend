@@ -136,6 +136,18 @@ class Listing extends Model
         return $this->price+0;
     }
 
+    public function local_price()
+    {
+        // the price in local currency
+        return 100;
+    }
+
+    public function is_available()
+    {
+        // for now i am gonna consider all listings"products" as available all the time
+        return true;
+    }
+
     protected static $searchable = [
         'columns' => [
             'listings.title' => 3,

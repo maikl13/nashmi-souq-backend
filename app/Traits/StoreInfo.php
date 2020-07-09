@@ -17,5 +17,4 @@ trait StoreInfo {
         if($this->profile_picture) return $this->profile_picture();
         return $this->store_name ? $this->store_logo() : $this->profile_picture();
     }
-    
 }

@@ -222,3 +222,22 @@
     color: #ffffff !important;
     background-color: #e43d40;
 }
+
+.bg-primary {
+    background: #f85c70 !important;
+}
+
+a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
+    background-color: #f74a61 !important;
+}
+
+.bg-gray {
+    background-color: #f4f6f5;
+}
+.form-group select {
+    height: 3.75rem;
+}
+
+@media (max-width: 1199px){
+    #cartDropdownMenuButton img {width: 28px;}
+}

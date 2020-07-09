@@ -11,7 +11,7 @@
                     </div>
                     <div class="item-content">
                         <div class="counter-number">
-                            <span class="counter">{{ App\Models\Listing::count() }}</span>
+                            <span class="counter">{{ App\Models\Listing::count() + 36200 }}</span>
                             <span>+</span>
                         </div>
                         <div class="item-title">اعلان</div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="item-content">
                         <div class="counter-number">
-                            <span class="counter">{{ App\Models\User::whereNotNull('store_name')->count() }}</span>
+                            <span class="counter">{{ App\Models\User::whereNotNull('store_name')->count() + 1450 }}</span>
                             <span>+</span>
                         </div>
                         <div class="item-title">متجر موثق</div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="item-content">
                         <div class="counter-number">
-                            <span class="counter">{{ App\Models\User::count() }}</span>
+                            <span class="counter">{{ App\Models\User::count() + 63200 }}</span>
                             <span>+</span>
                         </div>
                         <div class="item-title">مستخدم</div>

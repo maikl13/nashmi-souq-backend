@@ -44,6 +44,26 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::get('conversation/{user}', 'MessageController@get_conversation');
 	Route::get('conversations', 'MessageController@get_conversations');
 	Route::get('messages/unseen', 'MessageController@get_unseen_messages_count');
+
+	Route::get('checkout', 'CartController@checkout')->name('checkout');
+	Route::post('order/new', 'OrderController@store');
+	Route::get('order/new', 'OrderController@order_saved')->name('order-saved');
+	Route::get('my-orders', 'OrderController@index')->name('my-orders');
+	Route::get('order/{order}/details', 'OrderController@show')->name('order-details');
+	Route::get('order/{order}/cancel', 'OrderController@cancel_order');
+	Route::get('order/{order}/confirm', 'OrderController@confirm_order');
+	Route::post('product/rate', 'ProductController@rate');
+	Route::post('product/add-review', 'ProductController@add_review');
+	Route::get('get-product-reviews', 'ProductController@get_reviews');
+	Route::get('get-product-rate', 'ProductController@get_rate');
+
+	// for buyers
+	Route::get('orders', 'OrderController@orders')->name('orders');
+	Route::get('orders/{order}', 'OrderController@show_for_buyer');
+	Route::post('orders/change-status', 'OrderController@change_status');
+	Route::post('orders/get-shipping', 'OrderController@get_shipping');
+	Route::post('orders/get-status', 'OrderController@get_status');
+	Route::post('orders/get-status-updates-log', 'OrderController@get_status_updates_log');
 });
 
 // ====================================================================
@@ -56,7 +76,7 @@ Route::namespace('\App\Http\Controllers')->group(function () {
 
 Route::get('/', 'MainController@index')->name('home');
 
-Route::get('listings', 'ListingController@index');
+Route::get('listings', 'ListingController@index')->name('listings');
 Route::get('listings/{listing}', 'ListingController@show');
 Route::get('users/{user}', 'UserController@show');
 Route::get('stores', 'UserController@index');
@@ -72,3 +92,16 @@ Route::get('contact-us', 'ContactMessageController@create');
 Route::post('contact-us', 'ContactMessageController@store');
 
 Route::get('c/{country}', 'MainController@change_country');
+
+
+Route::post('cart/add', 'CartController@store');
+Route::get('cart/update-dropdown', 'CartController@update_cart_dropdown');
+Route::get('cart', 'CartController@index')->name('cart');
+Route::delete('cart/{product_id}/remove', 'CartController@remove_from_cart');
+Route::post('cart/update-quantity', 'CartController@update_product_quantity');
+Route::get('cart/update-totals', 'CartController@update_totals');
+
+
+Route::get('payment', function(){
+	return view('main.store.buyer.payment');
+});
