@@ -10,11 +10,12 @@ use App\Traits\StoreInfo;
 use App\Traits\FileHandler;
 use App\Traits\ChatHandler;
 use App\Traits\ManageTransactions;
+use App\Traits\SendWhatsappMessage;
 use App\Traits\SendOTP;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendOTP;
+    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendWhatsappMessage, SendOTP;
 
     const ROLE_USER = 1;
     const ROLE_SUPERADMIN = 2;
@@ -82,7 +83,6 @@ class User extends Authenticatable
     {
         return '/users/'.$this->id;
     }
-
 
     // this is a recommended way to declare event handlers
     protected static function boot() {

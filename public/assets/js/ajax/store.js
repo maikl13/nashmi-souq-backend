@@ -22,7 +22,7 @@ $(document).on('change', '.quantity', function(e){
     var productId = $(this).parents('tr').data('product-id'),
         quantity = $(this).val()
         row = $(this).parents('tr');
-    row.html('<td colspan="4" class="px-2 py-4 text-center" style="font-size: 16px"><i class="fa fa-circle-o-notch fa-spin text-muted"></i> <small>updating</small></td>')
+    row.html('<td colspan="4" class="px-2 py-4 text-center" style="font-size: 16px"><i class="fa fa-circle-o-notch fa-spin text-muted"></i> <small>جاري التحديث</small></td>')
     update_product_quantity(productId, quantity);
 });
 
@@ -89,7 +89,7 @@ function update_product_quantity(productId, quantity){
 function update_totals(){
     var totals = $('.totals');
     if( totals.length ){
-        totals.html('<div class="px-2 py-4 text-center" style="font-size: 16px"><i class="fa fa-circle-o-notch fa-spin text-muted"></i> <small>updating</small></div>')
+        totals.html('<div class="px-2 py-4 text-center" style="font-size: 16px"><i class="fa fa-circle-o-notch fa-spin text-muted"></i> <small>جاري التحديث</small></div>')
         $.ajax({
             url: '/cart/update-totals',
             type: 'GET',

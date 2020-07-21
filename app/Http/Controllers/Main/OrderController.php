@@ -32,6 +32,11 @@ class OrderController extends Controller
             'payment_method' => 'required|in:'.Order::CREDIT_PAYMENT.','.Order::ON_DELIVERY_PAYMENT,
             'note' => 'nullable|max:10000',
         ]);
+        if($request->payment_method == Order::CREDIT_PAYMENT){
+            dd( 'payment is processing' );
+        } else {
+            dd('on delivery');
+        }
 
         $cart = new Cart;
         $items = $cart->items();
@@ -63,6 +68,8 @@ class OrderController extends Controller
             $order->state_id = $request->state;
             $order->phone = $request->phone;
             $order->address = $request->address;
+            // The buyer's country at the moment of making the order
+            $order->country_id = country()->id;
 
             $order->save();
         }

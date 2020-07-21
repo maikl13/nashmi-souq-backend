@@ -163,7 +163,7 @@
         width: 30%;
     }
     .home-listing .item-img a {
-        display: grid;
+        display: inline-block;
         height: 100%
     }
     /*.home-listing .item-img,*/

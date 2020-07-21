@@ -28,6 +28,10 @@ class Order extends Model
     public function store(){
         return $this->belongsTo(User::class,'store_id');
     }
+    public function country(){
+        // The buyer's country at the moment of making the order
+        return $this->belongsTo(Country::class);
+    }
     public function state(){
         return $this->belongsTo(State::class);
     }
@@ -102,7 +106,13 @@ class Order extends Model
     public function price(){
         return $this->price+0;
     }
+    public function local_price(){
+        return $this->price+0;
+    }
     public function total_price(){
+        return $this->price() * $this->quantity;
+    }
+    public function total_local_price(){
         return $this->price() * $this->quantity;
     }
 

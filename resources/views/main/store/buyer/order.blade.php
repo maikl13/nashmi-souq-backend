@@ -30,7 +30,9 @@
                 <div class="section-head inner-haed">
                     <h3 class="pb-1" style="line-height: 35px">
                         <div class="float-left">
-                            <span class="float-right">{{ $order->price + $order->taxes + $order->shipping }} {{ __('EGP') }}</span>
+                            <span class="float-right">{{ $order->price + $order->taxes + $order->shipping }} 
+                                <span class="currency-symbol" title="ب{{ $order->country->currency }}">{{ $order->country->currency_symbol }}</span>
+                            </span>
                         </div>
                         <span>طلب #{{ $order->uid }} </span> - <small>{{ $order->status() }}</small><br>
                         <small class="text-muted" style="font-size: 13px; position: relative; top: -8px;">{{ $order->created_at->format('M d, Y') }}</small>

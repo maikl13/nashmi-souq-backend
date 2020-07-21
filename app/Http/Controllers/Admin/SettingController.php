@@ -36,6 +36,7 @@ class SettingController extends Controller
             'whatsapp' => 'nullable|max:255',
             'fax' => 'nullable|max:255',
             'email' => 'nullable|max:255|email',
+            'delivery_phone' => 'nullable|max:255',
 
             // social
             'facebook' => 'nullable|max:255|url',
@@ -56,7 +57,7 @@ class SettingController extends Controller
 
         $allowed_settings = [
             // basic
-            'website_name', 'website_description', 'logo', 'footer_logo', 'phone', 'phone2', 'whatsapp', 'fax', 'email', 'address', 'hide_developer_names',
+            'website_name', 'website_description', 'logo', 'footer_logo', 'phone', 'phone2', 'whatsapp', 'delivery_phone', 'fax', 'email', 'address', 'hide_developer_names',
             // social
             'facebook', 'twitter', 'instagram', 'youtube', 'linkedin',
             // google maps

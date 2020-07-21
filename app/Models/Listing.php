@@ -139,7 +139,8 @@ class Listing extends Model
     public function local_price()
     {
         // the price in local currency
-        return 100;
+        if(country()->id == $this->country->id) return $this->price();
+        return ceil($this->price * (1+country()->id/10));
     }
 
     public function is_available()

@@ -71,6 +71,16 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">
+                                    <label class="control-label">السعر <small> - ب{{ $listing->country->currency }}</small></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : $listing->price() }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
                                     <label class="control-label">وصف الإعلان <span>*</span></label>
                                 </div>
                                 <div class="col-sm-9">
@@ -272,5 +282,24 @@
         @endif
 
         $("[type=file]").fileinput(fileInputOptions);
+    </script>
+    
+    <script>
+        $(document).ready(function(e){
+            var type = $('#type').val();
+            if(type == {{ App\Models\Listing::TYPE_SELL }} || type == {{ App\Models\Listing::TYPE_BUY }} || type == {{ App\Models\Listing::TYPE_RENT }}){
+                $('#price').parents('.row').show()
+            } else {
+                $('#price').parents('.row').hide()
+            }
+        })
+        $(document).on('change', '#type', function(e){
+            var type = $('#type').val();
+            if(type == {{ App\Models\Listing::TYPE_SELL }} || type == {{ App\Models\Listing::TYPE_BUY }} || type == {{ App\Models\Listing::TYPE_RENT }}){
+                $('#price').parents('.row').show()
+            } else {
+                $('#price').parents('.row').hide()
+            }
+        })
     </script>
 @endsection

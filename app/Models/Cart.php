@@ -68,8 +68,8 @@ class Cart extends Model
                     $items[$product_id]['title'] = $product->title;
                     $items[$product_id]['image'] = $product->listing_images()[0];
                     $items[$product_id]['url'] = $product->url();
-                    $items[$product_id]['price'] = $product->price();
-                    $items[$product_id]['currency'] = $product->country->currency_symbol;
+                    $items[$product_id]['price'] = $product->local_price();
+                    $items[$product_id]['currency'] = country()->currency_symbol;
                     $items[$product_id]['quantity'] = $quantity;
                 } else {
                     unset($cart['items'][$product_id]);

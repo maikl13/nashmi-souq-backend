@@ -147,6 +147,15 @@
                                                         <input type="text" class="form-control" id="whatsapp" name="whatsapp"  value="{{ setting('whatsapp', false) }}">
                                                     </div>
                                                 </div>
+                                                <div class="form-group row">
+                                                    <label for="delivery_phone" class="col-md-3 col-form-label">رقم هاتف الشحن</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="delivery_phone" name="delivery_phone"  value="{{ setting('delivery_phone', false) }}" required>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">
                                                     <div class="col-md-9">
                                                         <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>

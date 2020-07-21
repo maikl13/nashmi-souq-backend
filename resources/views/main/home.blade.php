@@ -94,8 +94,8 @@
                                     @if ($listing->price)
                                         <li class="d-inline mr-2">
                                             <i class="fas fa-money-bill"></i>
-                                            {{ $listing->price() }}
-                                            <span class="currency-symbol" title="ب{{ $listing->country->currency }}">{{ $listing->country->currency_symbol }}</span>
+                                            {{ $listing->local_price() }}
+                                            <span class="currency-symbol" title="ب{{ country()->currency }}">{{ country()->currency_symbol }}</span>
                                         </li>
                                     @endif
                                 </ul>

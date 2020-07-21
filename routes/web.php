@@ -57,13 +57,15 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::get('get-product-reviews', 'ProductController@get_reviews');
 	Route::get('get-product-rate', 'ProductController@get_rate');
 
-	// for buyers
 	Route::get('orders', 'OrderController@orders')->name('orders');
 	Route::get('orders/{order}', 'OrderController@show_for_buyer');
 	Route::post('orders/change-status', 'OrderController@change_status');
 	Route::post('orders/get-shipping', 'OrderController@get_shipping');
 	Route::post('orders/get-status', 'OrderController@get_status');
 	Route::post('orders/get-status-updates-log', 'OrderController@get_status_updates_log');
+
+	Route::get('deliver', 'DeliveryController@show');
+	Route::post('deliver', 'DeliveryController@send');
 });
 
 // ====================================================================
@@ -103,5 +105,28 @@ Route::get('cart/update-totals', 'CartController@update_totals');
 
 
 Route::get('payment', function(){
+	$PWD = '61422445f6c0f954e24c7bd8216ceedf';
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://test-nbe.gateway.mastercard.com/api/nvp/version/57');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "apiOperation=CREATE_CHECKOUT_SESSION&apiPassword=$PWD&apiUsername=merchant.EGPTEST1&merchant=EGPTEST1&interaction.operation=AUTHORIZE&order.id=".uniqid()."&order.amount=100.00&order.currency=USD");
+
+	$headers = array();
+	$headers[] = 'Content-Type: application/x-www-form-urlencoded';
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$result = curl_exec($ch);
+	if (curl_errno($ch)) {
+		echo 'Error:' . curl_error($ch);
+	}
+	curl_close($ch);
+
+	dd($result);
+	
 	return view('main.store.buyer.payment');
+});
+Route::get('payment/success', function(){
+	return 'payment success';
 });

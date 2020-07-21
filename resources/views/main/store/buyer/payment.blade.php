@@ -14,31 +14,30 @@
             }
 
             Checkout.configure({
-                merchant: '<your_merchant_id>',
+                merchant: 'EGPTEST1',
                 order: {
                     amount: function() {
                         //Dynamic calculation of amount
                         return 80 + 20;
                     },
-                    currency: 'USD',
+                    currency: 'EGP',
                     description: 'Ordered goods',
-                   id: '<unique_order_id>'
+                    id: '{{ uniqid() }}'
                 },
                 interaction: {
-                    operation: 'AUTHORIZE', // set this field to 'PURCHASE' for Hosted Checkout to perform a Pay Operation.
+                    operation: 'PURCHASE', // set this field to 'PURCHASE' for Hosted Checkout to perform a Pay Operation.
                     merchant: {
-                        name: 'Your merchant name',
+                        name: 'NBE Test',
                         address: {
                             line1: '200 Sample St',
                             line2: '1234 Example Town'            
                         }    
                     }
-                                                                }
+                }
             });
         </script>
     </head>
     <body>
         <input type="button" value="Pay with Lightbox" onclick="Checkout.showLightbox();" />
-        <input type="button" value="Pay with Payment Page" onclick="Checkout.showPaymentPage();" />
     </body>
 </html>

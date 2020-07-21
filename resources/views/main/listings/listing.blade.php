@@ -110,8 +110,8 @@
                 <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area">
                     <div class="widget-lg widget-price mb-3">
                         <div class="item-price">
-                            {{ $listing->price() }}
-                            <small><span class="currency-symbol" title="ب{{ $listing->country->currency }}">{{ $listing->country->currency_symbol }}</span></small>
+                            {{ $listing->local_price() }}
+                            <small><span class="currency-symbol" title="ب{{ country()->currency }}">{{ country()->currency_symbol }}</span></small>
                         </div>
                     </div>
                     <div class="widget-lg widget-price widget-light-bg">

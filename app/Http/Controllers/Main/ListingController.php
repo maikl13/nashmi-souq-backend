@@ -148,6 +148,7 @@ class ListingController extends Controller
         $listing->title = $request->listing_title;
         $listing->type = $request->type;
 
+        $listing->price = null;
         if(in_array($request->type, [Listing::TYPE_SELL, Listing::TYPE_BUY, Listing::TYPE_RENT]))
             $listing->price = $request->price;
 

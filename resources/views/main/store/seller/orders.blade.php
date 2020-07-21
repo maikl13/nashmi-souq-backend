@@ -70,6 +70,17 @@
 
     <div class="single-product-wrap-layout1 section-padding-equal-70 bg-accent">
 		<div class="container">
+			<div class="row mt-3">
+				<div class="col alert alert-info">
+					<span class="d-inline-block py-2">
+						<i class="fa fa-bullhorn" style="font-size: 30px;opacity: 0.4;line-height: 10px;top: 6px;position: relative;margin-left: 6px;transform: rotate3d(0, 1, 0, 180deg);"></i>
+						هل لديك طلب جاهز للشحن
+					</span>
+					<a href="/deliver" class="float-left btn btn-info py-2">
+						<i class="fa fa-truck ml-1 mr-2" style="opacity: .8;"></i> الشحن عن طريق نشمي
+					</a>
+				</div>
+			</div>
 			<div class="row card">
 				<div class="card-body" style="background: #f2f2f2;">
 					<div class="e-table">

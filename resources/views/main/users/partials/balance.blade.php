@@ -4,11 +4,11 @@
         <div class="card">
             <div class="card-body text-center ">
             	@if(!isset($noicon))
-                	<h3 class="text-primary pb-2 pt-3" style="font-size: 30px;"><i class="fa fa-dollar-sign"></i></h3>
+                	<h3 class="text-success pb-2 pt-3" style="font-size: 30px;"><i class="fa fa-money-bill-alt"></i></h3>
                 @endif
-                <div class="text mb-2"> الرصيد الكلى </div>
-                <h3 class="mb-4">{{ $user->total_balance() }} <small>$</small></h3>
-                <p>إجمالى المبلغ المودع في حسابك منذ بداية فتح الحساب حتى الآن.</p>
+                <div class="text mb-2"> الرصيد الحالي </div>
+                <h3 class="mb-4"><span class="current-balance">{{ $user->current_balance() }}</span> <small>$</small></h3>
+                <p>الرصيد الحالي و يمكنك بواسطته ترقية الإعلانات لإعلان مميز.</p>
             </div>
         </div>
     </div>
@@ -16,11 +16,11 @@
         <div class="card">
             <div class="card-body text-center ">
             	@if(!isset($noicon))
-                	<h3 class="text-success pb-2 pt-3" style="font-size: 30px;"><i class="fa fa-money-bill-alt"></i></h3>
+                	<h3 class="text-primary pb-2 pt-3" style="font-size: 30px;"><i class="fa fa-dollar-sign"></i></h3>
                 @endif
-                <div class="text mb-2"> الرصيد الحالي </div>
-                <h3 class="mb-4"><span class="current-balance">{{ $user->current_balance() }}</span> <small>$</small></h3>
-                <p>الرصيد الحالي و يمكنك بواسطته ترقية الإعلانات لإعلان مميز.</p>
+                <div class="text mb-2"> الرصيد المعلق </div>
+                <h3 class="mb-4">{{ $user->reserved_balance() }} <small>$</small></h3>
+                <p>رصيد معلق لفترة مؤقتة.</p>
             </div>
         </div>
     </div>

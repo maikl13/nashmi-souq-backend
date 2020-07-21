@@ -30,7 +30,9 @@
                     <div class="section-head inner-haed">
                         <h3 class="pb-1" style="line-height: 35px">
                             <div class="float-left">
-                                <span class="float-right">{{ $order->total_price() }} {{ __('EGP') }}</span>
+                                <span class="float-right">{{ $order->total_price() }} 
+                                    <span class="currency-symbol" title="ب{{ $order->country->currency }}">{{ $order->country->currency_symbol }}</span>
+                                </span>
                             </div>
                             <span class="float-right">{{ $listing->title }}</span>
                             <small class="text-muted mr-2" style="font-size: 15px;">({{ $order->uid }})</small><br>

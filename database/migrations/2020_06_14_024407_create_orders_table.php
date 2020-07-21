@@ -21,6 +21,10 @@ class CreateOrdersTable extends Migration
             $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
             $table->string('title');
             $table->decimal('price', 20, 2);
+            // This country id is for detecting the country of the buyer and so detect the currency
+            // You might think it's dumb, but it's not you idiot. Believe me.
+            $table->bigInteger('country_id')->unsigned()->nullable();
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('taxes', 20, 2);
             $table->decimal('fees', 20, 2);
