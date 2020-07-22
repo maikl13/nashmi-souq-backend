@@ -111,7 +111,7 @@ Route::get('payment', function(){
 	curl_setopt($ch, CURLOPT_URL, 'https://test-nbe.gateway.mastercard.com/api/nvp/version/57');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, "apiOperation=CREATE_CHECKOUT_SESSION&apiPassword=$PWD&apiUsername=merchant.EGPTEST1&merchant=EGPTEST1&interaction.operation=AUTHORIZE&order.id=".uniqid()."&order.amount=100.00&order.currency=USD");
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "apiOperation=CREATE_CHECKOUT_SESSION&apiPassword=$PWD&apiUsername=merchant.EGPTEST1&merchant=EGPTEST1&interaction.operation=PURCHASE&order.id=".uniqid()."&order.amount=100&order.currency=EGP");
 
 	$headers = array();
 	$headers[] = 'Content-Type: application/x-www-form-urlencoded';
