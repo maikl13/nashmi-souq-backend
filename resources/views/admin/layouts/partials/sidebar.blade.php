@@ -42,6 +42,12 @@
 			</a>
 		</li>
 		<li>
+			<a class="side-menu__item" href="/admin/currencies">
+				<i class="side-menu__icon fa fa-euro"></i>
+				<span class="side-menu__label">العملات</span>
+			</a>
+		</li>
+		<li>
 			<a class="side-menu__item" href="/admin/transactions">
 				<i class="side-menu__icon fa fa-dollar"></i>
 				<span class="side-menu__label">العمليات المالية</span>

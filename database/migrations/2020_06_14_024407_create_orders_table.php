@@ -17,22 +17,14 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('uid');
             $table->string('buyer_name');
-            $table->bigInteger('listing_id')->unsigned()->nullable();
-            $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
-            $table->string('title');
             $table->decimal('price', 20, 2);
-            // This country id is for detecting the country of the buyer and so detect the currency
-            // You might think it's dumb, but it's not you idiot. Believe me.
-            $table->bigInteger('country_id')->unsigned()->nullable();
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-            $table->integer('quantity');
+            $table->bigInteger('currency_id')->unsigned()->nullable();
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
             $table->decimal('taxes', 20, 2);
             $table->decimal('fees', 20, 2);
             $table->decimal('shipping', 20, 2)->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('store_id')->unsigned()->nullable();
-            $table->foreign('store_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('state_id')->unsigned()->nullable();
             $table->foreign('state_id')->references('id')->on('states')->onDelete('restrict');
             $table->string('phone');

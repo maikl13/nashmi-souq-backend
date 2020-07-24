@@ -60,21 +60,13 @@
 					</div>
 				</div>
 				<div class="modal-body" dir="rtl">
-                    <div class="form-group">
+					<div class="form-group">
 						<label for="currency" class="form-control-label"> عملة الدولة : </label>
-						<input type="text" class="form-control text-right" id="currency" name="currency" value="{{ old('currency') ? old('currency') : $country->currency }}" placeholder="مثال: (الدولار الأمريكي - الجنيه الاسترليني)" required>
-					</div>
-				</div>
-				<div class="modal-body" dir="rtl">
-                    <div class="form-group">
-						<label for="currency_symbol" class="form-control-label"> اختصار/رمز للعملة : </label>
-						<input type="text" class="form-control text-right" id="currency_symbol" name="currency_symbol" value="{{ old('currency_symbol') ? old('currency_symbol') : $country->currency_symbol }}" placeholder="مثال: ($ - € - ج م - ﷼)" required>
-					</div>
-				</div>
-				<div class="modal-body" dir="rtl">
-                    <div class="form-group">
-						<label for="currency_code" class="form-control-label"> كود العملة :</label>
-						<input type="text" class="form-control text-right" id="currency_code" name="currency_code" value="{{ old('currency_code') ? old('currency_code') : $country->currency_code }}" placeholder="مثال: (USD - EUR - EGP - SAR)" required>
+						<select name="currency" id="currency" class="form-control">
+							@foreach (App\Models\Currency::get() as $currency)
+								<option value="{{ $currency->id }}" {{ $currency->id == $country->currency_id ? 'selected' : '' }}>{{ $currency->code }} - {{ $currency->name }}</option>
+							@endforeach
+						</select>
 					</div>
 				</div>
 				<div class="modal-footer"> 

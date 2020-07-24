@@ -48,9 +48,7 @@ class CountriesTableSeeder extends Seeder
 		            ['شمال سيناء'],
 		            ['سوهاج'],
         		],
-        		'الجنيه المصري',
-        		'ج م',
-        		'EGP'
+        		1
         	],
         	[
         		'المملكة العربية السعودية',
@@ -189,10 +187,8 @@ class CountriesTableSeeder extends Seeder
 		            	'طريف',
 		            ]],
 		            ['ينبع'],
-        		],
-        		'الريال السعودي',
-        		'ر س',
-        		'SAR'
+				],
+				2
         	]
         ];
 
@@ -202,9 +198,7 @@ class CountriesTableSeeder extends Seeder
         		'name' => $country[0],
         		'code' => $country[1],
         		'slug' => Str::slug($country[0]),
-        		'currency' => $country[3],
-        		'currency_symbol' => $country[4],
-        		'currency_code' => $country[5]
+        		'currency_id' => $country[3],
         	]);
 
         	if( isset($country[2]) ){

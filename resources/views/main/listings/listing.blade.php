@@ -111,7 +111,7 @@
                     <div class="widget-lg widget-price mb-3">
                         <div class="item-price">
                             {{ $listing->local_price() }}
-                            <small><span class="currency-symbol" title="ب{{ country()->currency }}">{{ country()->currency_symbol }}</span></small>
+                            <small><span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span></small>
                         </div>
                     </div>
                     <div class="widget-lg widget-price widget-light-bg">

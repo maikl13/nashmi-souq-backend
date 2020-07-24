@@ -22,6 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('amount');
             $table->tinyInteger('payment_method')->index();
             $table->tinyInteger('status')->index();
+            $table->string('success_indicator')->nullable();
             $table->timestamps();
         });
     }

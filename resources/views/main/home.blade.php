@@ -95,7 +95,7 @@
                                         <li class="d-inline mr-2">
                                             <i class="fas fa-money-bill"></i>
                                             {{ $listing->local_price() }}
-                                            <span class="currency-symbol" title="ب{{ country()->currency }}">{{ country()->currency_symbol }}</span>
+                                            <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
                                         </li>
                                     @endif
                                 </ul>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Main;
 
 use App\Models\Order;
+use App\Models\Package;
+use App\Models\PackageItem;
 use App\Models\OrderStatusUpdate;
 use App\Models\Cart;
 use App\Models\Listing;
@@ -32,11 +34,6 @@ class OrderController extends Controller
             'payment_method' => 'required|in:'.Order::CREDIT_PAYMENT.','.Order::ON_DELIVERY_PAYMENT,
             'note' => 'nullable|max:10000',
         ]);
-        if($request->payment_method == Order::CREDIT_PAYMENT){
-            dd( 'payment is processing' );
-        } else {
-            dd('on delivery');
-        }
 
         $cart = new Cart;
         $items = $cart->items();
@@ -44,37 +41,53 @@ class OrderController extends Controller
         if(!sizeof($items))
             return redirect()->back()->with('failure', 'Please Add some products to your shopping cart first');
 
-        foreach($items as $id => $item){
-            $listing = Listing::findOrFail($id);
-            $order = new Order;
-            $order->store_id = $listing->user->id;
+        $order = new Order;
+    
+        // order info
+        $order->uid = strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8));
+        $order->shipping_method = Order::NO_SHIPPING;
+        $order->shipping = $request->shipping_method == Order::NO_SHIPPING ? 0 : null;
+        $order->payment_method = $request->payment_method;
+        $order->status = $order->payment_method == Order::CREDIT_PAYMENT ? Order::STATUS_UNPAID : Order::STATUS_PENDING;
+        $order->price = $cart->total_price();
 
-            // order info
-            $order->uid = strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8));
-            $order->shipping_method = Order::NO_SHIPPING;
-            $order->shipping = $request->shipping_method == Order::NO_SHIPPING ? 0 : null;
-            $order->payment_method = $request->payment_method;
-            $order->status = Order::STATUS_PENDING;
+        // buyer info
+        $order->user_id = auth()->user()->id;
+        $order->buyer_name = $request->name;
+        $order->state_id = $request->state;
+        $order->phone = $request->phone;
+        $order->address = $request->address;
+        $order->currency_id = country()->currency_id;
 
-            // product info
-            $order->listing_id = $listing->id;
-            $order->title = $item['title'];
-            $order->quantity = $item['quantity'];
-            $order->price = $item['price'];
+        if($order->save()){
+            foreach($items as $id => $item){
+                $listing = Listing::findOrFail($id);
+                
+                // Save Package
+                $package = Package::where('order_id', $order->id)->where('store_id', $listing->user->id)->first() ?? new Package;
+                $package->order_id = $order->id;
+                $package->store_id = $listing->user->id;
+                $package->price += $item['price']*$item['quantity'];
+                $package->save();
 
-            // buyer info
-            $order->user_id = auth()->user()->id;
-            $order->buyer_name = $request->name;
-            $order->state_id = $request->state;
-            $order->phone = $request->phone;
-            $order->address = $request->address;
-            // The buyer's country at the moment of making the order
-            $order->country_id = country()->id;
-
-            $order->save();
+                // Save Package Item
+                $package_item = new PackageItem;
+                // product info
+                $package_item->package_id = $package->id;
+                $package_item->listing_id = $listing->id;
+                $package_item->title = $item['title'];
+                $package_item->quantity = $item['quantity'];
+                $package_item->price = $item['price'];
+                $package_item->local_price = $item['price'];
+                $package_item->save();
+            }
+            
+            if($request->payment_method == Order::CREDIT_PAYMENT){
+                $price = $order->price_in('EGP');
+                $order->pay($price);
+            }
         }
 
-        $cart->clear();
         $user = auth()->user();
         $user->shipping_address = $order->address;
         $user->state_id = $request->state;
@@ -84,6 +97,8 @@ class OrderController extends Controller
 
     public function order_saved()
     {
+        // $cart = new Cart;
+        // $cart->clear();
         return view('main.store.buyer.order-saved');
     }
 

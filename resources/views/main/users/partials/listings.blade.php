@@ -38,7 +38,7 @@
                                         <li class="item-price">
                                             <i class="fas fa-money-bill"></i>
                                             {{ $listing->price() }}
-                                            <span class="currency-symbol" title="ب{{ $listing->country->currency }}">{{ $listing->country->currency_symbol }}</span>
+                                            <span class="currency-symbol" title="ب{{ $listing->country->currency->name }}">{{ $listing->country->currency->symbol }}</span>
                                         </li>
                                     @endif
                                 </ul>

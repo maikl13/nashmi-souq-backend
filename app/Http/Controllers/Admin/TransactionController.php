@@ -106,4 +106,9 @@ class TransactionController extends Controller
             return response()->json('تم الحذف بنجاح.', 200);
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
     }
+
+    public function payment_result()
+    {
+        dd($request->request);
+    }
 }

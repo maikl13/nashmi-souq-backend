@@ -44,7 +44,7 @@
                     <tr style="font-weight: bold;">
                         <td>الإجمالي</td>
                         <td>{{ $order->price + $order->taxes + $order->shipping }} 
-                            <span class="currency-symbol" title="ب{{ $order->country->currency }}">{{ $order->country->currency_symbol }}</span>
+                            <span class="currency-symbol" title="ب{{ $order->country->currency->name }}">{{ $order->country->currency->symbol }}</span>
                         </td>
                     </tr>
                 </tbody>

@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Country;
+use App\Models\Currency;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CountriesDataTable extends DataTable
+class CurrenciesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,22 +21,17 @@ class CountriesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('code', function($record){ 
-                return '<img src="https://www.countryflags.io/'.$record->code.'/flat/24.png" /> <span class="text-uppercase">'.$record->code.'</span>'; 
-            })
-            ->addColumn('currency', function($record){ return $record->currency->name; })
-            ->addColumn('listings', function($record){ return $record->listings()->count(); })
-            ->addColumn('action', 'admin.countries.partials.action')
+            ->addColumn('action', 'admin.currencies.partials.action')
             ->rawColumns(['code','action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Country $model
+     * @param \App\Currency $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Country $model)
+    public function query(Currency $model)
     {
         return $model->newQuery();
     }
@@ -77,11 +72,9 @@ class CountriesDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('code')->title('كود الدولة'),
-            Column::make('name')->title('الاسم'),
-            Column::make('slug')->title('المعرف'),
-            Column::make('currency')->title('العملة'),
-            Column::make('listings')->title('عدد الاعلانات'),
+            Column::make('name')->title('اسم العملة'),
+            Column::make('code')->title('كود العملة'),
+            Column::make('symbol')->title('رمز العملة'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')
@@ -96,6 +89,6 @@ class CountriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Countries_' . date('YmdHis');
+        return 'Currencies_' . date('YmdHis');
     }
 }

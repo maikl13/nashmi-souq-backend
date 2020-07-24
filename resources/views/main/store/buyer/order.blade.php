@@ -31,7 +31,7 @@
                     <h3 class="pb-1" style="line-height: 35px">
                         <div class="float-left">
                             <span class="float-right">{{ $order->price + $order->taxes + $order->shipping }} 
-                                <span class="currency-symbol" title="ب{{ $order->country->currency }}">{{ $order->country->currency_symbol }}</span>
+                                <span class="currency-symbol" title="ب{{ $order->country->currency->name }}">{{ $order->country->currency->symbol }}</span>
                             </span>
                         </div>
                         <span>طلب #{{ $order->uid }} </span> - <small>{{ $order->status() }}</small><br>

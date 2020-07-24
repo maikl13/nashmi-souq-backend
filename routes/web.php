@@ -103,15 +103,46 @@ Route::delete('cart/{product_id}/remove', 'CartController@remove_from_cart');
 Route::post('cart/update-quantity', 'CartController@update_product_quantity');
 Route::get('cart/update-totals', 'CartController@update_totals');
 
+Route::get('payment-result', 'TransactionController@payment_result');
 
-Route::get('payment', function(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('hosted-session', function(){
 	$PWD = '61422445f6c0f954e24c7bd8216ceedf';
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_URL, 'https://test-nbe.gateway.mastercard.com/api/nvp/version/57');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, "apiOperation=CREATE_CHECKOUT_SESSION&apiPassword=$PWD&apiUsername=merchant.EGPTEST1&merchant=EGPTEST1&interaction.operation=PURCHASE&order.id=".uniqid()."&order.amount=100&order.currency=EGP");
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "apiOperation=CREATE_CHECKOUT_SESSION&apiPassword=$PWD&apiUsername=merchant.EGPTEST1&merchant=EGPTEST1&interaction.operation=PURCHASE&interaction.returnUrl=https://souqtest.brmjyat.com/payment-result&order.id=".uniqid()."&order.amount=100&order.currency=EGP");
 
 	$headers = array();
 	$headers[] = 'Content-Type: application/x-www-form-urlencoded';
@@ -123,10 +154,23 @@ Route::get('payment', function(){
 	}
 	curl_close($ch);
 
-	dd($result);
+	// $result = "merchant=EGPTEST1&result=SUCCESS&session.id=SESSION0002546338248G4885481I10&session.updateStatus=SUCCESS&session.version=ab91e73001&successIndicator=a1b488a6898c458d";
 	
-	return view('main.store.buyer.payment');
-});
-Route::get('payment/success', function(){
-	return 'payment success';
+	$result_params = explode('&', $result);
+	$params = [];
+	foreach($result_params as $param) {
+		$param_name = explode('=', $param)[0] ?? false;
+		$param_value = explode('=', $param)[1] ?? false;
+		if($param_name && $param_value) $params[$param_name] = $param_value;
+	}
+
+	if($params['result'] == 'SUCCESS'){
+		if(!empty($params['session.id']) && !empty($params['successIndicator'])){
+			return view('main.store.buyer.hosted-session')->with([
+				'session_id' => $params['session.id'],
+				'successIndicator' => $params['successIndicator'],
+			]);
+		}
+	}
+	dd('An Error Occured');
 });

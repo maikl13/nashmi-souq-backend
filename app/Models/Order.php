@@ -4,15 +4,19 @@ namespace App\Models;
 
 use App;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\PaymentTrait;
 
 class Order extends Model
 {
+    use PaymentTrait;
+
     const NORMAL_SHIPPING = 1;
     const NO_SHIPPING = 2;
 
     const CREDIT_PAYMENT = 1;
     const ON_DELIVERY_PAYMENT = 2;
 
+    const STATUS_UNPAID = 0; // for orders with credit payments that hasn't been paid yet
     const STATUS_PENDING = 1; // new order
         const STATUS_APPROVED = 2; // approved and set shipping fees
         const STATUS_SOFT_REJECTED = 3; // rejected for reason
@@ -55,6 +59,7 @@ class Order extends Model
     }
     public function status(){
         switch ($this->status) {
+            case Self::STATUS_UNPAID : return App::getLocale() == 'ar' ? 'غير مدفوع' : 'unpaid'; break;
             case Self::STATUS_PENDING : return App::getLocale() == 'ar' ? 'قيد المراجعة' : 'pending'; break;
             case Self::STATUS_APPROVED : return App::getLocale() == 'ar' ? 'مقبول' : 'Approved'; break;
             case Self::STATUS_SOFT_REJECTED : return App::getLocale() == 'ar' ? 'مرفوض' : 'Rejected'; break;
@@ -107,6 +112,9 @@ class Order extends Model
         return $this->price+0;
     }
     public function local_price(){
+        return $this->price+0;
+    }
+    public function price_in($currency){
         return $this->price+0;
     }
     public function total_price(){

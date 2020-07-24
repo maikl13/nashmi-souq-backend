@@ -35,6 +35,13 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 	Route::delete('sub-categories/{sub_category}', 'SubCategoryController@destroy');
 	Route::post('sub-categories/{sub_category}/delete-image', 'SubCategoryController@delete_category_image');
 
+	// Currencies
+	Route::get('currencies', 'CurrencyController@index')->name('currencies');
+	Route::post('currencies', 'CurrencyController@store');
+	Route::get('currencies/{currency}/edit', 'CurrencyController@edit')->name('edit-currency');
+	Route::put('currencies/{currency}', 'CurrencyController@update');
+	Route::delete('currencies/{currency}', 'CurrencyController@destroy');
+
 	// Countries
 	Route::get('countries', 'CountryController@index')->name('countries');
 	Route::post('countries', 'CountryController@store');

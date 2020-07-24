@@ -40,7 +40,7 @@
             @endif
             <tr style="font-weight: bold;">
                 <td>الإجمالي</td>
-                <td>{{ $total_price + $fees + $taxes + $shipping - $discount }} <span style="font-weight: normal;">{{ country()->currency_symbol }}</span></td>
+                <td>{{ $total_price + $fees + $taxes + $shipping - $discount }} <span style="font-weight: normal;">{{ country()->currency->symbol }}</span></td>
             </tr>
         </tbody>
     @endif

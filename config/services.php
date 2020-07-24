@@ -30,4 +30,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'mpgs' => [
+        'api_url' => 'https://test-nbe.gateway.mastercard.com/api/nvp/version/57',
+        'merchant' => 'NBE Test',
+        'merchant_id' => 'EGPTEST1',
+        'api_password' => '61422445f6c0f954e24c7bd8216ceedf',
+        'operation' => 'PURCHASE',
+    ]
+
 ];
