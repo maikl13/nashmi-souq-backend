@@ -19,7 +19,10 @@ class CreatePackageItemsTable extends Migration
             $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
             $table->string('title');
             $table->decimal('price', 20, 2);
-            $table->decimal('local_price', 20, 2);
+            // The price in the original currency
+            $table->decimal('original_price', 20, 2);
+            $table->bigInteger('original_currency_id')->unsigned()->nullable();
+            $table->foreign('original_currency_id')->references('id')->on('currencies')->onDelete('cascade');
             $table->integer('quantity');
             $table->bigInteger('package_id')->unsigned()->nullable();
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');

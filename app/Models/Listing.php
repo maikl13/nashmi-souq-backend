@@ -68,6 +68,11 @@ class Listing extends Model
         return $this->state->country();
     }
 
+    public function currency()
+    {
+        return $this->state->country->currency();
+    }
+
     public function state()
     {
         return $this->belongsTo(State::class);

@@ -32,6 +32,8 @@ class CreateOrdersTable extends Migration
             $table->string('shipping_method');
             $table->string('payment_method');
             $table->tinyInteger('status')->default(1);
+            $table->bigInteger('transaction_id')->unsigned()->nullable();
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('restrict');
             $table->timestamps();
         });
     }

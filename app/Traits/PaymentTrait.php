@@ -7,36 +7,45 @@ use App\Models\Transaction;
 
 trait PaymentTrait {
 
-    public function pay($amount, $options=[])
+    public function payment_init($amount)
     {
-        $transaction = isset($options['uid']) ? Transaction::where('uid', $options['uid'])->first() : false;
-        if(isset($transaction) && $transaction){
-            if(!$transaction->is_payment())
-                dd('Error: transaction type is not valid for direct payment');
-            if(!$transaction->is_pending())
-                dd('the transaction has already been processed');
-        } else {
-            $transaction = new Transaction;
-            $transaction->uid = uniqid();
-            $transaction->type = Transaction::TYPE_PAYMENT;
-            $transaction->status = Transaction::STATUS_PENDING;
-            $transaction->paymend_method = Transaction::PAYMENT_DIRECT_PAYMENT;
-        }
+        $transaction = new Transaction;
+        $transaction->uid = uniqid();
+        $transaction->amount = $amount;
+        $transaction->user_id = auth()->user()->id;
+        $transaction->type = Transaction::TYPE_PAYMENT;
+        $transaction->status = Transaction::STATUS_PENDING;
+        $transaction->payment_method = Transaction::PAYMENT_DIRECT_PAYMENT;
+        if($transaction->save())
+            return $transaction;
+        return false;
+    }
 
+    public function pay($transaction, $options=[])
+    {
         $uid = $transaction->uid;
         $address1 = $options['address1'] ?? 'NOT REQUIRED';
         $address2 = $options['address2'] ?? 'NOT REQUIRED';
         $description = $options['description'] ?? 'Ordered goods';
-        $return_url = $options['return_url'] ?? config('app.url').'/payment-result?id=$uid';
+        $return_url = $options['return_url'] ?? config('app.url')."/payment-result?uid=$uid";
         $currency = $options['currency'] ?? 'EGP';
 
-        $params = $this->request_hosted_checkout_interaction($amount, $currency, $uid, $return_url);
+        // $params = $this->request_hosted_checkout_interaction($transaction->amount, $currency, $uid, $return_url);
+        $params = [
+            'result' => 'SUCCESS',
+            'successIndicator' => 'abc',
+            'session.id' => '123'
+        ];
 
         if($params['result'] == 'SUCCESS'){
             if(!empty($params['session.id']) && !empty($params['successIndicator'])){
+                $transaction->success_indicator = $params['successIndicator'];
+                $transaction->save();
+
+                return redirect()->to($return_url."&resultIndicator=abc");
                 return view('main.payment.hosted-checkout')->with([
                     'session_id' => $params['session.id'],
-                    'amount' => $amount,
+                    'amount' => $transaction->amount,
                     'address1' => $address1,
                     'address2' => $address2,
                     'uid' => $uid,
@@ -79,5 +88,4 @@ trait PaymentTrait {
 
         return $params;
     }
-
 }

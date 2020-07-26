@@ -64,7 +64,11 @@ class OrderController extends Controller
                 $listing = Listing::findOrFail($id);
                 
                 // Save Package
-                $package = Package::where('order_id', $order->id)->where('store_id', $listing->user->id)->first() ?? new Package;
+                $package = Package::where('order_id', $order->id)->where('store_id', $listing->user->id)->first();
+                if(!$package){
+                    $package = new Package;
+                    $package->price = 0;
+                }
                 $package->order_id = $order->id;
                 $package->store_id = $listing->user->id;
                 $package->price += $item['price']*$item['quantity'];
@@ -78,21 +82,29 @@ class OrderController extends Controller
                 $package_item->title = $item['title'];
                 $package_item->quantity = $item['quantity'];
                 $package_item->price = $item['price'];
-                $package_item->local_price = $item['price'];
+                $package_item->original_price = $listing->price;
+                $package_item->original_currency_id = $listing->currency->id;
                 $package_item->save();
             }
             
+            $user = auth()->user();
+            $user->shipping_address = $order->address;
+            $user->state_id = $request->state;
+            $user->save();
+
             if($request->payment_method == Order::CREDIT_PAYMENT){
                 $price = $order->price_in('EGP');
-                $order->pay($price);
+                $transaction = $order->payment_init($price);
+                if($transaction){
+                    $order->transaction_id = $transaction->id;
+                    if($order->save())
+                        return $order->pay($transaction);
+                }
+            } else {
+                return redirect()->route('order-saved');
             }
         }
-
-        $user = auth()->user();
-        $user->shipping_address = $order->address;
-        $user->state_id = $request->state;
-        $user->save();
-        return redirect()->route('order-saved');
+        return redirect()->back()->with('failure', 'حدث خطأ ما من فضلك حاول مجددا!');
     }
 
     public function order_saved()

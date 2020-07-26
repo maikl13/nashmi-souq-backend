@@ -21,6 +21,7 @@ class CreatePackagesTable extends Migration
             $table->foreign('store_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

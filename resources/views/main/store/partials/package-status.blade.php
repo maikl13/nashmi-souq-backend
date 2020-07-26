@@ -10,28 +10,28 @@
         </div>
         <div class="stepwizard-step">
             <?php
-                if( $order->is_cancelled() ){
-                    $status_before_cancelling = $order->order_status_updates()->latest()->offset(1)->first();
+                if( $package->is_cancelled() ){
+                    $status_before_cancelling = $package->package_status_updates()->latest()->offset(1)->first();
                     $last_status = $status_before_cancelling ? $status_before_cancelling->status : App\Models\Order::STATUS_PENDING;
                 }
             ?>
-            @if( $order->is_approved() || $order->is_deliverable() || $order->is_prepared() || ($order->is_cancelled() && $last_status != App\Models\Order::STATUS_PENDING) || $order->is_delivered() )
+            @if( $package->is_approved() || $package->is_deliverable() || $package->is_prepared() || ($package->is_cancelled() && $last_status != App\Models\Order::STATUS_PENDING) || $package->is_delivered() )
                 <button type="button" class="btn btn-primary btn-circle" disabled="disabled">{!! $done !!}</button>
-            @elseif( $order->is_rejected() )
+            @elseif( $package->is_rejected() )
                 <button type="button" class="btn btn-danger btn-circle" disabled="disabled">{!! $endpoint !!}</button>
-            @elseif( ($order->is_cancelled() && $last_status == App\Models\Order::STATUS_PENDING) )
+            @elseif( ($package->is_cancelled() && $last_status == App\Models\Order::STATUS_PENDING) )
                 <button type="button" class="btn btn-danger btn-circle" disabled="disabled">{!! $endpoint !!}</button>
-            @elseif( $order->is_pending() )
+            @elseif( $package->is_pending() )
                 <button type="button" class="btn btn-default btn-circle" disabled="disabled">2</button>
             @endif
             <p>تم قبول <br> الطلب</p>
         </div>
         <div class="stepwizard-step">
-            @if( $order->is_deliverable() || $order->is_prepared() || $order->is_delivered() || ($order->is_cancelled() && ($last_status != App\Models\Order::STATUS_APPROVED) && ($last_status != App\Models\Order::STATUS_PENDING) ))
+            @if( $package->is_deliverable() || $package->is_prepared() || $package->is_delivered() || ($package->is_cancelled() && ($last_status != App\Models\Order::STATUS_APPROVED) && ($last_status != App\Models\Order::STATUS_PENDING) ))
                 <button type="button" class="btn btn-primary btn-circle" disabled="disabled">{!! $done !!}</button>
-            @elseif( $order->is_deliverable() )
+            @elseif( $package->is_deliverable() )
                 <button type="button" class="btn btn-primary btn-circle" disabled="disabled">3</button>
-            @elseif( ($order->is_cancelled() && $last_status == App\Models\Order::STATUS_APPROVED) )
+            @elseif( ($package->is_cancelled() && $last_status == App\Models\Order::STATUS_APPROVED) )
                 <button type="button" class="btn btn-danger btn-circle" disabled="disabled">{!! $endpoint !!}</button>
             @else
                 <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
@@ -39,9 +39,9 @@
             <p>مرحلة <br> التجهيز</p>
         </div>
         <div class="stepwizard-step">
-            @if( $order->is_prepared() || $order->is_delivered() )
+            @if( $package->is_prepared() || $package->is_delivered() )
                 <button type="button" class="btn btn-primary btn-circle" disabled="disabled">{!! $done !!}</button>
-            @elseif( ($order->is_cancelled() && $last_status == App\Models\Order::STATUS_DELIVERABLE) )
+            @elseif( ($package->is_cancelled() && $last_status == App\Models\Order::STATUS_DELIVERABLE) )
                 <button type="button" class="btn btn-danger btn-circle" disabled="disabled">{!! $endpoint !!}</button>
             @else
                 <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
@@ -49,7 +49,7 @@
             <p>مرحلة <br> التسليم</p>
         </div> 
         <div class="stepwizard-step">
-            @if( $order->is_delivered() )
+            @if( $package->is_delivered() )
                 <button type="button" class="btn btn-primary btn-circle" disabled="disabled">{!! $done !!}</button>
             @else
                 <button type="button" class="btn btn-default btn-circle" disabled="disabled">5</button>

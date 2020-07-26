@@ -31,55 +31,67 @@
                     <h3 class="pb-1" style="line-height: 35px">
                         <div class="float-left">
                             <span class="float-right">{{ $order->price + $order->taxes + $order->shipping }} 
-                                <span class="currency-symbol" title="ب{{ $order->country->currency->name }}">{{ $order->country->currency->symbol }}</span>
+                                <span class="currency-symbol" title="ب{{ $order->currency->name }}">{{ $order->currency->symbol }}</span>
                             </span>
                         </div>
                         <span>طلب #{{ $order->uid }} </span> - <small>{{ $order->status() }}</small><br>
                         <small class="text-muted" style="font-size: 13px; position: relative; top: -8px;">{{ $order->created_at->format('M d, Y') }}</small>
                     </h3>
                 </div>
-                <div class="section-content">
-                    @if( $order->is_approved() )
-                        <div class="alert alert-primary text-center py-4" style="line-height: 30px;">
-                            <h4>طلبك قيد المراجعة</h4>
-                            <span>بإنتظار تأكيدك للطلب و رسوم الشحن للبدء بتجهيز الطلب.</span>
-                        </div>
-                    @endif
-                    @if( $order->admin_note() )
-                        <div class="alert alert-info text-center py-3" style="line-height: 30px;"><strong>ملاحظة البائع</strong><br> {{ $order->admin_note() }}</div>
-                    @endif
-                </div>
-                <div class="mt-4 pt-3">
-                    <?php $for_client = true; ?>
-                    @include('main.store.partials.order-details')
-                </div>
-                <div class="row mt-4 pt-3">
-                    @include('main.store.partials.order-steps')
-                </div>
 
-                <div class="alert alert-secondary text-center py-3" style="line-height: 30px;">
-                    <strong>حالة الطلب</strong>: {{ $order->status() }}
-                    @if($order->is_cancelled_by_buyer())
-                        <form action="/orders/change-status" class="d-inline" method="post">
-                            @csrf
-                            <input type="hidden" name="order_id" value="{{ $order->id }}">
-                            <input type="hidden" name="order_status" value="backward">
-                            <button type="submit" class="btn btn-sm btn-secondary px-3">تراجع</button>
-                        </form>
-                    @endif
-                </div>
-                <div class="row py-3">
-                    @if( $order->is_approved() )
-                        <div class="text-center py-3 col-6">
-                            <a href="/order/{{ $order->id }}/confirm" class="btn btn-primary btn-block py-3 px-5">تأكيد الطلب</a>
+                @foreach ($order->packages as $i => $package)
+                    <div class="package mb-3 p-3" style="background: #fafafa; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);">
+                        <small>
+                            <i>الشحنة {{ $i+1 }} من {{ $order->packages()->count() }}</i>
+                            <br>
+                            البائع: <a href="{{ $package->store->url() }}">{{ $package->store->store_name() }}</a>
+                        </small>
+                        <div class="section-content">
+                            @if( $package->is_approved() )
+                                <div class="alert alert-info text-center py-4" style="line-height: 30px;">
+                                    <strong>طلبك قيد المراجعة</strong><br>
+                                    <span>بإنتظار تأكيدك للطلب و رسوم الشحن للبدء بتجهيز الطلب.</span>
+                                </div>
+                            @endif
+                            @if( $package->seller_note() )
+                                <div class="alert alert-info text-center py-4" style="line-height: 30px;">
+                                    <strong>ملاحظة البائع</strong><br> 
+                                    <span>{{ $package->seller_note() }}</span>
+                                </div>
+                            @endif
                         </div>
-                    @endif
-                    @if( $order->is_pending() || $order->is_approved() )
-                        <div class="text-center py-3 col-6">
-                            <a href="#" class="btn btn-block bg-gray text-danger py-3 cancel-order" data-order-id={{ $order->id }}>إلغاء الطلب</a>
+                        <div class="row mt-4 pt-3">
+                            @include('main.store.partials.package-status')
                         </div>
-                    @endif
-                </div>
+                        <div class="mt-4 pt-3">
+                            <?php $for_client = true; ?>
+                            @include('main.store.partials.package-details')
+                        </div>
+                        <div class="alert alert-secondary text-center py-3 mt-3" style="line-height: 30px;">
+                            <strong>حالة الشحنة</strong>: {{ $package->status() }}
+                            @if($package->is_cancelled_by_buyer())
+                                <form action="/packages/change-status" class="d-inline" method="post">
+                                    @csrf
+                                    <input type="hidden" name="package_id" value="{{ $package->id }}">
+                                    <input type="hidden" name="package_status" value="backward">
+                                    <button type="submit" class="btn btn-sm btn-secondary px-3">تراجع</button>
+                                </form>
+                            @endif
+                        </div>
+                        <div class="row py-3">
+                            @if( $package->is_approved() )
+                                <div class="text-center py-3 col-6">
+                                    <a href="/order/{{ $order->id }}/confirm" class="btn btn-primary btn-block py-3 px-5">تأكيد الطلب</a>
+                                </div>
+                            @endif
+                            @if( $package->is_pending() || $package->is_approved() )
+                                <div class="text-center py-3 col-6">
+                                    <a href="#" class="btn btn-block bg-gray text-danger py-3 cancel-package" data-package-id={{ $package->id }}>إلغاء الطلب</a>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
