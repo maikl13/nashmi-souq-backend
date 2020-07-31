@@ -64,7 +64,7 @@ class Cart extends Model
         if(is_array($cart) && isset($cart['items']) && is_array($cart['items'])){
             foreach($cart['items'] as $product_id => $quantity){
                 $product = Listing::find( $product_id );
-                if($product && $product->is_available()) {
+                if($product && $product->is_available() && $product->is_eligible_for_cart()) {
                     $items[$product_id]['title'] = $product->title;
                     $items[$product_id]['image'] = $product->listing_images()[0];
                     $items[$product_id]['url'] = $product->url();
@@ -73,6 +73,7 @@ class Cart extends Model
                     $items[$product_id]['quantity'] = $quantity;
                 } else {
                     unset($cart['items'][$product_id]);
+                    $this->remove($product_id);
                 }
             }
             // Cookie::queue('cart', json_encode($cart), 3*24*60);

@@ -146,12 +146,27 @@ class Listing extends Model
     {
         // the price in local currency
         if(country()->id == $this->country->id) return $this->price();
-        return Self::exchange($this->price, $this->country->currency->code, country()->currency->code);
+        return ceil(exchange($this->price, $this->country->currency->code, country()->currency->code));
     }
 
     public function is_available()
     {
         // for now i am gonna consider all listings"products" as available all the time
+        return true;
+    }
+
+    public function is_eligible_for_cart(Type $var = null)
+    {
+        // To be able to add the listing to the cart
+        // must be added by a store
+        if(!$this->user->is_store()) return false;
+        // must be of type 'sell'
+        if($this->type != Self::TYPE_SELL) return false;
+        // the have a price
+        if(!$this->price || $this->price <= 0) return false;
+        // the price can't exceed 3000 usd to avoid adding cars and building
+        if(exchange($this->price, $this->country->currency->code, 'USD') > 3000) return false;
+
         return true;
     }
 

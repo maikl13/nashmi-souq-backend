@@ -33,19 +33,19 @@ trait PaymentTrait {
         $return_url = $options['return_url'] ?? config('app.url')."/payment-result?uid=$uid";
         $currency = $options['currency'] ?? 'EGP';
 
-        // $params = $this->request_hosted_checkout_interaction($transaction->amount, $currency, $uid, $return_url);
-        $params = [
-            'result' => 'SUCCESS',
-            'successIndicator' => 'abc',
-            'session.id' => '123'
-        ];
+        $params = $this->request_hosted_checkout_interaction($transaction->amount, $currency, $uid, $return_url);
+        // $params = [
+        //     'result' => 'SUCCESS',
+        //     'successIndicator' => 'abc',
+        //     'session.id' => '123'
+        // ];
 
         if($params['result'] == 'SUCCESS'){
             if(!empty($params['session.id']) && !empty($params['successIndicator'])){
                 $transaction->success_indicator = $params['successIndicator'];
                 $transaction->save();
 
-                return redirect()->to($return_url."&resultIndicator=abc");
+                // return redirect()->to($return_url."&resultIndicator=abc");
                 return view('main.payment.hosted-checkout')->with([
                     'session_id' => $params['session.id'],
                     'amount' => ceil(exchange($transaction->amount, $transaction->currency->code, $currency)),
