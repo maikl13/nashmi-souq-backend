@@ -99,7 +99,7 @@ class Package extends Model
         parent::boot();
 
         static::creating(function(Package $package) {
-            $package->price_usd = $package->order->currency->code == 'USD' ? $package->price() : Self::exchange($package->price(), $package->order->currency->code, 'USD');
+            $package->price_usd = $package->order->currency->code == 'USD' ? $package->price() : exchange($package->price(), $package->order->currency->code, 'USD');
         });
     }
 }
