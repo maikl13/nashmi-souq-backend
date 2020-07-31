@@ -106,8 +106,8 @@ class OrderController extends Controller
 
     public function order_saved()
     {
-        // $cart = new Cart;
-        // $cart->clear();
+        $cart = new Cart;
+        $cart->clear();
         return view('main.store.buyer.order-saved');
     }
 
