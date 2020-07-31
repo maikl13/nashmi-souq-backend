@@ -160,6 +160,8 @@ class Listing extends Model
         // To be able to add the listing to the cart
         // must be added by a store
         if(!$this->user->is_store()) return false;
+        // store can't buy his own products
+        if(auth()->user() && $this->user->id == auth()->user()->id) return false;
         // must be of type 'sell'
         if($this->type != Self::TYPE_SELL) return false;
         // the have a price
