@@ -39,6 +39,9 @@
 				<span><strong>{{ __('Role') }}:</strong> {{ $user->role() }}</span><br>
 				<span><strong>{{ __('Registered At') }}:</strong> {{ $user->created_at->diffForHumans() }}</span><br>
 				<span><strong>عدد الإعلانات:</strong> {{ $user->listings()->count() }}</span><br><br>
+				<span><strong>باي بال:</strong> {{ $user->paypal }}</span><br>
+				<span><strong>فودافون كاش:</strong> {{ $user->vodafone_cash }}</span><br>
+				<span><strong>الرقم القومي:</strong> {{ $user->national_id }}</span><br>
 			</div>
 		</div>
 	</div>

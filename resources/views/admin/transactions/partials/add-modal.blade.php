@@ -58,6 +58,8 @@
                     		<option value="{{ App\Models\Transaction::PAYMENT_BANK_DEPOSIT }}"> ايداع بنكي </option>
                     		<option value="{{ App\Models\Transaction::PAYMENT_FAWRY }}"> فوري </option>
                     		<option value="{{ App\Models\Transaction::PAYMENT_VODAFONE_CASH }}"> فودافون كاش </option>
+                    		<option value="{{ App\Models\Transaction::PAYMENT_POSTAL_OFFICE }}"> حوالة البريد المصري </option>
+                    		<option value="{{ App\Models\Transaction::PAYMENT_PAYPAL }}"> باي بال </option>
                     		<option value="{{ App\Models\Transaction::PAYMENT_OTHER }}"> اخرى </option>
                     	</select>
                     </div>

@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::put('account/edit', 'UserController@update');
 	Route::put('account/change-password', 'UserController@update_password');
 	Route::put('account/update-store', 'UserController@update_store');
+	Route::put('account/update-payout-methods', 'UserController@update_payout_methods');
 
 	Route::get('listings', 'ListingController@index');
 	Route::get('listings/add', 'ListingController@create');

@@ -120,6 +120,26 @@ class UserController extends Controller
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
+    public function update_payout_methods(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'paypal' => 'nullable|email|max:255',
+            'national_id' => 'nullable|min:14|max:14',
+            'vodafone_cash' => 'nullable|phone:EG|max:255',
+        ]);
+        
+        $user->paypal = $request->paypal;
+        $user->national_id = $request->national_id;
+        $user->vodafone_cash = $request->vodafone_cash;
+        
+        if($user->save()){
+            return response()->json('تم تحديث وسائل سحب الأرباح بنجاح!', 200);
+        }
+        return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
+    }
+
     public function show(User $user)
     {
         return view('main.users.profile')->with('user', $user);

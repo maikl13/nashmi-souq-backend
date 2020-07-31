@@ -64,6 +64,8 @@
                     		<option value="{{ App\Models\Transaction::PAYMENT_BANK_DEPOSIT }}" {{ $transaction->payment_method == App\Models\Transaction::PAYMENT_BANK_DEPOSIT ? 'selected' : '' }}> ايداع بنكي </option>
                     		<option value="{{ App\Models\Transaction::PAYMENT_FAWRY }}" {{ $transaction->payment_method == App\Models\Transaction::PAYMENT_FAWRY ? 'selected' : '' }}> فوري </option>
                     		<option value="{{ App\Models\Transaction::PAYMENT_VODAFONE_CASH }}" {{ $transaction->payment_method == App\Models\Transaction::PAYMENT_VODAFONE_CASH ? 'selected' : '' }}> فودافون كاش </option>
+                    		<option value="{{ App\Models\Transaction::PAYMENT_POSTAL_OFFICE }}" {{ $transaction->payment_method == App\Models\Transaction::PAYMENT_POSTAL_OFFICE ? 'selected' : '' }}> حوالة البريد المصري </option>
+                    		<option value="{{ App\Models\Transaction::PAYMENT_PAYPAL }}" {{ $transaction->payment_method == App\Models\Transaction::PAYMENT_PAYPAL ? 'selected' : '' }}> باي بال </option>
                     		<option value="{{ App\Models\Transaction::PAYMENT_OTHER }}" {{ $transaction->payment_method == App\Models\Transaction::PAYMENT_OTHER ? 'selected' : '' }}> اخرى </option>
                     	</select>
                     </div>

@@ -40,6 +40,11 @@ class TransactionController extends Controller
         $transaction->type = Transaction::TYPE_WITHDRAWAL;
         $transaction->amount = $request->amount;
         $transaction->status = Transaction::STATUS_PENDING;
+        $payment_method = null;
+        if($request->payout_method == 'paypal') $payment_method = Transaction::PAYMENT_PAYPAL;
+        if($request->payout_method == 'postal_office') $payment_method = Transaction::PAYMENT_POSTAL_OFFICE;
+        if($request->payout_method == 'vodafone_cash') $payment_method = Transaction::PAYMENT_VODAFONE_CASH;
+        $transaction->payment_method = $payment_method;
         $transaction->currency_id = currency()->id;
         
         if($transaction->save()){

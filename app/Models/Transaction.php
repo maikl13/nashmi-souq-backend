@@ -23,7 +23,9 @@ class Transaction extends Model
     const PAYMENT_BANK_DEPOSIT = 2;
     const PAYMENT_FAWRY = 3;
     const PAYMENT_VODAFONE_CASH = 4;
-    const PAYMENT_WALLET = 5;
+    const PAYMENT_POSTAL_OFFICE = 5;
+    const PAYMENT_PAYPAL = 6;
+    const PAYMENT_WALLET = 7;
     const PAYMENT_OTHER = 6;
 
     public function user(){
@@ -93,6 +95,8 @@ class Transaction extends Model
             case $this::PAYMENT_BANK_DEPOSIT: return 'إيداع بنكي'; break;
             case $this::PAYMENT_FAWRY: return 'فوري'; break;
             case $this::PAYMENT_VODAFONE_CASH: return 'فودافون كاش'; break;
+            case $this::PAYMENT_POSTAL_OFFICE: return 'حوالة البريد المصري'; break;
+            case $this::PAYMENT_PAYPAL: return 'باي بال'; break;
             case $this::PAYMENT_WALLET: return 'خصم من المحفظة'; break;
             case $this::PAYMENT_OTHER: return 'أخرى'; break;
         }
@@ -107,7 +111,7 @@ class Transaction extends Model
         });
         
         static::saved(function(Transaction $transaction) {
-            if($transaction->is_processed() && ($transaction->is_withdrawal() || $transaction->is_expense())){
+            if($transaction->is_withdrawal() || $transaction->is_expense()){
                 $amount = $transaction->amount;
 
                 foreach($transaction->sub_transactions as $sub_transaction)

@@ -81,6 +81,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#payment" role="tab" aria-selected="false">المعاملات المالية</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#payout-methods" role="tab" aria-selected="false">وسائل سحب الرصيد</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -96,6 +99,8 @@
                         @include('main.users.partials.listings')
 
                         @include('main.users.partials.store-details')
+
+                        @include('main.users.partials.payout-methods')
 
                         @include('main.users.partials.transactions')
                         

@@ -95,7 +95,7 @@ trait ManageTransactions {
     {
         $local_balance = 0;
         foreach($balance as $currency => $amount)
-            $local_balance += $currency == currency()->code ? $amount : Self::exchange($amount, $currency, currency()->code);
+            $local_balance += $currency == currency()->code ? $amount : Self::exchange($amount, $currency, currency()->code, true);
 
         return $local_balance;
     }
