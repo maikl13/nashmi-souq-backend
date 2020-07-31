@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area">
-                    @if ($listing->price === null)
+                    @if ($listing->price !== null)
                         <div class="widget-lg widget-price mb-3">
                             <div class="item-price">
                                 {{ $listing->local_price() }}
