@@ -66,11 +66,9 @@ class OrderController extends Controller
                 if(!$package){
                     $package = new Package;
                     $package->uid = uniqid();
-                    $package->price = 0;
                 }
                 $package->order_id = $order->id;
                 $package->store_id = $listing->user->id;
-                $package->price += $item['price']*$item['quantity'];
                 $package->save();
 
                 // Save Package Item
