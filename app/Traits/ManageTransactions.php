@@ -66,7 +66,7 @@ trait ManageTransactions {
         foreach($this->store_packages()->where('status', '!=', Order::STATUS_DELIVERED)->get() as $package)
             if(!$package->is_rejected() && !$package->is_cancelled())
                 foreach ($package->package_items as $item)
-                    $payout_balance[$item->original_currency->code] += $item->original_price();
+                    $reserved_balance[$item->original_currency->code] += $item->original_price();
 
         return $detailed ? $this->detailed_balance($reserved_balance) : $this->local_balance($reserved_balance);
     }
