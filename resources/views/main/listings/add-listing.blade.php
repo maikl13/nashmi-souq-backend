@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="form-group">
-                                        <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : '' }}" required>
+                                        <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : '' }}">
                                     </div>
                                 </div>
                             </div>
