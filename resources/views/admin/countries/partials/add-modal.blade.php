@@ -35,6 +35,12 @@
 					</div>
 					<div class="modal-body" dir="rtl">
 						<div class="form-group">
+							<label for="delivery_phone" class="form-control-label"> رقم هاتف شركة الشحن :</label>
+							<input type="text" class="form-control text-right" id="delivery_phone" name="delivery_phone" value="{{ old('delivery_phone') }}" required>
+						</div>
+					</div>
+					<div class="modal-body" dir="rtl">
+						<div class="form-group">
 							<label for="currency" class="form-control-label"> عملة الدولة : </label>
 							<select name="currency" id="currency" class="form-control">
 								@foreach (App\Models\Currency::get() as $currency)

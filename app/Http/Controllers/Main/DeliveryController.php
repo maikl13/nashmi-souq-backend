@@ -29,9 +29,8 @@ class DeliveryController extends Controller
             'details' => 'max:1500',
         ]);
 
-        $phone = setting('delivery_phone');
+        $phone = auth()->user()->country->delivery_phone ? auth()->user()->country->delivery_phone : setting('delivery_phone');
         if(!$phone) return redirect()->back()->with(['failure' => 'حدث خطأ ما من فضلك قم بالمحاولة في وقت لاحق']);
-
         $br = "
 ";
         $msg = 'طلب شحن جديد من سوق نشمي'.$br.$br;

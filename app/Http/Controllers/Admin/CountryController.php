@@ -32,11 +32,13 @@ class CountryController extends Controller
             'name' => 'required|min:2|max:255',
             'country_code' => 'required',
             'currency' => 'required|exists:currencies,id',
+            'delivery_phone' => 'required|max:255',
         ]);
 
         $country = new Country;
         $country->name = $request->name;
         $country->code = $request->country_code;
+        $country->delivery_phone = $request->delivery_phone;
         $country->currency_id = $request->currency;
         $slug = Str::slug($request->name);
         $country->slug = Country::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
@@ -71,12 +73,14 @@ class CountryController extends Controller
         $request->validate([
             'name' => 'required|min:2|max:255',
             'country_code' => 'required',
+            'delivery_phone' => 'required|max:255',
             'currency' => 'required|exists:currencies,id',
         ]);
 
         $country->name = $request->name;
         $country->code = $request->country_code;
         $country->currency_id = $request->currency;
+        $country->delivery_phone = $request->delivery_phone;
         $slug = Str::slug($request->name);
         $country->slug = Country::where('slug', $slug)->where('id', '!=', $country->id)->count() ? $slug.'-'.uniqid() : $slug;
 
