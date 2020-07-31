@@ -75,8 +75,12 @@ trait ManageTransactions {
         foreach(Currency::get() as $currency)
             $expensed_balance[$currency->code] = 0;
 
-        foreach($this->featured_listings()->get() as $featured_listing)
-            $expensed_balance['USD'] += $featured_listing->price;
+        // foreach($this->featured_listings()->get() as $featured_listing)
+        //     $expensed_balance[$featured_listing->currency->code] += $featured_listing->price;
+        $expenses_transactions = $this->transactions()->where('type', Transaction::TYPE_EXPENSE)->get();
+        foreach ($expenses_transactions as $transaction)
+            foreach($transaction->sub_transactions as $sub_transaction)
+                $expensed_balance[$sub_transaction->original_currency->code] += $sub_transaction->original_amount;
 
         foreach($this->orders as $order)
             foreach($order->packages as $package)

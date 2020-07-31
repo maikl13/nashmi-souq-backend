@@ -21,16 +21,12 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-
     public function country(){
         // The buyer's country at the moment of making the order
         return $this->belongsTo(Country::class);
     }
     public function state(){
         return $this->belongsTo(State::class);
-    }
-    public function listing(){
-        return $this->belongsTo(Listing::class);
     }
     public function packages(){
         return $this->hasMany(Package::class);

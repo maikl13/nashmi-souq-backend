@@ -7,13 +7,14 @@ use App\Models\Transaction;
 use App\Models\Currency;
 trait PaymentTrait {
 
-    public function payment_init($amount)
+    public function payment_init($amount, $currency=false)
     {
+        $currency = $currency ? $currency : currency();
+
         $transaction = new Transaction;
-        $transaction->uid = uniqid();
+        $transaction->uid = unique_id();
         $transaction->amount = $amount;
         $transaction->user_id = auth()->user()->id;
-        $currency = Currency::where('code', 'EGP')->firstOrFail();
         $transaction->currency_id = $currency->id;
         $transaction->type = Transaction::TYPE_PAYMENT;
         $transaction->status = Transaction::STATUS_PENDING;
@@ -23,7 +24,7 @@ trait PaymentTrait {
         return false;
     }
 
-    public function pay($transaction, $options=[])
+    public function direct_payment($transaction, $options=[])
     {
         $uid = $transaction->uid;
         $address1 = $options['address1'] ?? 'NOT REQUIRED';
@@ -47,7 +48,7 @@ trait PaymentTrait {
                 return redirect()->to($return_url."&resultIndicator=abc");
                 return view('main.payment.hosted-checkout')->with([
                     'session_id' => $params['session.id'],
-                    'amount' => $transaction->amount,
+                    'amount' => ceil(exchange($transaction->amount, $transaction->currency->code, $currency)),
                     'address1' => $address1,
                     'address2' => $address2,
                     'uid' => $uid,
@@ -89,5 +90,16 @@ trait PaymentTrait {
         }
 
         return $params;
+    }
+
+    public function pay_from_wallet($transaction)
+    {
+        $transaction->type = Transaction::TYPE_EXPENSE;
+        $transaction->payment_method = Transaction::PAYMENT_WALLET;
+        if($transaction->user->payout_balance() >= exchange($transaction->amount, $transaction->currency->code, currency()->code, true)){
+            $transaction->status = Transaction::STATUS_PROCESSED;
+            return $transaction->save() ? $transaction : false;
+        }
+        return false;
     }
 }

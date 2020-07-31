@@ -44,7 +44,7 @@ class OrderController extends Controller
         $order = new Order;
     
         // order info
-        $order->uid = strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8));
+        $order->uid = unique_id();
         $order->payment_method = $request->payment_method;
         $order->status = $order->payment_method == Order::CREDIT_PAYMENT ? Order::STATUS_UNPAID : Order::STATUS_PENDING;
         $order->price = $cart->total_price();
@@ -92,12 +92,12 @@ class OrderController extends Controller
             $user->save();
 
             if($request->payment_method == Order::CREDIT_PAYMENT){
-                $price = $order->price_in('EGP');
-                $transaction = $order->payment_init($price);
+                $price = $order->price();
+                $transaction = $order->payment_init($price, $order->currency);
                 if($transaction){
                     $order->transaction_id = $transaction->id;
                     if($order->save())
-                        return $order->pay($transaction);
+                        return $order->direct_payment($transaction);
                 }
             } else {
                 return redirect()->route('order-saved');

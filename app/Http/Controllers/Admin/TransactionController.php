@@ -38,7 +38,7 @@ class TransactionController extends Controller
         ]);
 
         $transaction = new Transaction;
-        $transaction->uid = strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8));
+        $transaction->uid = unique_id();
         $transaction->user_id = $request->user;
         $transaction->type = $request->transaction_type;
         $transaction->amount = $request->amount;

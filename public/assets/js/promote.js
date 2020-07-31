@@ -9,6 +9,7 @@ $(document).on('click', '.promote', function(){
 $(document).on('click', '.promote-btn', function(){
     var balance = $('.current-balance').text();
     var price = $('input[name=tier]:checked').data('price');
+    var currency = $('input[name=tier]:checked').data('currency');
     if(balance < price){
         Swal.fire({
             title: 'عفوا!',
@@ -26,7 +27,7 @@ $(document).on('click', '.promote-btn', function(){
     } else {
         Swal.fire({
             title: 'هل أنت متأكد ؟',
-            html: "سيتم ترقية الإعلان لإعلان مميز و خصم <strong>"+price+"$</strong> من محفظتك!",
+            html: "سيتم ترقية الإعلان لإعلان مميز و خصم <strong>"+price+" "+currency+"</strong> من محفظتك!",
             type: 'question',
             showCancelButton: true,
             confirmButtonColor: '#f85c70',
@@ -46,6 +47,9 @@ function remove_promote_button(){
     var price = $('input[name=tier]:checked').data('price'),
         newCurrentBalance = $('.current-balance').first().text() - price,
         newExpensedBalance = parseFloat($('.expensed-balance').first().text())+0 + price;
+    newCurrentBalance = (newCurrentBalance).toFixed(4);
+    newExpensedBalance = (newExpensedBalance).toFixed(4);
+        
     $('.current-balance').text( newCurrentBalance );
     $('.expensed-balance').text( newExpensedBalance );
     $('a.promote[data-listing-id='+id+']').parents('.listing-box').addClass('item-trending');

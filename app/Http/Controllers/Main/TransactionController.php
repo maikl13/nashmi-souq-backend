@@ -35,7 +35,7 @@ class TransactionController extends Controller
         ]);
 
         $transaction = new Transaction;
-        $transaction->uid = strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8));
+        $transaction->uid = unique_id();
         $transaction->user_id = auth()->user()->id;
         $transaction->type = Transaction::TYPE_WITHDRAWAL;
         $transaction->amount = $request->amount;

@@ -12,7 +12,8 @@ class Transaction extends Model
 
     const TYPE_DEPOSIT = 1;
     const TYPE_WITHDRAWAL = 2;
-    const TYPE_PAYMENT = 3;
+    const TYPE_PAYMENT = 3; // direct payment via credit card, can be treated as expensed deposit
+    const TYPE_EXPENSE = 4; // expenses from the wallet
 
     const STATUS_PENDING = 0;
     const STATUS_PROCESSED = 1;
@@ -22,7 +23,8 @@ class Transaction extends Model
     const PAYMENT_BANK_DEPOSIT = 2;
     const PAYMENT_FAWRY = 3;
     const PAYMENT_VODAFONE_CASH = 4;
-    const PAYMENT_OTHER = 5;
+    const PAYMENT_WALLET = 5;
+    const PAYMENT_OTHER = 6;
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -46,12 +48,17 @@ class Transaction extends Model
     public function is_payment(){
         return $this->type == $this::TYPE_PAYMENT;
     }
+    
+    public function is_expense(){
+        return $this->type == $this::TYPE_EXPENSE;
+    }
 
     public function type(){
         switch ($this->type) {
             case $this::TYPE_DEPOSIT: return 'إيداع'; break;
             case $this::TYPE_WITHDRAWAL: return 'سحب'; break;
-            case $this::TYPE_PAYMENT: return 'دفع'; break;
+            case $this::TYPE_PAYMENT: return 'دفع مباشر'; break;
+            case $this::TYPE_EXPENSE: return 'مصروفات'; break;
         }
     }
 
@@ -86,6 +93,7 @@ class Transaction extends Model
             case $this::PAYMENT_BANK_DEPOSIT: return 'إيداع بنكي'; break;
             case $this::PAYMENT_FAWRY: return 'فوري'; break;
             case $this::PAYMENT_VODAFONE_CASH: return 'فودافون كاش'; break;
+            case $this::PAYMENT_WALLET: return 'خصم من المحفظة'; break;
             case $this::PAYMENT_OTHER: return 'أخرى'; break;
         }
     }
@@ -99,7 +107,7 @@ class Transaction extends Model
         });
         
         static::saved(function(Transaction $transaction) {
-            if($transaction->is_withdrawal()){
+            if($transaction->is_processed() && ($transaction->is_withdrawal() || $transaction->is_expense())){
                 $amount = $transaction->amount;
 
                 foreach($transaction->sub_transactions as $sub_transaction)

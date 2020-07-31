@@ -95,6 +95,7 @@ class UserController extends Controller
             'social.*' => 'nullable|url',
             'store_banner' => 'nullable|image|max:8192',
             'store_logo' => 'nullable|image|max:8192',
+            'country' => 'exists:countries,id',
         ]);
 
         $user->store_name = $request->store_name;
@@ -103,6 +104,7 @@ class UserController extends Controller
         $user->store_email = $request->store_email;
         $user->store_address = $request->store_address;
         $user->store_description = $request->store_description;
+        $user->country_id = $request->country;
 
         $social_links = [];
         foreach ($request->social as $social_link)

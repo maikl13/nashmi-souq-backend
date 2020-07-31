@@ -198,6 +198,7 @@ class ListingController extends Controller
             'tier' => 'required|between:1,8'
         ]);
         $listing = Listing::where('id', $request->listing_id)->first();
+        $price = round(exchange(setting('tier'.$request->tier), 'USD', currency()->code), 1);
 
         $this->authorize('edit', $listing);
 
@@ -207,16 +208,23 @@ class ListingController extends Controller
         if(empty( setting('tier'.$request->tier) ))
             return response()->json('حدث خطأ ما! قم بتحديث الصفحة و حاول مجددا.', 500);
 
-        if(Auth::user()->payout_balance() < setting('tier'.$request->tier) )
+        if(Auth::user()->payout_balance() < $price)
             return response()->json('عفوا رصيدك الحالي لا يكفي لإتمام العملية.', 500);
 
         $featured_listing = new FeaturedListing;
         $featured_listing->listing_id = $listing->id;
-        $featured_listing->price = setting('tier'.$request->tier);
         $featured_listing->tier = $request->tier;
 
-        if($featured_listing->save())
-            return response()->json('تم ترقية إعلانك لإعلان مميز.', 200);
+        $transaction = $featured_listing->payment_init($price, currency());
+
+        if($successfull_transaction = $featured_listing->pay_from_wallet($transaction)){
+            $featured_listing->transaction_id = $transaction->id;
+            if($featured_listing->save())
+                return response()->json('تم ترقية إعلانك لإعلان مميز.', 200);
+        } else {
+            return response()->json('حدث خطأ ما! من فضلك تأكد من وجود رصيد كاف و حاول مجددا.', 500);
+        }
+
 
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }

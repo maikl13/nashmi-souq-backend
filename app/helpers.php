@@ -4,6 +4,7 @@ use App\Models\Setting;
 use App\Models\Country;
 use App\Models\Banner;
 use App\Models\Cart;
+use App\Models\User;
 
 function setting($name, $return_defaults_if_setting_does_not_exist=true){
     $setting = Setting::where('name', $name)->first();
@@ -110,4 +111,12 @@ function currency(){
 		if(Auth::check() && Auth::user()->country)
 			return auth()->user()->country->currency;
 	return country()->currency;
+}
+
+function exchange($amount, $currency1, $currency2, $for_client=false){
+	return User::exchange($amount, $currency1, $currency2, $for_client=false);
+}
+
+function unique_id($length=8){
+	return strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $length));
 }

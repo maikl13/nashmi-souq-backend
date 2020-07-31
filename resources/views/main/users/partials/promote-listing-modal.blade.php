@@ -21,7 +21,7 @@
 						</div>
 					</div>
 					<div class="alert alert-warning">
-						{!! Auth::user()->payout_balance() ? 'رصيدك المتاح حاليا <strong><span class="current-balance">'.Auth::user()->payout_balance()."</span>$</strong>, هل أنت بحاجة للمزيد لترقية إعلانك بالشكل المطلوب" : "ليس لديك رصيد بالمحفظة" !!}
+						{!! Auth::user()->payout_balance() ? 'رصيدك المتاح حاليا <strong><span class="current-balance">'.Auth::user()->payout_balance()."</span> ". currency()->symbol ."</strong>, هل أنت بحاجة للمزيد لترقية إعلانك بالشكل المطلوب" : "ليس لديك رصيد بالمحفظة" !!}
 						<a href="/balance" class="float-left btn btn-warning btn-sm">
 							<i class="fa fa-bolt mr-1 ml-2" style="opacity: .6;"></i> قم بشحن رصيدك الآن 
 							<i class="fa fa-bolt ml-1 mr-2" style="opacity: .6;"></i>
@@ -56,7 +56,10 @@
 							@else
 								<div class="px-1 col-xs-12 col-sm-{{ 12%sizeof($tiers) == 0 ? 12/sizeof($tiers) : '4' }}">
 							@endif
-								<input {{ $key == 0 ? 'checked' : '' }} type="radio" data-price="{{ $tier['value'] }}" name="tier" aria-label="{{ $tier['title'] }}" data-labelauty="{{ $tier['title'] }} - {{ $tier['value'] }}$" value="{{ $tier['index'] }}" class="labelauty"/>
+								@php
+									$price = round(exchange($tier['value'], 'USD', currency()->code), 1);
+								@endphp
+								<input {{ $key == 0 ? 'checked' : '' }} type="radio" data-price="{{ $price }}" data-currency="{{ currency()->symbol }}" name="tier" aria-label="{{ $tier['title'] }}" data-labelauty="{{ $tier['title'] }} - {{ $price }} {{ currency()->symbol }}" value="{{ $tier['index'] }}" class="labelauty"/>
 							</div>
 						@endforeach
 					</div>
