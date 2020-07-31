@@ -17,10 +17,7 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {
-        if (!$request->secure() && App::environment() === 'production')
-            return redirect()->secure($request->getRequestUri());
-            
+    {           
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }
