@@ -46,6 +46,7 @@ trait PaymentTrait {
                 $transaction->save();
 
                 // return redirect()->to($return_url."&resultIndicator=abc");
+                header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
                 return view('main.payment.hosted-checkout')->with([
                     'session_id' => $params['session.id'],
                     'amount' => ceil(exchange($transaction->amount, $transaction->currency->code, $currency)),
