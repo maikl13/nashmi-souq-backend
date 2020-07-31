@@ -18,9 +18,9 @@ $('.change-status-form').on('submit', function(e){
             $(":radio.labelauty").labelauty();
             $('#change-status-modal').modal('hide')
             toastr.success('تم الحفظ بنجاح' );
-            update_status( $('[name=order_id]').val() );
-            update_shipping( $('[name=order_id]').val() );
-            update_status_updates_log( $('[name=order_id]').val() );
+            update_status( $('[name=package_id]').val() );
+            // update_shipping( $('[name=package_id]').val() );
+            update_status_updates_log( $('[name=package_id]').val() );
         },
         error: function(data){
             var errMsg = '';
@@ -45,31 +45,31 @@ $('.change-status-form').on('submit', function(e){
     });
 });
 
-function update_shipping(orderId){
+function update_shipping(packageId){
     $.ajax({
         url: '/orders/get-shipping',
         type: 'POST',
-        data: { 'order_id': orderId },
+        data: { 'package_id': packageId },
         success: function(data){
             $('.order-shipping').text(data);
         }
     });
 }
-function update_status(orderId){
+function update_status(packageId){
     $.ajax({
         url: '/orders/get-status',
         type: 'POST',
-        data: { 'order_id': orderId },
+        data: { 'package_id': packageId },
         success: function(data){
             $('.order-status').text(data);
         }
     });
 }
-function update_status_updates_log(orderId){
+function update_status_updates_log(packageId){
     $.ajax({
         url: '/orders/get-status-updates-log',
         type: 'POST',
-        data: { 'order_id': orderId },
+        data: { 'package_id': packageId },
         success: function(data){
             $('.order-status-updates-log').html(data);
         }

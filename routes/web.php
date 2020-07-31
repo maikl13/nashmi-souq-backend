@@ -50,15 +50,14 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::get('order/new', 'OrderController@order_saved')->name('order-saved');
 	Route::get('my-orders', 'OrderController@index')->name('my-orders');
 	Route::get('order/{order}/details', 'OrderController@show')->name('order-details');
-	Route::get('order/{order}/cancel', 'OrderController@cancel_order');
-	Route::get('order/{order}/confirm', 'OrderController@confirm_order');
+	Route::get('order/{package}/cancel', 'OrderController@cancel_order');
 	Route::post('product/rate', 'ProductController@rate');
 	Route::post('product/add-review', 'ProductController@add_review');
 	Route::get('get-product-reviews', 'ProductController@get_reviews');
 	Route::get('get-product-rate', 'ProductController@get_rate');
 
 	Route::get('orders', 'OrderController@orders')->name('orders');
-	Route::get('orders/{order}', 'OrderController@show_for_buyer');
+	Route::get('orders/{package}', 'OrderController@show_for_store');
 	Route::post('orders/change-status', 'OrderController@change_status');
 	Route::post('orders/get-shipping', 'OrderController@get_shipping');
 	Route::post('orders/get-status', 'OrderController@get_status');
@@ -66,6 +65,8 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 
 	Route::get('deliver', 'DeliveryController@show');
 	Route::post('deliver', 'DeliveryController@send');
+	
+	Route::post('withdraw', 'TransactionController@withdraw');
 });
 
 // ====================================================================

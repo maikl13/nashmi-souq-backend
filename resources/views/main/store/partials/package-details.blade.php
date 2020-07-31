@@ -1,6 +1,8 @@
-<div class="card m-b-20">
+<div class="card m-b-20 h-100">
     @if (!isset($for_client) || !$for_client)
-        <div class="card-header"><h4 class="my-4">بيانات الشحنة</h4></div>
+        <div class="card-header">
+            <h4 class="my-4">بيانات الشحنة #{{ $package->uid }}{{ '@'.$order->uid }}</h4>
+        </div>
     @endif
 	<div class="card-body">
 		<div class="table-responsive ">
@@ -35,23 +37,22 @@
 
             <table class="table table-bordered" style="max-width: 400px">
                 <tbody>
-                    <tr>
+                    {{-- <tr>
                         <td> إجمالي السعر </td>
                         <td>{{ $package->price() }} ج م</td>
                     </tr>
                     <tr>
                         <td>مصاريف الشحن</td>
                         <td><span class="package-shipping">{{ $package->shipping ?? '-' }}</span> ج م</td>
-                    </tr>
-                    <tr style="font-weight: bold;">
-                        <td>الإجمالي</td>
-                        <td>{{ $package->price + $package->taxes + $package->shipping }} 
+                    </tr> --}}
+                    <tr>
+                        <td>إجمالي السعر</td>
+                        <td>{{ $package->price() }} 
                             <span class="currency-symbol" title="ب{{ $package->order->currency->name }}">{{ $package->order->currency->symbol }}</span>
                         </td>
                     </tr>
                 </tbody>
             </table>
-        	{{-- <button class="btn btn-primary mt-2" onclick="window.print();">طباعه</button> --}}
 		</div> 
 	</div>
 </div>

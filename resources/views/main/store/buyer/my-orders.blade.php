@@ -39,7 +39,7 @@
                         @foreach ($order->packages as $i => $package)
                             <div class="package mb-3">
                                 <small>
-                                    <i>الشحنة {{ $i+1 }} من {{ $order->packages()->count() }}</i>
+                                    <i>الشحنة {{ $i+1 }} من {{ $order->packages()->count() }} ({{ $package->status() }})</i>
                                     <br>
                                     البائع: <a href="{{ $package->store->url() }}">{{ $package->store->store_name() }}</a>
                                 </small>

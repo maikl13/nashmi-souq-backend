@@ -104,3 +104,10 @@ function cart(){
     $cart = new Cart;
     return $cart;
 }
+
+function currency(){
+	if(auth()->check())
+		if(Auth::check() && Auth::user()->country)
+			return auth()->user()->country->currency;
+	return country()->currency;
+}

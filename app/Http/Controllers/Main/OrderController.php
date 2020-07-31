@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Main;
 use App\Models\Order;
 use App\Models\Package;
 use App\Models\PackageItem;
-use App\Models\OrderStatusUpdate;
+use App\Models\PackageStatusUpdate;
 use App\Models\Cart;
 use App\Models\Listing;
 use Illuminate\Http\Request;
-use App\DataTables\OrdersDataTable;
+use App\DataTables\PackagesDataTable;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
@@ -45,8 +45,6 @@ class OrderController extends Controller
     
         // order info
         $order->uid = strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8));
-        $order->shipping_method = Order::NO_SHIPPING;
-        $order->shipping = $request->shipping_method == Order::NO_SHIPPING ? 0 : null;
         $order->payment_method = $request->payment_method;
         $order->status = $order->payment_method == Order::CREDIT_PAYMENT ? Order::STATUS_UNPAID : Order::STATUS_PENDING;
         $order->price = $cart->total_price();
@@ -67,6 +65,7 @@ class OrderController extends Controller
                 $package = Package::where('order_id', $order->id)->where('store_id', $listing->user->id)->first();
                 if(!$package){
                     $package = new Package;
+                    $package->uid = uniqid();
                     $package->price = 0;
                 }
                 $package->order_id = $order->id;
@@ -114,33 +113,18 @@ class OrderController extends Controller
         return view('main.store.buyer.order-saved');
     }
 
-    public function cancel_order(Order $order)
+    public function cancel_order(Package $package)
     {
-        $this->authorize('cancel', $order);
-        $order->status = Order::STATUS_CANCELLED;
-        if( $order->save() ){
-            $order_status_update = new OrderStatusUpdate;
-            $order_status_update->status = $order->status;
-            $order_status_update->order_id = $order->id;
-            $order_status_update->user_id = auth()->user()->id;
-            $order_status_update->save();
+        $this->authorize('cancel', $package);
+        $package->status = Package::STATUS_CANCELLED;
+        if( $package->save() ){
+            $package_status_update = new PackageStatusUpdate;
+            $package_status_update->status = $package->status;
+            $package_status_update->package_id = $package->id;
+            $package_status_update->user_id = auth()->user()->id;
+            $package_status_update->save();
         }
-        return redirect()->to('/order/'.$order->id.'/details');
-    }
-
-    public function confirm_order(Order $order)
-    {
-        $this->authorize('confirm', $order);
-        $order->status = Order::STATUS_DELIVERABLE;
-        $order->payment_method = Order::ON_DELIVERY_PAYMENT;
-        if( $order->save() ){
-            $order_status_update = new OrderStatusUpdate;
-            $order_status_update->status = $order->status;
-            $order_status_update->order_id = $order->id;
-            $order_status_update->user_id = auth()->user()->id;
-            $order_status_update->save();
-        }
-        return redirect()->to('/order/'.$order->id.'/details');
+        return redirect()->to('/order/'.$package->order->id.'/details');
     }
 
 
@@ -148,96 +132,90 @@ class OrderController extends Controller
 
 
     // =======================================================
-    // For buyers
+    // For Stores
     // =======================================================
 
-
-    public function orders(OrdersDataTable $dataTable)
+    public function orders(PackagesDataTable $dataTable)
     {
         return $dataTable->render('main.store.seller.orders');
     }
 
-
-    public function show_for_buyer(Order $order)
+    public function show_for_store(Package $package)
     {
-        $this->authorize('show_for_buyer', $order);
+        $this->authorize('show_for_store', $package);
         return view('main.store.seller.order')->with([
-            'order' => $order
+            'order' => $package->order,
+            'package' => $package,
         ]);
     }
 
-
     public function change_status(Request $request)
     {
-        $order = Order::findOrFail( $request->order_id );
-        $this->authorize('change_status', $order);
+        $package = Package::findOrFail( $request->package_id );
+        $this->authorize('change_status', $package);
 
-        if($order->is_pending()){
-            if( $request->order_status == 'approved' ){
-                $order->shipping = (int)$request->shipping;
-                $order->status = Order::STATUS_APPROVED;
-            } else if( $request->order_status == 'rejected' ){
+        if($package->is_pending()){
+            if( $request->package_status == 'approved' ){
+                $package->status = Package::STATUS_APPROVED;
+            } else if( $request->package_status == 'rejected' ){
                 if( $request->rejection_type == 2 ){
-                    $order->status = Order::STATUS_SOFT_REJECTED;
+                    $package->status = Package::STATUS_SOFT_REJECTED;
                 } else {
-                    $order->status = Order::STATUS_HARD_REJECTED;
+                    $package->status = Package::STATUS_HARD_REJECTED;
                 }
             }
-        } else if( $order->is_deliverable() ){
-            if( $request->order_status == 'prepared' ){
-                $order->status = Order::STATUS_PREPARED;
-            } else if( $request->order_status == 'cancelled' ){
-                $order->status = Order::STATUS_CANCELLED;
+        } else if( $package->is_deliverable() ){
+            if( $request->package_status == 'prepared' ){
+                $package->status = Package::STATUS_PREPARED;
+            } else if( $request->package_status == 'cancelled' ){
+                $package->status = package::STATUS_CANCELLED;
             }
 
         } else {
-            if( $request->order_status == 'backward' ){
-                if( $order->is_approved() || $order->is_rejected() ){
-                    $order->shipping = null;
-                    $order->status = Order::STATUS_PENDING;
-                } elseif( $order->is_prepared() ){
-                    $order->status = Order::STATUS_DELIVERABLE;
-                } elseif( $order->is_cancelled()){
-                    $status_before_cancelling = $order->order_status_updates()->latest()->offset(1)->first();
-                    if($order->is_cancelled_by_buyer() && auth()->user()->id == $order->user_id){
-                        $order->status = $status_before_cancelling ? $status_before_cancelling->status : Order::STATUS_PENDING;
-                    } elseif(!$order->is_cancelled_by_buyer() && auth()->user()->id == $order->store_id) {
-                        $order->status = $status_before_cancelling ? $status_before_cancelling->status : Order::STATUS_PENDING;
+            if( $request->package_status == 'backward' ){
+                if( $package->is_approved() || $package->is_rejected() ){
+                    $package->status = Package::STATUS_PENDING;
+                } elseif( $package->is_prepared() ){
+                    $package->status = Package::STATUS_DELIVERABLE;
+                } elseif( $package->is_cancelled()){
+                    $status_before_cancelling = $package->package_status_updates()->latest()->offset(1)->first();
+                    if($package->is_cancelled_by_buyer() && auth()->user()->id == $package->user_id){
+                        $package->status = $status_before_cancelling ? $status_before_cancelling->status : Package::STATUS_PENDING;
+                    } elseif(!$package->is_cancelled_by_buyer() && auth()->user()->id == $package->store_id) {
+                        $package->status = $status_before_cancelling ? $status_before_cancelling->status : Package::STATUS_PENDING;
                     }
-                } elseif( $order->is_delivered() ){
-                    $order->status = Order::STATUS_PREPARED;
+                } elseif( $package->is_delivered() ){
+                    $package->status = Package::STATUS_PREPARED;
                 }
-            } else if( $request->order_status == 'forward' ){
-                if( $order->is_approved()){
-                    $order->status = Order::STATUS_DELIVERABLE;
-                } elseif( $order->is_rejected() ){
-                    if($order->is_rejected())
-                        $order->shipping = (int)$request->shipping;
-                    $order->status = $order->shipping > 0 ? Order::STATUS_APPROVED :  Order::STATUS_DELIVERABLE;
-                } elseif( $order->is_prepared() ){
-                    $order->status = Order::STATUS_DELIVERED;
-                } elseif( $order->is_cancelled()){
-                    $status_before_cancelling = $order->order_status_updates()->latest()->offset(1)->first();
-                    $order->status = $status_before_cancelling ? $status_before_cancelling->status : Order::STATUS_PENDING;
-                    switch ($order->status) {
-                        case Order::STATUS_PENDING: $order->status = Order::STATUS_APPROVED; break;
-                        case Order::STATUS_APPROVED: $order->status = Order::STATUS_DELIVERABLE; break;
-                        case Order::STATUS_DELIVERABLE: $order->status = Order::STATUS_PREPARED; break;
-                        default: $order->status = Order::STATUS_APPROVED; break;
+            } else if( $request->package_status == 'forward' ){
+                if( $package->is_approved()){
+                    $package->status = Package::STATUS_DELIVERABLE;
+                } elseif( $package->is_rejected() ){
+                    $package->status = Package::STATUS_DELIVERABLE;
+                } elseif( $package->is_prepared() ){
+                    $package->status = Package::STATUS_DELIVERED;
+                } elseif( $package->is_cancelled()){
+                    $status_before_cancelling = $package->package_status_updates()->latest()->offset(1)->first();
+                    $package->status = $status_before_cancelling ? $status_before_cancelling->status : Package::STATUS_PENDING;
+                    switch ($package->status) {
+                        case Package::STATUS_PENDING: $package->status = Package::STATUS_APPROVED; break;
+                        case Package::STATUS_APPROVED: $package->status = Package::STATUS_DELIVERABLE; break;
+                        case Package::STATUS_DELIVERABLE: $package->status = Package::STATUS_PREPARED; break;
+                        default: $package->status = Package::STATUS_APPROVED; break;
                     }
                 }
             }
         }
 
-        if( $order->save() ){
-            $order_status_update = new OrderStatusUpdate;
-            $order_status_update->status = $order->status;
-            $order_status_update->order_id = $order->id;
-            $order_status_update->user_id = auth()->user()->id;
-            $order_status_update->note = $request->note ?? null;
-            if($order_status_update->save()){
+        if( $package->save() ){
+            $package_status_update = new PackageStatusUpdate;
+            $package_status_update->status = $package->status;
+            $package_status_update->package_id = $package->id;
+            $package_status_update->user_id = auth()->user()->id;
+            $package_status_update->note = $request->note ?? null;
+            if($package_status_update->save()){
                 if($request->ajax())
-                    return response()->json( view('main.store.partials.change-status-options')->with('order', $order)->render() , 200);
+                    return response()->json( view('main.store.partials.change-status-options')->with('package', $package)->render() , 200);
                 return redirect()->back();
             }
         }
@@ -245,20 +223,21 @@ class OrderController extends Controller
     }
 
     public function get_shipping(Request $request){
-        $order = Order::findOrFail( $request->order_id );
-        $this->authorize('show_for_buyer', $order);
-        return $order->shipping ?? '-';
+        $package = Package::findOrFail( $request->package_id );
+        $this->authorize('show_for_store', $package);
+        // return $package->shipping ?? '-';
+        return '-';
     }
 
     public function get_status(Request $request){
-        $order = Order::findOrFail( $request->order_id );
-        $this->authorize('show_for_buyer', $order);
-        return $order->status();
+        $package = Package::findOrFail( $request->package_id );
+        $this->authorize('show_for_store', $package);
+        return $package->status();
     }
 
     public function get_status_updates_log(Request $request){
-        $order = Order::findOrFail( $request->order_id );
-        $this->authorize('show_for_buyer', $order);
-        return response()->json( view('main.store.partials.order-status-updates')->with('order', $order)->render() ,200);
+        $package = Package::findOrFail( $request->package_id );
+        $this->authorize('show_for_store', $package);
+        return response()->json( view('main.store.partials.package-status-updates')->with('package', $package)->render() ,200);
     }
 }

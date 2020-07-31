@@ -33,6 +33,9 @@ class CurrencyController extends Controller
             'symbol' => 'required|min:2|max:255',
             'code' => 'required|min:2|max:255',
         ]);
+        
+        if(!Currency::is_valid_code($request->code))
+            return redirect()->back()->with('failure', 'يبدوا أن كود الدولة غير مدعوم من فضلك تأكد من كتابته بشكل صحيح.');
 
         $currency = new Currency;
         $currency->name = $request->name;
@@ -73,6 +76,9 @@ class CurrencyController extends Controller
             'symbol' => 'required|min:2|max:255',
             'code' => 'required|min:2|max:255',
         ]);
+        
+        if(!Currency::is_valid_code($request->code))
+            return redirect()->back()->with('failure', 'يبدوا أن كود الدولة غير مدعوم من فضلك تأكد من كتابته بشكل صحيح.');
 
         $currency->name = $request->name;
         $currency->code = strtoupper($request->code);

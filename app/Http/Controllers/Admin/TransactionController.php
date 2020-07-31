@@ -29,7 +29,8 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'exists:users,id',
+            'user' => 'exists:users,id',
+            'currency' => 'exists:currencies,id',
             'transaction_type' => 'in:'.Transaction::TYPE_DEPOSIT.','.Transaction::TYPE_WITHDRAWAL,
             'payment_method' => 'in:'.Transaction::PAYMENT_BANK_DEPOSIT.','.Transaction::PAYMENT_FAWRY.','.Transaction::PAYMENT_VODAFONE_CASH.','.Transaction::PAYMENT_OTHER,
             'transaction_status' => 'in:'.Transaction::STATUS_PENDING.','.Transaction::STATUS_PROCESSED,
@@ -38,10 +39,11 @@ class TransactionController extends Controller
 
         $transaction = new Transaction;
         $transaction->uid = strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 8));
-        $transaction->user_id = $request->user_id;
+        $transaction->user_id = $request->user;
         $transaction->type = $request->transaction_type;
         $transaction->amount = $request->amount;
         $transaction->status = $request->transaction_status;
+        $transaction->currency_id = $request->currency;
         $transaction->payment_method = $request->payment_method;
 
         if($transaction->save()){
@@ -75,16 +77,18 @@ class TransactionController extends Controller
         $this->authorize('edit', $transaction);
 
         $request->validate([
-            'user_id' => 'exists:users,id',
+            'user' => 'exists:users,id',
             'transaction_type' => 'in:1,2',
+            'currency' => 'exists:currencies,id',
             'amount' => 'integer',
         ]);
 
-        $transaction->user_id = $request->user_id;
+        $transaction->user_id = $request->user;
         $transaction->type = $request->transaction_type;
         $transaction->amount = $request->amount;
         $transaction->status = $request->transaction_status;
         $transaction->payment_method = $request->payment_method;
+        $transaction->currency_id = $request->currency;
 
         if($transaction->save()){
             return redirect()->route('transactions')->with('success', 'تم تعديل البيانات بنجاح.');

@@ -12,10 +12,11 @@ use App\Traits\ChatHandler;
 use App\Traits\ManageTransactions;
 use App\Traits\SendWhatsappMessage;
 use App\Traits\SendOTP;
+use App\Traits\ExchangeCurrency;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendWhatsappMessage, SendOTP;
+    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendWhatsappMessage, SendOTP, ExchangeCurrency;
 
     const ROLE_USER = 1;
     const ROLE_SUPERADMIN = 2;
@@ -75,8 +76,12 @@ class User extends Authenticatable
         return $this->HasMany(Order::class);
     }
 
-    public function store_orders(){
-        return $this->HasMany(Order::class, 'store_id');
+    public function packages(){
+        return $this->HasMany(Package::class);
+    }
+
+    public function store_packages(){
+        return $this->HasMany(Package::class, 'store_id');
     }
     
     public function url()

@@ -20,6 +20,7 @@ class CreateCountriesTable extends Migration
             $table->string('code')->unique();
             $table->bigInteger('currency_id')->unsigned();
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
+            $table->string('delivery_phone');
             $table->timestamps();
         });
     }

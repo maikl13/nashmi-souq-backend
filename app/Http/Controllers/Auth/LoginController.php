@@ -63,13 +63,15 @@ class LoginController extends Controller
         }
 
         $authinticated = false;
+        $remember = $request->remember ? true : false;
         
         $user = User::where('phone', $request->phone)->first();
-        if(Auth::attempt(['phone' => $request->phone, 'password' => $request->password], $request->remember) ) $authinticated = true;
+        if(Auth::attempt(['phone' => $request->phone, 'password' => $request->password], $remember) ) 
+            $authinticated = true;
 
         if(!$authinticated){
             $user = $user ?? User::where('phone_national', $request->phone)->first();
-            if(Auth::attempt(['phone_national' => $request->phone, 'password' => $request->password], $request->remember) )
+            if(Auth::attempt(['phone_national' => $request->phone, 'password' => $request->password], $remember) )
                 $authinticated = true;
         }
 
@@ -78,7 +80,8 @@ class LoginController extends Controller
             if(!$validator->fails()){
                 $phone = phone($request->phone, location()->code);
                 $user = $user ?? User::where('phone', $phone)->first();
-                if(Auth::attempt(['phone' => $phone, 'password' => $request->password], $request->remember) ) $authinticated = true;
+                if(Auth::attempt(['phone' => $phone, 'password' => $request->password], $remember) ) 
+                    $authinticated = true;
             }
         }
 
@@ -87,7 +90,7 @@ class LoginController extends Controller
             if(!$validator->fails()){
                 $phone = phone($request->phone, country()->code);
                 $user = $user ?? User::where('phone', $phone)->first();
-                if(Auth::attempt(['phone' => $phone, 'password' => $request->password], $request->remember) ) $authinticated = true;
+                if(Auth::attempt(['phone' => $phone, 'password' => $request->password], $remember) ) $authinticated = true;
             }
         }
 

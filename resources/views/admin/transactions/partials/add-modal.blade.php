@@ -12,9 +12,9 @@
             	@csrf()
 				<div class="modal-body" dir="rtl">
                     <div class="form-group">
-                        <label for="user_id" class="form-control-label"> المعاملة لحساب </label>
+                        <label for="user" class="form-control-label"> المعاملة لحساب </label>
                         <div dir="ltr" class="text-left">
-	                    	<select name="user_id" id="user_id" class=" select2" style="width: 100%;" required>
+	                    	<select name="user" id="user" class=" select2" style="width: 100%;" required>
 	                    		<option value=""> - </option>
 	                    		@foreach (App\Models\User::get() as $user)
 	                    			<option value="{{ $user->id }}">
@@ -38,6 +38,20 @@
                         <input type="number" class="form-control" id="amount" name="amount" required placeholder="المبلغ" min="1">
                     </div>
 
+                    <div class="form-group">
+                        <label for="currency" class="form-control-label"> العملة </label>
+                        <div dir="ltr" class="text-left">
+	                    	<select name="currency" id="currency" class=" select2" style="width: 100%;" required>
+	                    		<option value=""> - </option>
+	                    		@foreach (App\Models\Currency::get() as $currency)
+	                    			<option value="{{ $currency->id }}">
+	                    				{{ $currency->id }}- {{ $currency->code }} ({{ $currency->name }})
+	                    			</option>
+	                    		@endforeach
+	                    	</select>
+                    	</div>
+					</div>
+					
                     <div class="form-group">
                         <label for="payment_method" class="form-control-label"> طريقة الدفع </label>
                     	<select name="payment_method" id="payment_method" class="form-control" required>

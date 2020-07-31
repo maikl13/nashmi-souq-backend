@@ -8,12 +8,12 @@
 
 @section('head')
 	<style>
-		/*#orders-table_length, #orders-table_filter { display: inline !important; }*/
-		#orders-table_length { display: none !important; }
-		#orders-table_filter { float: right !important; }
-		#orders-table_filter input {width: 75%; text-align: right; display: inline;}
+		/*#packages-table_length, #packages-table_filter { display: inline !important; }*/
+		#packages-table_length { display: none !important; }
+		#packages-table_filter { float: right !important; }
+		#packages-table_filter input {width: 75%; text-align: right; display: inline;}
 		.dataTable tfoot,.dataTable thead { display: none; }
-		.dataTable td, .dataTable {padding: 0; border: none;}
+		.dataTable td, .dataTable {padding: 0; bpackage: none;}
 		.dataTable tr:first-child {margin-top: 15px !important; display: table;}
 		.dataTables_wrapper, table, tbody, tr, td {width: 100% !important; }
 		/*.dataTables_wrapper * {max-width: 100% !important; }*/
@@ -86,16 +86,16 @@
 					<div class="e-table">
 						<div class="table-responsive table-lg">
 
-							<select class="status-filter form-control float-left border-0 form-control-sm d-inline h-auto w-auto p-1 mr-2">
+							<select class="status-filter form-control float-left bpackage-0 form-control-sm d-inline h-auto w-auto p-1 mr-2">
 								<option value="">الكل</option>
-								<option value="{{ App\Models\Order::STATUS_PENDING }}">قيد المراجعة</option>
-								<option value="{{ App\Models\Order::STATUS_APPROVED }}">مقبول</option>
-								<option value="{{ App\Models\Order::STATUS_SOFT_REJECTED }}">مرفوض مؤقتا</option>
-								<option value="{{ App\Models\Order::STATUS_HARD_REJECTED }}">مرفوض نهائيا</option>
-								<option value="{{ App\Models\Order::STATUS_DELIVERABLE }}">مرحلة التجهيز</option>
-								<option value="{{ App\Models\Order::STATUS_PREPARED }}">مرحلة التسليم</option>
-								<option value="{{ App\Models\Order::STATUS_CANCELLED }}">ملغي</option>
-								<option value="{{ App\Models\Order::STATUS_DELIVERED }}">تم التسليم</option>
+								<option value="{{ App\Models\Package::STATUS_PENDING }}">قيد المراجعة</option>
+								<option value="{{ App\Models\Package::STATUS_APPROVED }}">مقبول</option>
+								<option value="{{ App\Models\Package::STATUS_SOFT_REJECTED }}">مرفوض مؤقتا</option>
+								<option value="{{ App\Models\Package::STATUS_HARD_REJECTED }}">مرفوض نهائيا</option>
+								<option value="{{ App\Models\Package::STATUS_DELIVERABLE }}">مرحلة التجهيز</option>
+								<option value="{{ App\Models\Package::STATUS_PREPARED }}">مرحلة التسليم</option>
+								<option value="{{ App\Models\Package::STATUS_CANCELLED }}">ملغي</option>
+								<option value="{{ App\Models\Package::STATUS_DELIVERED }}">تم التسليم</option>
 							</select>
 							{!! $dataTable->table(['class' => 'table'], true) !!}
 						</div>
@@ -151,7 +151,7 @@
 			} else {
 				status = $(this).val();
 			}
-			window.LaravelDataTables["orders-table"].column(6).search( status ).draw()
+			window.LaravelDataTables["packages-table"].column(7).search( status ).draw()
 		});
 
 	</script>

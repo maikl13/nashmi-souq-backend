@@ -43,7 +43,7 @@ class UserController extends Controller
             'username' => 'required|min:2|max:255',
             'email' => 'nullable|email|max:255|unique:users,email,'.$user->id,
             'profile_picture' => 'image|max:8192',
-            'country' => 'integer|exists:countries,id',
+            'country' => 'exists:countries,id',
         ]);
 
         $user->name = $request->name;

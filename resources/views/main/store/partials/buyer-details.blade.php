@@ -1,4 +1,4 @@
-<div class="card ">
+<div class="card h-100">
 	<div class="card-header text-right">
 		<h4 class="my-4"> بيانات المشتري </h4>
 	</div>

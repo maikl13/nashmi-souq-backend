@@ -1,6 +1,6 @@
 @extends('main.layouts.main')
 
-@section('title', 'تفاصيل الطلب #'.$order->uid)
+@section('title', 'تفاصيل الطلب #'.$package->uid.'@'.$order->uid)
 
 @section('head')
     <link rel="stylesheet" type="text/css" href="/admin-assets/plugins/jquery-labelauty-master/source/jquery-labelauty.css">
@@ -13,6 +13,16 @@
         .status-details { display: none; }
         input.labelauty[disabled] + label { opacity: 1;}
     </style>
+    <style>
+        @media print {
+            header, footer { display: none;}
+            #invoice {
+                background-color: white; height: 100%; width: 100%; position: fixed; top: 0;
+                left: 0; margin: 0; padding: 15px; font-size: 14px; line-height: 18px;
+                z-index: 99999;
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -24,11 +34,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs-area">
-                        <h1>بيانات الطلب #{{ $order->uid }}</h1>
+                        <h1>بيانات الطلب #{{ $package->uid }}</h1>
                         <ul>
                             <li> <a href="/">الرئيسية</a> </li>
                             <li> <a href="/orders">الطلبات</a> </li>
-                            <li>طلب #{{ $order->uid }}</li>
+                            <li>طلب #{{ $package->uid }}{{ '@'.$order->uid }}</li>
                         </ul>
                     </div>
                 </div>
@@ -38,17 +48,28 @@
 
     <div class="single-product-wrap-layout1 section-padding-equal-70 bg-accent">
 		<div class="container">
-			<div class="row text-center" dir="rtl">
-				<div class="col-lg-12 order-status-updates-log">
-					@include('main.store.partials.order-status-updates')
-				</div>
-
-				<div class="col-lg-6 order-details text-right">
-					@include('main.store.partials.order-details')
-				</div>
-				<div class="col-lg-6 buyer-details">
-					@include('main.store.partials.buyer-details')
-				</div>
+			<div class="text-center" dir="rtl">
+                <div class="row">
+                    <div class="col-lg-12 package-status-updates-log">
+                        @include('main.store.partials.package-status-updates')
+                        <div class="clearfix mb-3"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12" id="invoice">
+                    <div class="row">
+                        <div class="col-lg-6 package-details text-right">
+                            @include('main.store.partials.package-details')
+                        </div>
+                        <div class="col-lg-6 buyer-details">
+                            @include('main.store.partials.buyer-details')
+                        </div>
+                    </div>
+                </div>
+				<div class="col-xs-12 w-100 mt-3">
+                    <div class="col text-center bg-white p-3">
+                        <button class="btn btn-info" onclick="window.print();"><i class="fa fa-print"></i> طباعة الفاتورة</button>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>
@@ -56,11 +77,11 @@
 
 
 @section('modals')
-    @if(!$order->is_cancelled_by_buyer())
+    @if(!$package->is_cancelled_by_buyer())
     	{{-- Change Order Status Modal --}}
     	<div class="modal fade" id="change-status-modal" tabindex="-1" role="dialog"  aria-hidden="true">
     		<div class="modal-dialog modal-lg" role="document">
-    			<div class="modal-content text-right">
+    			<div class="modal-content text-right border-0">
     				<div class="modal-header">
     					<h5 class="modal-title" id="example-Modal3"> تغيير حالة الطلب </h5>
     					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -72,7 +93,7 @@
                     	<div class="overlay text-center text-white w-100 h-100 position-absolute" style="background: rgba(0,0,0,0.7);  z-index: 10; font-size: 22px; display: none;">
                     		<i class="fa fa-spinner fa-spin fa-lg position-relative" style="top: 44%;"></i>
                     	</div>
-                    	<input type="hidden" name="order_id" value="{{ $order->id }}">
+                    	<input type="hidden" name="package_id" value="{{ $package->id }}">
 
     					<div class="modal-body change-status-options" dir="rtl">
     						@include('main.store.partials.change-status-options')
@@ -90,7 +111,7 @@
 
 
 @section('scripts')
-    @if(!$order->is_cancelled_by_buyer())
+    @if(!$package->is_cancelled_by_buyer())
         <script src="/admin-assets/plugins/jquery-labelauty-master/source/jquery-labelauty.js"></script>
     	<script src="/assets/js/ajax/order.js"></script>
         <script>
@@ -98,7 +119,7 @@
                 $(":radio.labelauty").labelauty();
             });
 
-            $(document).on('change', ':radio[name=order_status]', function(e){
+            $(document).on('change', ':radio[name=package_status]', function(e){
                 $('.status-details').hide();
                 $('[required]').attr('required', false);
                 $('.'+ $(this).val() +'-details').show();

@@ -53,4 +53,6 @@
 			@include('main.users.partials.transactions-table')
 		</div>
 	</div>
+
+    @include('main.users.partials.balance-details-modal')
 @endsection

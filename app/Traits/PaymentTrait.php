@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
-
+use App\Models\Currency;
 trait PaymentTrait {
 
     public function payment_init($amount)
@@ -13,6 +13,8 @@ trait PaymentTrait {
         $transaction->uid = uniqid();
         $transaction->amount = $amount;
         $transaction->user_id = auth()->user()->id;
+        $currency = Currency::where('code', 'EGP')->firstOrFail();
+        $transaction->currency_id = $currency->id;
         $transaction->type = Transaction::TYPE_PAYMENT;
         $transaction->status = Transaction::STATUS_PENDING;
         $transaction->payment_method = Transaction::PAYMENT_DIRECT_PAYMENT;

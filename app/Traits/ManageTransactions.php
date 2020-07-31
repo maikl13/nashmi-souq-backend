@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Transaction;
 use App\Models\Listing;
 use App\Models\Order;
+use App\Models\Currency;
 
 trait ManageTransactions {
 
@@ -18,51 +19,87 @@ trait ManageTransactions {
         return $this->hasMany(Transaction::class);
     }
 
-    
-    public function current_balance(){
-        // payout_balance + reserved_balance
 
-        $current_balance = $this->payout_balance();
-        $current_balance += $this->reserved_balance();
-
-        return $current_balance;
-    }
-
-    public function payout_balance(){
+    public function payout_balance($detailed=false){
         // (deposits + earned_revenues) - (withdrawals + expenses)
+        $payout_balance = [];
+        foreach(Currency::get() as $currency)
+            $payout_balance[$currency->code] = 0;
 
         // deposits
-        $payout_balance = $this->transactions()->where('type', Transaction::TYPE_DEPOSIT)->where('status', Transaction::STATUS_PROCESSED)->sum('amount');
+        $deposit_transactions = $this->transactions()->where('type', Transaction::TYPE_DEPOSIT)->where('status', Transaction::STATUS_PROCESSED)->get();
+        foreach ($deposit_transactions as $transaction)
+            $payout_balance[$transaction->currency->code] += $transaction->amount;
+ 
+        // deposits => Payments Can be treated as deposit too since it's a deposit that is expensed immediately
+        $payment_transactions = $this->transactions()->where('type', Transaction::TYPE_PAYMENT)->where('status', Transaction::STATUS_PROCESSED)->get();
+        foreach ($payment_transactions as $transaction)
+            $payout_balance[$transaction->currency->code] += $transaction->amount;
 
         // earned revenues
-        $payout_balance = $this->store_earned_revenues();
+        // Total store revenues in local currency for delevered packages
+        foreach($this->store_packages()->where('status', Order::STATUS_DELIVERED)->get() as $package)
+            $payout_balance[$package->order->currency->code] += $package->price;
 
         // withdrawal
-        $payout_balance -= $this->transactions()->where('type', Transaction::TYPE_WITHDRAWAL)->where('status', Transaction::STATUS_PROCESSED)->sum('amount');
-
+        $withdrawal_transactions = $this->transactions()->where('type', Transaction::TYPE_WITHDRAWAL)->get();
+        foreach ($withdrawal_transactions as $transaction)
+            foreach($transaction->sub_transactions as $sub_transaction)
+                $payout_balance[$sub_transaction->original_currency->code] -= $sub_transaction->original_amount;
+        
         // expenses
-        $payout_balance -= $this->expensed_balance();
-        
+        foreach($this->expensed_balance(true) as $currency => $expensed)
+            $payout_balance[$currency] -= $expensed;
 
-        return $payout_balance;
+        return $detailed ? $this->detailed_balance($payout_balance) : $this->local_balance($payout_balance);
     }
 
 
-    public function reserved_balance(){
+    public function reserved_balance($detailed=false){
         // the price of store orders that has'nt been delivered yet
-
-        $reserved_balance = $this->store_pending_revenues();
+        $reserved_balance = [];
+        foreach(Currency::get() as $currency)
+            $reserved_balance[$currency->code] = 0;
         
-        return $reserved_balance;
+        // Total store revenues in local currency for non delivered packages
+        foreach($this->store_packages()->where('status', '!=', Order::STATUS_DELIVERED)->get() as $package)
+            if(!$package->is_rejected() && !$package->is_cancelled())
+                $reserved_balance[$package->order->currency->code] += $package->price;
+
+        return $detailed ? $this->detailed_balance($reserved_balance) : $this->local_balance($reserved_balance);
     }
 
 
-    public function expensed_balance(){
-        $expensed_balance = 0;
-        foreach($this->featured_listings()->get() as $featured_listing){
-            $expensed_balance += $featured_listing->price;
-        }
-        return $expensed_balance;
+    public function expensed_balance($detailed=false){
+        $expensed_balance = [];
+        foreach(Currency::get() as $currency)
+            $expensed_balance[$currency->code] = 0;
+
+        foreach($this->featured_listings()->get() as $featured_listing)
+            $expensed_balance['USD'] += $featured_listing->price;
+
+        foreach($this->orders as $order)
+            foreach($order->packages as $package)
+                if(!$package->is_rejected() && !$package->is_cancelled())
+                    $expensed_balance[$order->currency->code]  += $package->price;
+
+        return $detailed ? $this->detailed_balance($expensed_balance) : $this->local_balance($expensed_balance);
     }
 
+
+    public function local_balance(Array $balance)
+    {
+        $local_balance = 0;
+        foreach($balance as $currency => $amount)
+            $local_balance += $currency == currency()->code ? $amount : Self::exchange($amount, $currency, currency()->code);
+
+        return $local_balance;
+    }
+    public function detailed_balance(Array $balance)
+    {
+        foreach($balance as $currency => $amount)
+            $balance[$currency] = round($amount, 4)+0;
+
+        return $balance;
+    }
 }

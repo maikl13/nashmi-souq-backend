@@ -61,10 +61,9 @@ class MainController extends Controller
     public function balance()
     {
         $balance = [];
-        $balance['current_balance'] = auth()->user()->current_balance();
-        $balance['expensed_balance'] = auth()->user()->expensed_balance();
-        $balance['reserved_balance'] = auth()->user()->reserved_balance();
-        $balance['payout_balance'] = auth()->user()->payout_balance();
+        $balance['expensed_balance'] = auth()->user()->expensed_balance(true);
+        $balance['reserved_balance'] = auth()->user()->reserved_balance(true);
+        $balance['payout_balance'] = auth()->user()->payout_balance(true);
 
         dd($balance);
         return view('main.page')->with([

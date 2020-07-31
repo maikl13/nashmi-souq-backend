@@ -11,14 +11,21 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($user->transactions as $transaction)
+            @forelse($user->transactions()->latest()->get() as $transaction)
                 <tr>
                     <td>{{ $transaction->uid }}</td>
                     <td>{{ $transaction->type() }}</td>
                     <td>
                         <div class="price-amount">
                             {{ $transaction->amount }}
-                            <span class="currency-symbol">ج م</span>
+                            <span class="currency-symbol" title="{{ $transaction->currency->name }}">{{ $transaction->currency->symbol }}</span> <br>
+                            @if ($transaction->currency->id != currency()->id)
+                                <small>
+                                    <i class="fa fa-exchange-alt"></i>
+                                    {{ $transaction->amount() }}
+                                    <span class="currency-symbol" title="{{ currency()->name }}">{{ currency()->symbol }}</span> 
+                                </small>
+                            @endif
                         </div>
                     </td>
                     <td>{{ $transaction->payment_method() }}</td>

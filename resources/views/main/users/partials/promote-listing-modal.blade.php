@@ -21,7 +21,7 @@
 						</div>
 					</div>
 					<div class="alert alert-warning">
-						{!! Auth::user()->current_balance() ? 'رصيدك الحالي <strong><span class="current-balance">'.Auth::user()->current_balance()."</span>$</strong>, هل أنت بحاجة للمزيد لترقية إعلانك بالشكل المطلوب" : "ليس لديك رصيد بالمحفظة" !!}
+						{!! Auth::user()->payout_balance() ? 'رصيدك المتاح حاليا <strong><span class="current-balance">'.Auth::user()->payout_balance()."</span>$</strong>, هل أنت بحاجة للمزيد لترقية إعلانك بالشكل المطلوب" : "ليس لديك رصيد بالمحفظة" !!}
 						<a href="/balance" class="float-left btn btn-warning btn-sm">
 							<i class="fa fa-bolt mr-1 ml-2" style="opacity: .6;"></i> قم بشحن رصيدك الآن 
 							<i class="fa fa-bolt ml-1 mr-2" style="opacity: .6;"></i>

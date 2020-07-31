@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\FileHandler;
 use App\Traits\SearchableTrait;
+use App\Traits\ExchangeCurrency;
 use Carbon\Carbon;
 use DB;
 
 class Listing extends Model
 {
-    use FileHandler, SearchableTrait;
+    use FileHandler, SearchableTrait, ExchangeCurrency;
 
     public function scopeLocalized($query){
         return $query->whereIn('state_id', country()->states()->pluck('id')->toArray());
@@ -145,7 +146,7 @@ class Listing extends Model
     {
         // the price in local currency
         if(country()->id == $this->country->id) return $this->price();
-        return ceil($this->price * (1+country()->id/10));
+        return Self::exchange($this->price, $this->country->currency->code, country()->currency->code);
     }
 
     public function is_available()

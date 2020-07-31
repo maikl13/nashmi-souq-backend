@@ -207,7 +207,7 @@ class ListingController extends Controller
         if(empty( setting('tier'.$request->tier) ))
             return response()->json('حدث خطأ ما! قم بتحديث الصفحة و حاول مجددا.', 500);
 
-        if(Auth::user()->current_balance() < setting('tier'.$request->tier) )
+        if(Auth::user()->payout_balance() < setting('tier'.$request->tier) )
             return response()->json('عفوا رصيدك الحالي لا يكفي لإتمام العملية.', 500);
 
         $featured_listing = new FeaturedListing;

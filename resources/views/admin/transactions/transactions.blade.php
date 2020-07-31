@@ -21,6 +21,7 @@
 				<option value="">{{ __('All') }}</option>
 				<option value="{{ App\Models\Transaction::TYPE_DEPOSIT }}">ايداع</option>
 				<option value="{{ App\Models\Transaction::TYPE_WITHDRAWAL }}">سحب</option>
+				<option value="{{ App\Models\Transaction::TYPE_PAYMENT }}">دفع</option>
 			</select>
 
 			<select class="payment-method-filter form-control form-control-sm d-inline h-auto w-auto p-1 mr-2">

@@ -24,28 +24,37 @@
         </div>
     </section>
 
-    <div class="single-product-wrap-layout1 section-padding-equal-70 bg-accent">
+    <div class="single-product-wrap-layout1 product-box-layout3 section-padding-equal-70 bg-accent">
         <div class="container mt-5">
             <div class="px-4 pt-4 pb-1 bg-white mb-3">
                 <div class="section-head inner-haed">
                     <h3 class="pb-1" style="line-height: 35px">
                         <div class="float-left">
-                            <span class="float-right">{{ $order->price + $order->taxes + $order->shipping }} 
+                            <span class="float-right">{{ $order->price() }} 
                                 <span class="currency-symbol" title="ب{{ $order->currency->name }}">{{ $order->currency->symbol }}</span>
                             </span>
                         </div>
-                        <span>طلب #{{ $order->uid }} </span> - <small>{{ $order->status() }}</small><br>
-                        <small class="text-muted" style="font-size: 13px; position: relative; top: -8px;">{{ $order->created_at->format('M d, Y') }}</small>
+                        <span>طلب #{{ $order->uid }} </span><br>
+                        
+                        <div class="product-info">
+                            <div class="item-content">
+                                <ul class="entry-meta d-block">
+                                    <li><i class="far fa-clock"></i> {{ $order->created_at->format('M d, Y') }}</li>
+                                    <li>
+                                        <i class="fas fa-money-bill"></i>
+                                        <span>وسيلة الدفع : </span>{{ $order->payment_method() }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </h3>
                 </div>
 
                 @foreach ($order->packages as $i => $package)
                     <div class="package mb-3 p-3" style="background: #fafafa; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);">
-                        <small>
-                            <i>الشحنة {{ $i+1 }} من {{ $order->packages()->count() }}</i>
-                            <br>
-                            البائع: <a href="{{ $package->store->url() }}">{{ $package->store->store_name() }}</a>
-                        </small>
+                        <i>الشحنة {{ $i+1 }} من {{ $order->packages()->count() }} - <small>{{ $package->status() }}</small></i>
+                        <br>
+                        البائع: <a href="{{ $package->store->url() }}">{{ $package->store->store_name() }}</a>
                         <div class="section-content">
                             @if( $package->is_approved() )
                                 <div class="alert alert-info text-center py-4" style="line-height: 30px;">
@@ -79,14 +88,9 @@
                             @endif
                         </div>
                         <div class="row py-3">
-                            @if( $package->is_approved() )
+                            @if( $package->is_pending() )
                                 <div class="text-center py-3 col-6">
-                                    <a href="/order/{{ $order->id }}/confirm" class="btn btn-primary btn-block py-3 px-5">تأكيد الطلب</a>
-                                </div>
-                            @endif
-                            @if( $package->is_pending() || $package->is_approved() )
-                                <div class="text-center py-3 col-6">
-                                    <a href="#" class="btn btn-block bg-gray text-danger py-3 cancel-package" data-package-id={{ $package->id }}>إلغاء الطلب</a>
+                                    <a href="#" class="btn btn-block bg-gray text-danger py-3 cancel-package" data-package-id={{ $package->id }}>إلغاء الشحنة</a>
                                 </div>
                             @endif
                         </div>
@@ -101,12 +105,12 @@
     <script src="/assets/js/ajax/ajax.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
-        $(document).on('click', '.cancel-order', function(e){
+        $(document).on('click', '.cancel-package', function(e){
             e.preventDefault();
-            var ordertId = $(this).data('order-id');
+            var packageId = $(this).data('package-id');
             Swal.fire({
                 title: "هل أنت متأكد!",
-                text: "سيتم إلغاء الطلب",
+                text: "سيتم إلغاء الشحنة {{ $order->is_on_credit_payment() ? 'و سيتم إضافة قيمة الشحنة لرصيد محفظتك' : '' }}",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -115,7 +119,7 @@
                 confirmButtonText: "نعم!"
             }).then((result) => {
                 if (result.value) {
-                    window.location.href = "/order/"+ordertId+"/cancel";
+                    window.location.href = "/order/"+packageId+"/cancel";
                 }
             });
         });

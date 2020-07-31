@@ -51,6 +51,9 @@
 			<a class="side-menu__item" href="/admin/transactions">
 				<i class="side-menu__icon fa fa-dollar"></i>
 				<span class="side-menu__label">العمليات المالية</span>
+				@if (App\Models\Transaction::where('type', App\Models\Transaction::TYPE_WITHDRAWAL)->where('status', App\Models\Transaction::STATUS_PENDING)->count())
+					<span class="badge badge-default">{{ App\Models\Transaction::where('type', App\Models\Transaction::TYPE_WITHDRAWAL)->where('status', App\Models\Transaction::STATUS_PENDING)->count() }}</span>
+				@endif
 			</a>
 		</li>
 		<li>

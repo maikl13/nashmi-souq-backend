@@ -1,4 +1,4 @@
-<tr data-product-id="{{ $product_id }}">
+<tr data-product-id="{{ $product_id }}" class="text-right">
     @if( !isset($not_editable) || !$not_editable)
         <td class="text-center p-0">
             <button type="button" class="close remove-from-cart" style="font-size: 20px; float: unset; padding: 20px; width: 100%;" data-product-id="{{ $product_id }}">
@@ -9,7 +9,7 @@
 
     <td class="">
         @if( !isset($no_image) || !$no_image)
-		  <img src="{{ $product['image'] }}" alt="{{ $product['title'] }} Image" style="height: 60px;">
+		  <img src="{{ $product['image'] }}" alt="{{ $product['title'] }} Image" width="80">
         @endif
     	<a href="{{ $product['url'] }}" target="_blank" style="color: #212529;"><span class="ml-2">{{ $product['title'] }}</span></a>
     </td>

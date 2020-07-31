@@ -65,6 +65,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <select name="country" id="country" class="form-control">
+                                        <option value="">-</option>
                                         @foreach(App\Models\Country::get() as $country)
                                             <option value="{{ $country->id }}" {{ Auth::user()->country_id == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
                                         @endforeach

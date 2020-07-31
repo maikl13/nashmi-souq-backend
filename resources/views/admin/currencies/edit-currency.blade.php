@@ -19,7 +19,7 @@
 				<div class="modal-body" dir="rtl">
                     <div class="form-group">
 						<label for="name" class="form-control-label"> اسم العملة: </label>
-						<input type="text" class="form-control text-right" id="name" name="name" value="{{ old('name') ? old('name') : $name->name }}" placeholder="مثال: (الدولار الأمريكي - الجنيه الاسترليني)" required>
+						<input type="text" class="form-control text-right" id="name" name="name" value="{{ old('name') ? old('name') : $currency->name }}" placeholder="مثال: (الدولار الأمريكي - الجنيه الاسترليني)" required>
 					</div>
 				</div>
 				<div class="modal-body" dir="rtl">

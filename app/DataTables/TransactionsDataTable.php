@@ -36,6 +36,7 @@ class TransactionsDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('user', function($record){ return $record->user->name; })
             ->addColumn('type', function($record){ return $record->type(); })
+            ->addColumn('currency', function($record){ return $record->currency->name; })
             ->addColumn('payment_method', function($record){ return $record->payment_method(); })
             ->addColumn('status', function($record){ return $record->status(); })
             ->addColumn('created_at', function($record){ return $record->created_at->format('d-m-Y h:i:s'); })
@@ -93,6 +94,7 @@ class TransactionsDataTable extends DataTable
             Column::make('user')->title('العضو'),
             Column::make('type')->title('النوع'),
             Column::make('amount')->title('القيمة'),
+            Column::make('currency')->title('العملة'),
             Column::make('payment_method')->title('وسيلة الدفع'),
             Column::make('status')->title('الحالة'),
             Column::make('created_at')->title('تاريخ العملية'),

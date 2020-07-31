@@ -3,13 +3,14 @@
 namespace App\DataTables;
 
 use App\Models\Order;
+use App\Models\Package;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class OrdersDataTable extends DataTable
+class PackagesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,27 +20,29 @@ class OrdersDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        if(isset(request()->columns[6]['search']['value']) && $status = request()->columns[6]['search']['value']){
-            $query = $query->where('orders.status', $status);
+        if(isset(request()->columns[7]['search']['value']) && $status = request()->columns[7]['search']['value']){
+            $query = $query->where('packages.status', $status);
         }
         return datatables()
             ->eloquent($query)
-            ->addColumn('order_data', 'main.store.partials.order-row')->setRowId(function ($order) {return $order->id;})
-            ->rawColumns(['order_data']);
+            ->addColumn('package_data', 'main.store.partials.package-row')->setRowId(function ($package) {return $package->id;})
+            ->rawColumns(['package_data']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Order $model
+     * @param \App\package $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Order $model)
+    public function query(package $model)
     {
         return $model->newQuery()->where('store_id', auth()->user()->id)
+            ->leftJoin('orders', 'orders.id', '=', 'packages.order_id')
             ->leftJoin('users', 'orders.user_id', '=', 'users.id')
-            ->leftJoin('listings', 'orders.listing_id', '=', 'listings.id')
-            ->select('orders.*', 'users.name as users.name', 'listings.title as listings.title');
+            ->leftJoin('package_items', 'package_items.package_id', '=', 'packages.id')
+            ->selectRaw("`packages`.*, `users`.`name` as `users.name`, `orders`.`buyer_name` as `orders.buyer_name`, GROUP_CONCAT(`package_items`.`title`) as `package_items.title`")
+            ->groupBy('packages.id');
 
     }
 
@@ -55,7 +58,7 @@ class OrdersDataTable extends DataTable
                         'autoWidth' => false,
                         'pageLength' => 10,
                     ])
-                    ->setTableId('orders-table')
+                    ->setTableId('packages-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Blfrtip')
@@ -81,9 +84,10 @@ class OrdersDataTable extends DataTable
             Column::make('id')->hidden('true'),
             Column::make('uid')->hidden('true'),
             Column::make('users.name')->hidden('true'),
-            Column::make('listings.title')->hidden('true'),
-            Column::make('buyer_name')->title('اسم المشتري')->hidden('true'),
-            Column::make('order_data')->title('الطلب'),
+            Column::make('package_items.title')->hidden('true'),
+            Column::make('package_items.title')->hidden('true'),
+            Column::make('orders.buyer_name')->title('اسم المشتري')->hidden('true'),
+            Column::make('package_data')->title('الطلب'),
             Column::make('status')->hidden('true'),
             // Column::make('created_at')->searchable(false)->title('تاريخ الطلب'),
         ];
@@ -96,6 +100,6 @@ class OrdersDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Orders_' . date('YmdHis');
+        return 'packages_' . date('YmdHis');
     }
 }

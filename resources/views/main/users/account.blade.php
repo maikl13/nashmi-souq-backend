@@ -108,6 +108,8 @@
 
 @section('modals')
     @include('main.users.partials.promote-listing-modal')
+    @include('main.users.partials.withdraw-modal')
+    @include('main.users.partials.balance-details-modal')
 @endsection
 
 @section('scripts')

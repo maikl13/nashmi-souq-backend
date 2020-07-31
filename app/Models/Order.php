@@ -5,14 +5,12 @@ namespace App\Models;
 use App;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\PaymentTrait;
+use App\Traits\ExchangeCurrency;
 
 class Order extends Model
 {
-    use PaymentTrait;
-
-    const NORMAL_SHIPPING = 1;
-    const NO_SHIPPING = 2;
-
+    use PaymentTrait, ExchangeCurrency;
+    
     const CREDIT_PAYMENT = 1;
     const ON_DELIVERY_PAYMENT = 2;
 
@@ -47,6 +45,12 @@ class Order extends Model
            return $this->payment_method == Self::CREDIT_PAYMENT ? 'بطاقة الائتمان' : 'الدفع عند الاستلام';
         return $this->payment_method == Self::CREDIT_PAYMENT ? 'Credit Card' : 'Payment On Delivery';
     }
+    public function is_on_credit_payment(){
+        return $this->payment_method == Self::CREDIT_PAYMENT;
+    }
+    public function is_on_delivery_payment(){
+        return $this->payment_method == Self::ON_DELIVERY_PAYMENT;
+    }
     public function shipping_method(){
         if( App::getLocale() == 'ar' )
            return $this->shipping_method == Self::NORMAL_SHIPPING ? 'شحن عادي' : 'الاستلام من مقر الشركة';
@@ -70,11 +74,14 @@ class Order extends Model
     }
 
 
-
     public function price(){
-        return $this->price+0;
+        $price = 0;
+        foreach($this->packages as $package) 
+            if(!$package->is_cancelled() && !$package->is_rejected())
+                $price += $package->price();
+        return $price;
     }
     public function price_in($currency){
-        return $this->price+0;
+        return Self::exchange($this->price(), $this->currency->code, 'EGP');
     }
 }

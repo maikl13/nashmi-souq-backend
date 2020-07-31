@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App;
+use App\Models\Order;
 
 class Package extends Model
 {
@@ -30,6 +31,7 @@ class Package extends Model
     }
 
     public function status(){
+        if($this->is_unpaid()) return App::getLocale() == 'ar' ? 'غير مدفوع' : 'unpaid';
         switch ($this->status) {
             case Self::STATUS_PENDING : return App::getLocale() == 'ar' ? 'قيد المراجعة' : 'pending'; break;
             case Self::STATUS_APPROVED : return App::getLocale() == 'ar' ? 'مقبول' : 'Approved'; break;
@@ -46,6 +48,9 @@ class Package extends Model
         }
     }
     
+    public function is_unpaid(){
+        return $this->order->status == Order::STATUS_UNPAID;
+    }
     public function is_pending(){
         return $this->status == Self::STATUS_PENDING;
     }
@@ -84,6 +89,17 @@ class Package extends Model
         return $last_status_update && $last_status_update->note ? $last_status_update->note : null;
     }
     public function price(){
-        return $this->price+0;
+        $price = 0;
+        foreach($this->package_items as $item) $price += $item->total_price();
+        return $price;
+    }
+
+    // this is a recommended way to declare event handlers
+    protected static function boot() {
+        parent::boot();
+
+        static::creating(function(Package $package) {
+            $package->price_usd = $package->order->currency->code == 'USD' ? $package->price() : Self::exchange($package->price(), $package->order->currency->code, 'USD');
+        });
     }
 }
