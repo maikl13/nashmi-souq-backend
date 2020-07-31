@@ -12,6 +12,9 @@ class PackageItem extends Model
     public function package(){
         return $this->belongsTo(Package::class);
     }
+    public function original_currency(){
+        return $this->belongsTo(Currency::class, 'original_currency_id');
+    }
 
     public function price(){
         return $this->price+0;
