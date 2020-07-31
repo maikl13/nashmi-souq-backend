@@ -108,12 +108,14 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area">
-                    <div class="widget-lg widget-price mb-3">
-                        <div class="item-price">
-                            {{ $listing->local_price() }}
-                            <small><span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span></small>
+                    @if ($listing->price === null)
+                        <div class="widget-lg widget-price mb-3">
+                            <div class="item-price">
+                                {{ $listing->local_price() }}
+                                <small><span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span></small>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     @if ($listing->is_eligible_for_cart())
                         <div class="widget-lg widget-price widget-light-bg">
                             <form method="post" class="cart-form">
