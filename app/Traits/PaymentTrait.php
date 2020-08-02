@@ -32,8 +32,9 @@ trait PaymentTrait {
         $description = $options['description'] ?? 'Ordered goods';
         $return_url = $options['return_url'] ?? config('app.url')."/payment-result?uid=$uid";
         $currency = $options['currency'] ?? 'EGP';
+        $amount = ceil(exchange($transaction->amount, $transaction->currency->code, $currency));
 
-        $params = $this->request_hosted_checkout_interaction($transaction->amount, $currency, $uid, $return_url);
+        $params = $this->request_hosted_checkout_interaction($amount, $currency, $uid, $return_url);
         // $params = [
         //     'result' => 'SUCCESS',
         //     'successIndicator' => 'abc',
@@ -49,7 +50,7 @@ trait PaymentTrait {
                 // header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
                 return view('main.payment.hosted-checkout')->with([
                     'session_id' => $params['session.id'],
-                    'amount' => ceil(exchange($transaction->amount, $transaction->currency->code, $currency)),
+                    'amount' => $amount,
                     'address1' => $address1,
                     'address2' => $address2,
                     'uid' => $uid,
