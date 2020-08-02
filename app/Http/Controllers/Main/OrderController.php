@@ -46,7 +46,7 @@ class OrderController extends Controller
         // order info
         $order->uid = unique_id();
         $order->payment_method = $request->payment_method;
-        $order->status = $order->payment_method == Order::CREDIT_PAYMENT ? Order::STATUS_UNPAID : Order::STATUS_PENDING;
+        $order->status = $order->payment_method == Order::CREDIT_PAYMENT ? Order::STATUS_UNPAID : Order::STATUS_PROCESSING;
         $order->price = $cart->total_price();
 
         // buyer info
