@@ -38,7 +38,7 @@ trait ManageTransactions {
 
         // earned revenues
         // Total store revenues in local currency for delevered packages
-        foreach($this->store_packages()->where('status', Order::STATUS_DELIVERED)->get() as $package)
+        foreach($this->store_packages()->where('status', Package::STATUS_DELIVERED)->get() as $package)
             if($package->order->payment_method == Order::CREDIT_PAYMENT)
                 foreach ($package->package_items as $item)
                     $payout_balance[$item->original_currency->code] += $item->original_price();
@@ -64,7 +64,7 @@ trait ManageTransactions {
             $reserved_balance[$currency->code] = 0;
         
         // Total store revenues in local currency for non delivered packages
-        foreach($this->store_packages()->where('status', '!=', Order::STATUS_DELIVERED)->get() as $package)
+        foreach($this->store_packages()->where('status', '!=', Package::STATUS_DELIVERED)->get() as $package)
             if(!$package->is_rejected() && !$package->is_cancelled())
                 if($package->order->payment_method == Order::CREDIT_PAYMENT)
                     foreach ($package->package_items as $item)
