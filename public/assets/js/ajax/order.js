@@ -61,7 +61,7 @@ function update_status(packageId){
         type: 'POST',
         data: { 'package_id': packageId },
         success: function(data){
-            $('.order-status').text(data);
+            $('.package-status').text(data);
         }
     });
 }
@@ -71,7 +71,7 @@ function update_status_updates_log(packageId){
         type: 'POST',
         data: { 'package_id': packageId },
         success: function(data){
-            $('.order-status-updates-log').html(data);
+            $('.package-status-updates-log').html(data);
         }
     });
 }

@@ -56,12 +56,12 @@
                         <br>
                         البائع: <a href="{{ $package->store->url() }}">{{ $package->store->store_name() }}</a>
                         <div class="section-content">
-                            @if( $package->is_approved() )
+                            {{-- @if( $package->is_approved() )
                                 <div class="alert alert-info text-center py-4" style="line-height: 30px;">
                                     <strong>طلبك قيد المراجعة</strong><br>
                                     <span>بإنتظار تأكيدك للطلب و رسوم الشحن للبدء بتجهيز الطلب.</span>
                                 </div>
-                            @endif
+                            @endif --}}
                             @if( $package->seller_note() )
                                 <div class="alert alert-info text-center py-4" style="line-height: 30px;">
                                     <strong>ملاحظة البائع</strong><br> 
