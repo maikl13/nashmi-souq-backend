@@ -41,7 +41,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="product-grid-view">
                     <div class="grid-view-layout2">
-                        <div class="product-box-layout1 {{ $listing->is_featured() ? 'item-trending' : '' }}">
+                        <div class="product-box-layout1 {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
                             <div class="item-img">
                                 <a href="{{ $listing->url() }}"><img src="{{ $listing->listing_image() }}" alt="Product"></a>
                             </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="product-list-view">
                     <div class="list-view-layout2">
-                        <div class="product-box-layout3 {{ $listing->is_featured() ? 'item-trending' : '' }}">
+                        <div class="product-box-layout3 {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
                             <div class="item-img">
                                 <a href="{{ $listing->url() }}"><img src="{{ $listing->listing_image() }}" alt="Product"></a>
                             </div>

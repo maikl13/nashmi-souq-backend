@@ -175,10 +175,12 @@
     .home-listing .item-content h3 {
         white-space: nowrap;
     }
-    .item-trending.home-listing .item-content {
+    .item-trending.home-listing .item-content,
+    .item-fixed.home-listing .item-content {
         padding: 10px 10px 0 30px;
     }
-    .item-trending.home-listing:after {
+    .item-trending.home-listing:after,
+    .item-fixed.home-listing:after {
         width: 2.5rem;
         height: 2.5rem;
         padding: 0.3rem 1.5rem 0 0;

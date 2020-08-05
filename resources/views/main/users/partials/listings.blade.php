@@ -3,7 +3,7 @@
         <div class="list-view-layout1">
             @forelse(Auth::user()->listings()->latest()->get() as $listing)
                 <div class="deletable mb-4">
-                    <div class="listing-box product-box-layout3 m-0 {{ $listing->is_featured() ? 'item-trending' : '' }}">
+                    <div class="listing-box product-box-layout3 m-0 {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
                         <div class="item-img">
                             <a href="{{ $listing->url() }}">
                                 <img src="{{ $listing->listing_image() }}" alt="Product">
@@ -54,6 +54,12 @@
                                         <a href="{{ $listing->url() }}" style="background: orange;" data-toggle="modal" data-target="#promote" data-listing-id="{{ $listing->id }}" class="promote">
                                             <i class="fa fa-crown ml-2"></i>
                                             <strong style="font-weight: bold;">ترقيه لإعلان مميز</strong>
+                                        </a>
+                                    @endif
+                                    @if( !$listing->is_fixed() )
+                                        <a href="{{ $listing->url() }}" style="background: darkcyan;" data-toggle="modal" data-target="#promote2" data-listing-id="{{ $listing->id }}" class="promote2">
+                                            <i class="fa fa-gem ml-2"></i>
+                                            <strong style="font-weight: bold;">تثبيت الاعلان</strong>
                                         </a>
                                     @endif
                                 </div>

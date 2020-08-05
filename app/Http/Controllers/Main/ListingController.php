@@ -25,7 +25,7 @@ class ListingController extends Controller
             'areas.*' => 'nullable|exists:areas,id',
         ]);
 
-        $listings = Listing::query()->localized()->active();
+        $listings = Listing::query()->active();
 
         $categories = empty($request->categories) || $request->categories == [null] ? [] : $request->categories;
         $sub_categories = empty($request->sub_categories) || $request->sub_categories == [null] ? [] : $request->sub_categories;
@@ -34,7 +34,8 @@ class ListingController extends Controller
 
         //search
         if($request->q && !empty($request->q)) 
-            $listings = $listings->search($request->q)->featured();
+            $listings = $listings->featured();
+        // dd($listings->toSql());
         // filter by type
         if($request->type && !empty($request->type)) 
             $listings = $listings->where('type', $request->type);
@@ -193,17 +194,20 @@ class ListingController extends Controller
 
     public function promote(Request $request)
     {
+        // dd($request->request);
         $request->validate([
             'listing_id' => 'required|exists:listings,id',
-            'tier' => 'required|between:1,8'
+            'tier' => 'required|between:1,20'
         ]);
         $listing = Listing::where('id', $request->listing_id)->first();
         $price = round(exchange(setting('tier'.$request->tier), 'USD', currency()->code), 1);
 
         $this->authorize('edit', $listing);
+        if($listing->is_featured() && $request->tier <= 8)
+            return response()->json('تم ترقية الإعلان بالفعل للعضوية المميزة من قبل', 500);
 
-        if($listing->is_featured())
-            return response()->json('تم ترقية الإعلان بالفعىل للعضوية المميزة من قبل', 500);
+        if($listing->is_fixed() && $request->tier >= 9)
+            return response()->json('تم تثبيت الإعلان من قبل بالفعل', 500);
 
         if(empty( setting('tier'.$request->tier) ))
             return response()->json('حدث خطأ ما! قم بتحديث الصفحة و حاول مجددا.', 500);
@@ -219,8 +223,11 @@ class ListingController extends Controller
 
         if($successfull_transaction = $featured_listing->pay_from_wallet($transaction)){
             $featured_listing->transaction_id = $transaction->id;
-            if($featured_listing->save())
-                return response()->json('تم ترقية إعلانك لإعلان مميز.', 200);
+            if($featured_listing->save()){
+                if($request->tier <= 8)
+                    return response()->json('تم ترقية إعلانك بنجاح.', 200);
+                return response()->json('تم تثبيت إعلانك بنجاح.', 200);
+            }
         } else {
             return response()->json('حدث خطأ ما! من فضلك تأكد من وجود رصيد كاف و حاول مجددا.', 500);
         }

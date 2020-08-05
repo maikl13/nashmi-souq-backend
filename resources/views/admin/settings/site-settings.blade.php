@@ -412,6 +412,154 @@
 
                                         </div>
                                     </div>
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>مزايا الإعلانات المثبتة</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <label for="featured_ads_benefits2" class="col-md-3 col-form-label">مزايا الإعلانات المثبتة</label>
+                                                    <div class="col-md-9 text-right" dir="rtl">
+                                                        <textarea type="text" class="form-control" id="featured_ads_benefits2" name="featured_ads_benefits2" rows="5">{{ setting('featured_ads_benefits2', false) }}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>أسعار الإعلانات المثبتة</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <label for="tier9" class="col-md-3 col-form-label">شهر</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier9" name="tier9"  value="{{ setting('tier9', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier10" class="col-md-3 col-form-label">شهرين</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier10" name="tier10"  value="{{ setting('tier10', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier11" class="col-md-3 col-form-label">3 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier11" name="tier11"  value="{{ setting('tier11', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier12" class="col-md-3 col-form-label">4 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier12" name="tier12"  value="{{ setting('tier12', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier13" class="col-md-3 col-form-label">5 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier13" name="tier13"  value="{{ setting('tier13', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier14" class="col-md-3 col-form-label">6 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier14" name="tier14"  value="{{ setting('tier14', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier15" class="col-md-3 col-form-label">7 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier15" name="tier15"  value="{{ setting('tier15', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier16" class="col-md-3 col-form-label">8 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier16" name="tier16"  value="{{ setting('tier16', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier17" class="col-md-3 col-form-label">9 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier17" name="tier17"  value="{{ setting('tier17', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier18" class="col-md-3 col-form-label">10 شهور</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier18" name="tier18"  value="{{ setting('tier18', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier19" class="col-md-3 col-form-label">11 شهر</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier19" name="tier19"  value="{{ setting('tier19', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="tier20" class="col-md-3 col-form-label">12 شهر</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="tier20" name="tier20"  value="{{ setting('tier20', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
