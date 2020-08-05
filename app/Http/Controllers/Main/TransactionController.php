@@ -55,4 +55,26 @@ class TransactionController extends Controller
                 ->with(['failure' => 'خطأ حدث خطأ ما من فضلك حاول مجددا.']);
         }
     }
+
+    
+    public function add_balance_page()
+    {
+        // $balance = [];
+        // $balance['expensed_balance'] = auth()->user()->expensed_balance(true);
+        // $balance['reserved_balance'] = auth()->user()->reserved_balance(true);
+        // $balance['payout_balance'] = auth()->user()->payout_balance(true);
+        // dd($balance);
+
+        return view('main.payment.add-balance');
+    }
+
+    public function add_balance(Request $request)
+    {
+        $request->validate([
+            'amount' => 'integer|min:1|max:1000000'
+        ]);
+        $amount = $request->amount;
+        $transaction = Transaction::payment_init($amount, currency(), Transaction::TYPE_DEPOSIT);
+        return $transaction->direct_payment();
+    }
 }

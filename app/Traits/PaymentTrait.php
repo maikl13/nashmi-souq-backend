@@ -7,7 +7,7 @@ use App\Models\Transaction;
 use App\Models\Currency;
 trait PaymentTrait {
 
-    public function payment_init($amount, $currency=false)
+    public static function payment_init($amount, $currency=false, $type=Transaction::TYPE_PAYMENT)
     {
         $currency = $currency ? $currency : currency();
 
@@ -16,7 +16,7 @@ trait PaymentTrait {
         $transaction->amount = $amount;
         $transaction->user_id = auth()->user()->id;
         $transaction->currency_id = $currency->id;
-        $transaction->type = Transaction::TYPE_PAYMENT;
+        $transaction->type = $type;
         $transaction->status = Transaction::STATUS_PENDING;
         $transaction->payment_method = Transaction::PAYMENT_DIRECT_PAYMENT;
         if($transaction->save())
@@ -24,8 +24,9 @@ trait PaymentTrait {
         return false;
     }
 
-    public function direct_payment($transaction, $options=[])
+    public function direct_payment($options=[])
     {
+        $transaction = $this;
         $uid = $transaction->uid;
         $address1 = $options['address1'] ?? 'NOT REQUIRED';
         $address2 = $options['address2'] ?? 'NOT REQUIRED';

@@ -90,7 +90,6 @@ Route::get('terms-and-conditions', 'MainController@terms_and_conditions');
 Route::get('about', 'MainController@about');
 Route::get('safety-tips', 'MainController@safety');
 Route::get('advertise', 'MainController@advertise');
-Route::get('balance', 'MainController@balance');
 
 Route::get('contact-us', 'ContactMessageController@create');
 Route::post('contact-us', 'ContactMessageController@store');
@@ -106,6 +105,8 @@ Route::post('cart/update-quantity', 'CartController@update_product_quantity');
 Route::get('cart/update-totals', 'CartController@update_totals');
 
 Route::get('payment-result', 'TransactionController@payment_result');
+Route::get('balance', 'TransactionController@add_balance_page');
+Route::post('balance', 'TransactionController@add_balance');
 
 
 

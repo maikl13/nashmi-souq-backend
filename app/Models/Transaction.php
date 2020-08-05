@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ExchangeCurrency;
 use App\Models\SubTransaction;
+use App\Traits\PaymentTrait;
 
 class Transaction extends Model
 {
-    use ExchangeCurrency;
+    use PaymentTrait, ExchangeCurrency;
 
     const TYPE_DEPOSIT = 1;
     const TYPE_WITHDRAWAL = 2;

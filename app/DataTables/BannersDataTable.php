@@ -23,7 +23,7 @@ class BannersDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('type', function($record){ return $record->type(); })
             ->addColumn('image', function ($record) {
-                return '<a href="'.$record->category_image().'" data-fancybox="bs"><img src="'.$record->category_image().'" border="0" width="160" class="img-rounded" align="center"/></a>';
+                return '<a href="'.$record->banner_image().'" data-fancybox="bs"><img src="'.$record->banner_image().'" border="0" width="160" class="img-rounded" align="center"/></a>';
             })
             ->addColumn('url', function($record){ return $record->url; })
             ->addColumn('period', function($record){ return $record->period; })

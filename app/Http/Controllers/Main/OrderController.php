@@ -91,11 +91,11 @@ class OrderController extends Controller
 
             if($request->payment_method == Order::CREDIT_PAYMENT){
                 $price = $order->price();
-                $transaction = $order->payment_init($price, $order->currency);
+                $transaction = Transaction::payment_init($price, $order->currency);
                 if($transaction){
                     $order->transaction_id = $transaction->id;
                     if($order->save())
-                        return $order->direct_payment($transaction);
+                        return $transaction->direct_payment();
                 }
             } else {
                 return redirect()->route('order-saved');
