@@ -43,3 +43,8 @@
         </div>
     </div>
 </div>
+
+<div class="alert alert-info">
+    يمكنك شحن رصيد محفظتك باستخدام البطاقة الائتمانية
+    <a href="/balance" class="btn btn-sm btn-info float-left">شحن الرصيد</a>
+</div>

@@ -37,10 +37,6 @@
     <section class="section-padding-equal-70">
         <div class="container">
             <div class="row">
-                <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
-                <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-            </div>
-            <div class="row">
                 <div class="col-xs-12 col-sm-10 col-md-8 mx-auto">
                     <div class="search-result-box-layout1">
                         <div class="search-item-result" style="line-height: 38px;">
@@ -50,14 +46,17 @@
                             
                             <div class="post-ad-box-layout1 p-5">
                                 <div class="post-ad-form light-box-content">
+                                    <div class="alert alert-info">
+                                        قم بتحديد المبلغ الذي ترغب بشحن رصيد محفظتك به و سيتم تحويلك لصفحة الدفع.
+                                    </div>
                                     <form action="/balance" method="post">
                                         @csrf
                                         <div class="post-section post-information">
                                             <div class="row">
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-12">
                                                     <label class="control-label">الرصيد المطلوب <small> - ب{{ currency()->name }}</small></label>
                                                 </div>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-12">
                                                     <div class="form-group">
                                                         <input type="number" step="1" class="form-control" name="amount" id="amount" value="{{ old('amount') ? old('amount') : '' }}">
                                                     </div>
@@ -66,7 +65,7 @@
                                             <div class="post-section">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group text-left">
+                                                        <div class="form-group">
                                                             <button type="submit" class="submit-btn">شحن الرصيد</button>
                                                         </div>
                                                     </div>
@@ -79,6 +78,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+                <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
             </div>
         </div>
     </section>

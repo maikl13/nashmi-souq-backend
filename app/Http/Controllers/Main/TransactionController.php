@@ -21,8 +21,9 @@ class TransactionController extends Controller
             if($order){
                 $order->status = Order::STATUS_PROCESSING;
                 $order->save();
+                return redirect()->route('order-saved');
             }
-            return redirect()->route('order-saved');
+            return view('main.payment.payment-success');
         }
         return view('main.payment.payment-failed');
     }

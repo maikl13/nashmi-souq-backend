@@ -77,7 +77,7 @@ class Transaction extends Model
 
     public function status(){
         switch ($this->status) {
-            case $this::STATUS_PENDING: return 'قيد المراجعة'; break;
+            case $this::STATUS_PENDING: return 'قيد الانتظار'; break;
             case $this::STATUS_PROCESSED: return 'مكتملة'; break;
             case $this::STATUS_CANCELLED: return 'ملغية'; break;
         }

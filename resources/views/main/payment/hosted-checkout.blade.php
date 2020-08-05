@@ -7,11 +7,9 @@
 
         <script type="text/javascript">
             function errorCallback(error) {
-                console.log('EEERRROOORRR');
                 console.log(JSON.stringify(error));
             }
             function cancelCallback() {
-                console.log('CCCAAANNNCCCEEELLLEEEDDD');
                 console.log('Payment cancelled');
             }
 
