@@ -50,3 +50,18 @@ function get_error_msg(data){
     return errMsg;
 }
 
+
+$(document).ready(function () {
+    $(document).click(function (e) {
+        var clickover = $(e.target);
+        if (
+            !clickover.is(".toggle-guestnav *") && !clickover.is(".toggle-guestnav")
+            // && !clickover.is(".conversations-dropdown *") && !clickover.is(".conversations-dropdown")
+        ) {
+            $('.guestnav-dropdown').hide();
+        } else if (!clickover.is(".guestnav-dropdown *") && !clickover.is(".guestnav-dropdown")) {
+            e.preventDefault();
+            $('.guestnav-dropdown').toggle();
+        }
+    });
+});

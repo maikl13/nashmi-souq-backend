@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // if (App::environment() === 'production')
-            $this->app['request']->server->set('HTTPS', true);
+            // $this->app['request']->server->set('HTTPS', true);
     }
 
     /**
@@ -27,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(UrlGenerator $url)
     {
         // if (App::environment() === 'production')
-            $url->formatScheme('https');
+            // $url->formatScheme('https');
     }
 }

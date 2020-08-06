@@ -94,6 +94,7 @@
                                             <span class="share-title">
                                                 <i class="fas fa-share-alt"></i> مشاركة:
                                             </span>
+                                            <a href="#" class="bg-facebook open-share"><i class="fa fa-share-alt"></i></a>
                                             <?php $url = config('app.url').$listing->url() ?>
                                             <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($url) }}" class="bg-facebook"><i class="fab fa-facebook-f"></i></a>
                                             <a href="https://twitter.com/intent/tweet?url={{ urlencode($url) }}" class="bg-twitter"><i class="fab fa-twitter"></i></a>
@@ -156,5 +157,22 @@
     <script src="/assets/plugins/fancybox-master/jquery.fancybox.min.js"></script>
     <script>
         $('[data-fancybox]').fancybox();
+    </script>
+    <script>
+        $(document).ready(function(){
+            if (!navigator.share) {
+                $('.open-share').hide();
+            }
+            $('.open-share').on('click', function(){
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: "سوق نشمي",
+                        url: window.location.href
+                    }).then(() => console.log('Successful share'))
+                    .catch(error => console.log('Error sharing:', error));
+                }
+            });
+        });
     </script>
 @endsection

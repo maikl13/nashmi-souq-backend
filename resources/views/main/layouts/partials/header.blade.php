@@ -118,6 +118,21 @@
 
     @include('main.layouts.partials.conversations-dropdown')
 @endauth
+@guest
+    <a class="d-lg-none mobile-nav-icon toggle-guestnav" style="left: 208px; color: #f85c70; line-height: 34px">
+        <i class="far fa-user"></i>
+    </a>
+    <section style="display: none;" class="guestnav-dropdown">
+        <div class="container" dir="ltr">
+            <div class="row">
+                <div class="col-12">
+                    <a class="dropdown-item p-3" href="/login">تسجيل الدخول</a>
+                    <a class="dropdown-item p-3" href="/register">حساب جديد</a>
+                </div>
+            </div>
+        </div>
+    </section>
+@endguest
 
 @if (setting('notification'))
     <div class="text-center text-white py-3 px-3" style="background: #f85c70;">
