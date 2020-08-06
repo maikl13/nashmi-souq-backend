@@ -163,7 +163,8 @@
             if (!navigator.share) {
                 $('.open-share').hide();
             }
-            $('.open-share').on('click', function(){
+            $('.open-share').on('click', function(e){
+                e.preventDefault();
                 if (navigator.share) {
                     navigator.share({
                         title: document.title,
