@@ -92,7 +92,7 @@
 				<div class="modal-body" dir="rtl">
 					<div class="alert alert-info">
 						<div class="media">
-							<h3 class="pl-3 pt-2"><i class="fa fa-crown text-info"></i></h3>
+							<h3 class="pl-3 pt-2"><i class="fa fa-gem text-info"></i></h3>
 							<div class="media-body">
 								{!! nl2br(e(setting('featured_ads_benefits2'))) !!}
 							</div>

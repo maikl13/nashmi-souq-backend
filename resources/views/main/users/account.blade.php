@@ -156,7 +156,7 @@
     </script>
 
     <script src="/assets/plugins/labelauty/source/jquery-labelauty.js"></script>
-    <script src="/assets/js/promote.js"></script>
+    <script src="/assets/js/promote.js?v=1.1"></script>
 @endsection
 
 
