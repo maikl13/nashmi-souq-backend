@@ -131,7 +131,8 @@
     padding: 12px 19px;
     border-radius: 26px;
 }
-.mobile-nav-icon.toggle-conversations {
+.mobile-nav-icon.toggle-conversations,
+.toggle-guestnav {
     left: 210px; 
     color: #f85c70 !important;
     line-height: 34px;
@@ -139,7 +140,7 @@
 @media (max-width: 399px){
     .add-listing-btn {left: 38px;}
     .add-listing-btn a { font-size: 14px; padding: 12px 10px; border-radius: 14px; font-weight: bold; }
-    .mobile-nav-icon.toggle-conversations { left: 163px; }
+    .mobile-nav-icon.toggle-conversations, .toggle-guestnav { left: 163px; }
 }
 @media (max-width: 319px){
     .logo-mobile { display: none; }

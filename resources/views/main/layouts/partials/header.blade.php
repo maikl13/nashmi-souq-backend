@@ -119,7 +119,7 @@
     @include('main.layouts.partials.conversations-dropdown')
 @endauth
 @guest
-    <a class="d-lg-none mobile-nav-icon toggle-guestnav" style="left: 208px; color: #f85c70; line-height: 34px">
+    <a class="d-lg-none mobile-nav-icon toggle-guestnav">
         <i class="far fa-user"></i>
     </a>
     <section style="display: none;" class="guestnav-dropdown">
