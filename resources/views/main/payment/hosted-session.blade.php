@@ -1,7 +1,7 @@
 <html>
     <head>
         <!-- INCLUDE SESSION.JS JAVASCRIPT LIBRARY -->
-        <script src="https://test-nbe.gateway.mastercard.com/form/version/57/merchant/EGPTEST1/session.js"></script>
+        <script src="https://test-nbe.gateway.mastercard.com/form/version/57/merchant/EGPTEST1/session.js?debug=true"></script>
         <!-- APPLY CLICK-JACKING STYLING AND HIDE CONTENTS OF THE PAGE -->
         <style id="antiClickjack">body{display:none !important;}</style>
     </head>
@@ -17,6 +17,11 @@
         <div>Security Code:<input type="text" id="security-code" class="input-field" title="security code" aria-label="three digit CCV security code" value="" tabindex="4" readonly></div>
         <div>Cardholder Name:<input type="text" id="cardholder-name" class="input-field" title="cardholder name" aria-label="enter name on card" value="" tabindex="5" readonly></div>
         <div><button id="payButton" onclick="pay('card');">Pay Now</button></div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script>
+            $.ajaxSetup({headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}" }});
+        </script>
 
         <!-- JAVASCRIPT FRAME-BREAKER CODE TO PROVIDE PROTECTION AGAINST IFRAME CLICK-JACKING -->
         <script type="text/javascript">
@@ -49,6 +54,18 @@
                     if (response.status) {
                         if ("ok" == response.status) {
                             console.log("Session updated with data: " + response.session.id);
+                            $.ajax({
+                                type: "POST",
+                                url: "/hosted-session",
+                                data: { 
+                                    "sessionId": response.session.id,
+                                    "sessionVersion": response.session.version
+                                    // "_token": "{{ csrf_token() }}",
+                                },
+                                success: function (res) {
+                                    console.log(res);
+                                }
+                            });
         
                             //check if the security code was provided by the user
                             if (response.sourceOfFunds.provided.card.securityCode) {
