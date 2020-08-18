@@ -1,6 +1,6 @@
 <html>
     <head>
-        <script src="https://test-nbe.gateway.mastercard.com/checkout/version/57/checkout.js"
+        <script src="{{ config('services.mpgs.api_url') }}/checkout/version/57/checkout.js"
             data-error="errorCallback"
             data-cancel="cancelCallback">
         </script>
