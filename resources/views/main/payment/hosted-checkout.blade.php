@@ -26,7 +26,7 @@
                         country      : 'USA'
                     }
                 },
-                merchant: 'EGPTEST1',
+                merchant: '{{ config('services.mpgs.merchant') }}',
                 order: {
                     amount: function() {
                         //Dynamic calculation of amount
