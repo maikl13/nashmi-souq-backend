@@ -65,7 +65,7 @@ trait PaymentTrait {
 
     public function request_hosted_checkout_interaction($amount, $currency, $uid, $return_url)
     {
-        $api_url = config('services.mpgs.api_url');
+        $api_url = config('services.mpgs.api_url').'/api/nvp/version/57';
         $api_password = config('services.mpgs.api_password');
         $merchant_id = config('services.mpgs.merchant_id');
         $operation = config('services.mpgs.operation');
