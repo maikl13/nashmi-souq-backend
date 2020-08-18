@@ -15,10 +15,10 @@ yarn-error.log
 /classima
 souq.zip
 
-/public/user
-/public/sub-category
-/public/listing
-/public/figure
-/public/category
-/public/bs
-/public/banner
+/public/images/user
+/public/images/sub-category
+/public/images/listing
+/public/images/figure
+/public/images/category
+/public/images/bs
+/public/images/banner
