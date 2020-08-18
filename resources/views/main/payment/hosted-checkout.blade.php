@@ -26,7 +26,7 @@
                         country      : 'USA'
                     }
                 },
-                merchant: '{{ config('services.mpgs.merchant') }}',
+                merchant: '{{ config('services.mpgs.merchant_id') }}',
                 order: {
                     amount: function() {
                         //Dynamic calculation of amount
