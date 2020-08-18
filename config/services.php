@@ -31,11 +31,11 @@ return [
     ],
 
     'mpgs' => [
-        'api_url' => 'https://test-nbe.gateway.mastercard.com/api/nvp/version/57',
-        'merchant' => 'NBE Test',
-        'merchant_id' => 'EGPTEST1',
-        'api_password' => '61422445f6c0f954e24c7bd8216ceedf',
-        'operation' => 'PURCHASE',
+        'api_url' => env('MPGS_API_URL'),
+        'merchant' => env('MPGS_MERCHANT'),
+        'merchant_id' => env('MPGS_MERCHANT_ID'),
+        'api_password' => env('MPGS_API_PASSWORD'),
+        'operation' => env('MPGS_OPERATION'),
     ]
 
 ];
