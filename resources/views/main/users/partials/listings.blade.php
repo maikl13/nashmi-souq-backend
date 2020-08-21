@@ -1,7 +1,8 @@
 <div class="tab-pane fade" id="my-listing" role="tabpanel">
     <div class="myaccount-listing">
         <div class="list-view-layout1">
-            @forelse(Auth::user()->listings()->latest()->get() as $listing)
+            <?php $listings = Auth::user()->listings()->latest()->paginate(7); ?>
+            @forelse($listings as $listing)
                 <div class="deletable mb-4">
                     <div class="listing-box product-box-layout3 m-0 {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
                         <div class="item-img">
@@ -80,6 +81,8 @@
                 ?>
                 @include('main.layouts.partials.empty')
             @endforelse
+
+            <div class="text-center">{{ $listings->links() }}</div>
         </div>
     </div>
 </div>
