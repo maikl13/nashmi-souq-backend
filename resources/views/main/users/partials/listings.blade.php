@@ -82,7 +82,7 @@
                 @include('main.layouts.partials.empty')
             @endforelse
 
-            <div class="text-center">{{ $listings->links() }}</div>
+            <div class="text-center">{{ $listings->fragment('my-listing')->links() }}</div>
         </div>
     </div>
 </div>
