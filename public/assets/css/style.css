@@ -244,3 +244,7 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
 @media (max-width: 1199px){
     #cartDropdownMenuButton img {width: 28px;}
 }
+#wh-widget-send-button.wh-widget-right {
+    bottom: -17px !important;
+}
+.scrollup {display: none;}
