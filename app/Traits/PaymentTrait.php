@@ -14,14 +14,18 @@ trait PaymentTrait {
         $transaction = new Transaction;
         $transaction->uid = unique_id();
         $transaction->amount = $amount;
-        $transaction->user_id = auth()->user()->id;
         $transaction->currency_id = $currency->id;
-        $transaction->type = $type;
-        $transaction->status = Transaction::STATUS_PENDING;
-        $transaction->payment_method = Transaction::PAYMENT_DIRECT_PAYMENT;
-        if($transaction->save())
-            return $transaction;
-        return false;
+
+        if(auth()->user()){
+            $transaction->user_id = auth()->user()->id;
+            $transaction->type = $type;
+            $transaction->status = Transaction::STATUS_PENDING;
+            $transaction->payment_method = Transaction::PAYMENT_DIRECT_PAYMENT;
+            if($transaction->save())
+                return $transaction;
+            return false;
+        }
+        return $transaction;
     }
 
     public function direct_payment($options=[])
@@ -44,8 +48,10 @@ trait PaymentTrait {
 
         if($params['result'] == 'SUCCESS'){
             if(!empty($params['session.id']) && !empty($params['successIndicator'])){
-                $transaction->success_indicator = $params['successIndicator'];
-                $transaction->save();
+                if(auth()->user()){
+                    $transaction->success_indicator = $params['successIndicator'];
+                    $transaction->save();
+                }
 
                 // return redirect()->to($return_url."&resultIndicator=abc");
                 // header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
@@ -70,12 +76,13 @@ trait PaymentTrait {
         $merchant_id = config('services.mpgs.merchant_id');
         $operation = config('services.mpgs.operation');
         $uid = $options['uid'] ?? uniqid();
+        $interaction_return_url = $return_url ? "interaction.returnUrl=$return_url&" : '';
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $api_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "apiOperation=CREATE_CHECKOUT_SESSION&apiPassword=$api_password&apiUsername=merchant.$merchant_id&merchant=$merchant_id&interaction.operation=$operation&interaction.returnUrl=$return_url&order.id=$uid&order.amount=$amount&order.currency=EGP");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "apiOperation=CREATE_CHECKOUT_SESSION&apiPassword=$api_password&apiUsername=merchant.$merchant_id&merchant=$merchant_id&interaction.operation=$operation&{$interaction_return_url}order.id=$uid&order.amount=$amount&order.currency=EGP");
         $headers = array();
         $headers[] = 'Content-Type: application/x-www-form-urlencoded';
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

@@ -108,3 +108,6 @@ Route::post('cart/update-quantity', 'CartController@update_product_quantity');
 Route::get('cart/update-totals', 'CartController@update_totals');
 
 Route::get('payment-result', 'TransactionController@payment_result');
+
+Route::get('direct-payment', 'TransactionController@direct_payment');
+Route::post('direct-payment', 'TransactionController@make_direct_payment');

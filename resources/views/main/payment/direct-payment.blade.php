@@ -1,6 +1,6 @@
 @extends('main.layouts.main')
 
-@section('title', 'شحن رصيد المحفظة')
+@section('title', 'دفع مباشر')
 
 @section('head')
     <style>
@@ -21,10 +21,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs-area">
-                        <h1>شحن رصيد المحفظة</h1>
+                        <h1>دفع مباشر</h1>
                         <ul>
                             <li> <a href="/">الرئيسية</a> </li>
-                            <li>شحن رصيد المحفظة</li>
+                            <li>دفع مباشر</li>
                         </ul>
                     </div>
                 </div>
@@ -41,20 +41,20 @@
                     <div class="search-result-box-layout1">
                         <div class="search-item-result" style="line-height: 38px;">
                             <h3 class="item-title pb-4" style="border-bottom: 1px solid #f0f0f0">
-                                <small>شحن رصيد المحفظة</small>
+                                <small>دفع مباشر</small>
                             </h3>
                             
                             <div class="post-ad-box-layout1 p-4">
                                 <div class="post-ad-form light-box-content">
                                     <div class="alert alert-info">
-                                        قم بتحديد المبلغ الذي ترغب بشحن رصيد محفظتك به و سيتم تحويلك لصفحة الدفع.
+                                        قم بتحديد المبلغ.
                                     </div>
-                                    <form action="/balance" method="post">
+                                    <form action="/direct-payment" method="post">
                                         @csrf
                                         <div class="post-section post-information">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <label class="control-label">الرصيد المطلوب <small> - ب{{ currency()->name }}</small></label>
+                                                    <label class="control-label">المبلغ <small> - ب{{ currency()->name }}</small></label>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
@@ -66,7 +66,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <button type="submit" class="submit-btn">شحن الرصيد</button>
+                                                            <button type="submit" class="submit-btn">دفع</button>
                                                         </div>
                                                     </div>
                                                 </div>

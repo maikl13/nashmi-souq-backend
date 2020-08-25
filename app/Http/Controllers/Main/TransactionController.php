@@ -78,4 +78,19 @@ class TransactionController extends Controller
         $transaction = Transaction::payment_init($amount, currency(), Transaction::TYPE_DEPOSIT);
         return $transaction->direct_payment();
     }
+    
+    public function direct_payment()
+    {
+        return view('main.payment.direct-payment');
+    }
+
+    public function make_direct_payment(Request $request)
+    {
+        $request->validate([
+            'amount' => 'integer|min:1|max:1000000'
+        ]);
+        $amount = $request->amount;
+        $transaction = Transaction::payment_init($amount, currency(), Transaction::TYPE_DEPOSIT);
+        return $transaction->direct_payment(['return_url'=>false]);
+    }
 }
