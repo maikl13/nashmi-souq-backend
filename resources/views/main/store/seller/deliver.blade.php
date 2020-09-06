@@ -50,6 +50,13 @@
                                     </div>
 
                                     <div class="form-group row">
+                                        <label for="buyer_name" class="col-md-3 col-form-label text-md-right" title="">اسم العميل</label>
+                                        <div class="col-md-9">
+                                        <input id="buyer_name" type="tel" class="form-control " name="buyer_name" placeholder="اسم العميل" required="" value="{{ old('buyer_name') ?? '' }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
                                         <label for="buyer_phone" class="col-md-3 col-form-label text-md-right" title="">رقم هاتف العميل</label>
                                         <div class="col-md-9">
                                         <input id="buyer_phone" type="tel" class="form-control " name="buyer_phone" placeholder="رقم هاتف العميل" required="" value="{{ old('buyer_phone') ?? '' }}">
@@ -74,6 +81,13 @@
                                         <label for="amount" class="col-md-3 col-form-label text-md-right">الكمية</label>
                                         <div class="col-md-9">
                                             <input id="amount" type="number" class="form-control " name="amount" placeholder="الكمية" required="" value="{{ old('amount') ?? '1' }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="price" class="col-md-3 col-form-label text-md-right">سعر الطلب</label>
+                                        <div class="col-md-9">
+                                            <input id="price" type="number" class="form-control " name="price" placeholder="سعر الطلب" required="" value="{{ old('price') ?? '1' }}">
                                         </div>
                                     </div>
 

@@ -39,11 +39,13 @@ class DeliveryController extends Controller
         $msg .= 'رقم هاتف البائع: '. $request->seller_phone.$br;
         $msg .= 'عنوان الاستلام: '. $request->seller_address.$br.$br;
 
+        $msg .= 'اسم العميل: '. $request->buyer_name.$br;
         $msg .= 'رقم هاتف العميل: '. $request->buyer_phone.$br;
         $msg .= 'عنوان التسليم: '. $request->buyer_address.$br.$br;
 
         $msg .= 'نوع الشحنة: '. $request->package.$br;
         $msg .= 'الكمية: '. $request->amount.$br;
+        $msg .= 'سعر الطلب: '. $request->price.$br;
         $msg .= 'بيانات إضافية: '. $request->details;
 
         $this->send_whatsapp_message($phone, $msg);
