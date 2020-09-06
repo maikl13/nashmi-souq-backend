@@ -4,6 +4,7 @@
 <style>
     .mean-container .mean-nav ul li a {font-weight: normal;}
 </style>
+ 
 <header class="header">
     <div id="rt-sticky-placeholder"></div>
     <div id="header-menu" class="header-menu menu-layout2">

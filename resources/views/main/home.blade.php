@@ -24,6 +24,18 @@
                     <div class="col mt-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
                     <div class="col mt-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
                 </div>
+                <div class="row mt-4">
+                    <div class="col-6 mt-4 text-center">
+                        <a href="https://play.google.com/store/apps/details?id=nashmi.souq.store" target="_blank" > 
+                            <img style="height:100px;width:365px;border-radius: 20px;border: 2px solid #fff;" src="/assets/images/googleplay.jpg" >
+                        </a>
+                    </div>
+                    <div class="col-6 mt-4 text-center">
+                        <a href="https://apple.co/3fNF3E9"  target="_blank"> 
+                            <img style="height:100px;width:365px;border-radius: 20px;border: 2px solid #fff;" src="/assets/images/appstore.jpg" >
+                        </a>
+                    </div>
+                </div> 
             </div>
         </div>
     </section>
