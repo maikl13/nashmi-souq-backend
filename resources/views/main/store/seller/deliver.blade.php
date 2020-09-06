@@ -87,7 +87,7 @@
                                     <div class="form-group row">
                                         <label for="price" class="col-md-3 col-form-label text-md-right">سعر الطلب</label>
                                         <div class="col-md-9">
-                                            <input id="price" type="number" class="form-control " name="price" placeholder="سعر الطلب" required="" value="{{ old('price') ?? '1' }}">
+                                            <input id="price" type="text" class="form-control " name="price" placeholder="سعر الطلب" required="" value="{{ old('price') ?? '' }}">
                                         </div>
                                     </div>
 
