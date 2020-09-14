@@ -160,19 +160,19 @@
     </script>
     <script>
         $(document).ready(function(){
-            if (!navigator.share) {
-                $('.open-share').hide();
-            }
+            // if (!navigator.share) {
+            //     $('.open-share').hide();
+            // }
             $('.open-share').on('click', function(e){
                 e.preventDefault();
-                if (navigator.share) {
+                // if (navigator.share) {
                     navigator.share({
                         title: document.title,
                         text: "سوق نشمي",
                         url: window.location.href
                     }).then(() => console.log('Successful share'))
                     .catch(error => console.log('Error sharing:', error));
-                }
+                // }
             });
         });
     </script>
