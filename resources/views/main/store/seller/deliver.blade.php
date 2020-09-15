@@ -52,7 +52,7 @@
                                     <div class="form-group row">
                                         <label for="buyer_name" class="col-md-3 col-form-label text-md-right" title="">اسم العميل</label>
                                         <div class="col-md-9">
-                                        <input id="buyer_name" type="tel" class="form-control " name="buyer_name" placeholder="اسم العميل" required="" value="{{ old('buyer_name') ?? '' }}">
+                                        <input id="buyer_name" type="text" class="form-control " name="buyer_name" placeholder="اسم العميل" required="" value="{{ old('buyer_name') ?? '' }}">
                                         </div>
                                     </div>
 
