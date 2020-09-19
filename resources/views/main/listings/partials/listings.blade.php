@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="item-right float-left" style="min-width: 130px; max-width: 150px; display: grid;">
                                     <div class="right-meta">
-                                        <span><i class="far fa-eye"></i>{{ $listing->views }} مشاهدة</span>
+                                        {{-- <span><i class="far fa-eye"></i>{{ $listing->views }} مشاهدة</span> --}}
                                     </div>
                                     <div class="item-btn">
                                         <a href="{{ $listing->url() }}" class="btn-block px-1">تفاصيل الإعلان</a>

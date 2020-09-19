@@ -53,7 +53,7 @@
                             <a href="{{ $listing->category->url() }}">{{ $listing->category->name }}</a>
                         @endif
                     </span> - 
-                    <span>{{ $listing->views }} مشاهدة</span>
+                    {{-- <span>{{ $listing->views }} مشاهدة</span> --}}
             </div>
             <div><p>{{ $listing->description }}</p></div>
 
