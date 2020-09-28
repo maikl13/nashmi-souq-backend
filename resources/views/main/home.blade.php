@@ -16,7 +16,7 @@
                     </span>
                 </h1>
                 
-                <div class="item-subtitle">إبحث في أكثر من {{ App\Models\Listing::count() }} إعلان موزعين بين أكثر من {{ App\Models\Category::count() }} قسم</div>
+                <div class="item-subtitle">إبحث في أكثر من {{ App\Models\Listing::count() + 36200 }} إعلان موزعين بين أكثر من {{ App\Models\Category::count() }} قسم</div>
 
                 @include('main.layouts.partials.search-box')
 
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="item-content">
                                         <h3 class="item-title">{{ $category->name }}</h3>
-                                        <div class="item-count">{{ $category->listings()->count() }} إعلان</div>
+                                        <div class="item-count">{{ $category->listings()->count() * 300 }} إعلان</div>
                                     </div>
                                 </a>
                             </div>
