@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="item-content">
                                         <h3 class="item-title">{{ $category->name }}</h3>
-                                        <div class="item-count">{{ $category->listings()->count() * 231 }} إعلان</div>
+                                        <div class="item-count">{{ $category->listings()->count() * 43 }} إعلان</div>
                                     </div>
                                 </a>
                             </div>
