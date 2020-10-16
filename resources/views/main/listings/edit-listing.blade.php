@@ -63,8 +63,9 @@
                                             <option value="{{ App\Models\Listing::TYPE_SELL }}" {{ $listing->type == App\Models\Listing::TYPE_SELL ? 'selected' : '' }}>بيع</option>
                                             <option value="{{ App\Models\Listing::TYPE_BUY }}" {{ $listing->type == App\Models\Listing::TYPE_BUY ? 'selected' : '' }}>شراء</option>
                                             <option value="{{ App\Models\Listing::TYPE_EXCHANGE }}" {{ $listing->type == App\Models\Listing::TYPE_EXCHANGE ? 'selected' : '' }}>استبدال</option>
-                                            <option value="{{ App\Models\Listing::TYPE_JOB }}" {{ $listing->type == App\Models\Listing::TYPE_JOB ? 'selected' : '' }}>وظيفة</option>
                                             <option value="{{ App\Models\Listing::TYPE_RENT }}" {{ $listing->type == App\Models\Listing::TYPE_RENT ? 'selected' : '' }}>تأجير</option>
+                                            <option value="{{ App\Models\Listing::TYPE_JOB }}" {{ $listing->type == App\Models\Listing::TYPE_JOB ? 'selected' : '' }}>عرض وظيفة</option>
+                                            <option value="{{ App\Models\Listing::TYPE_JOB_REQUEST }}" {{ $listing->type == App\Models\Listing::TYPE_JOB_REQUEST ? 'selected' : '' }}>طلب وظيفة</option>
                                         </select>
                                     </div>
                                 </div>

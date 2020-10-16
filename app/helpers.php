@@ -52,7 +52,7 @@ function country(){
 }
 
 function location(){
-	if( env('APP_ENV') == 'local' ){
+	if( config('app.env') == 'local' ){
 		$country = Country::first();
 	} else {
 		$ip_address = getUserIP();

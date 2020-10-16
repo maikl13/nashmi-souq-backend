@@ -78,7 +78,7 @@ class ListingController extends Controller
     {
     	$request->validate([
             'listing_title' => 'required|min:10|max:255',
-    		'type' => 'required|in:1,2,3,4,5',
+    		'type' => 'required|in:1,2,3,4,5,6',
             'description' => 'required|min:10|max:10000',
             'category' => 'required|exists:categories,slug',
     		'sub_category' => 'nullable|exists:sub_categories,slug',
@@ -134,7 +134,7 @@ class ListingController extends Controller
         
         $request->validate([
             'listing_title' => 'required|min:10|max:255',
-            'type' => 'required|in:1,2,3,4,5',
+            'type' => 'required|in:1,2,3,4,5,6',
             'description' => 'required|min:10|max:10000',
             'category' => 'required|exists:categories,slug',
             'sub_category' => 'nullable|exists:sub_categories,slug',

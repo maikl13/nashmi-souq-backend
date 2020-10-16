@@ -42,6 +42,7 @@ class Listing extends Model
     const TYPE_EXCHANGE = 3;
     const TYPE_JOB = 4;
     const TYPE_RENT = 5;
+    const TYPE_JOB_REQUEST = 6; // Added later after TYPE_JOB which represents job vacancy now
 
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 0;
@@ -104,8 +105,9 @@ class Listing extends Model
             case Self::TYPE_SELL: return 'بيع'; break;
             case Self::TYPE_BUY: return 'شراء'; break;
             case Self::TYPE_EXCHANGE: return 'إستبدال'; break;
-            case Self::TYPE_JOB: return 'وظيفة'; break;
+            case Self::TYPE_JOB: return 'عرض وظيفة'; break;
             case Self::TYPE_RENT: return 'إيجار'; break;
+            case Self::TYPE_JOB_REQUEST: return 'طلب وظيفة'; break;
         }
     }
 

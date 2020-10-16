@@ -62,8 +62,9 @@
                                             <option value="{{ App\Models\Listing::TYPE_SELL }}">بيع</option>
                                             <option value="{{ App\Models\Listing::TYPE_BUY }}">شراء</option>
                                             <option value="{{ App\Models\Listing::TYPE_EXCHANGE }}">استبدال</option>
-                                            <option value="{{ App\Models\Listing::TYPE_JOB }}">وظيفة</option>
                                             <option value="{{ App\Models\Listing::TYPE_RENT }}">تأجير</option>
+                                            <option value="{{ App\Models\Listing::TYPE_JOB }}">عرض وظيفة</option>
+                                            <option value="{{ App\Models\Listing::TYPE_JOB_REQUEST }}">طلب وظيفة</option>
                                         </select>
                                     </div>
                                 </div>

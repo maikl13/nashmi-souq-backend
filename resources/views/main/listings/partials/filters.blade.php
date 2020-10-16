@@ -15,8 +15,9 @@
                                         App\Models\Listing::TYPE_SELL => 'بيع',
                                         App\Models\Listing::TYPE_BUY => 'شراء',
                                         App\Models\Listing::TYPE_EXCHANGE => 'تبديل',
-                                        App\Models\Listing::TYPE_JOB => 'وظيفة',
                                         App\Models\Listing::TYPE_RENT => 'إيجار',
+                                        App\Models\Listing::TYPE_JOB => 'عرض وظيفة',
+                                        App\Models\Listing::TYPE_JOB_REQUEST => 'طلب وظيفة',
                                     ];
                                 ?>
                                 @foreach ($types as $key => $type)
