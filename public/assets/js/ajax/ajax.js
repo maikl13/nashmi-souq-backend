@@ -13,6 +13,23 @@ $('form.ajax').on('submit', function(e){
         data: new FormData(this),
         contentType: false,
         processData:false,
+        xhr: function() {
+            var xhr = new window.XMLHttpRequest();
+            xhr.upload.addEventListener("progress", function(evt) {
+                progress = Form.find(".progress");
+                progress.removeClass('d-none');
+                if (evt.lengthComputable) {
+                    var percentComplete = ((evt.loaded / evt.total) * 100);
+                    Form.find(".progress-bar").width(percentComplete + '%');
+
+                    if(percentComplete == 100){
+                        progress.addClass('d-none');
+                        $('<i class="fa fa-spinner fa-spin"></i> <i>برجاء الانتظار<i/>').insertBefore(progress);
+                    }
+                }
+            }, false);
+            return xhr;
+        },
         beforeSend: function(){
             Form.find('[type=submit]').attr("disabled", true);
             Form.find("[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i> ');
@@ -21,7 +38,9 @@ $('form.ajax').on('submit', function(e){
             if (Form.hasClass('swal-msg')){
                 Swal.fire('', data, 'success');
             } else {
-                toastr.success(data);
+                var msg = "تم الحفظ بنجاح";
+                if(typeof data == 'string') msg = data;
+                toastr.success(msg);
             }
             if(Form.hasClass('should-reset'))
                 Form.trigger('reset');

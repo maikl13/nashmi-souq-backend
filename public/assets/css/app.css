@@ -6298,10 +6298,21 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 .light-shadow-bg .light-box-content {
     padding: 1.875rem;
 }
+.light-shadow-bg .light-box-content .progress {
+    margin: 0 -1.875rem -1.875rem;
+    border-radius: 0;
+}
+.light-shadow-bg .light-box-content .progress .progress-bar {
+    background: #f85c70;
+}
+
 
 @media only screen and (max-width: 767px) {
     .light-shadow-bg .light-box-content {
         padding: 1.25rem;
+    }
+    .light-shadow-bg .light-box-content .progress {
+        margin: 0 -1.25rem -1.25rem;
     }
 }
 
