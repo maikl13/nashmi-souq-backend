@@ -1,12 +1,12 @@
 <div class="comment deletable">
-    <div class="media">
+    <div class="media" id="comment-{{ $comment->id }}">
         <div class="item-logo">
             <img class="rounded-circle" width="70" height="70" src="{{ $comment->user->profile_picture() }}" alt="logo">
         </div>
         <div class="media-body">
             <h4 class="item-title m-0">{{ $comment->user->name }}</h4>
             <div class="comment-date">{{ $comment->created_at->diffForHumans() }}</div>
-            <p class="mb-2">{{ $comment->body }}</p>
+            <p class="mb-2 comment-text" style="white-space: break-spaces;">{{ $comment->body }}</p>
             <a href="#" class="reply-btn"><i class="fa fa-edit"></i> أضف رد</a>
             
             @if (Auth::user() && Auth::user()->id == $comment->user_id )
@@ -31,7 +31,7 @@
 
     {{-- Replys --}}
     {{-- @for ($j = 1; $j <= rand(1,3); $j++)
-        <div class="media reply deletable">
+        <div class="media reply deletable" id="comment-{{ $comment->id }}">
             <div class="item-logo">
                 <img class="rounded-circle" width="50" height="50" src="/assets/images/user/default-user.png" alt="logo">
             </div>

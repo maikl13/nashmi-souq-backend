@@ -1,4 +1,4 @@
-<div class="single-blog-box-layout1">
+<div class="single-blog-box-layout1 pb-4">
     <div class="blog-comment light-shadow-bg">
         <h3 class="widget-border-title">التعليقات <small>{{ $listing->comments()->count() ? '('.$listing->comments()->count().')' : '' }}</small></h3>
         <div class="light-box-content comment-box">
@@ -28,6 +28,25 @@
                     </div>
                 @endforelse
             </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="edit-comment-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">تعديل التعليق</div>
+            <form class="edit-comment-form ajax should-reset no-msg" method="POST" action="/comments/edit" data-on-success="updateComment">
+                <div class="modal-body">
+                    <textarea class="form-control comment-body" name="comment" id="edit-comment-body" placeholder="قم بكتابة تعليقك هنا ..." rows="3" required autofocus></textarea>
+                    <input class="comment-id" name="commentId" type="hidden" value="">
+                </div>
+                <div class="modal-footer text-center">
+                    <input class="btn" href="#" data-dismiss="modal" value="إلغاء" style="width: 100px;">
+                    <input type="submit" class="btn btn-danger" style="opacity: 0.8;" value="حفظ التغييرات">
+                </div>
+            </form>
         </div>
     </div>
 </div>

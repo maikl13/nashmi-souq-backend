@@ -44,12 +44,12 @@ $('form.ajax').on('submit', function(e){
                 if(typeof data == 'string') msg = data;
                 toastr.success(msg);
             }
+            if(Form.data('on-success'))
+                executeFunctionByName(Form.data('on-success'), window, data);
             if(Form.hasClass('should-reset'))
                 Form.trigger('reset');
             if (data.redirect)
                 window.location.href = data.redirect;
-            if(Form.data('on-success'))
-                executeFunctionByName(Form.data('on-success'), window, data);
         },
         error: function(data){
             var errMsg = get_error_msg(data);
