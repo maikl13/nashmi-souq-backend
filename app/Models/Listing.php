@@ -93,6 +93,11 @@ class Listing extends Model
     {
         return $this->hasMany(FeaturedListing::class);
     }
+    
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'commentable');
+    }
 
     public function url()
     {

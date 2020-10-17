@@ -105,6 +105,8 @@
                             </div>
                         </div>
 
+                        @include('main.listings.partials.comments')
+
                         @include('main.listings.partials.related-listings')
                     </div>
                 </div>
@@ -158,6 +160,8 @@
     <script>
         $('[data-fancybox]').fancybox();
     </script>
+    <script src="/assets/js/ajax/ajax.js"></script>
+    <script src="/assets/js/ajax/comment.js"></script>
     <script>
         $(document).ready(function(){
             if (!navigator.share) {

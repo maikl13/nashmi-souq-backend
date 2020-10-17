@@ -3114,31 +3114,47 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     margin-bottom: 0;
 }
 
-.single-blog-box-layout1 .blog-comment .comment-box .media {
+.single-blog-box-layout1 .blog-comment .comment-box .comment {
     border-bottom: 0.0625rem solid #ebebeb;
     padding-bottom: 1.375rem;
     margin-bottom: 1.625rem;
 }
 
 @media only screen and (max-width: 575px) {
-    .single-blog-box-layout1 .blog-comment .comment-box .media {
+    .single-blog-box-layout1 .blog-comment .comment-box .comment {
         display: block;
-        text-align: center;
+        /* text-align: center; */
     }
 }
 
-.single-blog-box-layout1 .blog-comment .comment-box .media:nth-child(even) {
-    margin-left: 1.875rem;
+.single-blog-box-layout1 .blog-comment .comment-box .media.reply {
+    padding-left: 1.875rem;
+    padding-right: 0.25rem;
+    padding-top: 0.5rem;
+    background-color: #fafafa;
 }
-
+.single-blog-box-layout1 .blog-comment .comment-box .media .more {
+    position: absolute;
+    top: 11px;
+    left: 0;
+}
+.single-blog-box-layout1 .blog-comment .comment-box .media .more a {
+    color: #f85c70;
+}
 @media only screen and (max-width: 575px) {
-    .single-blog-box-layout1 .blog-comment .comment-box .media:nth-child(even) {
-        margin-left: 0;
+    .single-blog-box-layout1 .blog-comment .comment-box .media.reply {
+        /* margin-left: 1rem; */
+        padding-top: 1.5rem;
+    }
+    .single-blog-box-layout1 .blog-comment .comment-box .media .item-logo img {
+        width: 50px;
+        height: 50px;
     }
 }
 
-.single-blog-box-layout1 .blog-comment .comment-box .media:last-child {
+.single-blog-box-layout1 .blog-comment .comment-box .comment:last-child {
     margin-bottom: 0;
+    border-bottom: none;
 }
 
 @media only screen and (max-width: 575px) {
@@ -3176,8 +3192,8 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 
 .single-blog-box-layout1 .blog-comment .comment-box .media .media-body .reply-btn {
     color: #ffffff;
-    border-radius: 0.125rem;
-    padding: 0.5rem 1.25rem;
+    border-radius: 0.3rem;
+    padding: 0.55rem .55rem;
     display: inline-block;
     background-color: #f85c70;
     font-size: 0.75rem;
@@ -3195,7 +3211,8 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 
 @media only screen and (max-width: 575px) {
     .single-blog-box-layout1 .blog-comment .comment-box .media .media-body .reply-btn {
-        position: inherit;
+        position: initial;
+        margin-bottom: 10px;
     }
 }
 

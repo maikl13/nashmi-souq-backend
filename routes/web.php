@@ -71,6 +71,9 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	
 	Route::get('balance', 'TransactionController@add_balance_page');
 	Route::post('balance', 'TransactionController@add_balance');
+
+	Route::post('listings/{listing}/comments', 'CommentController@store');
+	Route::delete('listings/{listing}/comments/{comment}/delete', 'CommentController@destroy');
 });
 
 // ====================================================================

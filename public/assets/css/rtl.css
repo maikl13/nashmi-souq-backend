@@ -354,6 +354,33 @@ nav.template-main-menu>ul>li ul.sub-menu li a {
     right: auto;
 }
 
+.single-blog-box-layout1 .blog-comment .comment-box .media .media-body .reply-btn {
+    right: auto;
+    left: 30px !important;
+}
+
+.single-blog-box-layout1 .blog-comment .comment-box .media.reply {
+    padding-right: 1.875rem;
+    padding-left: 0.35rem;
+}
+
+@media only screen and (max-width: 575px) {
+    .single-blog-box-layout1 .blog-comment .comment-box .media.reply {
+        padding-right: 1rem;
+        padding-left: 0.25rem;
+    }
+}
+.single-blog-box-layout1 .blog-comment .comment-box .media .media-body {
+    margin-right: 1.25rem;
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 575px) {
+    .single-blog-box-layout1 .blog-comment .comment-box .media .media-body {
+        margin-right: .75rem;
+        margin-left: auto;
+    }
+}
 
 /* Promote Listing Modal */
 
