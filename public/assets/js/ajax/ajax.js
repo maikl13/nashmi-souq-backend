@@ -4,7 +4,7 @@
 */
 
 // Add New Record
-$('form.ajax').on('submit', function(e){
+$(document).on('submit', 'form.ajax', function(e){
     e.preventDefault();
     var Form = $(this);
     $.ajax({
@@ -31,8 +31,12 @@ $('form.ajax').on('submit', function(e){
             return xhr;
         },
         beforeSend: function(){
+            if(Form.data('before-send'))
+                executeFunctionByName(Form.data('before-send'), window);
             Form.find('[type=submit]').attr("disabled", true);
-            Form.find("[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i> ');
+            if (!Form.hasClass('no-spinner')){
+                Form.find("[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i> ');
+            }
         },
         success: function(data){
             if (Form.hasClass('no-msg')){
@@ -56,6 +60,8 @@ $('form.ajax').on('submit', function(e){
             Swal.fire('خطأ!', errMsg, 'error');
         },
         complete: function (data){
+            if(Form.data('on-complete'))
+                executeFunctionByName(Form.data('on-complete'), window, data);
             Form.find('[type=submit]').attr("disabled", false);
             Form.find(".fa-spin").remove();
         }
@@ -88,7 +94,7 @@ $(document).on("click", '.delete',function(e){
                     $('.error').remove();
                 },
                 success: function(data){
-                    var row = btn.parents('.deletable');
+                    var row = btn.parents('.deletable').first();
                     row.fadeOut(300, function(){
                         row.remove();
                     });

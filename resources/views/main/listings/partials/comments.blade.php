@@ -3,10 +3,11 @@
         <h3 class="widget-border-title">التعليقات <small>{{ $listing->comments()->count() ? '('.$listing->comments()->count().')' : '' }}</small></h3>
         <div class="light-box-content comment-box">
             @auth
-                <form action="{{ $listing->url() }}/comments" method="post" class="ajax should-reset no-msg" data-on-success="appendComment">
+                <form action="/comments" method="post" class="ajax should-reset no-msg no-spinner comment-form" data-before-send="showLoading" data-on-complete="removeLoading" data-on-success="appendComment">
+                    <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                     <textarea name="comment" rows="3" class="form-control mb-2" placeholder="اكتب تعليقك ..." required></textarea>
                     <button type="submit" class="btn btn-danger p-0 float-left" style="opacity: .75;">
-                        <i class="fa fa-comment" style="border-left: 1px solid #e35f6c;padding: 11px;"></i>
+                        <span style="border-left: 1px solid #e35f6c; padding: 9px 0;"><i class="fa fa-comment" style="padding: 11px;"></i></span>
                         <span class="px-3 d-inline-block">تعليق</span>
                     </button>
                 </form>
@@ -19,14 +20,24 @@
             <div class="clearfix mb-5"></div>
             
             <div class="comments">
-                @forelse ($listing->comments()->latest()->get() as $comment)
-                    @include('main.listings.partials.comment')
+                @php
+                    $comments = $listing->comments()->parent()->latest()->paginate(15);
+                @endphp
+                @forelse ($comments as $comment)
+                    <div class="comment deletable" data-comment-id="{{ $comment->id }}">
+                        @include('main.listings.partials.comment')
+
+                        @foreach ($comment->replies()->paginate(50) as $comment)
+                            @include('main.listings.partials.comment')
+                        @endforeach
+                    </div>
                 @empty
                     <div class="alert alert-default text-center" style="background-color: #f2f2f2; padding: 2rem 15px 3rem;">
                         <i class="fa fa-comments p-2" style="font-size: 2rem;"></i> <br>
                         <span style="font-size: 0.9rem;">قم بإضافة أول تعليق</span>
                     </div>
                 @endforelse
+                {{ $comments->links() }}
             </div>
         </div>
     </div>

@@ -1,5 +1,4 @@
-<div class="comment deletable">
-    <div class="media" id="comment-{{ $comment->id }}">
+    <div class="media {{ $comment->reply_on ? 'reply deletable' : '' }}" id="comment-{{ $comment->id }}">
         <div class="item-logo">
             <img class="rounded-circle" width="70" height="70" src="{{ $comment->user->profile_picture() }}" alt="logo">
         </div>
@@ -19,7 +18,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ $listing->url() }}/comments/{{ $comment->id }}/delete" class="delete pr-2 w-100 text-right py-1 no-msg">
+                            <a href="/comments/{{ $comment->id }}/delete" class="delete pr-2 w-100 text-right py-1 no-msg">
                                 <span style="font-size: 14px;"><i class="fa fa-trash ml-2"></i> حذف</span>
                             </a>
                         </li>
@@ -28,19 +27,3 @@
             @endif
         </div>
     </div>
-
-    {{-- Replys --}}
-    {{-- @for ($j = 1; $j <= rand(1,3); $j++)
-        <div class="media reply deletable" id="comment-{{ $comment->id }}">
-            <div class="item-logo">
-                <img class="rounded-circle" width="50" height="50" src="/assets/images/user/default-user.png" alt="logo">
-            </div>
-            <div class="media-body">
-                <h4 class="item-title m-0">RadiusTheme</h4>
-                <div class="comment-date">1 year ago / July 11, 2018 @ 6:09 am</div>
-                <p>RadiusTheme is a web development company for WordPress plugins, themes and subsystems. We reached to thousands of people who are using those products to enhance their WordPress.</p>
-                <a href="#" class="reply-btn"><i class="fa fa-edit"></i> أضف رد</a>
-            </div>
-        </div>
-    @endfor --}}
-</div>
