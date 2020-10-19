@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 trait SendOTP {
     public function generate_otp()
     {
-        $this->otp = $this->otp ?? unique_id();
+        $this->otp = $this->otp ?? rand(100100, 999000);
         $this->save();
     }
 
