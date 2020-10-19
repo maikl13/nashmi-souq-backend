@@ -20,7 +20,7 @@
                         <?php $listing = $item->listing; ?>
                         <tr data-product-id="{{ $listing->id }}">
                             <td>
-                                <img src="{{ $listing->listing_image() }}" alt="{{ $item->title }} Image" width="80">
+                                <img src="{{ $listing->listing_image(['size'=>'xxs']) }}" alt="{{ $item->title }} Image" width="80">
                                 <a href="{{ $listing->url() }}" target="_blank" style="color: #212529;"><span class="mr-2">{{ $item->title }}</span></a>
                             </td>
                             <td>

@@ -202,6 +202,20 @@ class Listing extends Model
         return true;
     }
 
+    
+    public function listing_images( $options=[] ){
+        $options = array_merge($options);
+        return $this->images($this->images, $options);
+    }
+    public function listing_image($options=[]){
+        $images = $this->listing_images($options);
+        return array_shift($images);
+    }
+    public function upload_listing_images($files, $options=[]){
+        $options = array_merge($options, ['ext'=>'jpg','w'=>1280, 'h'=>null, 'allowed'=>['o', '', 's', 'xs', 'xxs'], 'watermark'=>true]);
+        return $this->upload_files($files, 'images', $options);
+    }
+
     protected static $searchable = [
         'columns' => [
             'listings.title' => 3,

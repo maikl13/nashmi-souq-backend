@@ -22,33 +22,19 @@ class User extends Authenticatable
     const ROLE_SUPERADMIN = 2;
     const ROLE_ADMIN = 3;
     
-    public $images_path = "/assets/images/user/";
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'username', 'email', 'password', 'role_id', 'phone', 'phone_national', 'phone_country_code', 'otp'
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+    protected $fillable = ['name', 'username', 'email', 'password', 'role_id', 'phone', 'phone_national', 'phone_country_code', 'otp'];
+    protected $hidden = ['password', 'remember_token',];
+    protected $casts = ['email_verified_at' => 'datetime',];
+    
+    protected static $profile_picture_sizes = [
+        '' => ['w'=>256, 'h'=>256, 'quality'=>80],
+        'o' => ['w'=>null, 'h'=>null, 'quality'=>100],
+        'xxxs' => ['w'=>15, 'h'=>15, 'quality'=>70],
+        'xxs' => ['w'=>32, 'h'=>32, 'quality'=>70],
+        'xs' => ['w'=>64, 'h'=>64, 'quality'=>70],
+        's' => ['w'=>128, 'h'=>128, 'quality'=>80],
+        'l' => ['w'=>512, 'h'=>512, 'quality'=>90],
+        'xl' => ['w'=>1000, 'h'=>1000, 'quality'=>100],
     ];
 
 
@@ -89,13 +75,37 @@ class User extends Authenticatable
         return '/users/'.$this->id;
     }
 
+    public function profile_picture( $options=[] ){
+        $options = array_merge($options, ['default'=>'user']);
+        return $this->image($this->profile_picture, $options);
+    }
+    public function upload_profile_picture($file){
+        return $this->upload_file($file, 'profile_picture', ['ext'=>'jpg','sizes'=>Self::$profile_picture_sizes]);
+    }
+
+    public function store_banner( $options=[] ){
+        $options = array_merge($options, ['default'=>'user']);
+        return $this->image($this->store_banner, $options);
+    }
+    public function upload_store_banner($file){
+        return $this->upload_file($file, 'store_banner', ['ext'=>'jpg','w'=>1180, 'h'=>300, 'allowed'=>['o', '', 's']]);
+    }
+
+    public function store_logo( $options=[] ){
+        $options = array_merge($options, ['default'=>'user']);
+        return $this->image($this->store_logo, $options);
+    }
+    public function upload_store_logo($file){
+        return $this->upload_file($file, 'store_logo', ['ext'=>'jpg','sizes'=>Self::$profile_picture_sizes]);
+    }
+
     // this is a recommended way to declare event handlers
     protected static function boot() {
         parent::boot();
 
         static::deleting(function(User $user) {
             // before delete() method call this
-            $user->delete_profile_picture();
+            return $user->delete_file('profile_picture');
         });
     }
 }

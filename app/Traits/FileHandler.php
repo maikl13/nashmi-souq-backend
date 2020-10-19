@@ -9,259 +9,197 @@ use Response;
 
 trait FileHandler {
 
-    // ==============================================================
-    // Profile picture
-    // ==============================================================
-    public function profile_picture( $return_default=false ){
-        return $this->profile_picture && !$return_default ?
-            $this->images_path.$this->id."/".$this->profile_picture :
-            $this->images_path.'default-user.png';
+    protected static $sizes = ['xxxs','xxs','xs','s','','l','xl','xxl','xxxl','o'];
+
+    public function upload_file($file, $field, $options)
+    {
+        if(!$file) return false;
+        if(property_exists($this, $field) && $this->$field) $this->delete_file($field);
+        $this->$field = $this->upload($file, $options);
+        return $this->save() ? $this->$field : false;
     }
 
-    public function upload_profile_picture($file, $w=512, $h=512){
-        $path = public_path($this->images_path.$this->id."/");
-        if($filename = $this->upload_image($file, $path , $w, $h)){
-            // delete old image
-            $this->delete_profile_picture();
-            // save new one
-            $this->profile_picture = $filename;
-            $this->save();
-        }
-    }
-
-    public function delete_profile_picture(){
-        if(!$this->profile_picture) return;
-        $path = public_path($this->images_path.$this->id."/");
-        $file =$path.$this->profile_picture;
-        if(!File::exists($file) or File::delete($file)){
-            $this->delete_folder_if_empty($path);
-            $this->profile_picture = null;
-            if($this->save())
-                return response()->json('', 200);
-        }
-    }
-
-
-
-
-
-    // ==============================================================
-    // Store Banner
-    // ==============================================================
-
-    public function store_banner( $return_default=false ){
-        return $this->store_banner && !$return_default ?
-            $this->images_path.$this->id."/".$this->store_banner :
-            $this->images_path.'default-store-banner.jpg';
-    }
-
-    public function upload_store_banner($file, $w=1180, $h=300){
-        $path = public_path($this->images_path.$this->id."/");
-        if($filename = $this->upload_image($file, $path , $w, $h)){
-            // delete old image
-            $this->delete_store_banner();
-            // save new one
-            $this->store_banner = $filename;
-            $this->save();
-        }
-    }
-
-    public function delete_store_banner(){
-        if(!$this->store_banner) return;
-        $path = public_path($this->images_path.$this->id."/");
-        $file =$path.$this->store_banner;
-        if(!File::exists($file) or File::delete($file)){
-            $this->delete_folder_if_empty($path);
-            $this->store_banner = null;
-            if($this->save())
-                return response()->json('', 200);
-        }
-    }
-
-
-
-
-
-    // ==============================================================
-    // Store Logo
-    // ==============================================================
-
-    public function store_logo( $return_default=false ){
-        return $this->store_logo && !$return_default ?
-            $this->images_path.$this->id."/".$this->store_logo :
-            $this->images_path.'default-store-logo.png';
-    }
-
-    public function upload_store_logo($file, $w=512, $h=512){
-        $path = public_path($this->images_path.$this->id."/");
-        if($filename = $this->upload_image($file, $path , $w, $h, 'png')){
-            // delete old image
-            $this->delete_store_logo();
-            // save new one
-            $this->store_logo = $filename;
-            $this->save();
-        }
-    }
-
-    public function delete_store_logo(){
-        if(!$this->store_logo) return;
-        $path = public_path($this->images_path.$this->id."/");
-        $file =$path.$this->store_logo;
-        if(!File::exists($file) or File::delete($file)){
-            $this->delete_folder_if_empty($path);
-            $this->store_logo = null;
-            if($this->save())
-                return response()->json('', 200);
-        }
-    }
-
-
-
-
-
-    // ==============================================================
-    // Category image
-    // ==============================================================
-    public function category_image( $return_default=false ){
-        return $this->image && !$return_default ?
-            $this->images_path.$this->id."/".$this->image :
-            $this->images_path.'default.png';
-    }
-
-    public function upload_category_image($file, $w=256, $h=256){
-        $path = public_path($this->images_path.$this->id."/");
-        if($filename = $this->upload_image($file, $path , $w, $h, 'png')){
-            // delete old image
-            $this->delete_category_image();
-            // save new one
-            $this->image = $filename;
-            $this->save();
-        }
-    }
-
-    public function delete_category_image(){
-        if(!$this->image) return;
-        $path = public_path($this->images_path.$this->id."/");
-        $file =$path.$this->image;
-        if(!File::exists($file) or File::delete($file)){
-            $this->delete_folder_if_empty($path);
-            $this->image = null;
-            if($this->save())
-                return response()->json('', 200);
-        }
-    }
-
-
-
-
-
-    // ==============================================================
-    // Listing images
-    // ==============================================================
-    public function listing_images( $return_default=false ){
-        $images = json_decode($this->images);
-        $imgs = [];
-        if(is_array($images))
-            foreach ($images as $image) 
-                $imgs[] = $this->images_path.$this->id."/".$image ;
-
-        return !empty($imgs) && !$return_default ? $imgs : [$this->images_path.'default.png'];
-    }
-
-    public function listing_image(){
-        $images = $this->listing_images();
-        return array_shift($images);
-    }
-
-    public function upload_listing_images($files, $w=false, $h=false){
-        $path = public_path($this->images_path.$this->id."/");
-        $images = is_array( json_decode($this->images) ) ? json_decode($this->images) : array();
+    public function upload_files($files, $field, $options)
+    {
+        if(!$files) return false;
+        // if(property_exists($this, $field) && $this->$field) $this->delete_files($field);
+        $images = property_exists($this, $field) && is_array( json_decode($this->$field) ) ? json_decode($this->$field) : array();
         if($files && is_array($files)){
             foreach ($files as $file) {
-                if($filename = $this->upload_image($file, $path , $w, $h, 'png')){
+                if($filename = $this->upload($file, $options)){
                     $images[] = $filename;
                 }
             }
         }
-        $this->images = json_encode($images);
-        $this->save();
+        $this->$field = json_encode($images);
+        return $this->save() ? $this->$field : false;
     }
 
-    public function delete_listing_image($image){
-        $path = public_path($this->images_path.$this->id."/");
-        $file =$path.$image;
-        if(!File::exists($file) or File::delete($file)){
-            $this->delete_folder_if_empty($path);
-            $images = json_decode($this->images);
+    public function upload($file, $options=[]){
+        if(!$file) return null;
+        $original_extension = $file->extension();
+        $path = $options['path'] ?? $this->path();
+        $disk = $this->disk();
+        $ext = $options['ext'] ?? $original_extension;
+        $w = $options['w'] ?? null;
+        $h = $options['h'] ?? null;
+        $allowed = $options['allowed'] ?? null;
+        $sizes = $options['sizes'] ?? Self::get_sizes(['w'=>$w, 'h'=>$h, 'allowed'=>$allowed]);
+
+        if(substr($file->getMimeType(), 0, 5) == 'image' && $file->getClientOriginalExtension() != 'gif') {
+            $disk->exists($path) or $disk->makeDirectory($path, 0755, true);
+            $uid = uid();
+
+            foreach ($sizes as $prefix => $size) {
+                $image = Image::make($file);
+                if($size['w'] || $size['h']){
+                    if($size['w'] && $size['h']){
+                        $image = $image->resize($size['w'], $size['h']);
+                    } else {
+                        $image = $image->resize($size['w'], $size['h'], function ($c) {
+                            $c->aspectRatio();
+                        });
+                    }
+                }
+
+                if(isset($options['watermark']) && $options['watermark']){
+                    $watermark = Image::make(public_path(setting('footer_logo')));
+                    $watermark = $watermark->resize(round($image->width()/9), round($image->height()/9))->opacity(75);
+                    $image->insert($watermark, 'bottom-right', round($image->width()/30), round($image->height()/30));
+                }
+                
+                foreach(['webp', $ext] as $extension){
+                    $filename = $prefix.$uid.".".$extension;
+                    $image_contents = $image->stream()->__toString();
+                    
+                    if(!$disk->put($path.$filename, $image_contents)) 
+                        return null;
+                }
+            }
+            
+            return $uid.".".$ext;
+        } else {
+            $filename = uid().'.'.$original_extension;
+            return $disk->putFileAs($path, $file, $filename) ? $filename : null;
+        }
+    }
+    
+    public function delete_file($field_name, $image=false){
+        $file_name = $image ? $image : $this->$field_name;
+        if(empty($file_name)) return;
+        $disk = $this->disk();
+        $path = $this->path();
+
+        foreach (Self::$sizes as $prefix) {
+            $file = $path.$prefix.$file_name;
+            $file_webp = $path.$prefix.pathinfo($file_name, PATHINFO_FILENAME).'.webp';
+            
+            if( ($disk->exists($file) && !$disk->delete($file)) || ($disk->exists($file_webp) && !$disk->delete($file_webp)))
+                return false;
+        }
+        $this->delete_folder_if_empty();
+
+        if($image){
+            $images = json_decode($this->$field_name);
             $key = array_search($image, $images);
             unset($images[$key]);
-            $this->images = json_encode(array_values($images));
-            if($this->save())
-                return response()->json('', 200);
+            $this->$field_name = json_encode(array_values($images));
+        } else {
+            $this->$field_name = null;
+        }
+
+        return $this->save() ? true : false;
+    }
+
+
+    public function delete_folder_if_empty(){
+        $disk = $this->disk();
+        $path = $this->path();
+        if($disk->exists($path) && !sizeof($disk->allFiles($path)) && !sizeof($disk->allDirectories($path))){
+            $disk->deleteDirectory( $path );
         }
     }
-
-
-
-
-    // ==============================================================
-    // Banner image
-    // ==============================================================
-    public function banner_image( $return_default=false ){
-        return $this->image && !$return_default ?
-            $this->images_path.$this->id."/".$this->image :
-            $this->images_path.'default.png';
+    
+    protected function path(){
+        return strtolower(substr(strrchr(__CLASS__, "\\"), 1)) .'/'. $this->id .'/';
     }
 
-    public function upload_banner_image($file, $w=256, $h=256){
-        $path = public_path($this->images_path.$this->id."/");
-        if($filename = $this->upload_image($file, $path , $w, $h, 'png')){
-            // delete old image
-            $this->delete_banner_image();
-            // save new one
-            $this->image = $filename;
-            $this->save();
+    protected static function get_sizes($options=[])
+    {
+        $w = $options['w'] ?? 1280;
+        $h = $options['h'] ?? null;
+        $allowed = $options['allowed'] ?? Self::$sizes;
+
+        $sizes = [];
+
+        if(in_array('o', $allowed)) $sizes['o'] = ['w' => null, 'h' => null, 'quality' => 100];
+        if(in_array('xxxl', $allowed)) $sizes['xxxl'] = [ 'w' => $w ? $w*4 : null, 'h' => $h ? $h*4 : null, 'quality' => 100];
+        if(in_array('xxl', $allowed)) $sizes['xxl'] = [ 'w' => $w ? $w*3 : null, 'h' => $h ? $h*3 : null, 'quality' => 100];
+        if(in_array('xl', $allowed)) $sizes['xl'] = [ 'w' => $w ? $w*2 : null, 'h' => $h ? $h*2 : null, 'quality' => 90];
+        if(in_array('l', $allowed)) $sizes['l'] = [ 'w' => $w ? $w*1.5 : null, 'h' => $h ? $h*1.5 : null, 'quality' => 70];
+        if(in_array('', $allowed)) $sizes[''] = [ 'w' => $w ? $w : null, 'h' => $h ? $h : null, 'quality' => 75];
+        if(in_array('s', $allowed)) $sizes['s'] = [ 'w' => $w ? $w*.5 : null, 'h' => $h ? $h*.5 : null, 'quality' => 70];
+        if(in_array('xs', $allowed)) $sizes['xs'] = [ 'w' => $w ? $w*.25 : null, 'h' => $h ? $h*.25 : null, 'quality' => 60];
+        if(in_array('xxs', $allowed)) $sizes['xxs'] = [ 'w' => $w ? $w*.1 : null, 'h' => $h ? $h*.1 : null, 'quality' => 60];
+        if(in_array('xxxs', $allowed)) $sizes['xxxs'] = [ 'w' => $w ? $w*.05 : null, 'h' => $h ? $h*.05 : null, 'quality' => 50];
+
+        return $sizes;
+    }
+    
+    public function images($images, $options){
+        $size = $options['size'] ?? '';
+        $default = $options['default'] ?? 'general';
+        $default = "/assets/images/defaults/".$default.'/'.$size.'default.png';
+        $images = json_decode($images);
+        $imgs = [];
+        if(is_array($images) && sizeof($images))
+            foreach ($images as $image) 
+                $imgs[] = $this->image($image, $options) ;
+
+        return !empty($imgs) ? $imgs : [$default];
+    }
+
+    public function image($image, $options)
+    {
+        $size = $options['size'] ?? '';
+        $return_default = $options['return_default'] ?? false;
+        $return_default = $options['return_default'] ?? false;
+        $default = $options['default'] ?? 'general';
+        $default = "/assets/images/defaults/".$default.'/'.$size.'default.png';
+        $disk = $this->disk();
+
+        if(!$image) return $default;
+
+        $sizes = Self::$sizes;
+        // Move required size to top and the most sizes near to it will follow
+        $k = array_search($size, $sizes);
+        uksort($sizes, function ($a, $b) use ($k){
+            return 7-abs($a-$k) > 7-abs($b-$k) ? 0 : 1;
+        });
+
+        $path = $this->path();
+
+        if($return_default) return $default;
+
+        if(pathinfo($image, PATHINFO_FILENAME) == 'gif'){
+            return $disk->url($path.$image);
+        } else {
+            foreach ($sizes as $size) {
+                $img = $path.$size.$image;
+                if( strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false || strpos( $_SERVER['HTTP_USER_AGENT'], ' Chrome/' ) !== false ) {
+                    $webp_img = str_replace('.png', '.webp', $img);
+                    $webp_img = str_replace('.jpg', '.webp', $img);
+                    if($disk->exists($webp_img)) return $disk->url($webp_img);
+                }
+                if($disk->exists($img)) return $disk->url($img);
+            }
         }
+
+        return $default;
     }
 
-    public function delete_banner_image(){
-        if(!$this->image) return;
-        $path = public_path($this->images_path.$this->id."/");
-        $file =$path.$this->image;
-        if(!File::exists($file) or File::delete($file)){
-            $this->delete_folder_if_empty($path);
-            $this->image = null;
-            if($this->save())
-                return response()->json('', 200);
-        }
+    public function disk()
+    {
+        return Storage::disk('public');
     }
-
-
-
-
-
-
-
-
-
-
-
-    // ==============================================================
-    // For all models
-    // ==============================================================
-    public function delete_folder_if_empty($path){
-        if(File::exists($path) && count(scandir($path)) <= 2){
-            File::deleteDirectory( $path );
-        }
-    }
-
-    public function upload_image($file, $path,  $w=1280, $h=720, $ext='jpg'){
-        if(!$file) return false;
-        $image = Image::make($file)->encode($ext, 75);
-        if($w && $h) $image->resize($w, $h);
-        $filename = uniqid().".".$ext;
-        File::exists($path) or File::makeDirectory($path);
-        return $image->save($path."/".$filename) ? $filename : false;
-    }
-
 }

@@ -42,7 +42,7 @@ class CategoryController extends Controller
         $category->icon = $request->icon;
 
         if($category->save()){
-            $category->image = $category->upload_category_image($request->image);
+            $category->upload_category_image($request->file('image'));
             return response()->json('تم الحفظ بنجاح!', 200);
         }
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
@@ -82,7 +82,7 @@ class CategoryController extends Controller
         $category->icon = $request->icon;
 
         if($category->save()){
-            $category->image = $category->upload_category_image($request->image);
+            $category->upload_category_image($request->file('image'));
             return redirect()->route('categories')->with('success', 'تم تعديل البيانات بنجاح.');
         }
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
@@ -103,7 +103,7 @@ class CategoryController extends Controller
     }
 
     public function delete_category_image(Category $category){
-        return $category->delete_category_image();
+        return $category->delete_file('image');
     }
 
     public function sub_categories(Category $category){

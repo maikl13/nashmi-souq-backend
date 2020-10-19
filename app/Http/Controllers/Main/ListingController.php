@@ -188,7 +188,7 @@ class ListingController extends Controller
 
     public function delete_listing_image(Request $request, Listing $listing){
         $this->authorize('delete', $listing);
-        return $listing->delete_listing_image($request->key);
+        return $listing->delete_file('images', $request->key);
     }
 
     public function promote(Request $request)

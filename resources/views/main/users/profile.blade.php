@@ -43,7 +43,7 @@
             <div class="store-banner-box">
                 <div class="banner-content">
                     <div class="store-logo">
-                        <img src="{{ $user->store_image() }}" alt="{{ $user->store_name() }}" width="140">
+                        <img src="{{ $user->store_image(['size'=>'xs']) }}" alt="{{ $user->store_name() }}" width="140">
                     </div>
                     <div class="store-content">
                         <h2 class="item-title">{{ $user->store_name() }}</h2>

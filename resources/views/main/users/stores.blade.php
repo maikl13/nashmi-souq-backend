@@ -43,7 +43,7 @@
                         <div class="store-list-layout1">
                             <a href="{{ $store->url() }}">
                                 <div class="item-logo">
-                                    <img src="{{ $store->store_image() }}" width="100" alt="store">
+                                    <img src="{{ $store->store_image(['size'=>'xxs']) }}" width="100" alt="store">
                                 </div>
                                 <div class="item-content">
                                     <h3 class="item-title">{{ $store->store_name() }}</h3>

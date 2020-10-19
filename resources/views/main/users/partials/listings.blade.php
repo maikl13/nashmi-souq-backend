@@ -7,7 +7,7 @@
                     <div class="listing-box product-box-layout3 m-0 {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
                         <div class="item-img">
                             <a href="{{ $listing->url() }}">
-                                <img src="{{ $listing->listing_image() }}" alt="Product" class="w-100" style="max-height: 160px;">
+                                <img src="{{ $listing->listing_image(['size'=>'xxs']) }}" alt="Product" class="w-100" style="max-height: 160px;">
                             </a>
                         </div>
                         <div class="product-info">

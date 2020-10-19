@@ -1,6 +1,6 @@
 <div class="single-blog-box-layout1 pb-4">
     <div class="blog-comment light-shadow-bg">
-        <h3 class="widget-border-title">التعليقات <small>{{ $listing->comments()->count() ? '('.$listing->comments()->count().')' : '' }}</small></h3>
+        <h3 class="widget-border-title">التعليقات <small>{{ $listing->comments()->count() ? '('.$listing->comments()->parent()->count().')' : '' }}</small></h3>
         <div class="light-box-content comment-box">
             @auth
                 <form action="/comments" method="post" class="ajax should-reset no-msg no-spinner comment-form" data-before-send="showLoading" data-on-complete="removeLoading" data-on-success="appendComment">
@@ -20,16 +20,14 @@
             <div class="clearfix mb-5"></div>
             
             <div class="comments">
-                @php
-                    $comments = $listing->comments()->parent()->latest()->paginate(15);
-                @endphp
-                @forelse ($comments as $comment)
+                @forelse ($comments = $listing->comments()->parent()->latest()->paginate(15) as $comment)
                     <div class="comment deletable" data-comment-id="{{ $comment->id }}">
                         @include('main.listings.partials.comment')
 
-                        @foreach ($comment->replies()->paginate(50) as $comment)
+                        @foreach ($replies = $comment->replies()->simplePaginate(20, ['*'], 'replies'.$comment->id) as $comment)
                             @include('main.listings.partials.comment')
                         @endforeach
+                        <div dir="ltr">{{ $replies->appends(request()->input())->links() }}</div>
                     </div>
                 @empty
                     <div class="alert alert-default text-center" style="background-color: #f2f2f2; padding: 2rem 15px 3rem;">
@@ -37,7 +35,7 @@
                         <span style="font-size: 0.9rem;">قم بإضافة أول تعليق</span>
                     </div>
                 @endforelse
-                {{ $comments->links() }}
+                {{ $comments->appends(request()->input())->links() }}
             </div>
         </div>
     </div>

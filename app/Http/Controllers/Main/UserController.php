@@ -17,13 +17,13 @@ class UserController extends Controller
     }
 
     public function delete_profile_picture(){
-        return Auth::user()->delete_profile_picture();
+        return Auth::user()->delete_file('profile_picture');
     }
     public function delete_store_banner(){
-        return Auth::user()->delete_store_banner();
+        return Auth::user()->delete_file('store_banner');
     }
     public function delete_store_logo(){
-        return Auth::user()->delete_store_logo();
+        return Auth::user()->delete_file('store_logo');
     }
 
     public function edit()

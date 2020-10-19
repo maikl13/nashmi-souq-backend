@@ -17,8 +17,6 @@ class Banner extends Model
     const TYPE_LARGE_LEADERBOARD = 3;
     const TYPE_MOBILE_BANNER = 4;
 
-    public $images_path = "/assets/images/bs/";
-
     public static function valid()
     {
         return Self::query()->where('expires_at', '>', Carbon::now());
@@ -59,13 +57,21 @@ class Banner extends Model
         return $this->expires_at->isPast();
     }
 
+    public function banner_image( $options=[] ){
+        $options = array_merge($options, ['default'=>'banner']);
+        return $this->image($this->image, $options);
+    }
+    public function upload_banner_image($file, $w=256, $h=256){
+        return $this->upload_file($file, 'image', ['ext'=>'jpg','w'=>$w, 'h'=>$h, 'allowed'=>['o', '']]);
+    }
+
     // this is a recommended way to declare event handlers
     protected static function boot() {
         parent::boot();
 
         static::deleting(function(Banner $banner) {
             // before delete() method call this
-            $banner->delete_banner_image();
+            $banner->delete_file('image');
         });
     }
 }

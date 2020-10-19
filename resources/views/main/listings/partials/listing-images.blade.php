@@ -9,7 +9,7 @@
         @endforeach
     </div>
     <ul class="nav nav-tabs" role="tablist">
-        @foreach ($listing->listing_images() as $key => $image)
+        @foreach ($listing->listing_images(['size'=>'xs']) as $key => $image)
             <li class="nav-item">
                 <a class="mb-2 nav-link{{ !$key ? ' active' : '' }}" data-toggle="tab" href="#gallery{{ $key }}" role="tab" aria-selected="true">
                     <img src="{{ $image }}" alt="thumbnail">

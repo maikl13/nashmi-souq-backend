@@ -268,7 +268,7 @@
 
     <script>
         @if($listing->images && json_decode($listing->images))
-            var images = {!! json_encode($listing->listing_images()) !!};
+            var images = {!! json_encode($listing->listing_images(['size'=>'xs'])) !!};
             var fileInputOptions = $.extend(true,{
                 initialPreview: images,
                 initialPreviewConfig : [

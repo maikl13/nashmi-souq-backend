@@ -120,3 +120,16 @@ function exchange($amount, $currency1, $currency2, $for_client=false){
 function unique_id($length=8){
 	return strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $length));
 }
+
+
+function uid($lenght = 32)
+{
+    if (function_exists("random_bytes")) {
+        $bytes = random_bytes(ceil($lenght / 2));
+    } elseif (function_exists("openssl_random_pseudo_bytes")) {
+        $bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
+    } else {
+        throw new Exception("no cryptographically secure random function available");
+    }
+    return substr(bin2hex($bytes), 0, $lenght);
+}

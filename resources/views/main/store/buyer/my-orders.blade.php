@@ -46,7 +46,7 @@
                                 @foreach ($package->package_items as $item)
                                     <div class="package-item" dir="rtl">
                                         <?php $listing = $item->listing; ?>
-                                        <img src="{{ $listing->listing_image() }}" width="70" alt="Product Image" class="m-2">
+                                        <img src="{{ $listing->listing_image(['size'=>'xxs']) }}" width="70" alt="Product Image" class="m-2">
                                         <a href="{{ $listing->url() }}" style="color: #666;">{{ $listing->title }}</span>
                                         {{-- <small class="text-muted mr-2" style="font-size: 15px;">({{ $order->uid }})</small><br> --}}
                                         <small class="text-muted" style="font-size: 13px;">الكمية: {{ $item->quantity }}</small>

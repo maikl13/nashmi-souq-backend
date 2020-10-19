@@ -78,6 +78,7 @@ class BannerController extends Controller
 
         if($request->image){
             $banner->type = $request->type;
+            $banner->delete_file('image');
         } elseif ($banner->type != $request->type) {
             return redirect()->back()->with('failure', 'لتغيير نوع البانر برجاء إختيار الصورة المطلوبة مره أخرى, لا يمكن استخدام نفس الصورة المرفوعة مسبقا');
         }

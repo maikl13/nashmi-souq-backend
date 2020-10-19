@@ -36,7 +36,7 @@
 					<div class="w-100 d-block pt-4">
 						<div class="item-img float-right">
 							<a href="{{ $listing->url() }}" class="w-100">
-								<img src="{{ $listing->listing_image() }}" width="80" alt="Product">
+								<img src="{{ $listing->listing_image(['size'=>'xxs']) }}" width="80" alt="Product">
 							</a>
 						</div>
 						<div class="product-info">

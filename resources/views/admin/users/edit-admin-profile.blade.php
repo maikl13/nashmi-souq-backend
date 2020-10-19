@@ -110,7 +110,7 @@
 		var profilePicture = $("[type=file].profile-picture").fileinput(fileInputOptions);
 
 		profilePicture.on('filedeleted', function(event, key, jqXHR, data) {
-		    $('img.profile-picture').attr('src', '{{ Auth::user()->profile_picture(true) }}' );
+		    $('img.profile-picture').attr('src', '{{ Auth::user()->profile_picture() }}' );
 		});
 	</script>
 @endsection

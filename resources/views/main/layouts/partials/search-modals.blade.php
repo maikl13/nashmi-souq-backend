@@ -30,7 +30,7 @@
                 <ul>
                     @foreach(App\Models\Category::orderBy('name')->get() as $category)
                         <li>
-                            <a href="#" class="category-id" data-id="{{ $category->id }}"><span class="item-icon"><img src="{{ $category->category_image() }}" alt="icon"></span>{{ $category->name }}</a>
+                            <a href="#" class="category-id" data-id="{{ $category->id }}"><span class="item-icon"><img src="{{ $category->category_image(['size'=>'xxs']) }}" alt="icon"></span>{{ $category->name }}</a>
                         </li>
                     @endforeach
                 </ul>

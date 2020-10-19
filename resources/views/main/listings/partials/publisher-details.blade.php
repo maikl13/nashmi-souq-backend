@@ -3,7 +3,7 @@
     <div class="author-content">
         <div class="author-name">
             <div class="item-img">
-                <img src="{{ $listing->user->store_image() }}" width="50" height="50" alt="author">
+                <img src="{{ $listing->user->store_image(['size'=>'xxs']) }}" width="50" height="50" alt="author">
             </div>
             <h4 class="author-title"><a href="{{ $listing->user->url() }}">{{ $listing->user->store_name() }}</a></h4>
         </div>
