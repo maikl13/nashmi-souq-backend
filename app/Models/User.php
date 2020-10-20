@@ -84,7 +84,7 @@ class User extends Authenticatable
     }
 
     public function store_banner( $options=[] ){
-        $options = array_merge($options, ['default'=>'user']);
+        $options = array_merge($options, ['default'=>'store-banner']);
         return $this->image($this->store_banner, $options);
     }
     public function upload_store_banner($file){

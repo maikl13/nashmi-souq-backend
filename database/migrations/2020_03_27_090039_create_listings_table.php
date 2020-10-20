@@ -35,6 +35,7 @@ class CreateListingsTable extends Migration
             $table->text('address')->nullable();
             $table->integer('views')->default(0);
             $table->text('note')->nullable();
+            $table->text('data')->nullable();
             $table->timestamps();
         });
     }
