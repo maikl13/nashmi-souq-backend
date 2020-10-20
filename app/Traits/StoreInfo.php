@@ -26,6 +26,6 @@ trait StoreInfo {
 
     public function has_payout_method()
     {
-        return $this->paypal || $this->national_id || $this->vodafone_cash;
+        return $this->bank_account || $this->paypal || $this->national_id || $this->vodafone_cash;
     }
 }

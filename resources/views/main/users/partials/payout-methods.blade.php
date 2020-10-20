@@ -12,6 +12,18 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
+                            <label class="control-label">حساب بنكي</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" id="bank_account" type="text" name="bank_account" placeholder="رقم الحساب البنكي" value="{{ old('bank_account') ? old('bank_account') : Auth::user()->bank_account }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
                             <label class="control-label">باي بال</label>
                         </div>
                         <div class="col-sm-9">

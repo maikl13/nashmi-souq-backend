@@ -7,6 +7,8 @@
 $(document).on('submit', 'form.ajax', function(e){
     e.preventDefault();
     var Form = $(this);
+    Form.find(":input").prop('readonly', true);
+    Form.find('[type=submit]').attr("disabled", true);
     $.ajax({
         url: Form.attr('action'),
         type: 'POST',
@@ -33,7 +35,6 @@ $(document).on('submit', 'form.ajax', function(e){
         beforeSend: function(){
             if(Form.data('before-send'))
                 executeFunctionByName(Form.data('before-send'), window);
-            Form.find('[type=submit]').attr("disabled", true);
             if (!Form.hasClass('no-spinner')){
                 Form.find("[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i> ');
             }
@@ -62,6 +63,7 @@ $(document).on('submit', 'form.ajax', function(e){
         complete: function (data){
             if(Form.data('on-complete'))
                 executeFunctionByName(Form.data('on-complete'), window, data);
+            Form.find(":input").prop('readonly', false);
             Form.find('[type=submit]').attr("disabled", false);
             Form.find(".fa-spin").remove();
         }

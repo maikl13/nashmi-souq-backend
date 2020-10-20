@@ -125,11 +125,13 @@ class UserController extends Controller
         $user = Auth::user();
 
         $request->validate([
+            'bank_account' => 'required',
             'paypal' => 'nullable|email|max:255',
             'national_id' => 'nullable|min:14|max:14',
             'vodafone_cash' => 'nullable|phone:EG|max:255',
         ]);
         
+        $user->bank_account = $request->bank_account;
         $user->paypal = $request->paypal;
         $user->national_id = $request->national_id;
         $user->vodafone_cash = $request->vodafone_cash;

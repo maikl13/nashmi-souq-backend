@@ -42,6 +42,7 @@ class TransactionController extends Controller
         $transaction->amount = $request->amount;
         $transaction->status = Transaction::STATUS_PENDING;
         $payment_method = null;
+        if($request->payout_method == 'bank_account') $payment_method = Transaction::PAYMENT_BANK_DEPOSIT;
         if($request->payout_method == 'paypal') $payment_method = Transaction::PAYMENT_PAYPAL;
         if($request->payout_method == 'postal_office') $payment_method = Transaction::PAYMENT_POSTAL_OFFICE;
         if($request->payout_method == 'vodafone_cash') $payment_method = Transaction::PAYMENT_VODAFONE_CASH;

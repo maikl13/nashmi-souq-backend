@@ -23,6 +23,9 @@
 					<div class="form-group">
 						<label for="payout_method">و سيلة السحب</label>
 						<select name="payout_method" id="payout_method" class="form-control">
+							@if (auth()->user()->bank_account)
+								<option value="bank_account">حساب بنكي - {{ auth()->user()->bank_account }}</option>
+							@endif
 							@if (auth()->user()->paypal)
 								<option value="paypal">باي بال - {{ auth()->user()->paypal }}</option>
 							@endif

@@ -1,11 +1,13 @@
 <div class="single-blog-box-layout1 pb-4">
     <div class="blog-comment light-shadow-bg">
-        <h3 class="widget-border-title">التعليقات <small>{{ $listing->comments()->count() ? '('.$listing->comments()->parent()->count().')' : '' }}</small></h3>
+        <h3 class="widget-border-title">التعليقات 
+            {{-- <small>{{ $listing->comments()->count() ? '('.$listing->comments()->parent()->count().')' : '' }}</small> --}}
+        </h3>
         <div class="light-box-content comment-box">
             @auth
                 <form action="/comments" method="post" class="ajax should-reset no-msg no-spinner comment-form" data-before-send="showLoading" data-on-complete="removeLoading" data-on-success="appendComment">
                     <input type="hidden" name="listing_id" value="{{ $listing->id }}">
-                    <textarea name="comment" rows="3" class="form-control mb-2" placeholder="اكتب تعليقك ..." required></textarea>
+                    <textarea name="comment" rows="3" class="form-control mb-2" placeholder="اكتب تعليقك ..." required oninvalid="this.setCustomValidity('قم بكتابة تعليقك')" oninput="this.setCustomValidity('')"></textarea>
                     <button type="submit" class="btn btn-danger p-0 float-left" style="opacity: .75;">
                         <span style="border-left: 1px solid #e35f6c; padding: 9px 0;"><i class="fa fa-comment" style="padding: 11px;"></i></span>
                         <span class="px-3 d-inline-block">تعليق</span>

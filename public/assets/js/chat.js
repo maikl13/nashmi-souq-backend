@@ -34,7 +34,7 @@
     $("#chat-message").keypress(function (e) {
         if(e.keyCode === 13 && !e.shiftKey) {
             e.preventDefault();
-            $('.chat-form').submit();
+            $('.chat-form').find('[type=submit]').click();
         }
     });
 

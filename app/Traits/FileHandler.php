@@ -22,8 +22,7 @@ trait FileHandler {
     public function upload_files($files, $field, $options)
     {
         if(!$files) return false;
-        // if(property_exists($this, $field) && $this->$field) $this->delete_files($field);
-        $images = property_exists($this, $field) && is_array( json_decode($this->$field) ) ? json_decode($this->$field) : array();
+        $images = isset($this->attributes[$field]) && is_array( json_decode($this->$field) ) ? json_decode($this->$field) : array();
         if($files && is_array($files)){
             foreach ($files as $file) {
                 if($filename = $this->upload($file, $options)){
@@ -31,6 +30,7 @@ trait FileHandler {
                 }
             }
         }
+
         $this->$field = json_encode($images);
         return $this->save() ? $this->$field : false;
     }
@@ -64,8 +64,11 @@ trait FileHandler {
 
                 if(isset($options['watermark']) && $options['watermark']){
                     $watermark = Image::make(public_path(setting('footer_logo')));
-                    $watermark = $watermark->resize(round($image->width()/9), round($image->height()/9))->opacity(75);
-                    $image->insert($watermark, 'bottom-right', round($image->width()/30), round($image->height()/30));
+                    $height = round(($image->height() + $image->width()) / 25);
+                    $width = null;
+                    $padding = $image->height() < $image->width() ? round($image->height()/30) : round($image->width()/30);
+                    $watermark = $watermark->resize($width, $height, function ($c) { $c->aspectRatio();})->opacity(55);
+                    $image->insert($watermark, 'bottom-right', $padding, $padding);
                 }
                 
                 foreach(['webp', $ext] as $extension){

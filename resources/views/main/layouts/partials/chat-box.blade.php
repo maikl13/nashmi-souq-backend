@@ -20,7 +20,7 @@
 			<form action="/messages/add" method="post" class="chat-form" dir="ltr">
 				@csrf
 				<input type="hidden" name="recipient" class="recipient-username" value="">
-				<textarea type="text" placeholder="رسالتك ..." id="chat-message" name="message" rows="1" class="pl-5 pr-3" autofocus dir="rtl"></textarea>
+				<textarea type="text" placeholder="رسالتك ..." id="chat-message" name="message" rows="1" class="pl-5 pr-3" autofocus dir="rtl" required oninvalid="this.setCustomValidity('قم بكتابة رسالتك')" oninput="this.setCustomValidity('')"></textarea>
 				<button type="submit"><img src="/assets/images/send.svg" alt="Send"></button>
 			</form>
 		</div>

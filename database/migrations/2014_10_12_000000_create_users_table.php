@@ -42,6 +42,7 @@ class CreateUsersTable extends Migration
             $table->text('store_logo')->nullable();
 
             // payout_methods
+            $table->string('bank_account')->nullable();
             $table->string('paypal')->nullable();
             $table->string('vodafone_cash')->nullable();
             $table->string('national_id')->nullable();

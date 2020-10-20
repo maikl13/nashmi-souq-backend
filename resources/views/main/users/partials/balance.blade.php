@@ -3,7 +3,10 @@
     <div class="col-sm-12 col-lg-4 col-md-6 mb-3">
         <div class="card h-100">
             <div class="card-body text-center ">
-                <a href="#" data-toggle="modal" data-target="#balance-details-modal" style="position: absolute; top: 10px; left: 15px; font-size: 15px; opacity: 0.7;"><i class="fa fa-question"></i></a>
+                
+                @if (request()->route()->getPrefix() != 'admin')
+                    <a href="#" data-toggle="modal" data-target="#balance-details-modal" style="position: absolute; top: 10px; left: 15px; font-size: 15px; opacity: 0.7;"><i class="fa fa-question"></i></a>
+                @endif
 
             	@if(!isset($noicon))
                 	<h3 class="text-success pb-2 pt-3" style="font-size: 30px;"><i class="fa fa-money-bill-alt"></i></h3>
@@ -12,7 +15,7 @@
                 <h3 class="mb-4"><span class="payout-balance">{{ $user->payout_balance() }}</span> <small>{{ currency()->symbol }}</small></h3>
                 <p>الرصيد المتاح للسحب.</p>
 
-                @if (auth()->user()->id == $user->id)
+                @if (auth()->user()->id == $user->id && request()->route()->getPrefix() != 'admin')
 				    <a href="#" data-toggle="modal" data-target="#make-transaction-modal">سحب الرصيد</a>
                 @endif
             </div>
@@ -44,7 +47,9 @@
     </div>
 </div>
 
-<div class="alert alert-info">
-    يمكنك شحن رصيد محفظتك باستخدام البطاقة الائتمانية
-    <a href="/balance" class="btn btn-sm btn-info float-left">شحن الرصيد</a>
-</div>
+@if (request()->route()->getPrefix() != 'admin')
+    <div class="alert alert-info">
+        يمكنك شحن رصيد محفظتك باستخدام البطاقة الائتمانية
+        <a href="/balance" class="btn btn-sm btn-info float-left">شحن الرصيد</a>
+    </div>
+@endif

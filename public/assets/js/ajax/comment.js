@@ -1,4 +1,5 @@
 function appendComment(data){
+    $('.comments .alert').remove();
     if(data.parent_id){
         $(data.comment).insertBefore('.comment[data-comment-id='+data.parent_id+'] .reply-form');
     } else {
@@ -40,7 +41,7 @@ $(document).on("click", '.edit-comment', function(e){
 $("[name=comment]").keypress(function (e) {
     if(e.keyCode === 13 && !e.shiftKey) {
         e.preventDefault();
-        $(this).parents('form').submit();
+        $(this).parents('form').find('[type=submit]').click();
     }
 });
 
