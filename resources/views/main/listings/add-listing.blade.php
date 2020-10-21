@@ -79,6 +79,49 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row" style="display: none;">
+                                <div class="col-sm-3">
+                                    <label class="control-label">السن</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="age" id="age" value="{{ old('age') ? old('age') : '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="display: none;">
+                                <div class="col-sm-3">
+                                    <label class="control-label">الجنس</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <select name="gender" id="gender" class="form-control">
+                                            <option value="male">ذكر</option>
+                                            <option value="female">أنثى</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="display: none;">
+                                <div class="col-sm-3">
+                                    <label class="control-label">المؤهل</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="qualification" id="qualification" value="{{ old('qualification') ? old('qualification') : '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="display: none;">
+                                <div class="col-sm-3">
+                                    <label class="control-label">المهارات</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="skills" id="skills">{{ old('skills') ? old('skills') : '' }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label class="control-label">وصف الإعلان <span>*</span></label>
@@ -266,6 +309,17 @@
                 $('#price').parents('.row').show()
             } else {
                 $('#price').parents('.row').hide()
+            }
+            if(type == {{ App\Models\Listing::TYPE_JOB }} || type == {{ App\Models\Listing::TYPE_JOB_REQUEST }} ){
+                $('#age').parents('.row').show();
+                $('#gender').parents('.row').show();
+                $('#qualification').parents('.row').show();
+                $('#skills').parents('.row').show();
+            } else {
+                $('#age').parents('.row').hide();
+                $('#gender').parents('.row').hide();
+                $('#qualification').parents('.row').hide();
+                $('#skills').parents('.row').hide();
             }
         })
     </script>

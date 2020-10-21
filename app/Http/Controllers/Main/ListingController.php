@@ -112,7 +112,16 @@ class ListingController extends Controller
         $listing->category_id = $category->id;
         $listing->sub_category_id = $sub_category ? $sub_category->id : null;
         $listing->state_id = $state->id;
-    	$listing->area_id = $area ? $area->id : null;
+        $listing->area_id = $area ? $area->id : null;
+
+        if(in_array($request->type, [Listing::TYPE_JOB, Listing::TYPE_JOB_REQUEST])){
+            $data = [];
+            if($request->age) $data['age'] = $request->age;
+            if($request->gender) $data['gender'] = $request->gender;
+            if($request->qualification) $data['qualification'] = $request->qualification;
+            if($request->skills) $data['skills'] = $request->skills;
+            $listing->data = json_encode($data);
+        }
 
         if($listing->save()){
             $listing->upload_listing_images($request->images);
@@ -168,6 +177,15 @@ class ListingController extends Controller
         $listing->state_id = $state->id;
         $listing->area_id = $area ? $area->id : null;
         $listing->address = $request->address;
+
+        if(in_array($request->type, [Listing::TYPE_JOB, Listing::TYPE_JOB_REQUEST])){
+            $data = [];
+            if($request->age) $data['age'] = $request->age;
+            if($request->gender) $data['gender'] = $request->gender;
+            if($request->qualification) $data['qualification'] = $request->qualification;
+            if($request->skills) $data['skills'] = $request->skills;
+            $listing->data = json_encode($data);
+        }
 
         if($listing->save()){
             $listing->upload_listing_images($request->images);

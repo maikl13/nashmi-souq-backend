@@ -41,62 +41,6 @@
     </section>
 
     <!--=====================================-->
-    <!--=            Category Start         =-->
-    <!--=====================================-->
-    @if(App\Models\Category::count())
-        <section class="section-padding-top-heading">
-            <div class="container">
-                <div class="heading-layout1">
-                    <h2 class="heading-title">أشهر الأقسام</h2>
-                </div>
-                
-                {{-- ad spaces --}}
-                <div class="row mb-4">
-                    <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
-                    <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-                    <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
-                    <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-                </div>
-
-                <div class="row">
-                    @foreach(App\Models\Category::limit(8)->inRandomOrder()->get() as $category)
-                        <div class="col-lg-3 col-md-4 col-sm-6">
-                            <div class="category-box-layout1">
-                                <a href="/listings?categories[]={{ $category->id }}">
-                                    <div class="item-icon">
-                                        <i class="{{ $category->icon }}"></i>
-                                    </div>
-                                    <div class="item-content">
-                                        <h3 class="item-title">{{ $category->name }}</h3>
-                                        <div class="item-count">{{ $category->listings()->count() * 43 }} إعلان</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @endif
-
-    @include('main.layouts.partials.open-store-promo')
-
-    <section class="section-padding-top-heading py-3" style="background: rgb(248,92,112);background: linear-gradient(45deg, rgba(248,92,112,0.6) 0%, rgba(230,92,112,1) 80%);">
-        <div class="container text-center">
-            <div class="text-center d-inline-block text-lg-right">
-                <div class="p-3 d-inline-block" style="vertical-align: middle;">
-                    <i class="fa fa-truck text-danger" style="padding: 41px;border-radius: 50%;background: white;font-size: 37px;"></i>
-                </div>
-                <div class="p-1 d-inline-block" style="vertical-align: middle;">
-                    <p class="text-white mb-0 d-inline-block" style="font-size: 17px;max-width: 520px;vertical-align: middle;">تقدم لك نشمي خدمة الشحن بأفضل الأسعار, لتتمكن من البيع بدون ان تشغل بالك بأعباء الشحن,.</p>
-                    <a href="/deliver" class="btn btn-default my-3 py-2 px-4  d-inline-block" style="background: #e65c70;color: white;">اشحن مع نشمي</a>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </section>
-
-    <!--=====================================-->
     <!--=       Product Box Start           =-->
     <!--=====================================-->
     <section class="section-padding-top-heading bg-accent">
@@ -141,6 +85,62 @@
             </div>
         </div>
     </section>
+
+    @include('main.layouts.partials.open-store-promo')
+
+    <section class="section-padding-top-heading py-3" style="background: rgb(248,92,112);background: linear-gradient(45deg, rgba(248,92,112,0.6) 0%, rgba(230,92,112,1) 80%);">
+        <div class="container text-center">
+            <div class="text-center d-inline-block text-lg-right">
+                <div class="p-3 d-inline-block" style="vertical-align: middle;">
+                    <i class="fa fa-truck text-danger" style="padding: 41px;border-radius: 50%;background: white;font-size: 37px;"></i>
+                </div>
+                <div class="p-1 d-inline-block" style="vertical-align: middle;">
+                    <p class="text-white mb-0 d-inline-block" style="font-size: 17px;max-width: 520px;vertical-align: middle;">تقدم لك نشمي خدمة الشحن بأفضل الأسعار, لتتمكن من البيع بدون ان تشغل بالك بأعباء الشحن,.</p>
+                    <a href="/deliver" class="btn btn-default my-3 py-2 px-4  d-inline-block" style="background: #e65c70;color: white;">اشحن مع نشمي</a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </section>
+
+    <!--=====================================-->
+    <!--=            Category Start         =-->
+    <!--=====================================-->
+    @if(App\Models\Category::count())
+        <section class="section-padding-top-heading">
+            <div class="container">
+                <div class="heading-layout1">
+                    <h2 class="heading-title">أشهر الأقسام</h2>
+                </div>
+                
+                {{-- ad spaces --}}
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
+                    <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+                    <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
+                    <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+                </div>
+
+                <div class="row">
+                    @foreach(App\Models\Category::limit(8)->inRandomOrder()->get() as $category)
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="category-box-layout1">
+                                <a href="/listings?categories[]={{ $category->id }}">
+                                    <div class="item-icon">
+                                        <i class="{{ $category->icon }}"></i>
+                                    </div>
+                                    <div class="item-content">
+                                        <h3 class="item-title">{{ $category->name }}</h3>
+                                        <div class="item-count">{{ $category->listings()->count() * 43 }} إعلان</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 
     @include('main.layouts.partials.counter')
 
