@@ -73,11 +73,13 @@
                                     @endif
                                 </ul>
                                 <div class="row mt-2">
-                                    <div class="col pl-1">
-                                        <a href="{{ Auth::check() ? '#' : route('login') }}" class="main-btn btn-block {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}">
-                                            <i class="fa fa-comments"></i> دردش
-                                        </a>
-                                    </div>
+                                    @if (auth()->guest() || auth()->user()->id != $listing->user->id)
+                                        <div class="col pl-1">
+                                            <a href="{{ Auth::check() ? '#' : route('login') }}" class="main-btn btn-block {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}" data-listing="{{ $listing->id }}">
+                                                <i class="fa fa-comments"></i> دردش
+                                            </a>
+                                        </div>
+                                    @endif
                                     <div class="col pr-1">
                                         <a href="{{ Auth::check() ? 'tel:'.$listing->user->phone : route('login') }}" class="btn btn-info btn-block">
                                             <i class="fa fa-phone"></i> إتصل
@@ -125,8 +127,10 @@
                                     <div class="item-btn">
                                         <a href="{{ $listing->url() }}" class="btn-block px-1">تفاصيل الإعلان</a>
 
-                                        <a href="{{ Auth::check() ? '#' : route('login') }}" class="btn-block {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}">
-                                            <i class="fa fa-comments"></i> دردش</a>
+                                        @if (auth()->guest() || auth()->user()->id != $listing->user->id)
+                                            <a href="{{ Auth::check() ? '#' : route('login') }}" class="btn-block {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}" data-listing="{{ $listing->id }}">
+                                                <i class="fa fa-comments"></i> دردش</a>
+                                        @endif
                                         <a href="{{ Auth::check() ? 'tel:'.$listing->user->phone : route('login') }}" class="btn-block px-1"><i class="fa fa-phone"></i> إتصل</a>
                                     </div>
                                 </div>

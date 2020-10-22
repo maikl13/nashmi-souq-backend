@@ -14,6 +14,10 @@ class Conversation extends Model
         return $this->belongsTo(User::class, 'sender_id');
     }
 
+    public function listing() {
+        return $this->belongsTo(Listing::class);
+    }
+
     public function other_partey () {
         return auth()->user()->id == $this->sender->id ? $this->recipient : $this->sender;
     }

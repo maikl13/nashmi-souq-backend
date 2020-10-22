@@ -47,7 +47,6 @@ class Listing extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 0;
     
-    public $images_path = "/assets/images/listing/";
 
 	public function getRouteKeyName($value='')
 	{
@@ -202,6 +201,12 @@ class Listing extends Model
         return true;
     }
 
+    protected static $listing_image_sizes = [
+        '' => ['w'=>null, 'h'=>null, 'quality'=>80],
+        'o' => ['w'=>null, 'h'=>null, 'quality'=>100],
+        'xxs' => ['w'=>128, 'h'=>null, 'quality'=>70],
+        'xs' => ['w'=>256, 'h'=>null, 'quality'=>70],
+    ];
     
     public function listing_images( $options=[] ){
         $options = array_merge($options);
@@ -212,7 +217,7 @@ class Listing extends Model
         return array_shift($images);
     }
     public function upload_listing_images($files, $options=[]){
-        $options = array_merge($options, ['ext'=>'jpg','w'=>1280, 'h'=>null, 'allowed'=>['o', '', 's', 'xs', 'xxs'], 'watermark'=>true]);
+        $options = array_merge($options, ['ext'=>'jpg','sizes'=>Self::$listing_image_sizes, 'watermark'=>true]);
         return $this->upload_files($files, 'images', $options);
     }
 

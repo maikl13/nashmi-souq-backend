@@ -17,6 +17,10 @@ trait ChatHandler {
                 ->orWhere('sender_id', $user_id);
         });
     }
+    
+    public function unique_conversations(){
+        return $this->conversations()->selectRaw('*, recipient_id*sender_id as multiplier')->groupBy('multiplier');
+    }
 
     // get one conversations between the aythenticated user and the user given as a parameter
     public function conversations_with(User $user){

@@ -1,6 +1,6 @@
 <div class="item-img-gallery">
     <div class="tab-content">
-        @foreach ($listing->listing_images(['size'=>'o']) as $key => $image)
+        @foreach ($listing->listing_images() as $key => $image)
             <div class="tab-pane fade{{ !$key ? ' w-100 show active' : '' }}" id="gallery{{ $key }}" role="tabpanel">
                 <a href="{{ $image }}" data-fancybox="product-images" class="w-100 text-center" style="background-color: #f85c702b;">
                     <img class="zoom_01" src="{{ $image }}" alt="product" data-zoom-image="{{ $image }}" style="max-height: 600px; max-width: 100%;">

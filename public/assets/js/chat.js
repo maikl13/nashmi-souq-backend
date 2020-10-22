@@ -3,6 +3,7 @@
         e.preventDefault();
 
         $(this).removeClass('unseen');
+        $('[name=listing_id]').val( $(this).data('listing') );
 
         // if it's the first time to open the chatbox for that user
         if($('#live-chat').attr('data-recipient') != $(this).data('username')){
@@ -72,7 +73,7 @@ $('.chat-form').on('submit', function(e){
         },
         success: function(data){
             Form.trigger('reset');
-            messageBox.html(data['message']);
+            messageBox.html(data);
             $(".chat-history").animate({ scrollTop: 1000000 });
             get_conversations();
         },

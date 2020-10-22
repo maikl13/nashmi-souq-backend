@@ -20,6 +20,8 @@ class CreateConversationsTable extends Migration
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('recipient_id')->unsigned();
             $table->foreign('recipient_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('listing_id')->unsigned()->nullable();
+            $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
             $table->timestamps();
         });
     }
