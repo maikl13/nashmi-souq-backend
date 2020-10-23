@@ -31,6 +31,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
+            'category' => 'nullable|exists:categories,id',
             'image' => 'image|max:8192',
             'icon' => 'required|min:3',
         ]);
@@ -40,6 +41,7 @@ class CategoryController extends Controller
         $slug = Str::slug($request->name);
         $category->slug = Category::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
         $category->icon = $request->icon;
+        $category->category_id = $request->category ? $request->category : null;
 
         if($category->save()){
             $category->upload_category_image($request->file('image'));
@@ -72,6 +74,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2|max:255',
+            'category' => 'nullable|exists:categories,id',
             'image' => 'image|max:8192',
             'icon' => 'required|min:3',
         ]);
@@ -80,6 +83,7 @@ class CategoryController extends Controller
         $slug = Str::slug($request->name);
         $category->slug = Category::where('slug', $slug)->where('id', '!=', $category->id)->count() ? $slug.'-'.uniqid() : $slug;
         $category->icon = $request->icon;
+        $category->category_id = $request->category != $category->id ? $request->category : null;
 
         if($category->save()){
             $category->upload_category_image($request->file('image'));

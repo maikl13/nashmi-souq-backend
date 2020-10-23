@@ -2,7 +2,7 @@
 
 @if($category)
 	<a href="/admin/categories/{{ $category->slug }}/sub-categories" class="btn btn-sm btn-info" >
-		الأقسام الفرعية ({{ $category->sub_categories()->count() }})
+		الأقسام الفرعية ({{ $category->children()->count() }})
 	</a>
 	
 	<a href="/admin/categories/{{ $category->slug }}/edit" class="btn btn-sm btn-info" ><i class="fa fa-edit" ></i> </a>

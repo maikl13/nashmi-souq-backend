@@ -28,7 +28,17 @@ class CategoriesDataTable extends DataTable
             ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
             ->addColumn('listings', function($record){ return $record->listings()->count(); })
             ->addColumn('action', 'admin.categories.partials.action')->setRowId(function ($record){return $record->id;})
-            ->rawColumns(['image','icon','action']);
+            ->rawColumns(['image','icon','action'])
+            ->setRowClass(function ($record) {
+                return $record->category_id ? 'child': '';
+            })->setRowAttr([
+                'data-parent' => function($record) {
+                    return $record->category_id ? $record->parent->id : '';
+                },
+                'data-level' => function($record) {
+                    return $record->level();
+                },
+            ]);
     }
 
     /**
@@ -52,13 +62,13 @@ class CategoriesDataTable extends DataTable
         return $this->builder()->parameters([
                         'responsive' => true,
                         'autoWidth' => false,
-                        'pageLength' => 25,
+                        'pageLength' => 1000,
                     ])
                     ->setTableId('data-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Blfrtip')
-                    ->orderBy(0, 'desc')
+                    ->orderBy(0, 'asc')
                     ->buttons(
                         Button::make('delete'),
                         Button::make('create'),

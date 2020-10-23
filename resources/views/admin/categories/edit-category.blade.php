@@ -38,6 +38,46 @@
 						<label for="icon" class="form-control-label"> الأيقونة :</label>
 						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="{{ old('icon') ? old('icon') : $category->icon }}" required>
 					</div>
+                    <div class="form-group">
+						<label for="category" class="form-control-label"> متفرع من :</label>
+						@php($parent = $category->parent)
+						<select name="category" class="form-control" id="category">
+							<option value="">-</option>
+							@foreach (App\Models\Category::whereNull('category_id')->get() as $cat)
+								<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}><strong>{{ $cat->name }}</strong></option>
+								@foreach ($cat->children as $cat)
+									<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____ {{ $cat->name }}</option>
+									@foreach ($cat->children as $cat)
+										<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________ {{ $cat->name }}</option>
+										@foreach ($cat->children as $cat)
+											<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____________ {{ $cat->name }}</option>
+											@foreach ($cat->children as $cat)
+												<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________________ {{ $cat->name }}</option>
+												@foreach ($cat->children as $cat)
+													<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____________________ {{ $cat->name }}</option>
+													@foreach ($cat->children as $cat)
+														<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________________________ {{ $cat->name }}</option>
+														@foreach ($cat->children as $cat)
+															<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____________________________ {{ $cat->name }}</option>
+															@foreach ($cat->children as $cat)
+																<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________________________________ {{ $cat->name }}</option>
+																@foreach ($cat->children as $cat)
+																	<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____________________________________ {{ $cat->name }}</option>
+																	@foreach ($cat->children as $cat)
+																		<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________________________________________ {{ $cat->name }}</option>
+																	@endforeach
+																@endforeach
+															@endforeach
+														@endforeach
+													@endforeach
+												@endforeach
+											@endforeach
+										@endforeach
+									@endforeach
+								@endforeach
+							@endforeach
+						</select>
+					</div>
                     {{-- <div class="form-group">
 						<label for="image" class="form-control-label"> الصورة :</label>
 						<input type="file" id="image" name="image" value="{{ old('image') }}">

@@ -24,10 +24,24 @@ class Category extends Model
         return 'slug';
     }
 
-    public function sub_categories()
+    public function parent()
     {
-        return $this->hasMany(SubCategory::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'category_id');
+    }
+    public function level()
+    {
+        $level = 1;
+        $cat = $this;
+        while($cat = $cat->parent)
+            $level++;
+        return $level;
+    }
+
 
     public function listings()
     {

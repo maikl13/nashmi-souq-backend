@@ -159,9 +159,9 @@ class CategoriesTableSeeder extends Seeder
 
         	if( isset($category[1]) ){
         		foreach($category[1] as $sub_category){
-                    $count = Subcategory::where('slug', Str::slug($sub_category))->count();
+                    $count = Category::where('slug', Str::slug($sub_category))->count();
                     $slug = $count ? Str::slug($sub_category).uniqid() : Str::slug($sub_category);
-		        	Subcategory::create([
+		        	Category::create([
 		        		'name' => $sub_category,
 		        		'slug' => $slug,
 		        		'category_id' => $c->id,

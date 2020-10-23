@@ -19,6 +19,45 @@
 						<label for="icon" class="form-control-label"> الأيقونة :</label>
 						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="" required>
 					</div>
+                    <div class="form-group">
+						<label for="category" class="form-control-label"> متفرع من :</label>
+						<select name="category" class="form-control" id="category">
+							<option value="">-</option>
+							@foreach (App\Models\Category::whereNull('category_id')->get() as $category)
+								<option value="{{ $category->id }}"><strong>{{ $category->name }}</strong></option>
+								@foreach ($category->children as $category)
+									<option value="{{ $category->id }}">____ {{ $category->name }}</option>
+									@foreach ($category->children as $category)
+										<option value="{{ $category->id }}">________ {{ $category->name }}</option>
+										@foreach ($category->children as $category)
+											<option value="{{ $category->id }}">____________ {{ $category->name }}</option>
+											@foreach ($category->children as $category)
+												<option value="{{ $category->id }}">________________ {{ $category->name }}</option>
+												@foreach ($category->children as $category)
+													<option value="{{ $category->id }}">____________________ {{ $category->name }}</option>
+													@foreach ($category->children as $category)
+														<option value="{{ $category->id }}">________________________ {{ $category->name }}</option>
+														@foreach ($category->children as $category)
+															<option value="{{ $category->id }}">____________________________ {{ $category->name }}</option>
+															@foreach ($category->children as $category)
+																<option value="{{ $category->id }}">________________________________ {{ $category->name }}</option>
+																@foreach ($category->children as $category)
+																	<option value="{{ $category->id }}">____________________________________ {{ $category->name }}</option>
+																	@foreach ($category->children as $category)
+																		<option value="{{ $category->id }}">________________________________________ {{ $category->name }}</option>
+																	@endforeach
+																@endforeach
+															@endforeach
+														@endforeach
+													@endforeach
+												@endforeach
+											@endforeach
+										@endforeach
+									@endforeach
+								@endforeach
+							@endforeach
+						</select>
+					</div>
                     {{-- <div class="form-group">
 						<label for="image" class="form-control-label"> الصورة :</label>
 						<input type="file" id="image" name="image" value="{{ old('image') }}">
