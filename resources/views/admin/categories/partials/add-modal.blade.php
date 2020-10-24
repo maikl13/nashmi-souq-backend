@@ -23,38 +23,14 @@
 						<label for="category" class="form-control-label"> متفرع من :</label>
 						<select name="category" class="form-control" id="category">
 							<option value="">-</option>
-							{{-- Cheap Solution :) I will replace it with a prober one later ISA  --}}
-							@foreach (App\Models\Category::whereNull('category_id')->get() as $category)
-								<option value="{{ $category->id }}"><strong>{{ $category->name }}</strong></option>
-								@foreach ($category->children as $category)
-									<option value="{{ $category->id }}">____ {{ $category->name }}</option>
-									@foreach ($category->children as $category)
-										<option value="{{ $category->id }}">________ {{ $category->name }}</option>
-										@foreach ($category->children as $category)
-											<option value="{{ $category->id }}">____________ {{ $category->name }}</option>
-											@foreach ($category->children as $category)
-												<option value="{{ $category->id }}">________________ {{ $category->name }}</option>
-												@foreach ($category->children as $category)
-													<option value="{{ $category->id }}">____________________ {{ $category->name }}</option>
-													@foreach ($category->children as $category)
-														<option value="{{ $category->id }}">________________________ {{ $category->name }}</option>
-														@foreach ($category->children as $category)
-															<option value="{{ $category->id }}">____________________________ {{ $category->name }}</option>
-															@foreach ($category->children as $category)
-																<option value="{{ $category->id }}">________________________________ {{ $category->name }}</option>
-																@foreach ($category->children as $category)
-																	<option value="{{ $category->id }}">____________________________________ {{ $category->name }}</option>
-																	@foreach ($category->children as $category)
-																		<option value="{{ $category->id }}">________________________________________ {{ $category->name }}</option>
-																	@endforeach
-																@endforeach
-															@endforeach
-														@endforeach
-													@endforeach
-												@endforeach
-											@endforeach
-										@endforeach
-									@endforeach
+							@foreach (App\Models\Category::whereNull('category_id')->get() as $cat)
+								<option value="{{ $cat->id }}"><strong>{{ $cat->name }}</strong></option>
+								@foreach ($cat->all_children() as $child)
+									@php
+										$prefix = '';
+            							for ($i=1; $i < $child->level(); $i++) { $prefix .= '___'; }
+									@endphp
+									<option value="{{ $child->id }}">{{ $prefix }} {{ $child->name }}</option>
 								@endforeach
 							@endforeach
 						</select>

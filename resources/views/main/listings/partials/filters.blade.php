@@ -35,23 +35,23 @@
                         <a class="parent-list" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="false"> الأقسام </a>
                     </div>
                     <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                        <div class="card-body">
+                        <div class="card-body p-3">
                             <div class="multi-accordion-content" id="accordion1">
-                                @forelse(App\Models\Category::get() as $category)
+                                @forelse(App\Models\Category::whereNull('category_id')->get() as $category)
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="parent-list py-1 {{ !$category->sub_categories()->count() ? 'single' : '' }}">
+                                            <div class="parent-list py-1 {{ !$category->children()->count() ? 'single' : '' }}">
                                                 <input type="checkbox" name="categories[]" id="c_{{ $category->id }}" value="{{ $category->id }}" {{ request()->categories && in_array($category->id, request()->categories) ? 'checked' : '' }}>
                                                 <a class="mr-2 collapsed" role="button" data-toggle="collapse" href="#category{{ $category->id }}" aria-expanded="false" style="color: #646464;">{{ $category->name }}</a>
                                             </div>
                                         </div>
 
-                                        @if($category->sub_categories()->count())
-                                            <div id="category{{ $category->id }}" class="mr-3 collapse" data-parent="#accordion1">
+                                        @if($category->children()->count())
+                                            <div id="category{{ $category->id }}" class="mr-1 collapse" data-parent="#accordion1">
                                                 <div class="card-body">
                                                     <ul class="sub-list">
-                                                        @foreach($category->sub_categories as $sub_category)
-                                                            <li>
+                                                        @foreach($category->all_children() as $sub_category)
+                                                            <li style="padding-right: {{ ($sub_category->level()-1)*8 }}px;">
                                                                 <input type="checkbox" name="sub_categories[]" id="sc_{{ $sub_category->id }}" value="{{ $sub_category->id }}" {{ request()->sub_categories && in_array($sub_category->id, request()->sub_categories) ? 'checked' : '' }}>
                                                                 <label for="sc_{{ $sub_category->id }}" style="font-size: 15px;">{{ $sub_category->name }}</label>
                                                             </li>

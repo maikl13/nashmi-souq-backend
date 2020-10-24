@@ -43,38 +43,14 @@
 						@php $parent = $category->parent @endphp
 						<select name="category" class="form-control" id="category">
 							<option value="">-</option>
-							{{-- Cheap Solution :) I will replace it with a prober one later ISA  --}}
 							@foreach (App\Models\Category::whereNull('category_id')->get() as $cat)
 								<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}><strong>{{ $cat->name }}</strong></option>
-								@foreach ($cat->children as $cat)
-									<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____ {{ $cat->name }}</option>
-									@foreach ($cat->children as $cat)
-										<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________ {{ $cat->name }}</option>
-										@foreach ($cat->children as $cat)
-											<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____________ {{ $cat->name }}</option>
-											@foreach ($cat->children as $cat)
-												<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________________ {{ $cat->name }}</option>
-												@foreach ($cat->children as $cat)
-													<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____________________ {{ $cat->name }}</option>
-													@foreach ($cat->children as $cat)
-														<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________________________ {{ $cat->name }}</option>
-														@foreach ($cat->children as $cat)
-															<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____________________________ {{ $cat->name }}</option>
-															@foreach ($cat->children as $cat)
-																<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________________________________ {{ $cat->name }}</option>
-																@foreach ($cat->children as $cat)
-																	<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>____________________________________ {{ $cat->name }}</option>
-																	@foreach ($cat->children as $cat)
-																		<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}>________________________________________ {{ $cat->name }}</option>
-																	@endforeach
-																@endforeach
-															@endforeach
-														@endforeach
-													@endforeach
-												@endforeach
-											@endforeach
-										@endforeach
-									@endforeach
+								@foreach ($cat->all_children() as $child)
+									@php
+										$prefix = '';
+            							for ($i=1; $i < $child->level(); $i++) { $prefix .= '___'; }
+									@endphp
+									<option value="{{ $child->id }}" {{ $parent && $child->id == $parent->id ? 'selected' : '' }}>{{ $prefix }} {{ $child->name }}</option>
 								@endforeach
 							@endforeach
 						</select>

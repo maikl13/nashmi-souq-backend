@@ -6,7 +6,6 @@ use Str;
 use Auth;
 use App\Models\Listing;
 use App\Models\Category;
-use App\Models\SubCategory;
 use App\Models\State;
 use App\Models\Area;
 use App\Models\FeaturedListing;
@@ -20,7 +19,7 @@ class ListingController extends Controller
         $request->validate([
             'type' => 'nullable|in:'.Listing::TYPE_SELL.','.Listing::TYPE_BUY.','.Listing::TYPE_EXCHANGE.','.Listing::TYPE_JOB.','.Listing::TYPE_RENT,
             'categories.*' => 'nullable|exists:categories,id',
-            'sub_categories.*' => 'nullable|exists:sub_categories,id',
+            'sub_categories.*' => 'nullable|exists:categories,id',
             'states.*' => 'nullable|exists:states,id',
             'areas.*' => 'nullable|exists:areas,id',
         ]);
@@ -81,7 +80,7 @@ class ListingController extends Controller
     		'type' => 'required|in:1,2,3,4,5,6',
             'description' => 'required|min:10|max:10000',
             'category' => 'required|exists:categories,slug',
-    		'sub_category' => 'nullable|exists:sub_categories,slug',
+    		'sub_category' => 'nullable|exists:categories,slug',
             'state' => 'required|exists:states,slug',
             'area' => 'nullable|exists:areas,slug',
             'address' => 'nullable|min:10|max:1000',
@@ -104,7 +103,7 @@ class ListingController extends Controller
         $listing->user_id = Auth::user()->id;
 
         $category = Category::where('slug', $request->category)->first();
-        $sub_category = SubCategory::where('slug', $request->sub_category)->first();
+        $sub_category = Category::where('slug', $request->sub_category)->first();
         $state = State::where('slug', $request->state)->first();
         $area = Area::where('slug', $request->area)->first();
         $listing->address = $request->address;
@@ -146,7 +145,7 @@ class ListingController extends Controller
             'type' => 'required|in:1,2,3,4,5,6',
             'description' => 'required|min:10|max:10000',
             'category' => 'required|exists:categories,slug',
-            'sub_category' => 'nullable|exists:sub_categories,slug',
+            'sub_category' => 'nullable|exists:categories,slug',
             'state' => 'required|exists:states,slug',
             'area' => 'nullable|exists:areas,slug',
             'address' => 'nullable|min:10|max:1000',
@@ -168,7 +167,7 @@ class ListingController extends Controller
         $listing->user_id = Auth::user()->id;
 
         $category = Category::where('slug', $request->category)->first();
-        $sub_category = SubCategory::where('slug', $request->sub_category)->first();
+        $sub_category = Category::where('slug', $request->sub_category)->first();
         $state = State::where('slug', $request->state)->first();
         $area = Area::where('slug', $request->area)->first();
 

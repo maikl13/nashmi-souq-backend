@@ -153,7 +153,7 @@
                                     <div class="form-group">
                                         <select name="category" class="category-select categories-select2 form-control @error('category') is-invalid @enderror" required>
                                             <option value="">- قم باختيار القسم التابع له الاعلان</option>
-                                            @foreach( App\Models\Category::get() as $category )
+                                            @foreach( App\Models\Category::whereNull('category_id')->get() as $category )
                                                 <option value="{{ $category->slug }}" {{ $cat == $category->slug ? 'selected' : '' }}>{{ $category->name }}</option>
                                             @endforeach
                                         </select>
@@ -164,7 +164,7 @@
                                 <?php 
                                     $category = App\Models\Category::where('slug', $cat)->first(); 
                                     $sub_categories_count = 0;
-                                    if($category) $sub_categories_count = $category->sub_categories()->count();
+                                    if($category) $sub_categories_count = $category->children()->count();
                                     if($listing->sub_category) $sub_cat = $listing->sub_category->slug;
                                     if(old('sub_category')) $sub_cat = old('sub_category');
                                 ?>
@@ -178,8 +178,12 @@
                                         <select name="sub_category" class="sub-category-select sub-categories-select2 form-control @error('sub_category') is-invalid @enderror" {{ isset($sub_categories_count) && $sub_categories_count ? '' : 'disabled' }}>
                                             <option value="">- إختر القسم الفرعي</option>
                                             @if ( isset($sub_categories_count) && $sub_categories_count )
-                                                @foreach ($category->sub_categories()->get() as $sub_category)
-                                                    <option value="{{ $sub_category->slug }}" {{ $sub_cat == $sub_category->slug ? 'selected' : '' }}>{{ $sub_category->name }}</option>
+                                                @foreach ($category->all_children() as $sub_category)
+                                                    @php
+                                                        $prefix = '';
+                                                        for ($i=2; $i < $sub_category->level(); $i++) { $prefix .= '___'; }
+                                                    @endphp 
+                                                    <option value="{{ $sub_category->slug }}" {{ $sub_cat == $sub_category->slug ? 'selected' : '' }}>{{ $prefix }} {{ $sub_category->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>

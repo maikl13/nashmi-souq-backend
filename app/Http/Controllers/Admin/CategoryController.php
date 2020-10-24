@@ -115,8 +115,10 @@ class CategoryController extends Controller
 
     public function sub_categories(Category $category){
         $sub_categories = array();
-        foreach($category->sub_categories as $sub_category){
-            $sub_categories[$sub_category->slug] = $sub_category->name;
+        foreach ($category->all_children() as $child) {
+            $prefix = '';
+            for ($i=2; $i < $child->level(); $i++) { $prefix .= '___'; }
+            $sub_categories[$child->slug] = $prefix .' '. $child->name;
         }
         return json_encode($sub_categories);
     }

@@ -9,6 +9,8 @@ class Category extends Model
 {
     use FileHandler;
 
+    protected $all_category_children = array();
+
     protected static $category_image_sizes = [
         '' => ['w'=>256, 'h'=>256, 'quality'=>80],
         'o' => ['w'=>null, 'h'=>null, 'quality'=>100],
@@ -34,11 +36,21 @@ class Category extends Model
         return $this->hasMany(Category::class, 'category_id');
     }
 
-    public function sub_categories() 
+    public function all_children() 
     {
-        return $this->hasMany(Category::class, 'category_id');
+        $this->loop_children($this->children);
+        return $this->all_category_children;
     }
     
+    protected function loop_children($children)
+    {
+        if($children)
+        foreach ($children as $child) {
+            $this->all_category_children[] = $child;
+            $this->loop_children($child->children);
+        }
+    }
+
     public function level()
     {
         $level = 1;
