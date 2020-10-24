@@ -17,12 +17,13 @@
 					</div>
                     <div class="form-group">
 						<label for="icon" class="form-control-label"> الأيقونة :</label>
-						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="" required>
+						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="" required autocomplete="off">
 					</div>
                     <div class="form-group">
 						<label for="category" class="form-control-label"> متفرع من :</label>
 						<select name="category" class="form-control" id="category">
 							<option value="">-</option>
+							{{-- Cheap Solution :) I will replace it with a prober one later ISA  --}}
 							@foreach (App\Models\Category::whereNull('category_id')->get() as $category)
 								<option value="{{ $category->id }}"><strong>{{ $category->name }}</strong></option>
 								@foreach ($category->children as $category)

@@ -24,7 +24,7 @@ class CreateListingsTable extends Migration
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->bigInteger('sub_category_id')->unsigned()->nullable();
-            $table->foreign('sub_category_id')->references('id')->on('sub_categories');
+            $table->foreign('sub_category_id')->references('id')->on('categories');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('state_id')->unsigned();

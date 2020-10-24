@@ -36,13 +36,14 @@
 					</div>
                     <div class="form-group">
 						<label for="icon" class="form-control-label"> الأيقونة :</label>
-						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="{{ old('icon') ? old('icon') : $category->icon }}" required>
+						<input type="text" class="form-control text-right icon" id="icon" name="icon" value="{{ old('icon') ? old('icon') : $category->icon }}" required autocomplete="off">
 					</div>
                     <div class="form-group">
 						<label for="category" class="form-control-label"> متفرع من :</label>
-						@php($parent = $category->parent)
+						@php $parent = $category->parent @endphp
 						<select name="category" class="form-control" id="category">
 							<option value="">-</option>
+							{{-- Cheap Solution :) I will replace it with a prober one later ISA  --}}
 							@foreach (App\Models\Category::whereNull('category_id')->get() as $cat)
 								<option value="{{ $cat->id }}" {{ $parent && $cat->id == $parent->id ? 'selected' : '' }}><strong>{{ $cat->name }}</strong></option>
 								@foreach ($cat->children as $cat)

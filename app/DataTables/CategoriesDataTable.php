@@ -49,7 +49,7 @@ class CategoriesDataTable extends DataTable
      */
     public function query(Category $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('tree');
     }
 
     /**
@@ -68,7 +68,7 @@ class CategoriesDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Blfrtip')
-                    ->orderBy(0, 'asc')
+                    ->orderBy(2, 'asc')
                     ->buttons(
                         Button::make('delete'),
                         Button::make('create'),
@@ -87,13 +87,13 @@ class CategoriesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
+            Column::make('id')->orderable(false),
             // Column::make('image')->title('الصورة'),
-            Column::make('icon')->title('الأيقونة'),
-            Column::make('name')->title('الاسم'),
-            Column::make('created_at')->title('تاريخ الاضافة'),
-            Column::make('listings')->title('عدد الاعلانات'),
-            Column::computed('action')
+            Column::make('icon')->title('الأيقونة')->orderable(false),
+            Column::make('name')->title('الاسم')->orderable(false),
+            Column::make('created_at')->title('تاريخ الاضافة')->orderable(false),
+            Column::make('listings')->title('عدد الاعلانات')->orderable(false),
+            Column::computed('action')->orderable(false)
                   ->width(60)
                   ->addClass('text-center')
                   ->searchable(false)->title('⚙'),

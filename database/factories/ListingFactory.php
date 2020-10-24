@@ -10,7 +10,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Listing::class, function (Faker $faker) {
 	$category = Category::inRandomOrder()->first();
-	$sub_category = $category->sub_categories()->inRandomOrder()->first();
+	$sub_category = $category->children()->inRandomOrder()->first();
 	$sub_category_id = $sub_category ? $sub_category->id : null;
 	$user = User::inRandomOrder()->first();
 	$state = State::inRandomOrder()->first();

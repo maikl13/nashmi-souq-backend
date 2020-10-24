@@ -17,6 +17,7 @@ class CategoryController extends Controller
      */
     public function index(CategoriesDataTable $dataTable)
     {
+        // foreach (Category::get() as $category) $category->update_tree();
         return $dataTable->render('admin.categories.categories');
     }
 
@@ -45,6 +46,7 @@ class CategoryController extends Controller
 
         if($category->save()){
             $category->upload_category_image($request->file('image'));
+            $category->update_tree();
             return response()->json('تم الحفظ بنجاح!', 200);
         }
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
@@ -87,6 +89,7 @@ class CategoryController extends Controller
 
         if($category->save()){
             $category->upload_category_image($request->file('image'));
+            $category->update_tree();
             return redirect()->route('categories')->with('success', 'تم تعديل البيانات بنجاح.');
         }
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');

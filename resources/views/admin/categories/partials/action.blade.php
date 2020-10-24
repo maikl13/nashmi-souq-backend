@@ -1,7 +1,8 @@
 <?php $category = App\Models\Category::find($id); ?>
 
 @if($category)
-	<a href="/admin/categories/{{ $category->slug }}/sub-categories" class="btn btn-sm btn-info" >
+	<a href="#" data-toggle="modal" data-target="#add-modal" class="btn btn-sm btn-info add-sub-category" data-id="{{ $category->id }}">
+		<i class="fa fa-plus"></i>
 		الأقسام الفرعية ({{ $category->children()->count() }})
 	</a>
 	

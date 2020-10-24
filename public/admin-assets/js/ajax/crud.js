@@ -20,7 +20,7 @@ $('.add').on('submit', function(e){
         type: 'POST',
         data: new FormData(this),
         contentType: false,
-        processData:false,
+        processData: false,
         beforeSend: function(){
             Form.find('button[type=submit]').attr("disabled", true);
             Form.find("button[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i> ');

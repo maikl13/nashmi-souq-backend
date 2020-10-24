@@ -33,6 +33,12 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'category_id');
     }
+
+    public function sub_categories() 
+    {
+        return $this->hasMany(Category::class, 'category_id');
+    }
+    
     public function level()
     {
         $level = 1;
@@ -40,6 +46,19 @@ class Category extends Model
         while($cat = $cat->parent)
             $level++;
         return $level;
+    }
+    
+
+    public function update_tree()
+    {
+        $category = $this;
+        $tree[] = $this->id;
+        while($category->parent()->count()){
+            $category = $category->parent;
+            $tree[] = $category->id;
+        }
+        $this->tree = implode('.', array_reverse($tree));
+        $this->save();
     }
 
 
