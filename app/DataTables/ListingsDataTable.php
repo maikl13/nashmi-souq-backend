@@ -36,7 +36,7 @@ class ListingsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('image', function ($record) {
-                return '<a href="'.$record->listing_image().'" data-fancybox="categories"><img src="'.$record->listing_image().'" border="0" width="40" class="img-rounded" align="center"/></a>';
+                return '<a href="'.$record->listing_image().'" data-fancybox="categories"><img src="'.$record->listing_image(['size'=>'s']).'" border="0" width="40" class="img-rounded" align="center"/></a>';
             })
             ->addColumn('type', function($record){ return $record->type(); })
             ->addColumn('category', function($record){ 
