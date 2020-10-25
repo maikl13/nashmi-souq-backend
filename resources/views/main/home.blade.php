@@ -46,7 +46,7 @@
     <section class="section-padding-top-heading bg-accent">
         <div class="container">
             <div class="heading-layout1">
-                <h2 class="heading-title">إعلانات مميزة</h2>
+                <h2 class="heading-title">أحدث الاعلانات</h2>
             </div>
 
             <div class="row">
