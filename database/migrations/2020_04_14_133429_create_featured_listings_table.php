@@ -23,6 +23,7 @@ class CreateFeaturedListingsTable extends Migration
             $table->bigInteger('transaction_id')->unsigned();
             $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade');
             $table->tinyInteger('tier');
+            $table->datetime('expired_at');
             $table->timestamps();
         });
     }

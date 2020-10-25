@@ -27,11 +27,18 @@ class Listing extends Model
                 ->select('listings.*', 'featured_listings.listing_id')
                 ->whereRaw(DB::raw("IF(`featured_listings`.`created_at` >= '".Carbon::now()->subDays( $this->period() )."', 1, Null)"));
         }
+        dd($query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+        ->select('listings.*', 
+            'featured_listings.listing_id', 
+            DB::raw("IF(`featured_listings`.`created_at` < `featured_listings`.`expired_at`, 1, Null) as `featured`"),
+            DB::raw("IF(`featured_listings`.`tier` >= 9, 2, 1) as `featuring_level`"),
+        )
+        ->orderByRaw('`featuring_level` desc, `featured` desc, `id` desc')->toSql());
 
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
             ->select('listings.*', 
                 'featured_listings.listing_id', 
-                DB::raw("IF(`featured_listings`.`created_at` >= '".Carbon::now()->subDays( $this->period() )."', 1, Null) as `featured`"),
+                DB::raw("IF(`featured_listings`.`created_at` < `featured_listings`.`expired_at`, 1, Null) as `featured`"),
                 DB::raw("IF(`featured_listings`.`tier` >= 9, 2, 1) as `featuring_level`"),
             )
             ->orderByRaw('`featuring_level` desc, `featured` desc, `id` desc');
