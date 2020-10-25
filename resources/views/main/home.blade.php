@@ -50,7 +50,7 @@
             </div>
 
             <div class="row">
-                @foreach (App\Models\Listing::latest()->localized()->active()->featured()->limit(12)->get() as $listing)
+                @foreach (App\Models\Listing::localized()->active()->featured()->latest()->limit(12)->get() as $listing)
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
                         <div class="product-box-layout1 home-listing {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
                             <div class="item-img">
