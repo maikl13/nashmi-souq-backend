@@ -2,6 +2,14 @@
 
 @section('title', 'الرئيسية')
 
+@section('head')
+    <style>
+        @media (max-width: 575px){
+            .home-listing { max-height: 110px; }
+        }
+    </style>
+@endsection
+
 @section('content')
     <!--=====================================-->
     <!--=            Banner Start           =-->
@@ -20,9 +28,26 @@
 
                 @include('main.layouts.partials.search-box')
 
-                <div class="row mt-4">
-                    <div class="col mt-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
-                    <div class="col mt-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+                {{-- ad spaces --}}
+                <div class="container" dir="ltr">
+                    <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="2000" data-smart-speed="500" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="1" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="1" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="1" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="1" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
+                        <div class="col mt-4 text-center">
+                            <span class="d-none d-md-block">{!! ad('large_leaderboard') !!}</span>
+                            <span class="d-block d-md-none">{!! ad('large_leaderboard') !!}</span>
+                        </div>
+                        <div class="col mt-4 text-center">
+                            <span class="d-none d-md-block">{!! ad('large_leaderboard') !!}</span>
+                            <span class="d-block d-md-none">{!! ad('large_leaderboard') !!}</span>
+                        </div>
+                        <div class="col mt-4 text-center">
+                            <span class="d-none d-md-block">{!! ad('large_leaderboard') !!}</span>
+                            <span class="d-block d-md-none">{!! ad('large_leaderboard') !!}</span>
+                        </div>
+                        <div class="col mt-4 text-center">
+                            <span class="d-none d-md-block">{!! ad('large_leaderboard') !!}</span>
+                            <span class="d-block d-md-none">{!! ad('large_leaderboard') !!}</span>
+                        </div>
+                   </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-xs-12 col-sm-6 mt-4 text-center">
@@ -74,17 +99,31 @@
                         </div>
                     </div>
                 @endforeach
+                <div class="col-sm-12 text-center">
+                    <a href="{{ route('listings') }}" class="btn btn-default btn-block my-3 py-3 px-5" style="background: #e65c70;color: white;">
+                        المزيد من الإعلانات
+                    </a>
+                </div>
             </div>
-                
-            {{-- ad spaces --}}
-            <div class="row mb-4">
-                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
-                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
-                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
-                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+
+        {{-- ad spaces --}}
+        <div class="container" dir="ltr">
+                <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="2000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="2" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="3" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="4" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                    {!! ad('large_rectangle') !!}
+                </div>
             </div>
         </div>
     </section>
+                
 
     @include('main.layouts.partials.open-store-promo')
 
@@ -149,7 +188,9 @@
     <!--=====================================-->
     <section class="brand-wrap-layout1" dir="ltr">
         <div class="container py-5">
-            <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="3000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="2" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="3" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="4" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
+            <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="2000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="2" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="3" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="4" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
+                {!! ad('mobile_banner') !!}
+                {!! ad('mobile_banner') !!}
                 {!! ad('mobile_banner') !!}
                 {!! ad('mobile_banner') !!}
                 {!! ad('mobile_banner') !!}
