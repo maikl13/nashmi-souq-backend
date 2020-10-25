@@ -76,13 +76,18 @@
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active" id="details" role="tabpanel">
                                             <p>{{ $listing->description }}</p>
-                                            <div class="mt-2 mb-3">
-                                                @foreach (json_decode($listing->data, true) as $key => $field)
-                                                    @if (!empty($field))
-                                                        <p style="font-size: 15px;" class="mb-1"><strong>{{ __($key) }}: </strong> <span>{{ __($field) }}</span></p>
-                                                    @endif
-                                                @endforeach
-                                            </div>
+                                            @php
+                                                $data = json_decode($listing->data, true);
+                                            @endphp
+                                            @if (is_array($data))
+                                                <div class="mt-2 mb-3">
+                                                    @foreach (json_decode($listing->data, true) as $key => $field)
+                                                        @if (!empty($field))
+                                                            <p style="font-size: 15px;" class="mb-1"><strong>{{ __($key) }}: </strong> <span>{{ __($field) }}</span></p>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                         </div>
                                         @if(!empty(trim($listing->address)))
                                             <div class="mt-3 mb-4"> <strong>العنوان تفصيلي:</strong> {{ $listing->address }}</div>

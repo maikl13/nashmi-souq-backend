@@ -83,49 +83,51 @@
                             @php
                                 $data = json_decode($listing->data, true);
                             @endphp
-                            <div class="row" style="display: none;">
-                                <div class="col-sm-3">
-                                    <label class="control-label">السن</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="age" id="age" value="{{ $data['age'] ?? '' }}">
+                            @if (is_array($data))
+                                <div class="row" style="display: none;">
+                                    <div class="col-sm-3">
+                                        <label class="control-label">السن</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" name="age" id="age" value="{{ $data['age'] ?? '' }}">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="display: none;">
-                                <div class="col-sm-3">
-                                    <label class="control-label">الجنس</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="form-group">
-                                        <select name="gender" id="gender" class="form-control">
-                                            <option value="male" {{ isset($data['gender']) && $data['gender'] == 'male' ? 'selected' : '' }}>ذكر</option>
-                                            <option value="female" {{ isset($data['gender']) && $data['gender'] == 'female' ? 'selected' : '' }}>أنثى</option>
-                                        </select>
+                                <div class="row" style="display: none;">
+                                    <div class="col-sm-3">
+                                        <label class="control-label">الجنس</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <select name="gender" id="gender" class="form-control">
+                                                <option value="male" {{ isset($data['gender']) && $data['gender'] == 'male' ? 'selected' : '' }}>ذكر</option>
+                                                <option value="female" {{ isset($data['gender']) && $data['gender'] == 'female' ? 'selected' : '' }}>أنثى</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="display: none;">
-                                <div class="col-sm-3">
-                                    <label class="control-label">المؤهل</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="qualification" id="qualification" value="{{ $data['qualification'] ?? '' }}">
+                                <div class="row" style="display: none;">
+                                    <div class="col-sm-3">
+                                        <label class="control-label">المؤهل</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="qualification" id="qualification" value="{{ $data['qualification'] ?? '' }}">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="display: none;">
-                                <div class="col-sm-3">
-                                    <label class="control-label">المهارات</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="skills" id="skills">{{ $data['skills'] ?? '' }}</textarea>
+                                <div class="row" style="display: none;">
+                                    <div class="col-sm-3">
+                                        <label class="control-label">المهارات</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="skills" id="skills">{{ $data['skills'] ?? '' }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label class="control-label">وصف الإعلان <span>*</span></label>
