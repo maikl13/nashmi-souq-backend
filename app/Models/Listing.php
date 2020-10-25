@@ -201,9 +201,9 @@ class Listing extends Model
         return true;
     }
 
-    protected static $listing_image_sizes = [
-        '' => ['w'=>null, 'h'=>null, 'quality'=>80],
+    public static $listing_image_sizes = [
         'o' => ['w'=>null, 'h'=>null, 'quality'=>100],
+        '' => ['w'=>null, 'h'=>null, 'quality'=>80],
         'xxs' => ['w'=>128, 'h'=>null, 'quality'=>70],
         'xs' => ['w'=>256, 'h'=>null, 'quality'=>70],
     ];

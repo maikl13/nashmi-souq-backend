@@ -26,7 +26,7 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token',];
     protected $casts = ['email_verified_at' => 'datetime',];
     
-    protected static $profile_picture_sizes = [
+    public static $profile_picture_sizes = [
         '' => ['w'=>256, 'h'=>256, 'quality'=>80],
         'o' => ['w'=>null, 'h'=>null, 'quality'=>100],
         'xxxs' => ['w'=>15, 'h'=>15, 'quality'=>70],

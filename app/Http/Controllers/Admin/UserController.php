@@ -31,6 +31,19 @@ class UserController extends Controller
      */
     public function index(UsersDataTable $dataTable)
     {
+        if(request()->encode){
+            ini_set('memory_limit', '4576M');
+            ini_set('max_execution_time', 3000);
+            foreach (User::get() as $user) {
+                if($user->profile_picture)
+                    $user->encode($user->profile_picture, ['ext'=>'jpg','sizes'=>User::$profile_picture_sizes]);
+                if($user->store_logo)
+                    $user->encode($user->store_logo, ['ext'=>'jpg','sizes'=>User::$profile_picture_sizes]);
+                if($user->store_banner)
+                    $user->encode($user->store_banner, ['ext'=>'jpg','w'=>1180, 'h'=>300, 'allowed'=>['o', '', 's']]);
+            }
+            dd('done');
+        }
         return $dataTable->render('admin.users.users');
     }
 

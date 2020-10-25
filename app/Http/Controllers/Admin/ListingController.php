@@ -16,6 +16,17 @@ class ListingController extends Controller
      */
     public function index(ListingsDataTable $dataTable)
     {
+        if(request()->encode){
+            ini_set('memory_limit', '4576M');
+            ini_set('max_execution_time', 3000);
+            foreach (Listing::get() as $listing) {
+                if(is_array(json_decode($listing->images)))
+                foreach (json_decode($listing->images) as $image) {
+                    $listing->encode($image, ['ext'=>'jpg','sizes'=>Listing::$listing_image_sizes, 'watermark'=>true]);
+                }
+            }
+            dd('done');
+        }
         return $dataTable->render('admin.listings.listings');
     }
 

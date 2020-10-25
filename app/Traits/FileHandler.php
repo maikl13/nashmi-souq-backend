@@ -87,6 +87,57 @@ trait FileHandler {
             return $disk->putFileAs($path, $file, $filename) ? $filename : null;
         }
     }
+
+    public function encode($filename, $options=[]){
+        // To encode old files before multi-size process programming
+        // this should be one-time-use function
+        if(!$filename) return null;
+        $path = $options['path'] ?? $this->path();
+        $disk = $this->disk();
+        $ext = $options['ext'] ?? 'jpg';
+        $w = $options['w'] ?? null;
+        $h = $options['h'] ?? null;
+        $allowed = $options['allowed'] ?? null;
+        $sizes = $options['sizes'] ?? Self::get_sizes(['w'=>$w, 'h'=>$h, 'allowed'=>$allowed]);
+
+
+        $disk->exists($path) or $disk->makeDirectory($path, 0755, true);
+        foreach ($sizes as $prefix => $size) {
+            $newfilename = $prefix.$filename;
+            if((!empty($prefix) && $disk->exists($path.$newfilename)) || (empty($prefix) && $disk->exists($path.'xs'.$filename)))
+                continue;
+
+            $image = Image::make($this->disk()->path($path.'/'.$filename));
+            if($size['w'] || $size['h']){
+                if($size['w'] && $size['h']){
+                    $image = $image->resize($size['w'], $size['h']);
+                } else {
+                    $image = $image->resize($size['w'], $size['h'], function ($c) {
+                        $c->aspectRatio();
+                    });
+                }
+            }
+
+            if($prefix != 'o')
+                if(isset($options['watermark']) && $options['watermark']){
+                    $watermark = Image::make(public_path(setting('footer_logo')));
+                    $height = round(($image->height() + $image->width()) / 25);
+                    $width = null;
+                    $padding = $image->height() < $image->width() ? round($image->height()/30) : round($image->width()/30);
+                    $watermark = $watermark->resize($width, $height, function ($c) { $c->aspectRatio();})->opacity(55);
+                    $image->insert($watermark, 'bottom-right', $padding, $padding);
+                }
+            
+            foreach(['webp', $ext] as $extension){
+                $image_contents = $image->stream()->__toString();
+                
+                if(!$disk->put($path.$newfilename, $image_contents))
+                    return null;
+            }
+        }
+        
+        return $filename;
+    }
     
     public function delete_file($field_name, $image=false){
         $file_name = $image ? $image : $this->$field_name;
