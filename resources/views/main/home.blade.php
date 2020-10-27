@@ -100,7 +100,7 @@
                     </div>
                 @endforeach
                 <div class="col-sm-12 text-center">
-                    <a href="/listings" class="btn btn-default btn-block my-3 py-3 px-5" style="background: #e65c70;color: white;">
+                    <a href="/listings" class="btn btn-default btn-block mb-3 py-3 px-5" style="background: #e65c70;color: white;">
                         المزيد من الإعلانات
                     </a>
                 </div>
