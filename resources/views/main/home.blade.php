@@ -145,7 +145,7 @@
     <!--=====================================-->
     <!--=            Category Start         =-->
     <!--=====================================-->
-    @if(App\Models\Category::count())
+    @if(App\Models\Category::whereNull('category_id')->count())
         <section class="section-padding-top-heading">
             <div class="container">
                 <div class="heading-layout1">
@@ -161,7 +161,7 @@
                 </div>
 
                 <div class="row">
-                    @foreach(App\Models\Category::limit(8)->inRandomOrder()->get() as $category)
+                    @foreach(App\Models\Category::whereNull('category_id')->limit(8)->inRandomOrder()->get() as $category)
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="category-box-layout1">
                                 <a href="/listings?categories[]={{ $category->id }}">
