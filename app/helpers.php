@@ -52,17 +52,23 @@ function country(){
 }
 
 function location(){
-	if( config('app.env') == 'local' ){
-		$country = Country::first();
-	} else {
-		$ip_address = getUserIP();
-		$location = Location::get($ip_address);
-		$country_code = $location && $location->countryCode ? $location->countryCode : '';
-		$country = Country::whereRaw( 'LOWER(`code`) = ?', strtolower($country_code))
-						->first() ?? Country::first();
+	if( config('app.env') != 'local' ){
+		if( request()->cookie('country_code')){
+			$country = Country::where('code', request()->cookie('country_code'))->first() ?? Country::first();
+		} else {
+			try {
+				$location = Location::get( getUserIP() );
+				$country_code = $location && $location->countryCode ? $location->countryCode : '';
+				if($country_code && !empty($country_code)){
+					cookie()->queue('country_code', $country_code, 24*60); // 24 hours
+				}
+				$country = Country::whereRaw( 'LOWER(`code`) = ?', strtolower($country_code))
+								->first() ?? Country::first();
+			} catch (\Throwable $th) { /*_*/ }
+		}
 	}
 
-	return $country;
+	return $country ?? Country::first();
 }
 
 function ad_space($type='', $banner)
