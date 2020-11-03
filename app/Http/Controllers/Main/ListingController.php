@@ -234,7 +234,7 @@ class ListingController extends Controller
         $featured_listing = new FeaturedListing;
         $featured_listing->listing_id = $listing->id;
         $featured_listing->tier = $request->tier;
-        $featured_listing->exired_at = \Carbon\Carbon::now()->addDays($featured_listing->period());
+        $featured_listing->expired_at = \Carbon\Carbon::now()->addDays($featured_listing->period());
 
         $transaction = $featured_listing->payment_init($price, currency());
 
