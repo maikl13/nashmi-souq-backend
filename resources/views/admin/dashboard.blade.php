@@ -73,7 +73,13 @@
                         <div class="col-6">
                             <div class="mt-3 text-center">
                                 <span class="text-white"> الأرباح </span>
-                                <h2 class="text-white mb-0">{{ App\Models\FeaturedListing::sum('price')+0 }}</h2>
+                                <?php
+                                    $price = 0;
+                                    foreach (App\Models\FeaturedListing::get() as $l) {
+                                        $price += $l->transaction ? $l->transaction->amount_usd : 0;
+                                    }
+                                ?>
+                                <h2 class="text-white mb-0">{{ round($price, 2) }}</h2>
                             </div>
                         </div>
                     </div>

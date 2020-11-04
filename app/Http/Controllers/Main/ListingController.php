@@ -236,6 +236,9 @@ class ListingController extends Controller
         $featured_listing->tier = $request->tier;
         $featured_listing->expired_at = \Carbon\Carbon::now()->addDays($featured_listing->period());
 
+        $featured_listing->price = $price;
+        $featured_listing->currency_id = currency()->id;
+
         $transaction = $featured_listing->payment_init($price, currency());
 
         if($successfull_transaction = $featured_listing->pay_from_wallet($transaction)){

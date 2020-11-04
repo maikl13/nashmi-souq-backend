@@ -17,7 +17,7 @@ class FeaturedListing extends Model
         return $this->belongsTo(Currency::class);
     }
     public function transaction(){
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(Transaction::class);
     }
     
     public function period()
