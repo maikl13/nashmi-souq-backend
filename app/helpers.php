@@ -58,12 +58,13 @@ function location(){
 		} else {
 			try {
 				$location = Location::get( getUserIP() );
-				$country_code = $location && $location->countryCode ? $location->countryCode : '';
-				if($country_code && !empty($country_code)){
-					cookie()->queue('country_code', $country_code, 24*60); // 24 hours
+				if($location && $location->countryCode){
+					$country_code = $location->countryCode;
+					if($country_code && !empty($country_code))
+						cookie()->queue('country_code', $country_code, 24*60); // 24 hours
+					$country = Country::whereRaw( 'LOWER(`code`) = ?', strtolower($country_code))
+									->first() ?? Country::first();
 				}
-				$country = Country::whereRaw( 'LOWER(`code`) = ?', strtolower($country_code))
-								->first() ?? Country::first();
 			} catch (\Throwable $th) { /*_*/ }
 		}
 	}
