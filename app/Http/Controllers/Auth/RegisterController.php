@@ -73,7 +73,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $uid = uniqid();
-        $otp = unique_id();
+        $otp = rand(100100, 999000);
         
         $user = User::create([
             'name' => 'User_'.$uid,
