@@ -173,7 +173,7 @@
         $('[data-fancybox]').fancybox();
     </script>
     <script src="/assets/js/ajax/ajax.js"></script>
-    <script src="/assets/js/ajax/comment.js"></script>
+    <script src="/assets/js/ajax/comment.js?V=1.1"></script>
     <script>
         $(document).ready(function(){
             if (!navigator.share) {

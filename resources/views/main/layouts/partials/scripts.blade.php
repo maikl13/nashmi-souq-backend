@@ -38,7 +38,7 @@
 <script src="/assets/js/app.js"></script>
 @auth
 	<script src="/assets/js/realtime.js"></script>
-	<script src="/assets/js/chat.js"></script>
+	<script src="/assets/js/chat.js?v=1.1"></script>
 @endauth
 <script src="/assets/js/custom.js"></script>
 <script src="/assets/js/ajax/store.js" defer></script>
