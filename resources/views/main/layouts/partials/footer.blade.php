@@ -13,7 +13,8 @@
                                 <span style="line-height: 37px;font-size: 13px;;color: #bbb; font-family: sans-serif;">احدي شركات <span style="font-size: 14px;">حلول نعم</span></span>
                             </div>
                             <div class="float-right mr-2" style="line-height: 70px;">
-                                <img src="https://www.countryflags.io/{{ country()->code }}/shiny/48.png"/>
+                                {{-- <img src="https://www.countryflags.io/{{ country()->code }}/shiny/48.png"/> --}}
+                                <img src="https://flagcdn.com/w20/{{ country()->code }}.png"/>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -66,7 +67,8 @@
                                 @foreach (App\Models\Country::get() as $country)
                                     <li class="w-auto d-inline-block country-box">
                                         <a href="/c/{{ $country->code }}" class="px-2 py-1 m-1 d-inline-block" style="border: 1px solid #4a4a4a;">
-                                            <img src="https://www.countryflags.io/{{ $country->code }}/shiny/24.png" style="opacity: .5;" />
+                                            <img src="https://flagcdn.com/w20/{{ $country->code }}.png" style="opacity: .5;" />
+                                            {{-- <img src="https://www.countryflags.io/{{ $country->code }}/shiny/24.png" style="opacity: .5;" /> --}}
                                             سوق {{ $country->name }}
                                         </a>
                                     </li>

@@ -75,7 +75,16 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="form-group">
-                                        <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : '' }}">
+                                        <div class="input-group mb-3">
+                                            <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : '' }}">
+                                            <div class="input-group-prepend">
+                                                <select name="currency" id="currency" class="form-control">
+                                                    @foreach (App\Models\Currency::get() as $currency)
+                                                        <option title="{{ $currency->name }}" value="{{ $currency->id }}">{{ $currency->symbol }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

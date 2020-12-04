@@ -17,7 +17,8 @@
                             <div style="font-size: 9px; color: #777; font-weight: bold; font-family: sans-serif;line-height: 25px;">إحدى شركات <span style="font-size: 10px;">حلول نعم</span></div>
                         </a>
                         <div class="float-right mr-1" style="line-height: 48px;">
-                            <img src="https://www.countryflags.io/{{ country()->code }}/shiny/32.png"/>
+                            {{-- <img src="https://www.countryflags.io/{{ country()->code }}/shiny/32.png"/> --}}
+                            <img src="https://flagcdn.com/w20/{{ country()->code }}.png"/>
                         </div>
                     </div>
                 </div>
