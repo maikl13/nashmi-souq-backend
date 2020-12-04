@@ -22,7 +22,7 @@ class CountriesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('code', function($record){ 
-                return '<img src="https://flagcdn.com/w20/'.$record->code.'.png" /> <span class="text-uppercase">'.$record->code.'</span>'; 
+                return '<img src="https://flagcdn.com/w40/'.$record->code.'.png"  width="24"/> <span class="text-uppercase">'.$record->code.'</span>'; 
                 // return '<img src="https://www.countryflags.io/'.$record->code.'/flat/24.png" /> <span class="text-uppercase">'.$record->code.'</span>'; 
             })
             ->addColumn('currency', function($record){ return $record->currency->name; })

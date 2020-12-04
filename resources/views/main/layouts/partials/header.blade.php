@@ -18,7 +18,7 @@
                         </a>
                         <div class="float-right mr-1" style="line-height: 48px;">
                             {{-- <img src="https://www.countryflags.io/{{ country()->code }}/shiny/32.png"/> --}}
-                            <img src="https://flagcdn.com/w20/{{ country()->code }}.png"/>
+                            <img src="https://flagcdn.com/w40/{{ country()->code }}.png" width="32"/>
                         </div>
                     </div>
                 </div>
