@@ -75,7 +75,7 @@ class Listing extends Model
 
     public function currency()
     {
-        return $this->state->country->currency();
+        return $this->belongsTo(Currency::class);
     }
 
     public function state()
@@ -148,8 +148,12 @@ class Listing extends Model
     public function local_price()
     {
         // the price in local currency
-        if(country()->id == $this->country->id) return $this->price();
-        return ceil(exchange($this->price, $this->country->currency->code, country()->currency->code));
+        if(
+            optional(country()->currency)->id == optional($this->currency)->id ||
+            !$this->currency
+        ) return $this->price();
+        
+        return ceil(exchange($this->price, $this->currency->code, country()->currency->code));
     }
 
     public function is_available()

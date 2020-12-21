@@ -81,7 +81,8 @@
                                             <div class="input-group-prepend">
                                                 <select name="currency" id="currency" class="form-control">
                                                     @foreach (App\Models\Currency::get() as $currency)
-                                                        <option title="{{ $currency->name }}" value="{{ $currency->id }}">{{ $currency->symbol }}</option>
+                                                        <option title="{{ $currency->name }}" value="{{ $currency->id }}"
+                                                            {{ $listing->currency_id == $currency->id ? 'selected' : '' }}>{{ $currency->symbol }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

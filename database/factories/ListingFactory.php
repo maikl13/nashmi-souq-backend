@@ -29,5 +29,6 @@ $factory->define(Listing::class, function (Faker $faker) {
         'area_id' => $area_id,
         'address' => $faker->address,
         'price' => ceil( rand(100, 4000)/100 )*100,
+        'currency_id' => 1,
     ];
 });
