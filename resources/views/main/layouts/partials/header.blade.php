@@ -91,7 +91,7 @@
                             @endguest
                             
                             <li class="nav-item header-login-icon mr-0 cart-dropdown">
-                                @include('main.store.partials.cart-dropdown')
+                                @include('store.partials.cart-dropdown')
                             </li>
 
                             <li class="header-btn">

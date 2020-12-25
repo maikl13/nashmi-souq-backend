@@ -13,7 +13,7 @@ class DeliveryController extends Controller
     // Show Delivery request Form for the seller
     public function show()
     {
-        return view('main.store.seller.deliver');
+        return view('store.seller.deliver');
     }
 
     // Send Delivery Request To Delivery Company (Nashmi) Via Whatsapp

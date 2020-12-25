@@ -69,6 +69,10 @@ class User extends Authenticatable
     public function store_packages(){
         return $this->HasMany(Package::class, 'store_id');
     }
+
+    public function subscriptions(){
+        return $this->HasMany(Subscription::class);
+    }
     
     public function url()
     {

@@ -19,28 +19,31 @@
                         <div class="col-12 col-sm-12 col-lg-3">
                             <ul class="nav nav-pills flex-column pr-0" id="myTab4" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab4" data-toggle="tab" href="#home4" role="tab" aria-controls="home" aria-selected="true">{{ __('Basic Details') }}</a>
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ __('Basic Details') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="maps-tab4" data-toggle="tab" href="#maps4" role="tab" aria-controls="maps" aria-selected="false">إعدادات خرائط جوجل</a>
+                                    <a class="nav-link" id="maps-tab" data-toggle="tab" href="#maps" role="tab" aria-controls="maps" aria-selected="false">إعدادات خرائط جوجل</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4" role="tab" aria-controls="contact" aria-selected="false">{{ __('Contact Details') }}</a>
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">{{ __('Contact Details') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="logo-tab4" data-toggle="tab" href="#logo4" role="tab" aria-controls="logo" aria-selected="false">{{ __('Website Logo') }}</a>
+                                    <a class="nav-link" id="logo-tab" data-toggle="tab" href="#logo" role="tab" aria-controls="logo" aria-selected="false">{{ __('Website Logo') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#profile4" role="tab" aria-controls="profile" aria-selected="false">{{ __('Social Accounts') }}</a>
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">{{ __('Social Accounts') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="promoted-listing-tab4" data-toggle="tab" href="#promoted-listing4" role="tab" aria-controls="promoted-listing" aria-selected="false">إعدادات الإعلانات المميزة</a>
+                                    <a class="nav-link" id="promoted-listing-tab" data-toggle="tab" href="#promoted-listing" role="tab" aria-controls="promoted-listing" aria-selected="false">إعدادات الإعلانات المميزة</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="stores-subscriptions-tab" data-toggle="tab" href="#stores-subscriptions" role="tab" aria-controls="stores-subscriptions" aria-selected="false">إشتراكات المتاجر</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-12 col-sm-12 col-lg-9">
                             <div class="tab-content border p-3" id="myTab3Content">
-                                <div class="tab-pane fade show active p-0" id="home4" role="tabpanel" aria-labelledby="home-tab4">
+                                <div class="tab-pane fade show active p-0" id="home" role="tabpanel" aria-labelledby="home-tab">
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>{{ __('Edit') }} {{ __('Basic Details') }}</h4>
@@ -84,7 +87,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade p-0" id="contact4" role="tabpanel" aria-labelledby="contact-tab4">
+                                <div class="tab-pane fade p-0" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>{{ __('Social Accounts') }}</h4>
@@ -167,7 +170,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade p-0" id="maps4" role="tabpanel" aria-labelledby="maps-tab4">
+                                <div class="tab-pane fade p-0" id="maps" role="tabpanel" aria-labelledby="maps-tab">
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>إعدادات خرائط جوجل</h4>
@@ -199,7 +202,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade p-0" id="logo4" role="tabpanel" aria-labelledby="logo-tab4">
+                                <div class="tab-pane fade p-0" id="logo" role="tabpanel" aria-labelledby="logo-tab">
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>{{ __('Website Logo') }}</h4>
@@ -234,7 +237,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade p-0" id="profile4" role="tabpanel" aria-labelledby="profile-tab4">
+                                <div class="tab-pane fade p-0" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>{{ __('Social Accounts') }}</h4>
@@ -299,7 +302,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade p-0" id="promoted-listing4" role="tabpanel" aria-labelledby="promoted-listing-tab4">
+                                <div class="tab-pane fade p-0" id="promoted-listing" role="tabpanel" aria-labelledby="promoted-listing-tab">
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>مزايا الإعلانات المميزة</h4>
@@ -549,6 +552,53 @@
                                                             <span class="input-group-text"><i class="fa fa-dollar"></i></span>
                                                         </div>
                                                         <input type="number" step="0.01" class="form-control" id="tier20" name="tier20"  value="{{ setting('tier20', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade p-0" id="stores-subscriptions" role="tabpanel" aria-labelledby="stores-subscriptions-tab">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>إشتراكات المتاجر</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <label for="monthly_subscription" class="col-md-3 col-form-label">شهري</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="monthly_subscription" name="monthly_subscription" value="{{ setting('monthly_subscription', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="half_year_subscription" class="col-md-3 col-form-label">نصف سنوي</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="half_year_subscription" name="half_year_subscription" value="{{ setting('half_year_subscription', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="yearly_subscription" class="col-md-3 col-form-label">سنوي</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="yearly_subscription" name="yearly_subscription" value="{{ setting('yearly_subscription', false) }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">

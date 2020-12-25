@@ -17,13 +17,13 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return view('main.store.buyer.my-orders')->with('orders', auth()->user()->orders()->latest()->paginate(12));
+        return view('store.buyer.my-orders')->with('orders', auth()->user()->orders()->latest()->paginate(12));
     }
 
     public function show(Order $order)
     {
         $this->authorize('view', $order);
-        return view('main.store.buyer.order')->with('order', $order);
+        return view('store.buyer.order')->with('order', $order);
     }
 
     public function store(Request $request){
@@ -109,7 +109,7 @@ class OrderController extends Controller
     {
         $cart = new Cart;
         $cart->clear();
-        return view('main.store.buyer.order-saved');
+        return view('store.buyer.order-saved');
     }
 
     public function cancel_order(Package $package)
@@ -136,13 +136,13 @@ class OrderController extends Controller
 
     public function orders(PackagesDataTable $dataTable)
     {
-        return $dataTable->render('main.store.seller.orders');
+        return $dataTable->render('store.seller.orders');
     }
 
     public function show_for_store(Package $package)
     {
         $this->authorize('show_for_store', $package);
-        return view('main.store.seller.order')->with([
+        return view('store.seller.order')->with([
             'order' => $package->order,
             'package' => $package,
         ]);
@@ -214,7 +214,7 @@ class OrderController extends Controller
             $package_status_update->note = $request->note ?? null;
             if($package_status_update->save()){
                 if($request->ajax())
-                    return response()->json( view('main.store.partials.change-status-options')->with('package', $package)->render() , 200);
+                    return response()->json( view('store.partials.change-status-options')->with('package', $package)->render() , 200);
                 return redirect()->back();
             }
         }
@@ -237,6 +237,6 @@ class OrderController extends Controller
     public function get_status_updates_log(Request $request){
         $package = Package::findOrFail( $request->package_id );
         $this->authorize('show_for_store', $package);
-        return response()->json( view('main.store.partials.package-status-updates')->with('package', $package)->render() ,200);
+        return response()->json( view('store.partials.package-status-updates')->with('package', $package)->render() ,200);
     }
 }

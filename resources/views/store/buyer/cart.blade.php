@@ -59,7 +59,7 @@
                                     </thead>
                                     <tbody>  
                                     	@foreach ($cart->items() as $product_id => $product)
-    	                                    @include('main.store.partials.cart-item')
+    	                                    @include('store.partials.cart-item')
                                         @endforeach
                                         <tr><td colspan="4" class="text-center text-muted empty-cart-text px-2 py-5" style="display: none;">عربة التسوق فارغة</td></tr>
                                     </tbody>
@@ -70,7 +70,7 @@
                             <div class="row"> 
                                 <div class="col-lg-4 col-md-5 col-sm-12">  
                                     <div class="table-responsive">
-                                        @include('main.store.partials.totals')
+                                        @include('store.partials.totals')
                                     </div>
                                 </div>
 

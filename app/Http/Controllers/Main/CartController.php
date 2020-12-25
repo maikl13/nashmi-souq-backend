@@ -12,7 +12,7 @@ class CartController extends Controller
     public function index()
     {
         $cart = new Cart;
-        return view('main.store.buyer.cart')->with([
+        return view('store.buyer.cart')->with([
             'cart' => $cart
         ]);
     }
@@ -35,7 +35,7 @@ class CartController extends Controller
     }
 
     public function update_cart_dropdown(){
-        return response()->json( view('main.store.partials.cart-dropdown')->render(), 200);
+        return response()->json( view('store.partials.cart-dropdown')->render(), 200);
     }
 
     public function update_product_quantity(Request $request){
@@ -46,7 +46,7 @@ class CartController extends Controller
         $cart->update_quantity($product->id, $quantity);
         $item = isset($cart->items()[$product->id]) ? $cart->items()[$product->id] : false;
         if( $item ){
-            return response()->json( view('main.store.partials.cart-item')->with([
+            return response()->json( view('store.partials.cart-item')->with([
                 'product_id' => $product->id,
                 'product' => $item
             ])->render() , 200);
@@ -56,12 +56,12 @@ class CartController extends Controller
 
     public function update_totals(Request $request){
         $cart = new Cart;
-        return response()->json( view('main.store.partials.totals')->with(['cart' => $cart])->render() , 200);
+        return response()->json( view('store.partials.totals')->with(['cart' => $cart])->render() , 200);
     }
 
     public function checkout(){
         $cart = new Cart;
-        return view('main.store.buyer.checkout')->with([
+        return view('store.buyer.checkout')->with([
             'cart' => $cart
         ]);
     }

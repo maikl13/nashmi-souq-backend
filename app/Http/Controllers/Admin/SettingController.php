@@ -53,6 +53,10 @@ class SettingController extends Controller
             'tier6' => 'nullable|numeric',
             'tier7' => 'nullable|numeric',
             'tier8' => 'nullable|numeric',
+
+            'monthly_subscription' => 'nullable|numeric',
+            'half_year_subscription' => 'nullable|numeric',
+            'yearly_subscription' => 'nullable|numeric',
         ]);
 
         $allowed_settings = [
@@ -69,6 +73,8 @@ class SettingController extends Controller
             // tiers
             'featured_ads_benefits', 'tier1', 'tier2', 'tier3', 'tier4', 'tier5', 'tier6', 'tier7', 'tier8',
             'featured_ads_benefits2', 'tier9', 'tier10', 'tier11', 'tier12', 'tier13', 'tier14', 'tier15', 'tier16', 'tier17', 'tier18', 'tier19', 'tier20',
+            // subscriptions
+            'monthly_subscription', 'half_year_subscription', 'yearly_subscription',
         ];
         $images = ['logo', 'footer_logo'];
         $html = [];

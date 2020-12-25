@@ -1,5 +1,5 @@
 <div class="my-4">
-	@include('main.store.partials.package-status')
+	@include('store.partials.package-status')
 </div>
 
 @if( $package->is_pending()  )

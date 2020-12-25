@@ -101,7 +101,7 @@
                                         <tbody>
                                             <?php $not_editable = true; ?>
                                             @foreach ($cart->items() as $product_id => $product)
-                                                @include('main.store.partials.cart-item')
+                                                @include('store.partials.cart-item')
                                             @endforeach
                                             <tr><td colspan="4" class="text-center text-muted empty-cart-text px-2 py-5" style="display: none;">{{ __('No products added') }}</td></tr>
                                         </tbody>
@@ -112,7 +112,7 @@
                                 <div class="row"> 
                                     <div class="col-12">  
                                         <div class="table-responsive">
-                                            @include('main.store.partials.totals')
+                                            @include('store.partials.totals')
                                         </div>
                                     </div>
                                     <div class="col-12">

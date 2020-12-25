@@ -70,11 +70,11 @@
                             @endif
                         </div>
                         <div class="row mt-4 pt-3">
-                            @include('main.store.partials.package-status')
+                            @include('store.partials.package-status')
                         </div>
                         <div class="mt-4 pt-3">
                             <?php $for_client = true; ?>
-                            @include('main.store.partials.package-details')
+                            @include('store.partials.package-details')
                         </div>
                         <div class="alert alert-secondary text-center py-3 mt-3" style="line-height: 30px;">
                             <strong>حالة الشحنة</strong>: {{ $package->status() }}

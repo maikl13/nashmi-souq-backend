@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Order;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 
 trait StoreInfo {
@@ -10,6 +11,26 @@ trait StoreInfo {
     public function is_store()
     {
         return $this->store_name ? true : false;
+    }
+
+    public function is_subscriped()
+    {
+        return true;
+    }
+
+    public function started_trial()
+    {
+        return $this->trial_started_at ? true : false;
+    }
+
+    public function start_trial()
+    {
+        $subscription = auth()->user()->subscriptions()->create([
+            'start' => now(),
+            'end' => now()->addDays(14),
+            'type' => Subscription::TYPE_TRIAL,
+        ]);
+        return $subscription;
     }
 
     public function store_name()

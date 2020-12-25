@@ -61,7 +61,7 @@
                         @endif
                     </div> --}}
                     {{-- <div class="row mt-4 pt-3">
-                        @include('main.store.partials.order-steps')
+                        @include('store.partials.order-steps')
                     </div> --}}
                     <div class="clearfix"></div>
                     <div class="text-center py-3 header-btn">

@@ -51,17 +51,17 @@
 			<div class="text-center" dir="rtl">
                 <div class="row">
                     <div class="col-lg-12 package-status-updates-log">
-                        @include('main.store.partials.package-status-updates')
+                        @include('store.partials.package-status-updates')
                         <div class="clearfix mb-3"></div>
                     </div>
                 </div>
                 <div class="col-xs-12" id="invoice">
                     <div class="row">
                         <div class="col-lg-6 package-details text-right">
-                            @include('main.store.partials.package-details')
+                            @include('store.partials.package-details')
                         </div>
                         <div class="col-lg-6 buyer-details">
-                            @include('main.store.partials.buyer-details')
+                            @include('store.partials.buyer-details')
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                     	<input type="hidden" name="package_id" value="{{ $package->id }}">
 
     					<div class="modal-body change-status-options" dir="rtl">
-    						@include('main.store.partials.change-status-options')
+    						@include('store.partials.change-status-options')
     					</div>
     					<div class="modal-footer"> 
     						<button type="submit" class="btn btn-primary"> حفظ </button>

@@ -9,7 +9,7 @@
                             <div class="mb-4" style="font-size: 24px; color: white; font-weight: bold;">{{ setting('open_store_section_header') }}</div>
                             <div class="item-title text-justify" style="font-weight: normal; font-size: 17px; line-height: 33px; text-align-last: center;">{!! nl2br( e(setting('open_store_section')) ) !!}</div>
 
-                            <a href="/account#store" style="color: white;background: #f85c70;font-weight: bold;padding: 15px 35px; border-radius: 30px; margin-top: 20px;display: inline-block;">قم بإنشاء متجرك الآن مجانا</a>
+                            <a href="/stores/pricing" style="color: white;background: #f85c70;font-weight: bold;padding: 15px 35px; border-radius: 30px; margin-top: 20px;display: inline-block;">قم بإنشاء متجرك الآن مجانا</a>
                         </div>
                     </div>
                 </div>

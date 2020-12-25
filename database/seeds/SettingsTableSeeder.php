@@ -317,6 +317,18 @@ class SettingsTableSeeder extends Seeder
                 'name' => 'tier5',
                 'value' => '3'
             ],
+            [
+                'name' => 'monthly_subscription',
+                'value' => '10'
+            ],
+            [
+                'name' => 'half_year_subscription',
+                'value' => '50'
+            ],
+            [
+                'name' => 'yearly_subscription',
+                'value' => '90'
+            ]
     	]);
     }
 }

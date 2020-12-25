@@ -81,6 +81,11 @@ class UserController extends Controller
         }
     }
 
+    public function edit_store()
+    {
+        return view('store.seller.store-settings');
+    }
+
     public function update_store(Request $request)
     {
         $user = Auth::user();
@@ -115,9 +120,9 @@ class UserController extends Controller
         $user->upload_store_logo($request->file('store_logo'));
 
         if($user->save()){
-            return response()->json('تم تحديث بيانات المتجر بنجاح!', 200);
+            return back()->with('success', 'تم تحديث بيانات المتجر بنجاح!');
         }
-        return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
+        return back()->with('error', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
     public function update_payout_methods(Request $request)
@@ -146,4 +151,5 @@ class UserController extends Controller
     {
         return view('main.users.profile')->with('user', $user);
     }
+
 }

@@ -76,9 +76,6 @@
                                 <a class="nav-link" data-toggle="tab" href="#my-listing" role="tab" aria-selected="false">إعلاناتي</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#store" role="tab" aria-selected="false">المتجر الخاص</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#payment" role="tab" aria-selected="false">المعاملات المالية</a>
                             </li>
                             <li class="nav-item">
@@ -97,8 +94,6 @@
                         @include('main.users.partials.change-password')
                         
                         @include('main.users.partials.listings')
-
-                        @include('main.users.partials.store-details')
 
                         @include('main.users.partials.payout-methods')
 
