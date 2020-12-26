@@ -17,5 +17,17 @@
 				<span class="side-menu__label">{{ __('Dashboard') }}</span>
 			</a>
 		</li>
+		<li>
+			<a class="side-menu__item" href="/dashboard/products">
+				<i class="side-menu__icon fa fa-desktop"></i>
+				<span class="side-menu__label">المنتجات</span>
+			</a>
+		</li>
+		<li>
+			<a class="side-menu__item" href="/dashboard/orders">
+				<i class="side-menu__icon fa fa-desktop"></i>
+				<span class="side-menu__label">الطلبات</span>
+			</a>
+		</li>
 	</ul>
 </aside>

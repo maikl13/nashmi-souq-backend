@@ -10,7 +10,7 @@ trait StoreInfo {
 
     public function is_store()
     {
-        return $this->store_name ? true : false;
+        return $this->store_name && $this->store_slug ? true : false;
     }
 
     public function is_subscriped()
@@ -31,6 +31,13 @@ trait StoreInfo {
             'type' => Subscription::TYPE_TRIAL,
         ]);
         return $subscription;
+    }
+
+    public function store_url()
+    {
+        if(auth()->user()->is_store())
+            return 'http://'.auth()->user()->store_slug.'.'.str_replace('http://', '', str_replace('https://', '', config('app.url')));
+        return config('app.url');
     }
 
     public function store_name()

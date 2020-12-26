@@ -10,7 +10,7 @@
                     <span class="card-title" style="font-size: 22px; color: #333;">انشاء متجر جديد</span>
                 </div>
                 <div class="card-body">
-                    @include('store.main.partials.store-details')
+                    @include('main.store.partials.store-details')
                 </div>
             </div>
         </div>

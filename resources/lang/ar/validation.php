@@ -187,6 +187,7 @@ return [
 
         // Store Details
         'store_name'            => 'إسم المتجر',
+        'store_slug'            => 'رابط المتجر',
         'store_slogan'          => 'نبذة مختصرة',
         'store_website'         => 'الموقع الإلكتروني للمتجر',
         'store_email'           => 'البريد الإلكتروني الرسمي للمتجر',

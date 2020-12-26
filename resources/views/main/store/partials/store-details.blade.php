@@ -21,6 +21,18 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
+                    <label class="control-label">رابط المتجر <span>*</span></label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" id="store_slug" type="text" name="store_slug" placeholder="رابط المتجر" value="{{ old('store_slug') ? old('store_slug') : Auth::user()->store_slug }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
                     <label class="control-label">نبذة مختصرة</label>
                 </div>
                 <div class="col-sm-9">

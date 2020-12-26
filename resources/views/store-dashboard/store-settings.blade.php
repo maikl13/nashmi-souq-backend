@@ -1,4 +1,4 @@
-@extends('store.layouts.dashboard')
+@extends('store-dashboard.layouts.store-dashboard')
 
 @section('title', 'إعدادات المتجر')
 

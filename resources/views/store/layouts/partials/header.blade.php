@@ -89,12 +89,17 @@
 
                                 @include('main.layouts.partials.user-dropdown')
                             @endguest
+                            
+                            <li class="nav-item header-login-icon mr-0 cart-dropdown">
+                                @include('store.partials.cart-dropdown')
+                            </li>
 
                             <li class="header-btn">
                                 <a href="/listings/add" class="item-btn">
                                     <i class="fas fa-plus"></i> أضف إعلانك
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 </div>

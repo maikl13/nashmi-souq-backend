@@ -6,11 +6,26 @@
 @endsection
 
 @section('content')
+    <!--=====================================-->
+    <!--=        Inner Banner Start         =-->
+    <!--=====================================-->
+    <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs-area">
+                        <h1>أسعار الاشتراك ف المتجر</h1>
+                        <ul>
+                            <li> <a href="/">الرئيسية</a> </li>
+                            <li>أسعار الاشتراك ف المتجر</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="section-padding-top-heading">
         <div class="container">
-            <div class="heading-layout1">
-                <h2 class="heading-title">الاشتراكات ف المتاجر</h2>
-            </div>
             <div class="row">
                 @foreach ([
                     [

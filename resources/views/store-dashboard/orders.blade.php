@@ -1,10 +1,6 @@
-@extends('main.layouts.main')
+@extends('store-dashboard.layouts.store-dashboard')
 
 @section('title', 'الطلبات')
-
-@section('breadcrumb')
-	<li class="breadcrumb-item active">الطلبات</li>
-@endsection
 
 @section('head')
 	<style>
@@ -49,57 +45,35 @@
 @endsection
 
 @section('content')
-    <!--=====================================-->
-    <!--=        Inner Banner Start         =-->
-    <!--=====================================-->
-    <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumbs-area">
-                        <h1>الطلبات</h1>
-                        <ul>
-                            <li> <a href="/">الرئيسية</a> </li>
-                            <li>الطلبات</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+	<div class="row mt-3">
+		<div class="col alert alert-info">
+			<span class="d-inline-block py-2">
+				<i class="fa fa-bullhorn" style="font-size: 30px;opacity: 0.4;line-height: 10px;top: 6px;position: relative;margin-left: 6px;transform: rotate3d(0, 1, 0, 180deg);"></i>
+				هل لديك طلب جاهز للشحن
+			</span>
+			<a href="/deliver" class="float-left btn btn-info py-2">
+				<i class="fa fa-truck ml-1 mr-2" style="opacity: .8;"></i> الشحن عن طريق نشمي
+			</a>
+		</div>
+	</div>
+	<div class="row card">
+		<div class="card-body">
+			<div class="e-table">
+				<div class="table-responsive table-lg">
 
-    <div class="single-product-wrap-layout1 section-padding-equal-70 bg-accent">
-		<div class="container">
-			<div class="row mt-3">
-				<div class="col alert alert-info">
-					<span class="d-inline-block py-2">
-						<i class="fa fa-bullhorn" style="font-size: 30px;opacity: 0.4;line-height: 10px;top: 6px;position: relative;margin-left: 6px;transform: rotate3d(0, 1, 0, 180deg);"></i>
-						هل لديك طلب جاهز للشحن
-					</span>
-					<a href="/deliver" class="float-left btn btn-info py-2">
-						<i class="fa fa-truck ml-1 mr-2" style="opacity: .8;"></i> الشحن عن طريق نشمي
-					</a>
-				</div>
-			</div>
-			<div class="row card">
-				<div class="card-body" style="background: #f2f2f2;">
-					<div class="e-table">
-						<div class="table-responsive table-lg">
-
-							<select class="status-filter form-control float-left bpackage-0 form-control-sm d-inline h-auto w-auto p-1 mr-2">
-								<option value="">الكل</option>
-								<option value="{{ App\Models\Package::STATUS_PENDING }}">قيد المراجعة</option>
-								<option value="{{ App\Models\Package::STATUS_APPROVED }}">مقبول</option>
-								<option value="{{ App\Models\Package::STATUS_SOFT_REJECTED }}">مرفوض مؤقتا</option>
-								<option value="{{ App\Models\Package::STATUS_HARD_REJECTED }}">مرفوض نهائيا</option>
-								<option value="{{ App\Models\Package::STATUS_DELIVERABLE }}">مرحلة التجهيز</option>
-								<option value="{{ App\Models\Package::STATUS_PREPARED }}">مرحلة التسليم</option>
-								<option value="{{ App\Models\Package::STATUS_CANCELLED }}">ملغي</option>
-								<option value="{{ App\Models\Package::STATUS_DELIVERED }}">تم التسليم</option>
-							</select>
-							{!! $dataTable->table(['class' => 'table'], true) !!}
-						</div>
-					</div>
+					<select class="status-filter form-control float-left bpackage-0 form-control-sm d-inline h-auto w-auto p-1 mr-2">
+						<option value="">الكل</option>
+						<option value="{{ App\Models\Package::STATUS_PENDING }}">قيد المراجعة</option>
+						<option value="{{ App\Models\Package::STATUS_APPROVED }}">مقبول</option>
+						<option value="{{ App\Models\Package::STATUS_SOFT_REJECTED }}">مرفوض مؤقتا</option>
+						<option value="{{ App\Models\Package::STATUS_HARD_REJECTED }}">مرفوض نهائيا</option>
+						<option value="{{ App\Models\Package::STATUS_DELIVERABLE }}">مرحلة التجهيز</option>
+						<option value="{{ App\Models\Package::STATUS_PREPARED }}">مرحلة التسليم</option>
+						<option value="{{ App\Models\Package::STATUS_CANCELLED }}">ملغي</option>
+						<option value="{{ App\Models\Package::STATUS_DELIVERED }}">تم التسليم</option>
+					</select>
+					
+					{!! $dataTable->table(['class' => 'table'], true) !!}
 				</div>
 			</div>
 		</div>

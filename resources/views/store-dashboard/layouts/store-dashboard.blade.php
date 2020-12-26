@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<title>{{ setting('website_name') }} | {{ __('Admin Panel') }} | @yield('title')</title>
-		@include('store.layouts.partials.head')
+		@include('store-dashboard.layouts.partials.head')
 		@yield('head')
 	</head>
 
@@ -12,9 +12,9 @@
 		<div id="app" class="page">
 			<div class="main-wrapper page-main" >
 
-				@include('store.layouts.partials.navbar')
+				@include('store-dashboard.layouts.partials.navbar')
 
-				@include('store.layouts.partials.sidebar')
+				@include('store-dashboard.layouts.partials.sidebar')
 
 				<div class="app-content">
 					<div class="section">
@@ -28,16 +28,17 @@
 								</span>
 							</li>
                         </ol>
-
-						@yield('content')
+						<div dir="rtl" class="text-right">
+							@yield('content')
+						</div>
 					</div>
 				</div>
 
-				@include('store.layouts.partials.footer')
+				@include('store-dashboard.layouts.partials.footer')
 
 				@yield('modals')
 
-				@include('store.layouts.partials.scripts')
+				@include('store-dashboard.layouts.partials.scripts')
 
 				@yield('scripts')
 

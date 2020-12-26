@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
 
             //store details
             $table->string('store_name')->nullable();
+            $table->string('store_slug')->nullable()->unique();
             $table->string('store_slogan')->nullable();
             $table->string('store_website')->nullable();
             $table->string('store_email')->nullable();

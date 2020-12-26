@@ -1,86 +1,47 @@
-<!--Jquery.min js-->
-<script src="/admin-assets/js/jquery.min.js"></script>
-<!--popper js-->
-<script src="/admin-assets/js/popper.js"></script>
-<!--Tooltip js-->
-<script src="/admin-assets/js/tooltip.js"></script>
-<!--Bootstrap.min js-->
-<script src="/admin-assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<!--Jquery.nicescroll.min js-->
-<script src="/admin-assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
-<!--Scroll-up-bar.min js-->
-<script src="/admin-assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
-<!--mCustomScrollbar js-->
-<script src="/admin-assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
-<!--Sidemenu js-->
-<script src="/admin-assets/plugins/toggle-menu/sidemenu.js"></script>
-<!--Othercharts js-->
-<script src="/admin-assets/plugins/othercharts/jquery.knob.js"></script>
-<script src="/admin-assets/plugins/othercharts/jquery.sparkline.min.js"></script>
-<!--Scripts js-->
-<script src="/admin-assets/js/scripts.js"></script>
-<!--tinymce-->
-<script src="/admin-assets/plugins/tinymce/tinymce.min.js"></script>
-<!--Scripts js-->
-<script src="/admin-assets/js/formeditor.js"></script>
-<!--DataTables js-->
-<script src="/admin-assets/plugins/Datatable/js/jquery.dataTables.js"></script>
-<script src="/admin-assets/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
-<!-- select2 -->
-<script src="/admin-assets/plugins/select2/select2.full.js"></script>
+<!-- Jquery Js -->
+<script src="/assets/plugins/jquery/js/jquery.min.js"></script>
+<!-- Popper Js -->
+<script src="/assets/plugins/popper.js/js/popper.min.js"></script>
+<!-- Bootstrap Js -->
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- Waypoints Js -->
+<script src="/assets/plugins/waypoints/js/jquery.waypoints.min.js"></script>
+<!-- Counterup Js -->
+<script src="/assets/plugins/jquery.counterup/js/jquery.counterup.min.js"></script>
+<!-- Owl Carousel Js -->
+<script src="/assets/plugins/owl.carousel/js/owl.carousel.min.js"></script>
+<!-- ImagesLoaded Js -->
+<script src="/assets/plugins/imagesloaded/js/imagesloaded.pkgd.min.js"></script>
+<!-- Isotope Js -->
+<script src="/assets/plugins/isotope-layout/js/isotope.pkgd.min.js"></script>
+<!-- Animated Headline Js -->
+<script src="/assets/plugins/jquery-animated-headlines/js/jquery.animatedheadline.min.js"></script>
+<!-- Magnific Popup Js -->
+<script src="/assets/plugins/magnific-popup/js/jquery.magnific-popup.min.js"></script>
+<!-- ElevateZoom Js -->
+<script src="/assets/plugins/elevatezoom/js/jquery.elevateZoom-2.2.3.min.js"></script>
+<!-- Bootstrap Validate Js -->
+<script src="/assets/plugins/bootstrap-validator/js/validator.min.js"></script>
+<!-- Meanmenu Js -->
+<script src="/assets/plugins/meanmenu/js/jquery.meanmenu.min.js"></script>
+<!-- Google Map js -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4"></script>
+<!--bootstrap fileinput-->
+<script src="/admin-assets/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="/admin-assets/plugins/bootstrap-fileinput/js/locales/ar.js" type="text/javascript"></script>
 <!-- Toast Plugin -->
 <script src="/admin-assets/plugins/toastr/build/toastr.min.js"></script>
 <!--Sweetalert-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<!--fancybox-->
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<!--bootstrap fileinput-->
-<script src="/admin-assets/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
-<script src="/admin-assets/plugins/bootstrap-fileinput/js/locales/ar.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-	$('.select2').select2();
-	$('.select2-tags').select2({
-    	placeholder: "قم باضافة الكلمات المفتاحية *",
-    	tags: true,
-		maximumSelectionLength: 30,
-    	"language": {
-	       "noResults": function(){ return "قم باضافة كلمة مفتاحية واحدة على الأقل."; },
-	       "maximumSelected": function(){ return "لا يمكن اضافة أكثر من 30 كلمة مفتاحية!"; }
-	    }
-	});
-	$.fn.modal.Constructor.prototype._enforceFocus = function() {};
-</script>
-
-<script type="text/javascript">
-	$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-
-	var actionsTemplate = '<div class="file-actions"><div class="file-footer-buttons"><button type="button" class="kv-file-remove btn btn-xs btn-info" title="Remove file" data-url="" data-key=""><i class="fa fa-trash"></i></button> <button type="button" class="kv-file-zoom btn btn-xs btn-info" title="View Details"><i class="fa fa-search-plus"></i></button></div><br></div>';
-
-	var footerTemplate = '<div class="wt-uploadingbar"><span class="uploadprogressbar"></span><p style="width:190px;word-break:break-all;line-height: 20px;">{caption}</p><div class="text-center">{actions}</div></div>';
-
-	var fileInputOptions = {
-	    // overwriteInitial: false,
-	    language: "ar",
-	    maxFileSize: 8096,
-	    showClose: false,
-	    showCaption: false,
-	    browseLabel: 'اختيار صورة',
-	    removeLabel: 'ازالة',
-	    browseIcon: '<i class="fa fa-folder"></i>',
-	    removeIcon: '<i class="fa fa-trash"></i>',
-	    removeTitle: 'ازالة الصوره',
-	    elErrorContainer: '#kv-avatar-errors-1',
-	    browseClass: "btn btn-primary",
-	    removeClass: "btn btn-danger",
-	    defaultPreviewContent: '',
-	    layoutTemplates: {main2: '{preview} {remove} {browse}', footer: footerTemplate, /*actions: actionsTemplate*/},
-	    // allowedFileExtensions: ["jpg", "jpeg", "png"],
-    	initialPreviewAsData: true,
-    	showUpload: false,
-    	autoOrientImage: false,
-	}
-</script>
+<!-- Site Scripts -->
+<script>var mobileLogo = '{{ setting('logo') }}', countryCode = '{{ country()->code }}';</script>
+<script src="/assets/js/app.js?v=1.1"></script>
+@auth
+	<script src="/assets/js/realtime.js"></script>
+	<script src="/assets/js/chat.js?v=1.1"></script>
+@endauth
+<script src="/assets/js/custom.js"></script>
+<script src="/assets/js/ajax/store.js" defer></script>
 
 <script type="text/javascript">
     toastr.options.progressBar = true;
@@ -100,3 +61,22 @@
         @endforeach
 	@endif
 </script>
+
+<!-- GetButton.io widget -->
+<script type="text/javascript">
+    (function () {
+        var options = {
+            facebook: "108589284172449", // Facebook page ID
+            whatsapp: "+20 100 450 3999", // WhatsApp number
+            call_to_action: "", // Call to action
+            button_color: "#E74339", // Color of button
+            position: "right", // Position may be 'right' or 'left'
+            order: "facebook,whatsapp", // Order of buttons
+        };
+        var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+    })();
+</script>
+<!-- /GetButton.io widget -->

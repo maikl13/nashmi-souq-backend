@@ -15,6 +15,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers\Main';
+    protected $store_namespace = 'App\Http\Controllers\Store';
     protected $admin_namespace = 'App\Http\Controllers\Admin';
     protected $api_namespace = 'App\Http\Controllers\Api';
 
@@ -44,6 +45,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
+        $this->mapStoreRoutes();
+
         $this->mapWebRoutes();
 
         $this->mapAdminRoutes();
@@ -61,6 +64,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
+    }
+
+    protected function mapStoreRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->store_namespace)
+             ->group(base_path('routes/store.php'));
     }
 
     protected function mapAdminRoutes()

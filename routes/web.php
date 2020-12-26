@@ -31,10 +31,6 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::put('account/change-password', 'UserController@update_password');
 	Route::put('account/update-payout-methods', 'UserController@update_payout_methods');
 
-	Route::get('stores/new', 'SubscriptionController@trial');
-	Route::put('stores/edit', 'UserController@update_store');
-	Route::get('stores/edit', 'UserController@edit_store');
-
 
 	Route::get('listings', 'ListingController@index');
 	Route::get('listings/add', 'ListingController@create');
@@ -94,9 +90,6 @@ Route::get('/', 'MainController@index')->name('home');
 Route::get('listings', 'ListingController@index')->name('listings');
 Route::get('listings/{listing}', 'ListingController@show');
 Route::get('users/{user}', 'UserController@show');
-
-Route::get('stores', 'UserController@index');
-Route::get('stores/pricing', 'SubscriptionController@stores_pricing');
 
 Route::get('privacy-policy', 'MainController@privacy_policy');
 Route::get('terms-and-conditions', 'MainController@terms_and_conditions');
