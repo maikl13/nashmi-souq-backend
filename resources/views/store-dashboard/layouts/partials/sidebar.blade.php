@@ -19,14 +19,20 @@
 		</li>
 		<li>
 			<a class="side-menu__item" href="/dashboard/products">
-				<i class="side-menu__icon fa fa-desktop"></i>
+				<i class="side-menu__icon fa fa-truck"></i>
 				<span class="side-menu__label">المنتجات</span>
 			</a>
 		</li>
 		<li>
 			<a class="side-menu__item" href="/dashboard/orders">
-				<i class="side-menu__icon fa fa-desktop"></i>
+				<i class="side-menu__icon fa fa-shopping-cart"></i>
 				<span class="side-menu__label">الطلبات</span>
+			</a>
+		</li>
+		<li>
+			<a class="side-menu__item" href="/dashboard/store-settings">
+				<i class="side-menu__icon fa fa-cogs"></i>
+				<span class="side-menu__label">اعدادات المتجر</span>
 			</a>
 		</li>
 	</ul>

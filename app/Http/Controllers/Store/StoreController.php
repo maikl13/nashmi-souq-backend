@@ -16,6 +16,11 @@ class StoreController extends Controller
         return view('main.store.stores')->with('stores', $stores);
     }
 
+    public function home($store)
+    {
+        return view('store.home')->with('store', $store);
+    }
+
     public function pricing()
     {
         return view('main.store.pricing');
@@ -23,9 +28,6 @@ class StoreController extends Controller
 
     public function create()
     {
-        if(auth()->user()->is_store() && !auth()->user()->started_trial())
-            auth()->user()->start_trial();
-
         if(auth()->user()->is_store())
             return redirect()->to(auth()->user()->store_url().'/dashboard');
         
@@ -50,7 +52,7 @@ class StoreController extends Controller
 
     public function edit()
     {
-        return view('store.seller.store-settings');
+        return view('store-dashboard.settings.store-settings');
     }
 
     public function update(Request $request)
@@ -68,7 +70,8 @@ class StoreController extends Controller
             'social.*' => 'nullable|url',
             'store_banner' => 'nullable|image|max:8192',
             'store_logo' => 'nullable|image|max:8192',
-            'country' => 'exists:countries,id',
+            // 'country' => 'exists:countries,id',
+            'subscription_type' => 'in:1,2,3',
         ]);
 
         $user->store_name = $request->store_name;
@@ -78,17 +81,21 @@ class StoreController extends Controller
         $user->store_email = $request->store_email;
         $user->store_address = $request->store_address;
         $user->store_description = $request->store_description;
-        $user->country_id = $request->country;
+        // $user->country_id = $request->country;
+        $user->subscription_type = $request->subscription_type;
 
         $social_links = [];
-        foreach ($request->social as $social_link)
-            if($social_link) $social_links[] = $social_link;
+        if(is_array($request->social))
+            foreach ($request->social as $social_link)
+                if($social_link) $social_links[] = $social_link;
         $user->store_social_accounts = json_encode($social_links);
 
         $user->upload_store_banner($request->file('store_banner'));
         $user->upload_store_logo($request->file('store_logo'));
 
         if($user->save()){
+            if(!auth()->user()->started_trial())
+                auth()->user()->start_trial();
             return redirect()->to(auth()->user()->store_url().'/dashboard');
         }
         return back()->with('error', 'حدث خطأ ما! من فضلك حاول مجددا.');
@@ -114,10 +121,5 @@ class StoreController extends Controller
             return response()->json('تم تحديث وسائل سحب الأرباح بنجاح!', 200);
         }
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
-    }
-
-    public function show(User $user)
-    {
-        return view('main.users.profile')->with('user', $user);
     }
 }

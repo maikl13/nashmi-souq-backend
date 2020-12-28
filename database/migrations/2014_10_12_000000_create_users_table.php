@@ -41,6 +41,7 @@ class CreateUsersTable extends Migration
             $table->text('store_social_accounts')->nullable();
             $table->text('store_banner')->nullable();
             $table->text('store_logo')->nullable();
+            $table->tinyInteger('subscription_type')->default(1);
             $table->timestamp('trial_started_at')->nullable();
 
             // payout_methods

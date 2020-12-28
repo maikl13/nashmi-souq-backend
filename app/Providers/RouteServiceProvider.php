@@ -34,6 +34,10 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Route::bind('store', function ($store) {        
+            return \App\Models\User::where('store_slug', $store)->firstOrFail();
+        });
     }
 
     /**
@@ -61,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
+        Route::middleware('web')->domain(config('app.domain'))
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }
@@ -75,7 +79,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapAdminRoutes()
     {
-        Route::middleware('web')
+        Route::middleware('web')->domain(config('app.domain'))
              ->prefix('admin')
              ->namespace($this->admin_namespace)
              ->group(base_path('routes/admin.php'));

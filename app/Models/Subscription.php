@@ -10,7 +10,9 @@ class Subscription extends Model
     protected $dates = ['created_at', 'updated_at', 'start', 'end'];
 
     const TYPE_TRIAL = 0;
-    const TYPE_NORMAL = 1;
+    const TYPE_MONTHLY = 1;
+    const TYPE_HALF_YEAR = 2;
+    const TYPE_YEARLY = 3;
     
     public function user()
     {

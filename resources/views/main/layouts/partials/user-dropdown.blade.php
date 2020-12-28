@@ -13,9 +13,8 @@
         <a class="dropdown-item" href="{{ Auth::user()->url() }}">صفحتي الشخصية</a>
         <a class="dropdown-item" href="/account">إعدادات الحساب</a>
         <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
-        <a class="dropdown-item" href="/my-orders">طلباتي</a>
         @if (auth()->check() && auth()->user()->is_store())
-            <a class="dropdown-item" href="/orders">إدارة المتجر</a>
+            <a class="dropdown-item" href="{{ auth()->user()->store_url() }}">إدارة المتجر</a>
         @endif
         <a class="dropdown-item" href="{{ route('logout') }}"
            onclick="event.preventDefault();

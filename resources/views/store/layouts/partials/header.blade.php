@@ -13,25 +13,15 @@
                 <div class="col-lg-2">
                     <div class="logo-area">
                         <a href="/" class="temp-logo float-right">
-                            <img src="{{ setting('logo') }}" alt="logo" class="img-fluid" width="90">
-                            <div style="font-size: 9px; color: #777; font-weight: bold; font-family: sans-serif;line-height: 25px;">إحدى شركات <span style="font-size: 10px;">حلول نعم</span></div>
+                            <img src="{{ request()->store->store_logo() }}" alt="logo" class="img-fluid" width="90">
                         </a>
-                        <div class="float-right mr-1" style="line-height: 48px;">
-                            {{-- <img src="https://www.countryflags.io/{{ country()->code }}/shiny/32.png"/> --}}
-                            <img src="https://flagcdn.com/w40/{{ country()->code }}.png" width="32"/>
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex justify-content-end" dir="ltr">
                     <nav id="dropdown" class="template-main-menu">
                         <ul dir="rtl">
                             <li><a href="/">الرئيسية</a></li>
-                            <li><a href="/listings">الإعلانات</a></li>
-                            {{-- <li><a href="/stores">المتاجر</a></li> --}}
-                            <li><a href="/about">من نحن</a></li>
-                            <li><a href="/contact-us">اتصل بنا</a></li>
-
-                            <li class="d-lg-none"><a href="/listings/add">نشر إعلان جديد</a></li>
+                            <li><a href="/products">المنتجات</a></li>
 
                             @guest
                                 <li class="d-lg-none"><a href="{{ route('login') }}">تسجيل الدخول</a></li>
@@ -44,13 +34,6 @@
 
                                     <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="navbarDropdown" dir="rtl">
                                         <a class="dropdown-item">{{ Auth::user()->name }}</a>
-                                        @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
-                                            <a class="dropdown-item" href="/admin">
-                                                {{ __('Admin Panel') }}
-                                            </a>
-                                        @endif
-                                        <a class="dropdown-item" href="/account">إعدادات الحساب</a>
-                                        <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
                                         <a class="dropdown-item" href="/my-orders">طلباتي</a>
                                         @if (auth()->check() && auth()->user()->is_store())
                                             <a class="dropdown-item" href="/orders">إدارة المتجر</a>
@@ -87,7 +70,7 @@
                                     </a>
                                 </li>
 
-                                @include('main.layouts.partials.user-dropdown')
+                                @include('store.layouts.partials.user-dropdown')
                             @endguest
                             
                             <li class="nav-item header-login-icon mr-0 cart-dropdown">
@@ -118,7 +101,7 @@
         <i class="far fa-envelope"></i>
     </a>
 
-    @include('main.layouts.partials.conversations-dropdown')
+    @include('store.layouts.partials.conversations-dropdown')
 @endauth
 @guest
     <a class="d-lg-none mobile-nav-icon toggle-guestnav">
@@ -135,14 +118,3 @@
         </div>
     </section>
 @endguest
-
-@if (setting('notification'))
-    <div class="text-center text-white py-3 px-3" style="background: #f85c70;">
-        <div class="container">{!! nl2br(e(setting('notification'))) !!}</div>
-    </div>
-@endif
-@if (setting('notification2'))
-    <div class="text-center py-3 px-3" style="background: #efeef1; color: #555;">
-        <div class="container">{!! nl2br(e(setting('notification2'))) !!}</div>
-    </div>
-@endif

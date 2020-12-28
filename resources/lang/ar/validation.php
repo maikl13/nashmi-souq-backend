@@ -196,6 +196,7 @@ return [
         'social.*'              => 'حسابات مواقع التواصل الإجتماعي',
         'store_banner'          => 'صورة غلاف المتجر',
         'store_logo'            => 'شعار المتجر',
+        'subscription_type'     => 'نوع الاشتراك',
 
         'categories.*'          => 'الأقسام',
         'sub_categories.*'      => 'الأقسام الفرعية',

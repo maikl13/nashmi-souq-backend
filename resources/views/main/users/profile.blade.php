@@ -1,12 +1,12 @@
 @extends('main.layouts.main')
 
-@section('title', $user->store_name())
+@section('title', $user->name)
 
 @section('head')
     <style>
         body { background-color: #f5f7fa; }
         .store-banner-box {
-            background-image: url({{ $user->store_banner()  }});
+            background-image: url('/assets/images/defaults/store-banner/default.png');
         }
     </style>
 @endsection
@@ -20,11 +20,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs-area">
-                        <h1>{{ $user->store_name() }}</h1>
+                        <h1>{{ $user->name }}</h1>
                         <ul>
                             <li> <a href="/">الرئيسية</a> </li>
-                            <li> <a href="/stores">المتاجر</a> </li>
-                            <li>{{ $user->store_name() }}</li>
+                            <li>{{ $user->name }}</li>
                         </ul>
                     </div>
                 </div>
@@ -43,13 +42,13 @@
             <div class="store-banner-box">
                 <div class="banner-content">
                     <div class="store-logo">
-                        <img src="{{ $user->store_image(['size'=>'xs']) }}" alt="{{ $user->store_name() }}" width="140">
+                        <img src="{{ $user->profile_picture(['size'=>'xs']) }}" alt="{{ $user->name }}" width="140">
                     </div>
                     <div class="store-content">
-                        <h2 class="item-title">{{ $user->store_name() }}</h2>
-                        <div class="store-tagline">{{ $user->store_slogan }}</div>
+                        <h2 class="item-title">{{ $user->name }}</h2>
+                        {{-- <div class="store-tagline">{{ $user->store_slogan }}</div> --}}
                         <ul class="item-meta">
-                            <li><i class="fas fa-map-marker-alt"></i>{{ $user->store_address }}</li>
+                            {{-- <li><i class="fas fa-map-marker-alt"></i>{{ $user->store_address }}</li> --}}
                             <li><i class="fas fa-user"></i>عضو {{ $user->created_at->diffForHumans() }}</li>
                         </ul>
                     </div>
@@ -68,23 +67,23 @@
                     @include('main.listings.partials.listings')
                 </div>
                 <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area">
-                    @if($user->store_description)
+                    {{-- @if($user->store_description)
                         <div class="widget-lg widget-store-detail widget-light-bg">
                             <h3 class="widget-border-title">عن المتجر</h3>
                             <div class="store-content">
                                 <p>{{ $user->store_description }}</p>
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
                     <div class="widget-lg widget-author-info widget-store-info widget-light-bg">
                         <h3 class="widget-border-title">معلومات الإتصال</h3>
                         <div class="author-content">
-                            @if($user->store_website)
+                            {{-- @if($user->store_website)
                                 <div class="store-website">
                                     <a href="{{ $user->store_website }}"><i class="fas fa-globe-asia"></i>الموقع الإلكتروني للمتجر</a>
                                 </div>
-                            @endif
-                            @if($user->store_social_accounts && is_array( json_decode($user->store_social_accounts) ))
+                            @endif --}}
+                            {{-- @if($user->store_social_accounts && is_array( json_decode($user->store_social_accounts) ))
                                 <hr>
                                 <div class="mt-3 text-center">
                                     @foreach (json_decode($user->store_social_accounts) as $social_account)
@@ -97,7 +96,7 @@
                                         <a href="{{ $social_account }}" class="p-2 py-5" target="_blank" style="color: #999;" onMouseOver="this.style.color='#777'" onMouseOut="this.style.color='#999'"><i class="{{ $icon }}"></i></a>
                                     @endforeach
                                 </div>
-                            @endif
+                            @endif --}}
 
                             @if($user->phone)
                                 <div class="phone-number classima-phone-reveal not-revealed" data-phone="{{ Auth::check() ? $user->phone : 'قم بتسجيل الدخول' }}">
@@ -106,10 +105,10 @@
                                 </div>
                             @endif
                             
-                            @if(Auth::guest() || Auth::user()->id != $user->id)
+                            @if(Auth::guest() || Auth::user()->id != $user->id || true)
                                 <div class="author-mail">
-                                    <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $user->store_name() }}" data-logo="{{ $user->store_logo() }}" data-username="{{ $user->username }}">
-                                        <i class="fas fa-envelope"></i> التحدث مع {{ $user->store_name ? 'ادارة المتجر' : 'المستخدم' }}
+                                    <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $user->name }}" data-logo="{{ $user->profile_picture() }}" data-username="{{ $user->username }}">
+                                        <i class="fas fa-envelope"></i> التحدث مع المستخدم
                                     </a>
                                 </div>
                             @endif

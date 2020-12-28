@@ -15,6 +15,12 @@ class UserController extends Controller
         return Auth::user()->delete_file('profile_picture');
     }
 
+    
+    public function show(User $user)
+    {
+        return view('main.users.profile')->with('user', $user);
+    }
+
     public function edit()
     {
         return view('main.users.account');

@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         // My MiddleWares
         'roles' => \App\Http\Middleware\CheckUserRole::class,
         'active' => \App\Http\Middleware\ActiveUser::class,
+        'store' => \App\Http\Middleware\CheckIfStore::class,
+        'active-store' => \App\Http\Middleware\CheckIfStoreActive::class,
     ];
 }

@@ -20,7 +20,7 @@
 		<div class="card-body text-right" dir="rtl">
             <hr>
             <div>
-                <img src="{{ $listing->user->store_image() }}" width="40" height="40" alt="author">
+                <img src="{{ $listing->user->profile_picture() }}" width="40" height="40" alt="author">
                 <a href="{{ $listing->user->url() }}">{{ $listing->user->store_name() }}</a>
 
                 @if($listing->user->phone)

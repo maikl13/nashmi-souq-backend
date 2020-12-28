@@ -40,7 +40,7 @@
                         'price' => setting('yearly_subscription'),
                         'discount' => setting('yearly_subscription') ? round((1-((setting('yearly_subscription')/12)/setting('monthly_subscription')))*100, 1) : 0
                     ]
-                ] as $subscription)
+                ] as $k => $subscription)
                     @if ($subscription['price'])
                         <div class="col-xl-4 col-md-4">
                             <div class="pricing-box-layout1">
@@ -60,7 +60,7 @@
                                     </ul>
                                 </div>
                                 <div class="item-btn">
-                                    <a href="/stores/new" class="btn-fill-xl color-light bgPrimary">بدء الفترة التجريبية</a>
+                                    <a href="/stores/new?type={{ $k+1 }}" class="btn-fill-xl color-light bgPrimary">بدء الفترة التجريبية</a>
                                 </div>
                             </div>
                         </div>

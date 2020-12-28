@@ -13,6 +13,12 @@ trait StoreInfo {
         return $this->store_name && $this->store_slug ? true : false;
     }
 
+    public function is_active_store()
+    {
+        $subscription = $this->subscriptions()->where('start', '<=', now())->where('end', '>=', now())->first();
+        return $subscription ? true : false;
+    }
+
     public function is_subscriped()
     {
         return true;
@@ -25,18 +31,20 @@ trait StoreInfo {
 
     public function start_trial()
     {
-        $subscription = auth()->user()->subscriptions()->create([
-            'start' => now(),
-            'end' => now()->addDays(14),
-            'type' => Subscription::TYPE_TRIAL,
-        ]);
+        $subscription = $this->subscriptions()->first();
+        if(!$subscription)
+            $subscription = $this->subscriptions()->create([
+                'start' => now(),
+                'end' => now()->addDays(14),
+                'type' => Subscription::TYPE_TRIAL,
+            ]);
         return $subscription;
     }
 
     public function store_url()
     {
-        if(auth()->user()->is_store())
-            return 'http://'.auth()->user()->store_slug.'.'.str_replace('http://', '', str_replace('https://', '', config('app.url')));
+        if($this->is_store())
+            return 'http://'.$this->store_slug.'.'.str_replace('http://', '', str_replace('https://', '', config('app.url')));
         return config('app.url');
     }
 

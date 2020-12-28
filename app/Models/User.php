@@ -70,6 +70,10 @@ class User extends Authenticatable
         return $this->HasMany(Package::class, 'store_id');
     }
 
+    public function products(){
+        return $this->HasMany(Product::class);
+    }
+
     public function subscriptions(){
         return $this->HasMany(Subscription::class);
     }
@@ -96,11 +100,11 @@ class User extends Authenticatable
     }
 
     public function store_logo( $options=[] ){
-        $options = array_merge($options, ['default'=>'user']);
+        $options = array_merge($options, ['default'=>'store']);
         return $this->image($this->store_logo, $options);
     }
     public function upload_store_logo($file){
-        return $this->upload_file($file, 'store_logo', ['ext'=>'jpg','sizes'=>Self::$profile_picture_sizes]);
+        return $this->upload_file($file, 'store_logo', ['ext'=>'jpg', 'w'=>null, 'h'=>null]);
     }
 
     // this is a recommended way to declare event handlers

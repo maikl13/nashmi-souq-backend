@@ -2,7 +2,7 @@
 <html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <title>{{ setting('website_name') }} | @yield('title')</title>
-        @include('main.layouts.partials.head')
+        @include('store.layouts.partials.head')
         @yield('head')
     </head>
 
@@ -20,20 +20,20 @@
         <!-- Preloader End Here -->
         <div id="wrapper" class="wrapper">
 
-            @include('main.layouts.partials.header')
+            @include('store.layouts.partials.header')
 
             @yield('content')
             
-            @include('main.layouts.partials.footer')
+            @include('store.layouts.partials.footer')
 
             @auth
-                @include('main.layouts.partials.chat-box')
+                @include('store.layouts.partials.chat-box')
             @endauth
             
             @yield('modals')
         </div>
 
-        @include('main.layouts.partials.scripts')
+        @include('store.layouts.partials.scripts')
         @yield('scripts')
     </body>
 </html>

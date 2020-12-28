@@ -11,7 +11,7 @@
             <h4> تعديل بيانات المتجر </h4>
         </div>
         <div class="card-body text-right" dir="rtl">
-            @include('store.main.partials.store-details')
+            @include('store-dashboard.settings.partials.store-details')
         </div>
     </div>
 @endsection

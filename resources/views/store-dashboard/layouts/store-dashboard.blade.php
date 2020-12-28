@@ -28,9 +28,7 @@
 								</span>
 							</li>
                         </ol>
-						<div dir="rtl" class="text-right">
-							@yield('content')
-						</div>
+						@yield('content')
 					</div>
 				</div>
 

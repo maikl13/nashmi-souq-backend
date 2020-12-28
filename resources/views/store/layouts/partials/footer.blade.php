@@ -5,82 +5,32 @@
     <div class="footer-top-wrap">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-sm-12">
+                <div class="col-xs-12 text-center w-100">
                     <div class="footer-box-layout1">
-                        <div class="footer-logo mb-2">
-                            <div class="float-right">
-                                <img src="{{ setting('footer_logo') }}" alt="logo" width="130"> <br>
-                                <span style="line-height: 37px;font-size: 13px;;color: #bbb; font-family: sans-serif;">احدي شركات <span style="font-size: 14px;">حلول نعم</span></span>
-                            </div>
-                            <div class="float-right mr-2" style="line-height: 70px;">
-                                {{-- <img src="https://www.countryflags.io/{{ country()->code }}/shiny/48.png"/> --}}
-                                <img src="https://flagcdn.com/w40/{{ country()->code }}.png" width="48"/>
-                            </div>
+                        <div class="footer-logo mb-3">
+                            <img src="{{ request()->store->store_logo() }}" alt="logo" width="130" style="filter: contrast(0.4);"> <br>
                         </div>
                         <div class="clearfix"></div>
-                        <p>{{ setting('website_description') }}</p>
+                        <p class="text-justify" style="text-align-last: center;">{{ request()->store->store_description }}</p>
                         <ul class="footer-social">
-                            @if( setting('facebook') )
-                                <li><a href="{{ setting('facebook') }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                            @endif
-                            @if( setting('twitter') )
-                                <li><a href="{{ setting('twitter') }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                            @endif
-                            @if( setting('instagram') )
-                                <li><a href="{{ setting('instagram') }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                            @endif
-                            @if( setting('linkedin') )
-                                <li><a href="{{ setting('linkedin') }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                            @endif
-                            @if( setting('youtube') )
-                                <li><a href="{{ setting('youtube') }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                            @endif
-                            @if( setting('whatsapp') )
-                                <li><a href="https://wa.me/{{ str_replace('+', '', setting('whatsapp') ) }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                            
+                            @if(request()->store->store_social_accounts && is_array( json_decode(request()->store->store_social_accounts) ))
+                                <div class="mt-3 text-center">
+                                    @foreach (json_decode(request()->store->store_social_accounts) as $social_account)
+                                        @foreach(['facebook', 'twitter', 'linkedin', 'youtube', 'instagram', 'pinterest'] as $brand)
+                                            <?php $icon = 'fa fa-globe-africa'; ?>
+                                            @if (strrpos($social_account, $brand.".com"))
+                                                <?php $icon = 'fab fa-'.$brand; break; ?>
+                                            @endif
+                                        @endforeach
+                                    <li><a href="{{ $social_account }}" target="_blank"><i class="{{ $icon }}"></i></a></li>
+                                @endforeach
+                                </div>
                             @endif
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2 col-sm-4 col-xs-12">
-                    <div class="footer-box-layout1">
-                        <div class="footer-title">
-                            <h3>معلومات</h3>
-                        </div>
-                        <div class="footer-menu-box">
-                            <ul>
-                                <li><a href="/about">من نحن</a></li>
-                                <li><a href="/terms-and-conditions">شروط الإستخدام</a></li>
-                                <li><a href="/safety-tips">قواعد السلامة</a></li>
-                                <li><a href="/privacy-policy">سياسة الخصوصية</a></li>
-                                <li><a href="/contact-us">إتصل بنا</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-sm-8 col-xs-12">
-                    <div class="footer-box-layout1">
-                        <div class="footer-title">
-                            <h3>مواقع صديقة</h3>
-                        </div>
-                        <div class="footer-menu-box">
-                            <ul>
-                                @foreach (App\Models\Country::get() as $country)
-                                    <li class="w-auto d-inline-block country-box">
-                                        <a href="/c/{{ $country->code }}" class="px-2 py-1 m-1 d-inline-block" style="border: 1px solid #4a4a4a;">
-                                            <img src="https://flagcdn.com/w40/{{ $country->code }}.png" width="24" style="opacity: .7;" />
-                                            {{-- <img src="https://www.countryflags.io/{{ $country->code }}/shiny/24.png" style="opacity: .5;" /> --}}
-                                            سوق {{ $country->name }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col mt-3 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
-                <div class="col mt-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+
             </div>
         </div>
     </div>
