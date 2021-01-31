@@ -32,7 +32,7 @@ class OrderController extends Controller
             'state' => 'required|exists:states,id',
             'phone' => 'required|max:16',
             'address' => 'required|max:255',
-            'payment_method' => 'required|in:'.Order::CREDIT_PAYMENT.','.Order::ON_DELIVERY_PAYMENT,
+            'payment_method' => 'required|in:'.Order::CREDIT_PAYMENT.','.Order::ON_DELIVERY_PAYMENT.','.Order::PAYPAL_PAYMENT,
             'note' => 'nullable|max:10000',
         ]);
 
@@ -91,16 +91,23 @@ class OrderController extends Controller
             $user->state_id = $request->state;
             $user->save();
 
-            if($request->payment_method == Order::CREDIT_PAYMENT){
+            if($request->payment_method == Order::ON_DELIVERY_PAYMENT){
+                return redirect()->route('order-saved', $store->store_slug);
+            } else {
                 $price = $order->price();
-                $transaction = Transaction::payment_init($price, $order->currency);
+                switch ($request->payment_method) {
+                    case Order::PAYPAL_PAYMENT: $payment_method = Transaction::PAYMENT_PAYPAL; break;
+                    default: $payment_method = Transaction::PAYMENT_DIRECT_PAYMENT; break;
+                }
+                $transaction = Transaction::payment_init($price, $order->currency, ['payment_method'=>$payment_method]);
                 if($transaction){
                     $order->transaction_id = $transaction->id;
-                    if($order->save())
+                    if($order->save()){
+                        if($request->payment_method == Order::PAYPAL_PAYMENT)
+                            return $transaction->paypal_payment();
                         return $transaction->direct_payment();
+                    }
                 }
-            } else {
-                return redirect()->route('order-saved', $store->store_slug);
             }
         }
         return redirect()->back()->with('failure', 'حدث خطأ ما من فضلك حاول مجددا!');

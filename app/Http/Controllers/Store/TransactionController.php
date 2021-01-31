@@ -28,6 +28,34 @@ class TransactionController extends Controller
         return view('main.payment.payment-failed');
     }
 
+    public function paypal_payment_result(Request $request)
+    {
+        $provider = new ExpressCheckout;
+        $response = $provider->getExpressCheckoutDetails($request->token);
+
+        if($response['ACK'] != 'success' && $response['PAYERSTATUS'] != 'verified' || !$response['PAYERID'])
+            return view('main.payment.payment-failed');
+
+        $transaction = Transaction::where('uid', $response['INVNUM'])->first();
+
+        if($transaction){
+            $data = $transaction->paypal_invoice_data();
+            $response = $provider->doExpressCheckoutPayment($data, $response['TOKEN'], $response['PAYERID']);
+
+            if($response['ACK'] == 'Success' && $response['PAYMENTINFO_0_PAYMENTSTATUS'] == 'Completed' && $response['PAYMENTINFO_0_ACK'] == 'Success') {
+                $transaction->amount_usd = $response['PAYMENTINFO_0_AMT'];
+                $transaction->success_indicator = $response['TOKEN'];
+                $transaction->transaction_id = $response['PAYMENTINFO_0_TRANSACTIONID'];
+                $transaction->status = Transaction::STATUS_PROCESSED;
+            }
+
+            if( $transaction->save() )
+                return view('main.payment.payment-success');
+        }
+
+        return redirect()->route('home');
+    }
+
     public function withdraw(Request $request)
     {
         $payout_balance = auth()->user()->payout_balance();
@@ -76,7 +104,7 @@ class TransactionController extends Controller
             'amount' => 'integer|min:1|max:1000000'
         ]);
         $amount = $request->amount;
-        $transaction = Transaction::payment_init($amount, currency(), Transaction::TYPE_DEPOSIT);
+        $transaction = Transaction::payment_init($amount, currency(), ['type'=>Transaction::TYPE_DEPOSIT]);
         return $transaction->direct_payment();
     }
     
@@ -91,7 +119,7 @@ class TransactionController extends Controller
             'amount' => 'integer|min:1|max:1000000'
         ]);
         $amount = $request->amount;
-        $transaction = Transaction::payment_init($amount, currency(), Transaction::TYPE_DEPOSIT);
+        $transaction = Transaction::payment_init($amount, currency(), ['type'=>Transaction::TYPE_DEPOSIT]);
         return $transaction->direct_payment(['return_url'=>false]);
     }
 }

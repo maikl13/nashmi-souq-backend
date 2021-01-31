@@ -5,11 +5,16 @@ namespace App\Traits;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Currency;
+use Srmklive\PayPal\Services\ExpressCheckout;
+use Srmklive\PayPal\Services\AdaptivePayments;
+
 trait PaymentTrait {
 
-    public static function payment_init($amount, $currency=false, $type=Transaction::TYPE_PAYMENT)
+    public static function payment_init($amount, $currency=false, $options=[])
     {
         $currency = $currency ? $currency : currency();
+        $type = $options['type'] ?? Transaction::TYPE_PAYMENT;
+        $payment_method = $options['payment_method'] ?? Transaction::PAYMENT_DIRECT_PAYMENT;
 
         $transaction = new Transaction;
         $transaction->uid = unique_id();
@@ -20,7 +25,7 @@ trait PaymentTrait {
             $transaction->user_id = auth()->user()->id;
             $transaction->type = $type;
             $transaction->status = Transaction::STATUS_PENDING;
-            $transaction->payment_method = Transaction::PAYMENT_DIRECT_PAYMENT;
+            $transaction->payment_method = $payment_method;
             if($transaction->save())
                 return $transaction;
             return false;
@@ -111,5 +116,48 @@ trait PaymentTrait {
             return $transaction->save() ? $transaction : false;
         }
         return false;
+    }
+
+    public function paypal_payment($options=[])
+    {
+        // prepare paypal payment
+        $provider = new ExpressCheckout;
+
+        $logo = setting('logo') ? setting('logo') : 'logo';
+        $options = [
+            'BRANDNAME' => config('app.name'),
+            'LOGOIMG' => config('url').'/'.$logo,
+            'CHANNELTYPE' => 'Merchant'
+        ];
+        $provider->addOptions($options);
+
+        $data = $this->paypal_invoice_data();
+        $response = $provider->setExpressCheckout($data);
+
+        return redirect($response['paypal_link']);
+    }
+
+    public function paypal_invoice_data()
+    {
+        $data = [];
+        $data['items'] = [[
+            'name' => "test name asdjg",
+            'price' => $this->price,
+            'desc' => "test description jkadhjkas",
+            'qty' => 1
+        ]];
+
+        $data['invoice_id'] = $this->uid;
+        $data['invoice_description'] = "test test test";
+        $data['return_url'] = url('/')."/paypal-payment-result";
+        $data['cancel_url'] = url()->previous();
+
+        $total = 0;
+        foreach($data['items'] as $item) {
+            $total += $item['price']*$item['qty'];
+        }
+        $data['total'] = $total;
+
+        return $data;
     }
 }

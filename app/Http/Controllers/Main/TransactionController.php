@@ -76,7 +76,7 @@ class TransactionController extends Controller
             'amount' => 'integer|min:1|max:1000000'
         ]);
         $amount = $request->amount;
-        $transaction = Transaction::payment_init($amount, currency(), Transaction::TYPE_DEPOSIT);
+        $transaction = Transaction::payment_init($amount, currency(), ['type'=>Transaction::TYPE_DEPOSIT]);
         return $transaction->direct_payment();
     }
     
@@ -91,7 +91,7 @@ class TransactionController extends Controller
             'amount' => 'integer|min:1|max:1000000'
         ]);
         $amount = $request->amount;
-        $transaction = Transaction::payment_init($amount, currency(), Transaction::TYPE_DEPOSIT);
+        $transaction = Transaction::payment_init($amount, currency(), ['type'=>Transaction::TYPE_DEPOSIT]);
         return $transaction->direct_payment(['return_url'=>false]);
     }
 }

@@ -48,6 +48,7 @@ Route::domain('{store}.'.config('app.domain'))->middleware(['active-store'])->gr
 	
 Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'active-store'])->group(function () {
 	Route::get('payment-result', 'TransactionController@payment_result');
+	Route::get('paypal-payment-result', 'TransactionController@paypal_payment_result');
 
 	Route::get('checkout', 'CartController@checkout')->name('checkout');
 	Route::post('order/new', 'OrderController@store');

@@ -31,11 +31,11 @@ return [
     ],
 
     'mpgs' => [
-        'api_url' => env('MPGS_ENV') == 'test' ? env('MPGS_TEST_API_URL') :  env('MPGS_LIVE_API_URL'),
-        'merchant' => env('MPGS_ENV') == 'test' ? env('MPGS_TEST_MERCHANT') :  env('MPGS_LIVE_MERCHANT'),
-        'merchant_id' => env('MPGS_ENV') == 'test' ? env('MPGS_TEST_MERCHANT_ID') :  env('MPGS_LIVE_MERCHANT_ID'),
-        'api_password' => env('MPGS_ENV') == 'test' ? env('MPGS_TEST_API_PASSWORD') :  env('MPGS_LIVE_API_PASSWORD'),
-        'operation' => env('MPGS_ENV') == 'test' ? env('MPGS_TEST_OPERATION') :  env('MPGS_LIVE_OPERATION'),
+        'api_url' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_API_URL') :  env('MPGS_LIVE_API_URL'),
+        'merchant' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_MERCHANT') :  env('MPGS_LIVE_MERCHANT'),
+        'merchant_id' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_MERCHANT_ID') :  env('MPGS_LIVE_MERCHANT_ID'),
+        'api_password' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_API_PASSWORD') :  env('MPGS_LIVE_API_PASSWORD'),
+        'operation' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_OPERATION') :  env('MPGS_LIVE_OPERATION'),
     ]
 
 ];

@@ -13,6 +13,7 @@ class Order extends Model
     
     const CREDIT_PAYMENT = 1;
     const ON_DELIVERY_PAYMENT = 2;
+    const PAYPAL_PAYMENT = 3;
 
     const STATUS_UNPAID = 0; // for orders with credit payments that hasn't been paid yet
     const STATUS_PROCESSING = 1; // new order

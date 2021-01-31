@@ -12,7 +12,7 @@
         "fideloper/proxy": "^4.2",
         "florianv/laravel-swap": "^2.1",
         "fruitcake/laravel-cors": "^1.0",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^7.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
@@ -22,6 +22,7 @@
         "php-http/message": "^1.8",
         "propaganistas/laravel-phone": "^4.2",
         "pusher/pusher-php-server": "^4.1",
+        "srmklive/paypal": "~1.0",
         "stevebauman/location": "^5.0",
         "yajra/laravel-datatables": "^1.5"
     },
