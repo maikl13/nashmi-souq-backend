@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->decimal('initial_price', 20, 2)->nullable();
             $table->decimal('price', 20, 2)->nullable();
             $table->bigInteger('currency_id')->unsigned()->nullable();
             $table->foreign('currency_id')->references('id')->on('currencies');
@@ -33,6 +34,7 @@ class CreateProductsTable extends Migration
             $table->integer('views')->default(0);
             $table->text('note')->nullable();
             $table->text('data')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

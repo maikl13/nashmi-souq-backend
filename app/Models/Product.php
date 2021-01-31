@@ -8,11 +8,18 @@ use App\Traits\SearchableTrait;
 use App\Traits\ExchangeCurrency;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use FileHandler, SearchableTrait, ExchangeCurrency;
+    use FileHandler, SearchableTrait, ExchangeCurrency, SoftDeletes;
     
+    public function newQuery()
+    {
+        if(request()->store)
+            return parent::newQuery()->where('user_id', request()->store->id);
+        return parent::newQuery();
+    }
 
 	public function getRouteKeyName($value='')
 	{
@@ -59,9 +66,24 @@ class Product extends Model
     	return $this->user->store_url().'/products/'. $this->slug;
     }
 
+    public function initial_price()
+    {
+        return $this->initial_price+0;
+    }
     public function price()
     {
         return $this->price+0;
+    }
+
+    public function local_initial_price()
+    {
+        // the price in local currency
+        if(
+            optional(country()->currency)->id == optional($this->currency)->id ||
+            !$this->currency
+        ) return $this->initial_price();
+        
+        return ceil(exchange($this->initial_price, $this->currency->code, country()->currency->code));
     }
 
     public function local_price()

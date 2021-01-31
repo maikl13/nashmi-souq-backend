@@ -15,8 +15,8 @@ class CreatePackageItemsTable extends Migration
     {
         Schema::create('package_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('listing_id')->unsigned()->nullable();
-            $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
+            $table->bigInteger('product_id')->unsigned()->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('title');
             $table->decimal('price', 20, 2);
             // The price in the original currency

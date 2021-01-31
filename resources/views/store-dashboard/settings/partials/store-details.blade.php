@@ -50,6 +50,18 @@
             <input type="text" class="form-control mb-2" name="social[]" value="{{ isset($social_links[3]) ? $social_links[3] : '' }}">
             <input type="text" class="form-control mb-2" name="social[]" value="{{ isset($social_links[4]) ? $social_links[4] : '' }}">
         </div>
+        <div class="form-group store-social" style="margin-bottom: 1.5rem !important;">
+            <label class="control-label">أقسام المتجر</label>
+            <?php 
+                $categories = App\Models\Category::whereNull('category_id')->get();
+                $selected = auth()->user()->store_categories;
+            ?>
+            <select name="categories[]" class="form-control select2" multiple>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ in_array($category->id, $selected) ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="form-group text-right">
             <label class="control-label">صورة غلاف المتجر</label>
             <input class="form-control store-banner" id="store_banner" type="file" accept="image/*" name="store_banner">

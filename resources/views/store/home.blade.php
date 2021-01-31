@@ -26,7 +26,7 @@
                 
                 {{-- <div class="item-subtitle">{{ request()->store->store_slogan }}</div> --}}
 
-                @include('main.layouts.partials.search-box')
+                @include('store.layouts.partials.search-box')
             </div>
         </div>
     </section>
@@ -56,8 +56,15 @@
                                         @if ($product->price)
                                             <li class="d-inline mr-2">
                                                 <i class="fas fa-money-bill"></i>
-                                                {{ $product->local_price() }}
+                                                {{ $product->local_price() }} 
                                                 <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
+                                                
+                                                @if($product->price < $product->initial_price)
+                                                    <del>
+                                                        {{ $product->local_initial_price() }}
+                                                        <span class="currency-symbol">{{ country()->currency->symbol }}</span>
+                                                    </del>
+                                                @endif
                                             </li>
                                         @endif
                                     </ul>
@@ -83,8 +90,4 @@
 
 @section('modals')
     @include('store.layouts.partials.search-modals')
-@endsection
-
-@section('scripts')
-    @include('store.layouts.partials.search-box-scripts')
 @endsection

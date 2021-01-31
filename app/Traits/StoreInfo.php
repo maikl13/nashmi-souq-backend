@@ -15,6 +15,7 @@ trait StoreInfo {
 
     public function is_active_store()
     {
+        if(!$this->is_store()) return false;
         $subscription = $this->subscriptions()->where('start', '<=', now())->where('end', '>=', now())->first();
         return $subscription ? true : false;
     }

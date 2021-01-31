@@ -16,8 +16,11 @@ class CheckIfStoreActive
      */
     public function handle($request, Closure $next)
     {
-        if(!auth()->user()->is_store() || !$request->store->is_active_store()){
-            return redirect()->route('subscribe', $request->store->store_slug);
+        if(!$request->store->is_active_store()){
+            if(auth()->user() && auth()->user()->id == $request->store->id)
+                return redirect()->route('subscribe', $request->store->store_slug);
+            return redirect()->route('store-unavailable', $request->store->store_slug);
+            // return view('errors.unavailable-store');
         }
 
         return $next($request);

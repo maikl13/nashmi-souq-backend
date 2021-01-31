@@ -10,7 +10,7 @@
                     <div id="collapseTwo" class="collapse" data-parent="#accordion">
                         <div class="card-body p-3">
                             <div class="multi-accordion-content" id="accordion1">
-                                @forelse(App\Models\Category::whereNull('category_id')->get() as $category)
+                                @forelse(App\Models\Category::whereNull('category_id')->whereIn('id', request()->store->store_categories)->get() as $category)
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="parent-list py-1 {{ !$category->children()->count() ? 'single' : '' }}">

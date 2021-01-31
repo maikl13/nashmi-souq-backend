@@ -4,10 +4,10 @@
 ?>
 
 @if($package && $order)
-	<div class="text-right mb-3 mx-1">
-		<div class="listing-box product-box-layout3 m-0 d-block">
-			<div class="package-header" style="font-size: 19px;">
-				<strong>طلب #{{ $package->uid }}{{ '@'.$order->uid }}</strong>
+	<div class="text-right mb-3 mx-1" dir="rtl">
+		<div class="listing-box product-box-layout3 m-0 d-block" style="background: #f7f7f7;">
+			<div class="package-header py-2" style="font-size: 19px;">
+				<strong>طلب</strong> <small>#{{ $package->uid }}{{ '@'.$order->uid }}</small>
 				<small class="float-left" style="opacity: .7">{{ $package->status() }}</small>
 			</div>
 			<div class="product-info">
@@ -15,7 +15,7 @@
 					<ul class="entry-meta d-block">
 						<li>
 							<i class="far fa-user"></i>
-							<a href="/users/{{ $order->user->id }}/" title="{{ $order->buyer_name }}">{{ $order->user->name }}</a>
+							<a href="{{ config('app.url') }}/users/{{ $order->user->id }}/" title="{{ $order->buyer_name }}">{{ $order->user->name }}</a>
 						</li>
 						<li><i class="far fa-clock"></i> {{ $order->created_at->diffForHumans() }}</li>
 						<li>
@@ -53,7 +53,7 @@
 				@endif
 			@endforeach
 			<div class="btn-group header-btn mt-1">
-				<a href="/orders/{{ $package->id }}" class="item-btn mt-1 rounded-0 py-2">
+				<a href="/dashboard/orders/{{ $package->id }}" class="item-btn mt-1 rounded-0 py-2">
 					<i class="fa fa-link ml-2"></i> تفاصيل الطلب
 					<small class="mr-2">{{ $package->uid }}</small>
 				</a>

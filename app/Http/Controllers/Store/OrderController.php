@@ -8,25 +8,25 @@ use App\Models\PackageItem;
 use App\Models\Transaction;
 use App\Models\PackageStatusUpdate;
 use App\Models\Cart;
-use App\Models\Listing;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\DataTables\PackagesDataTable;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index($store)
     {
-        return view('store.buyer.my-orders')->with('orders', auth()->user()->orders()->latest()->paginate(12));
+        return view('store.my-orders')->with('orders', auth()->user()->orders()->latest()->paginate(12));
     }
 
-    public function show(Order $order)
+    public function show($store, Order $order)
     {
         $this->authorize('view', $order);
-        return view('store.buyer.order')->with('order', $order);
+        return view('store.order')->with('order', $order);
     }
 
-    public function store(Request $request){
+    public function store($store, Request $request){
         $request->validate([
             'name' => 'required|max:255',
             'state' => 'required|exists:states,id',
@@ -40,7 +40,7 @@ class OrderController extends Controller
         $items = $cart->items();
 
         if(!sizeof($items))
-            return redirect()->back()->with('failure', 'Please Add some products to your shopping cart first');
+            return redirect()->back()->with('failure', 'من فضلك قم بإضافة منتجات لعربة التسوق أولا !');
 
         $order = new Order;
     
@@ -49,6 +49,7 @@ class OrderController extends Controller
         $order->payment_method = $request->payment_method;
         $order->status = $order->payment_method == Order::CREDIT_PAYMENT ? Order::STATUS_UNPAID : Order::STATUS_PROCESSING;
         $order->price = $cart->total_price();
+        $order->store_id = $store->id;
 
         // buyer info
         $order->user_id = auth()->user()->id;
@@ -60,28 +61,28 @@ class OrderController extends Controller
 
         if($order->save()){
             foreach($items as $id => $item){
-                $listing = Listing::findOrFail($id);
+                $product = Product::findOrFail($id);
                 
                 // Save Package
-                $package = Package::where('order_id', $order->id)->where('store_id', $listing->user->id)->first();
+                $package = Package::where('order_id', $order->id)->where('store_id', $product->user->id)->first();
                 if(!$package){
                     $package = new Package;
                     $package->uid = uniqid();
                 }
                 $package->order_id = $order->id;
-                $package->store_id = $listing->user->id;
+                $package->store_id = $product->user->id;
                 $package->save();
 
                 // Save Package Item
                 $package_item = new PackageItem;
                 // product info
                 $package_item->package_id = $package->id;
-                $package_item->listing_id = $listing->id;
+                $package_item->product_id = $product->id;
                 $package_item->title = $item['title'];
                 $package_item->quantity = $item['quantity'];
                 $package_item->price = $item['price'];
-                $package_item->original_price = $listing->price;
-                $package_item->original_currency_id = $listing->currency->id;
+                $package_item->original_price = $product->price;
+                $package_item->original_currency_id = $product->currency->id;
                 $package_item->save();
             }
             
@@ -99,7 +100,7 @@ class OrderController extends Controller
                         return $transaction->direct_payment();
                 }
             } else {
-                return redirect()->route('order-saved');
+                return redirect()->route('order-saved', $store->store_slug);
             }
         }
         return redirect()->back()->with('failure', 'حدث خطأ ما من فضلك حاول مجددا!');
@@ -109,10 +110,10 @@ class OrderController extends Controller
     {
         $cart = new Cart;
         $cart->clear();
-        return view('store.buyer.order-saved');
+        return view('store.order-saved');
     }
 
-    public function cancel_order(Package $package)
+    public function cancel_order($store, Package $package)
     {
         $this->authorize('cancel', $package);
         $package->status = Package::STATUS_CANCELLED;
@@ -136,13 +137,13 @@ class OrderController extends Controller
 
     public function orders(PackagesDataTable $dataTable)
     {
-        return $dataTable->render('store.seller.orders');
+        return $dataTable->render('store-dashboard.orders');
     }
 
-    public function show_for_store(Package $package)
+    public function show_for_store($store, Package $package)
     {
         $this->authorize('show_for_store', $package);
-        return view('store.seller.order')->with([
+        return view('store-dashboard.order')->with([
             'order' => $package->order,
             'package' => $package,
         ]);

@@ -248,3 +248,7 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
     bottom: -17px !important;
 }
 .scrollup {display: none;}
+
+.store-search .no-gutters {
+    margin: 0px -15px;
+}

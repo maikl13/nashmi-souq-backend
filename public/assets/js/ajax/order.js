@@ -3,7 +3,7 @@ $('.change-status-form').on('submit', function(e){
     var Form = $(this);
     Form.find(".overlay").show();
     $.ajax({
-		url: '/orders/change-status',
+		url: '/dashboard/orders/change-status',
         type: 'POST',
         data: new FormData(this),
         contentType: false,
@@ -47,7 +47,7 @@ $('.change-status-form').on('submit', function(e){
 
 function update_shipping(packageId){
     $.ajax({
-        url: '/orders/get-shipping',
+        url: '/dashboard/orders/get-shipping',
         type: 'POST',
         data: { 'package_id': packageId },
         success: function(data){
@@ -57,7 +57,7 @@ function update_shipping(packageId){
 }
 function update_status(packageId){
     $.ajax({
-        url: '/orders/get-status',
+        url: '/dashboard/orders/get-status',
         type: 'POST',
         data: { 'package_id': packageId },
         success: function(data){
@@ -67,7 +67,7 @@ function update_status(packageId){
 }
 function update_status_updates_log(packageId){
     $.ajax({
-        url: '/orders/get-status-updates-log',
+        url: '/dashboard/orders/get-status-updates-log',
         type: 'POST',
         data: { 'package_id': packageId },
         success: function(data){

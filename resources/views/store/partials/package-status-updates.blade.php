@@ -1,14 +1,14 @@
 <div class="card border-0">
-	<div class="card-header text-right text-white rounded-0" style="background-color: #f85c70;">
-		<h4 class="d-inline float-right text-white m-0">حالة الطلب - <small class="package-status">{{ $package->status() }}</small></h4>
+	<div class="card-header text-right rounded-0">
+		<h4 class="d-inline float-right m-0">حالة الطلب - <small class="package-status">{{ $package->status() }}</small></h4>
         <div class="float-left">
             @if(!$package->is_cancelled_by_buyer())
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#change-status-modal" >
+                <a href="#" role="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#change-status-modal" >
                     <i class="fa fa-gear" ></i> تعديل حالة الطلب 
-                </button>
+                </a>
             @endif
 
-            <a class="btn btn-danger btn-sm" data-toggle="collapse" href="#package-status-log" role="button" aria-expanded="false" aria-controls="package-status-log"> سجل تغييرات حالة الطلب </a>
+            <a class="btn btn-default btn-sm" data-toggle="collapse" href="#package-status-log" role="button" aria-expanded="false" aria-controls="package-status-log"> سجل تغييرات حالة الطلب </a>
         </div>
 	</div>
 	<div class="card-body py-0">

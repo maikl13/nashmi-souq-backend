@@ -91,6 +91,7 @@
 	var toggleSidebar = function() {
 		var w = $(window);
 		if(w.outerWidth() <= 1024) {
+			console.log(111);
 			$("body").addClass("sidebar-gone");
 			$(document).off("click", "body").on("click", "body", function(e) {
 				if($(e.target).hasClass('sidebar-show') || $(e.target).hasClass('search-show')) {

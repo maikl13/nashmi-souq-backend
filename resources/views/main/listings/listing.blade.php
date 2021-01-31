@@ -69,10 +69,10 @@
                                                 <a href="{{ $listing->category->url() }}">{{ $listing->category->name }}</a>
                                             @endif
                                         </li>
-                                        {{-- <li><i class="far fa-eye"></i>{{ $listing->views }} مشاهدة</li> --}}
+                                        <li><i class="far fa-eye"></i>{{ $listing->views + 102 }} مشاهدة</li>
                                     </ul>
                                 </div>
-                                <div class="item-details">
+                                <div class="item-details text-break">
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active" id="details" role="tabpanel">
                                             <p>{{ $listing->description }}</p>

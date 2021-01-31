@@ -37,7 +37,7 @@ class PackagesDataTable extends DataTable
      */
     public function query(package $model)
     {
-        return $model->newQuery()->where('store_id', auth()->user()->id)
+        return $model->newQuery()->where('packages.store_id', auth()->user()->id)
             ->leftJoin('orders', 'orders.id', '=', 'packages.order_id')
             ->leftJoin('users', 'orders.user_id', '=', 'users.id')
             ->leftJoin('package_items', 'package_items.package_id', '=', 'packages.id')

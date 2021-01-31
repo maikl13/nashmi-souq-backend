@@ -46,7 +46,7 @@
 
 @section('content')
 	<div class="row mt-3">
-		<div class="col alert alert-info">
+		<div class="col alert alert-info text-right">
 			<span class="d-inline-block py-2">
 				<i class="fa fa-bullhorn" style="font-size: 30px;opacity: 0.4;line-height: 10px;top: 6px;position: relative;margin-left: 6px;transform: rotate3d(0, 1, 0, 180deg);"></i>
 				هل لديك طلب جاهز للشحن

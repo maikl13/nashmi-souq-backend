@@ -19,4 +19,18 @@ class Subscription extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getPeriodAttribute()
+    {
+        return $this->end->diffInDays($this->start);
+    }
+
+    public function getTypeAttribute()
+    {
+        switch ($this->attributes['type']) {
+            case Self::TYPE_TRIAL: return "فترة تجريبية"; break;
+            case Self::TYPE_TRIAL: return "اشتراك شهري"; break;
+            case Self::TYPE_TRIAL: return "اشتراك نصف سنوي"; break;
+            case Self::TYPE_TRIAL: return "اشتراك سنوي"; break;
+        }
+    }
 }

@@ -1,7 +1,7 @@
 <div class="card m-b-20 h-100">
     @if (!isset($for_client) || !$for_client)
         <div class="card-header">
-            <h4 class="my-4">بيانات الشحنة #{{ $package->uid }}{{ '@'.$order->uid }}</h4>
+            <h4>بيانات الشحنة #{{ $package->uid }}{{ '@'.$order->uid }}</h4>
         </div>
     @endif
 	<div class="card-body">
@@ -17,11 +17,11 @@
                 </thead>
                 <tbody>
                     @foreach ($package->package_items as $item)
-                        <?php $listing = $item->listing; ?>
-                        <tr data-product-id="{{ $listing->id }}">
+                        <?php $product = $item->product; ?>
+                        <tr data-product-id="{{ $product->id }}">
                             <td>
-                                <img src="{{ $listing->listing_image(['size'=>'xxs']) }}" alt="{{ $item->title }} Image" width="80">
-                                <a href="{{ $listing->url() }}" target="_blank" style="color: #212529;"><span class="mr-2">{{ $item->title }}</span></a>
+                                <img src="{{ $product->product_image(['size'=>'xxs']) }}" alt="{{ $item->title }} Image" width="80">
+                                <a href="{{ $product->url() }}" target="_blank" style="color: #212529;"><span class="mr-2">{{ $item->title }}</span></a>
                             </td>
                             <td>
                                 <div class="m-r10" style="width: 80px;">

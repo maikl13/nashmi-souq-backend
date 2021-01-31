@@ -20,19 +20,34 @@
                 <input type="text" class="form-control text-right" id="product_title" name="product_title" value="{{ old('product_title') ?? $product->title }}" required>
             </div>
             <div class="form-group">
-                <label for="price" class="form-control-label"> السعر :</label>
+                <label for="initial_price" class="form-control-label"> السعر :</label>
                 <div class="input-group mb-3">
-                    <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ?? $product->price }}">
+                    <input type="number" step=".01" class="form-control" name="initial_price" id="initial_price" value="{{ old('initial_price') ?? $product->initial_price }}">
                     <div class="input-group-prepend">
-                        <select name="currency" id="currency" class="form-control" style="padding: 6px 15px !important;height: auto;">
-                            @foreach (App\Models\Currency::get() as $currency)
+                        <select name="currency" id="currency" class="form-control" style="padding: 6px 15px !important;height: auto; border-radius: 0;">
+                            @foreach (App\Models\Currency::whereIn('id', auth()->user()->store_categories)->get() as $currency)
                                 <option title="{{ $currency->name }}" value="{{ $currency->id }}"
                                     {{ $product->currency_id == $currency->id ? 'selected' : '' }}>{{ $currency->symbol }}</option>
                             @endforeach
                         </select>
+                        @if($product->price == $product->initial_price)
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="border-radius: 5px 0 0 5px; opacity: .8;">
+                                إضافة خصم
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class="collapse {{ $product->price != $product->initial_price ? 'in show' : '' }}" id="collapseExample">
+                    <div class="card card-body">
+                        <label for="price" class="form-control-label"> السعر بعد الخصم :</label>
+                        <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ?? $product->price }}">
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="description" class="form-control-label"> وصف المنتج :</label>
                 <textarea name="description" class="form-control textarea" id="description" cols="30" rows="8" required>{!! old('description') ?? $product->description !!}</textarea>

@@ -33,7 +33,7 @@ class ProductController extends Controller
 
         //search
         if($request->q && !empty($request->q)) 
-            $products = $products->search($request->q)->featured();
+            $products = $products->search($request->q);
         // filter by type
         if($request->type && !empty($request->type)) 
             $products = $products->where('type', $request->type);
@@ -83,11 +83,12 @@ class ProductController extends Controller
     	$product = new Product;
         $product->title = $request->product_title;
         
-        $product->price = $request->price;
+        $product->initial_price = $request->initial_price;
+        $product->price = isset($request->price) && $request->price != null ? $request->price : $product->initial_price;
         $product->currency_id = $request->currency;
 
         $slug = Str::slug($request->product_title);
-        $count = Product::where('slug', $slug)->count();
+        $count = Product::withTrashed()->where('slug', $slug)->count();
         $product->slug = $count ? $slug.'-'.uniqid() : $slug;
 
     	$product->description = $request->description;
@@ -130,7 +131,8 @@ class ProductController extends Controller
 
         $product->title = $request->product_title;
 
-        $product->price = $request->price;
+        $product->initial_price = $request->initial_price;
+        $product->price = isset($request->price) && $request->price != null ? $request->price : $product->initial_price;
         $product->currency_id = $request->currency;
 
         $slug = Str::slug($request->product_title);

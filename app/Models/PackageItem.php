@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PackageItem extends Model
 {
-    public function listing(){
-        return $this->belongsTo(Listing::class);
+    public function product(){
+        return $this->belongsTo(Product::class)->withTrashed();
     }
     public function package(){
         return $this->belongsTo(Package::class);

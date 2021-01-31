@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \App\Http\Middleware\HttpsProtocol::class,
+            \App\Http\Middleware\SetStoreCategories::class,
         ],
 
         'api' => [
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'active' => \App\Http\Middleware\ActiveUser::class,
         'store' => \App\Http\Middleware\CheckIfStore::class,
         'active-store' => \App\Http\Middleware\CheckIfStoreActive::class,
+        'mystore' => \App\Http\Middleware\CheckIfMyStore::class,
     ];
 }

@@ -85,15 +85,5 @@ Route::post('contact-us', 'ContactMessageController@store');
 
 Route::get('c/{country}', 'MainController@change_country');
 
-
-Route::post('cart/add', 'CartController@store');
-Route::get('cart/update-dropdown', 'CartController@update_cart_dropdown');
-Route::get('cart', 'CartController@index')->name('cart');
-Route::delete('cart/{product_id}/remove', 'CartController@remove_from_cart');
-Route::post('cart/update-quantity', 'CartController@update_product_quantity');
-Route::get('cart/update-totals', 'CartController@update_totals');
-
-Route::get('payment-result', 'TransactionController@payment_result');
-
 Route::get('direct-payment', 'TransactionController@direct_payment');
 Route::post('direct-payment', 'TransactionController@make_direct_payment');

@@ -22,6 +22,8 @@ class CreateOrdersTable extends Migration
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('store_id')->unsigned()->nullable();
+            $table->foreign('store_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('state_id')->unsigned()->nullable();
             $table->foreign('state_id')->references('id')->on('states')->onDelete('restrict');
             $table->string('phone');

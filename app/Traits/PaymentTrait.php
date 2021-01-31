@@ -35,7 +35,7 @@ trait PaymentTrait {
         $address1 = $options['address1'] ?? 'NOT REQUIRED';
         $address2 = $options['address2'] ?? 'NOT REQUIRED';
         $description = $options['description'] ?? 'Ordered goods';
-        $return_url = $options['return_url'] ?? config('app.url')."/payment-result?uid=$uid";
+        $return_url = $options['return_url'] ?? url('/')."/payment-result?uid=$uid";
         $currency = $options['currency'] ?? 'EGP';
         $amount = ceil(exchange($transaction->amount, $transaction->currency->code, $currency));
 

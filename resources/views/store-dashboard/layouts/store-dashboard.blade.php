@@ -19,16 +19,12 @@
 				<div class="app-content">
 					<div class="section">
                     	<ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard">لوحة الإدارة</a></li>
                             @yield('breadcrumb')
-							<li class="ml-auto d-lg-flex d-none">
-								<span class="sparkline_bar mr-2 float-left"></span>
-								<span class="float-left border-">
-									<span class="mb-0 mt-1 mr-2">{{ App\Models\User::count() }}</span><small class="mb-0 mr-3">[ مستخدمين ]</small>
-								</span>
-							</li>
-                        </ol>
-						@yield('content')
+						</ol>
+						<div class="main-content m-0 p-0">
+							@yield('content')
+						</div>
 					</div>
 				</div>
 

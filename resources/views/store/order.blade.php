@@ -1,4 +1,4 @@
-@extends('main.layouts.main')
+@extends('store.layouts.store')
 
 @section('title', "طلب #". $order->uid)
 

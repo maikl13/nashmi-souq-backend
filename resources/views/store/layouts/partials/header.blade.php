@@ -35,7 +35,7 @@
                                     <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="navbarDropdown" dir="rtl">
                                         <a class="dropdown-item">{{ Auth::user()->name }}</a>
                                         <a class="dropdown-item" href="/my-orders">طلباتي</a>
-                                        @if (auth()->check() && auth()->user()->is_store())
+                                        @if (auth()->check() && request()->store && request()->store->id == auth()->user()->id)
                                             <a class="dropdown-item" href="/orders">إدارة المتجر</a>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -77,12 +77,6 @@
                                 @include('store.partials.cart-dropdown')
                             </li>
 
-                            <li class="header-btn">
-                                <a href="/listings/add" class="item-btn">
-                                    <i class="fas fa-plus"></i> أضف إعلانك
-                                </a>
-                            </li>
-
                         </ul>
                     </div>
                 </div>
@@ -90,19 +84,6 @@
         </div>
     </div>
 </header>
-
-
-<span class="d-lg-none mobile-nav-icon add-listing-btn"> 
-    <a href="/listings/add" class="item-btn"><i class="fas fa-plus"></i> أضف إعلانك</a>
-</span>
-@auth
-    <a class="d-lg-none mobile-nav-icon toggle-conversations">
-        <span class="unread" {!! Auth::user()->recieved_messages()->unseen()->count() ? '' : 'style="display: none;"' !!}>{{ Auth::user()->recieved_messages()->unseen()->count() }}</span>
-        <i class="far fa-envelope"></i>
-    </a>
-
-    @include('store.layouts.partials.conversations-dropdown')
-@endauth
 @guest
     <a class="d-lg-none mobile-nav-icon toggle-guestnav">
         <i class="far fa-user"></i>

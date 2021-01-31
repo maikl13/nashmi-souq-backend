@@ -1,4 +1,4 @@
-@extends('main.layouts.main')
+@extends('store.layouts.store')
 
 @section('title', 'طلباتي')
 
@@ -45,9 +45,9 @@
                                 </small>
                                 @foreach ($package->package_items as $item)
                                     <div class="package-item" dir="rtl">
-                                        <?php $listing = $item->listing; ?>
-                                        <img src="{{ $listing->listing_image(['size'=>'xxs']) }}" width="70" alt="Product Image" class="m-2">
-                                        <a href="{{ $listing->url() }}" style="color: #666;">{{ $listing->title }}</span>
+                                        <?php $product = $item->product; ?>
+                                        <img src="{{ $product->product_image(['size'=>'xxs']) }}" width="70" alt="Product Image" class="m-2">
+                                        <a href="{{ $product->url() }}" style="color: #666;">{{ $product->title }}</span>
                                         {{-- <small class="text-muted mr-2" style="font-size: 15px;">({{ $order->uid }})</small><br> --}}
                                         <small class="text-muted" style="font-size: 13px;">الكمية: {{ $item->quantity }}</small>
                                     </div>
@@ -65,7 +65,7 @@
                     </div> --}}
                     <div class="clearfix"></div>
                     <div class="text-center py-3 header-btn">
-                        <a href="{{ route('order-details', $order->id) }}" class="item-btn w-100 d-block py-3 px-5 rounded-0">
+                        <a href="{{ route('order-details', [request()->store->store_slug, $order->id]) }}" class="item-btn w-100 d-block py-3 px-5 rounded-0">
                             عرض تفاصيل الطلب
                         </a>
                     </div>

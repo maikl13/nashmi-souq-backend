@@ -26,6 +26,6 @@
                 <div class="text-muted p-5 text-center">عربة التسوق فارغة.</div>
             @endforelse
         </div>
-        <a class="btn btn-block btn-default bg-primary border-0 text-white rounded-0 p-3 text-center" style="font-size: 15px;" href="{{ route('cart') }}">تفاصيل عربة التسوق</a>
+        <a class="btn btn-block btn-default bg-primary border-0 text-white rounded-0 p-3 text-center" style="font-size: 15px;" href="{{ route('cart', request()->store->store_slug) }}">تفاصيل عربة التسوق</a>
     </div>
 </div>

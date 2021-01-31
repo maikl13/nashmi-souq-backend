@@ -1,6 +1,6 @@
 <div class="card h-100">
 	<div class="card-header text-right">
-		<h4 class="my-4"> بيانات المشتري </h4>
+		<h4> بيانات المشتري </h4>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -8,7 +8,7 @@
 				<tbody>
 					<tr>
 						<td> الحساب </td>
-						<td class="text-right"><a href="/users/{{ $order->user->id }}/">{{ $order->user->name }}</a></td>
+						<td class="text-right"><a href="{{ config('app.url') }}/users/{{ $order->user->id }}/">{{ $order->user->name }}</a></td>
 					</tr>
 					<tr>
 						<td>الاسم</td>

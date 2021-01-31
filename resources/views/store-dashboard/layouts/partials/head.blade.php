@@ -5,8 +5,12 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon"/>
 <!--Bootstrap.min css-->
 <link rel="stylesheet" href="/admin-assets/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/store-dashboard.css">
+<link rel="stylesheet" href="/assets/css/rtl.css">
 <!--Icons css-->
 <link rel="stylesheet" href="/admin-assets/css/icons.css">
+<!-- FontAwesome CSS -->
+<link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
 <!--Style css-->
 <link rel="stylesheet" href="/admin-assets/css/style.css">
 <!--mCustomScrollbar css-->
@@ -27,4 +31,5 @@
     <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=El+Messiri&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="/admin-assets/css/rtl.css" >
+	<link rel="stylesheet" href="/assets/css/dashboard-rtl.css" >
 @endif

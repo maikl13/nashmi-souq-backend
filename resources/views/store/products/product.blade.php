@@ -59,7 +59,7 @@
                                         {{-- <li><i class="far fa-eye"></i>{{ $product->views }} مشاهدة</li> --}}
                                     </ul>
                                 </div>
-                                <div class="item-details">
+                                <div class="item-details text-break">
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active" id="details" role="tabpanel">
                                             <p>{{ $product->description }}</p>
@@ -108,9 +108,18 @@
                         <div class="author-content">
                             @if ($product->price !== null)
                                 <div class="widget-lg widget-price mb-3">
-                                    <div class="item-price">
+                                    <div class="item-price text-center">
                                         {{ $product->local_price() }}
                                         <small><span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span></small>
+                                        
+                                        @if($product->price < $product->initial_price)
+                                            <small>
+                                                <del class="small">
+                                                    {{ $product->local_initial_price() }}
+                                                    <small><span class="currency-symbol">{{ country()->currency->symbol }}</span></small>
+                                                </del>
+                                            </small>
+                                        @endif
                                     </div>
                                 </div>
                             @endif

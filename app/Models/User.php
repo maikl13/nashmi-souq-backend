@@ -24,7 +24,10 @@ class User extends Authenticatable
     
     protected $fillable = ['name', 'username', 'email', 'password', 'role_id', 'phone', 'phone_national', 'phone_country_code', 'otp'];
     protected $hidden = ['password', 'remember_token',];
-    protected $casts = ['email_verified_at' => 'datetime',];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'store_categories' => 'array',
+    ];
     
     public static $profile_picture_sizes = [
         '' => ['w'=>256, 'h'=>256, 'quality'=>80],

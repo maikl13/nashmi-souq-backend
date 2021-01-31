@@ -26,53 +26,29 @@
 @endsection
 
 @section('content')
-    <!--=====================================-->
-    <!--=        Inner Banner Start         =-->
-    <!--=====================================-->
-    <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumbs-area">
-                        <h1>بيانات الطلب #{{ $package->uid }}</h1>
-                        <ul>
-                            <li> <a href="/">الرئيسية</a> </li>
-                            <li> <a href="/orders">الطلبات</a> </li>
-                            <li>طلب #{{ $package->uid }}{{ '@'.$order->uid }}</li>
-                        </ul>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-lg-12 package-status-updates-log">
+            @include('store.partials.package-status-updates')
+            <div class="clearfix mb-3"></div>
+        </div>
+    </div>
+
+    <div class="col-xs-12" id="invoice">
+        <div class="row">
+            <div class="col-lg-6 package-details text-right mb-3">
+                @include('store.partials.package-details')
+            </div>
+            <div class="col-lg-6 buyer-details mb-3">
+                @include('store.partials.buyer-details')
             </div>
         </div>
-    </section>
+    </div>
 
-    <div class="single-product-wrap-layout1 section-padding-equal-70 bg-accent">
-		<div class="container">
-			<div class="text-center" dir="rtl">
-                <div class="row">
-                    <div class="col-lg-12 package-status-updates-log">
-                        @include('store.partials.package-status-updates')
-                        <div class="clearfix mb-3"></div>
-                    </div>
-                </div>
-                <div class="col-xs-12" id="invoice">
-                    <div class="row">
-                        <div class="col-lg-6 package-details text-right">
-                            @include('store.partials.package-details')
-                        </div>
-                        <div class="col-lg-6 buyer-details">
-                            @include('store.partials.buyer-details')
-                        </div>
-                    </div>
-                </div>
-				<div class="col-xs-12 w-100 mt-3">
-                    <div class="col text-center bg-white p-3">
-                        <button class="btn btn-info" onclick="window.print();"><i class="fa fa-print"></i> طباعة الفاتورة</button>
-                    </div>
-                </div>
-			</div>
-		</div>
-	</div>
+    <div class="col-xs-12 w-100">
+        <div class="col text-center bg-white p-3">
+            <button class="btn btn-info" onclick="window.print();"><i class="fa fa-print"></i> طباعة الفاتورة</button>
+        </div>
+    </div>
 @endsection
 
 
@@ -88,7 +64,7 @@
     						<span aria-hidden="true">&times;</span>
     					</button>
     				</div>
-                    <form action="/orders/change-status" method="POST" enctype="multipart/form-data" class="change-status-form position-relative">
+                    <form action="/dashboard/orders/change-status" method="POST" enctype="multipart/form-data" class="change-status-form position-relative">
                     	@csrf()
                     	<div class="overlay text-center text-white w-100 h-100 position-absolute" style="background: rgba(0,0,0,0.7);  z-index: 10; font-size: 22px; display: none;">
                     		<i class="fa fa-spinner fa-spin fa-lg position-relative" style="top: 44%;"></i>

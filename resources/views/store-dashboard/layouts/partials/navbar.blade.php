@@ -2,7 +2,7 @@
 	<a class="header-brand" href="/">
 		<img src="{{ request()->store->store_logo() }}" width="80" alt="Store logo">
 	</a>
-	<form class="form-inline mr-auto">
+	<form class="form-inline ml-auto">
 		<ul class="navbar-nav">
 			<li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fa fa-navicon"></i></a></li>
 		</ul>
@@ -21,16 +21,16 @@
 		    </div>
 		</div>
 	</form>
-	<ul class="navbar-nav navbar-right">
+	<ul class="navbar-nav">
 		<li class="dropdown dropdown-list-toggle">
 			<a href="#" class="nav-link nav-link-lg full-screen-link">
 				<i class="fa fa-expand"  id="fullscreen-button"></i>
 			</a>
 		</li>
-		<li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+		<li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg" dir="ltr">
 			<img src="{{ Auth::user()->profile_picture() }}" alt="profile-user" class="rounded-circle w-32">
-			<div class="d-sm-none d-lg-inline-block">{{ Auth::user()->name }}</div></a>
-			<div class="dropdown-menu dropdown-menu-right">
+			<div class="d-sm-none d-lg-inline-block mx-1">{{ Auth::user()->name }}</div></a>
+			<div class="dropdown-menu">
 				<a href="/dashboard/store-settings" class="dropdown-item has-icon">
 					<i class="ion ion-gear-a"></i> اعدادات المتجر
 				</a>

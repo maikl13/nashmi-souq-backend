@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Store;
 
-use App\Models\Listing;
+use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,7 +12,7 @@ class CartController extends Controller
     public function index()
     {
         $cart = new Cart;
-        return view('store.buyer.cart')->with([
+        return view('store.cart')->with([
             'cart' => $cart
         ]);
     }
@@ -21,14 +21,14 @@ class CartController extends Controller
     {
         $product_id = $request->product_id;
         $quantity = $request->quantity;
-        $product = Listing::findOrFail( $product_id );
+        $product = Product::findOrFail( $product_id );
 
         $cart = new Cart;
         $cart->add($product, $quantity);
     }
 
 
-    public function remove_from_cart($product_id)
+    public function remove_from_cart($store, $product_id)
     {
         $cart = new Cart;
         $cart->remove($product_id);
@@ -39,7 +39,7 @@ class CartController extends Controller
     }
 
     public function update_product_quantity(Request $request){
-        $product = Listing::findOrFail( $request->product_id );
+        $product = Product::findOrFail( $request->product_id );
         $quantity = (int)$request->quantity;
 
         $cart = new Cart;
@@ -61,7 +61,7 @@ class CartController extends Controller
 
     public function checkout(){
         $cart = new Cart;
-        return view('store.buyer.checkout')->with([
+        return view('store.checkout')->with([
             'cart' => $cart
         ]);
     }

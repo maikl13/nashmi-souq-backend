@@ -1,4 +1,4 @@
-@extends('main.layouts.main')
+@extends('store.layouts.store')
 
 @section('title', __('Shopping Cart'))
 
@@ -30,7 +30,7 @@
                         <h1>عربة التسوق</h1>
                         <ul>
                             <li> <a href="/">الرئيسية</a> </li>
-                            <li> <a href="/listings">المنتجات</a> </li>
+                            <li> <a href="/products">المنتجات</a> </li>
                             <li>عربة التسوق</li>
                         </ul>
                     </div>
@@ -79,7 +79,7 @@
                                 <div class="col-lg-4 col-md-5 col-sm-12">
                                     <div class="row py-1">
                                         <div class="col-sm-12 mb-2"> 
-                                            <a class="btn btn-success btn-block text-white py-3" href="{{ route('checkout') }}">إستكمال الطلب</a>
+                                            <a class="btn btn-success btn-block text-white py-3" href="{{ route('checkout', request()->store->store_slug) }}">إستكمال الطلب</a>
                                         </div> 
                                         <div class="col-sm-12"> 
                                             <a class="btn btn-info btn-block text-white py-3" href="/listings" >متابعة التسوق</a>

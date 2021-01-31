@@ -56,6 +56,13 @@
                                             {{ $product->local_price() }}
                                             <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
                                         </li>
+                                        
+                                        @if($product->price < $product->initial_price)
+                                            <del class="small">
+                                                {{ $product->local_initial_price() }}
+                                                <span class="currency-symbol">{{ country()->currency->symbol }}</span>
+                                            </del>
+                                        @endif
                                     @endif
                                 </ul>
                                 <div class="row mt-2">

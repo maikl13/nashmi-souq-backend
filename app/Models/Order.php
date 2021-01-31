@@ -18,6 +18,13 @@ class Order extends Model
     const STATUS_PROCESSING = 1; // new order
     const STATUS_DELIVERED = 2; // delivered
 
+    public function newQuery()
+    {
+        if(request()->store)
+            return parent::newQuery()->where('store_id', request()->store->id);
+        return parent::newQuery();
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
