@@ -8,9 +8,9 @@
 * @var deleteErrorMsg --optional
 */
 
-// var datatable = window.LaravelDataTables["data-table"];
+var datatable;
 $(function(){
-    var datatable = $(window)[0].LaravelDataTables["data-table"];
+    datatable = $(window)[0].LaravelDataTables["data-table"];
 })
 
 // Add New Record
