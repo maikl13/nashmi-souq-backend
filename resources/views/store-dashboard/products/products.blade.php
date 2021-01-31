@@ -50,5 +50,4 @@
             var cascadLoadingSubCategories = new Select2Cascade($('.category-select'), $('.sub-category-select'), subCategoriesApiUrl, CategoriesSelect2Options, subCategoriesSelect2Options);
         });
     </script>
-
 @endsection

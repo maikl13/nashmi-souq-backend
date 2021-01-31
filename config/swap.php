@@ -21,7 +21,7 @@ return [
     | * cache_ttl: The cache ttl in seconds.
     */
     'options' => [
-        'cache_ttl' => 43200
+        'cache_ttl' => 432000
     ],
 
     /*
