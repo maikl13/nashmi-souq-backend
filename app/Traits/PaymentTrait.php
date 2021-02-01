@@ -123,16 +123,17 @@ trait PaymentTrait {
         // prepare paypal payment
         $provider = new ExpressCheckout;
 
-        $logo = setting('logo') ? setting('logo') : 'logo';
-        $options = [
-            'BRANDNAME' => config('app.name'),
-            'LOGOIMG' => config('url').'/'.$logo,
-            'CHANNELTYPE' => 'Merchant'
-        ];
-        $provider->addOptions($options);
+        // $logo = setting('logo') ? setting('logo') : 'logo';
+        // $options = [
+        //     'BRANDNAME' => config('app.name'),
+        //     'LOGOIMG' => config('url').'/'.$logo,
+        //     'CHANNELTYPE' => 'Merchant'
+        // ];
+        // $provider->addOptions($options);
 
         $data = $this->paypal_invoice_data();
         $response = $provider->setExpressCheckout($data);
+        dd( $response);
 
         return redirect($response['paypal_link']);
     }
