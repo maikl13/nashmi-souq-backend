@@ -117,6 +117,7 @@ class OrderController extends Controller
                                 break;
                             }
                             $transaction->items = $transaction_items;
+                            $transaction->save();
                             return $transaction->paypal_payment();
                         }
                         return $transaction->direct_payment([
