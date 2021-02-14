@@ -12,7 +12,7 @@
                 </div>
                 <div class="section-content">
                     <p class="pb-2 text-center" style="font-size: 17px;">عملية الدفع لم تتم بشكل صحيح!</p>
-                    <p class="py-1 text-center">من فضلك قم بمراجعة الجهة المصدرة لبطاقتك أو استخدم وسيلة دفع أخرى.</p>
+                    <p class="py-1 text-center">من فضلك قم بالمحاولة مجددا أو استخدم وسيلة دفع أخرى.</p>
                 </div>
             </div>
             <div class="clearfix"></div>

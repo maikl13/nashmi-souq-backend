@@ -42,14 +42,12 @@ trait PaymentTrait {
         $return_url = $options['return_url'] ?? url('/')."/payment-result?uid=$uid";
         $currency = $options['currency'] ?? 'EGP';
         $amount = ceil(exchange($transaction->amount, $transaction->currency->code, $currency));
-
         $params = $this->request_hosted_checkout_interaction($amount, $currency, $uid, $return_url);
         // $params = [
         //     'result' => 'SUCCESS',
         //     'successIndicator' => 'abc',
         //     'session.id' => '123'
         // ];
-
         if($params['result'] == 'SUCCESS'){
             if(!empty($params['session.id']) && !empty($params['successIndicator'])){
                 if(auth()->user()){
@@ -139,15 +137,10 @@ trait PaymentTrait {
     public function paypal_invoice_data()
     {
         $data = [];
-        $data['items'] = [[
-            'name' => "مدفوعات لسوق نشمي",
-            'price' => ceil($this->amount_usd),
-            'desc' => "مدفوعات لسوق نشمي عبر باي بال",
-            'qty' => 1
-        ]];
+        $data['items'] = $this->items;
 
         $data['invoice_id'] = $this->uid;
-        $data['invoice_description'] = "مدفوعات لسوق نشمي عبر باي بال";
+        $data['invoice_description'] = $options['desc'] ?? "مدفوعات لسوق نشمي عبر باي بال";
         $data['return_url'] = url('/')."/paypal-payment-result";
         $data['cancel_url'] = url()->previous();
 

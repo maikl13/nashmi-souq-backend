@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->decimal('initial_price', 20, 2)->nullable();
             $table->decimal('price', 20, 2)->nullable();
             $table->bigInteger('currency_id')->unsigned()->nullable();
-            $table->foreign('currency_id')->references('id')->on('currencies');
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('restrict');
             $table->string('slug')->unique();
             $table->longText('description');
             $table->text('images')->nullable();

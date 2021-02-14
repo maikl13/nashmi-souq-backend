@@ -29,6 +29,8 @@ class Transaction extends Model
     const PAYMENT_WALLET = 7;
     const PAYMENT_OTHER = 6;
 
+    protected $casts = ['items' => 'array'];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

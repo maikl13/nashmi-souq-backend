@@ -18,7 +18,7 @@ class CreateListingsTable extends Migration
             $table->string('title');
             $table->decimal('price', 20, 2)->nullable();
             $table->bigInteger('currency_id')->unsigned()->nullable();
-            $table->foreign('currency_id')->references('id')->on('currencies');
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('restrict');
             $table->string('slug')->unique();
             $table->tinyInteger('type')->default(1);
             $table->longText('description');

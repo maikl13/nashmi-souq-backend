@@ -16,7 +16,7 @@ class CheckIfStore
     public function handle($request, Closure $next)
     {
         if(!auth()->user()->is_store()){
-            return redirect()->route('store-home', $request->store);
+            return redirect()->route('home');
         }
         return $next($request);
     }

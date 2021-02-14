@@ -29,8 +29,8 @@ class CurrencyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:2|max:255',
-            'symbol' => 'required|min:2|max:255',
+            'name' => 'required|min:1|max:255',
+            'symbol' => 'required|min:1|max:255',
             'code' => 'required|min:2|max:255',
         ]);
         
@@ -72,8 +72,8 @@ class CurrencyController extends Controller
     public function update(Request $request, Currency $currency)
     {
         $request->validate([
-            'name' => 'required|min:2|max:255',
-            'symbol' => 'required|min:2|max:255',
+            'name' => 'required|min:1|max:255',
+            'symbol' => 'required|min:1|max:255',
             'code' => 'required|min:2|max:255',
         ]);
         
@@ -100,8 +100,12 @@ class CurrencyController extends Controller
      */
     public function destroy(Currency $currency)
     {
-        if( $currency->delete() )
-            return response()->json('تم الحذف بنجاح.', 200);
-        return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
+        try {
+            if( $currency->delete() )
+                return response()->json('تم الحذف بنجاح.', 200);
+            return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
+        } catch (\Throwable $th) {
+            return response()->json('عفوا لا يمكن حذف العملة لأنها مرتبطة بعمليات مالية', 500);
+        }
     }
 }

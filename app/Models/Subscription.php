@@ -13,6 +13,9 @@ class Subscription extends Model
     const TYPE_MONTHLY = 1;
     const TYPE_HALF_YEAR = 2;
     const TYPE_YEARLY = 3;
+
+    const STATUS_PENDING = 0;
+    CONST STATUS_ACTIVE = 1;
     
     public function user()
     {
@@ -32,5 +35,10 @@ class Subscription extends Model
             case Self::TYPE_TRIAL: return "اشتراك نصف سنوي"; break;
             case Self::TYPE_TRIAL: return "اشتراك سنوي"; break;
         }
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', Self::STATUS_ACTIVE);
     }
 }

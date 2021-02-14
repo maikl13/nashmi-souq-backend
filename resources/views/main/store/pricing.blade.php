@@ -30,14 +30,14 @@
                 @foreach ([
                     [
                         'name' => 'شهري',
-                        'price' => setting('monthly_subscription'),
+                        'price' => ceil(exchange(setting('monthly_subscription'), 'USD', currency()->code)),
                     ], [
                         'name' => 'نصف سنوي',
-                        'price' => setting('half_year_subscription'),
+                        'price' => ceil(exchange(setting('half_year_subscription'), 'USD', currency()->code)),
                         'discount' => setting('monthly_subscription') ? round((1-((setting('half_year_subscription')/6)/setting('monthly_subscription')))*100, 1) : 0
                     ], [
                         'name' => 'سنوي',
-                        'price' => setting('yearly_subscription'),
+                        'price' => ceil(exchange(setting('yearly_subscription'), 'USD', currency()->code)),
                         'discount' => setting('yearly_subscription') ? round((1-((setting('yearly_subscription')/12)/setting('monthly_subscription')))*100, 1) : 0
                     ]
                 ] as $k => $subscription)
@@ -45,8 +45,8 @@
                         <div class="col-xl-4 col-md-4">
                             <div class="pricing-box-layout1">
                                 <h3 class="item-title">{{ $subscription['name'] }}</h3>
-                                <div class="price-box">
-                                    <span class="item-currency">${{ $subscription['price'] }}</span>
+                                <div class="price-box py-5">
+                                    <span class="item-currency">{{ $subscription['price'] }} <small>{{ currency()->symbol }}</small></span>
                                 </div>
                                 <div class="item-features">
                                     <ul>
@@ -64,7 +64,13 @@
                                     </ul>
                                 </div>
                                 <div class="item-btn">
-                                    <a href="/stores/new?type={{ $k+1 }}" class="btn-fill-xl color-light bgPrimary">بدء الفترة التجريبية</a>
+                                    <a href="/stores/new?type={{ $k+1 }}" class="btn-fill-xl color-light bgPrimary">
+                                        @if (setting('trial_period'))
+                                            بدء الفترة التجريبية
+                                        @else
+                                            إشتراك
+                                        @endif
+                                    </a>
                                 </div>
                             </div>
                         </div>

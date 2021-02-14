@@ -3,21 +3,27 @@
 // ====================================================================
 // * Sellers Routes
 // ====================================================================
-Route::group(['middleware' => ['auth']], function () {
+Route::domain(config('app.domain'))->middleware(['auth'])->group(function () {
 	Route::get('stores/new', 'StoreController@create');
 	Route::put('stores/new', 'StoreController@update');
+});
+
+Route::domain(config('app.domain'))->middleware(['auth', 'store'])->group(function () {
 	Route::get('categories', 'StoreController@categories')->name('store-categories');
 	Route::put('categories', 'StoreController@store_categories')->name('store-categories.store');
 });
 
 Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'mystore'])->group(function () {
+	Route::middleware(['active', 'store'])->group(function () {
+		Route::get('subscribe', 'SubscriptionController@subscribe')->name('subscribe');
+		Route::post('subscribe', 'SubscriptionController@store')->name('subscription.store');
+	});
 	Route::middleware(['active', 'store'])->prefix('dashboard')->group(function () {
 		Route::get('subscriptions', 'SubscriptionController@index')->name('subscriptions');
-		Route::get('subscribe', 'SubscriptionController@index')->name('subscribe');
 	});
 
 	Route::middleware(['active-store'])->prefix('dashboard')->group(function () {
-		Route::get('/', 'StoreController@dashboard');
+		Route::get('/', 'StoreController@dashboard')->name('store-dashboard');
 		
 		Route::get('store-settings', 'StoreController@edit');
 		Route::put('store-settings', 'StoreController@update');
@@ -45,11 +51,13 @@ Route::domain('{store}.'.config('app.domain'))->middleware(['active-store'])->gr
 	Route::post('cart/update-quantity', 'CartController@update_product_quantity');
 	Route::get('cart/update-totals', 'CartController@update_totals');
 });
-	
-Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'active-store'])->group(function () {
+Route::get('payment-result', 'TransactionController@payment_result');
+Route::get('paypal-payment-result', 'TransactionController@paypal_payment_result');
+Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'store'])->group(function () {
 	Route::get('payment-result', 'TransactionController@payment_result');
 	Route::get('paypal-payment-result', 'TransactionController@paypal_payment_result');
-
+});
+Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'active-store'])->group(function () {
 	Route::get('checkout', 'CartController@checkout')->name('checkout');
 	Route::post('order/new', 'OrderController@store');
 	Route::get('order/new', 'OrderController@order_saved')->name('order-saved');

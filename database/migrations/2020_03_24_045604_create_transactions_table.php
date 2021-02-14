@@ -25,7 +25,8 @@ class CreateTransactionsTable extends Migration
             $table->tinyInteger('status')->index();
             $table->string('success_indicator')->nullable();
             $table->bigInteger('currency_id')->unsigned();
-            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('restrict');
+            $table->json('items')->nullable();
             $table->timestamps();
         });
     }

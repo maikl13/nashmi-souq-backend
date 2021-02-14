@@ -20,7 +20,9 @@ class CreateSubscriptionsTable extends Migration
             $table->timestamp('start');
             $table->timestamp('end');
             $table->tinyInteger('type')->default(1);
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->default(0);
+            $table->bigInteger('transaction_id')->unsigned()->nullable();
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('restrict');
             $table->timestamps();
         });
     }

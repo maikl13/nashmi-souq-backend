@@ -39,27 +39,28 @@ class TransactionController extends Controller
 
         $transaction = Transaction::where('uid', $response['INVNUM'])->first();
 
-        if($transaction){
-            $data = $transaction->paypal_invoice_data();
-            $response = $provider->doExpressCheckoutPayment($data, $response['TOKEN'], $response['PAYERID']);
+        $data = $transaction->paypal_invoice_data();
 
-            if($response['ACK'] == 'Success' && $response['PAYMENTINFO_0_PAYMENTSTATUS'] == 'Completed' && $response['PAYMENTINFO_0_ACK'] == 'Success') {
+        $response = $provider->doExpressCheckoutPayment($data, $response['TOKEN'], $response['PAYERID']);
+        if($response['ACK'] == 'Success' && $response['PAYMENTINFO_0_PAYMENTSTATUS'] == 'Completed' && $response['PAYMENTINFO_0_ACK'] == 'Success') {
+            if($transaction){
                 $transaction->amount_usd = $response['PAYMENTINFO_0_AMT'];
                 $transaction->success_indicator = $response['TOKEN'];
                 $transaction->transaction_id = $response['PAYMENTINFO_0_TRANSACTIONID'];
                 $transaction->status = Transaction::STATUS_PROCESSED;
-            }
 
-            if( $transaction->save() ){
-                $order = Order::where('transaction_id', $transaction->id)->first();
-                if($order){
-                    $order->status = Order::STATUS_PROCESSING;
-                    $order->save();
-                    return redirect()->route('order-saved', request()->store->store_slug);
+                if( $transaction->save() ){
+                    $order = Order::where('transaction_id', $transaction->id)->first();
+                    if($order){
+                        $order->status = Order::STATUS_PROCESSING;
+                        $order->save();
+                        return redirect()->route('order-saved', request()->store->store_slug);
+                    }
+                    return $request->store ? view('store.payment.payment-success', [$request->store->store_slug]) : view('main.payment.payment-success');
                 }
-                return $request->store ? view('store.payment.payment-success', [$request->store->store_slug]) : view('main.payment.payment-success');
             }
         }
+        dd($response);
 
         return $request->store ? view('store.payment.payment-failed', [$request->store->store_slug]) : view('main.payment.payment-failed');
     }

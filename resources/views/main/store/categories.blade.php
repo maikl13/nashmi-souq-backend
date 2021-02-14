@@ -40,7 +40,7 @@
                     <div class="card-body">
                         
                         <div class="post-ad-box-layout1 myaccount-store-settings">
-                            <form action="{{ route('store-categories.store', request()->store) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('store-categories.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="post-section store-information">

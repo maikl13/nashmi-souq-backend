@@ -20,7 +20,7 @@ class CreateSubTransactionsTable extends Migration
             $table->decimal('amount_usd', 20, 4)->nullable();
             $table->decimal('amount', 20, 4)->nullable();
             $table->bigInteger('currency_id')->unsigned();
-            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('restrict');
             $table->decimal('original_amount', 20, 4)->nullable();
             $table->bigInteger('original_currency_id')->unsigned();
             $table->foreign('original_currency_id')->references('id')->on('currencies')->onDelete('cascade');

@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('buyer_name');
             $table->decimal('price', 20, 2);
             $table->bigInteger('currency_id')->unsigned()->nullable();
-            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('restrict');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('store_id')->unsigned()->nullable();

@@ -19,7 +19,7 @@ class CreateFeaturedListingsTable extends Migration
             $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
             $table->decimal('price', 20, 2);
             $table->bigInteger('currency_id')->unsigned()->nullable();
-            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('restrict');
             $table->bigInteger('transaction_id')->unsigned();
             $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade');
             $table->tinyInteger('tier');

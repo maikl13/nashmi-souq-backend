@@ -106,7 +106,8 @@ class StoreController extends Controller
         if($user->save()){
             if(!auth()->user()->started_trial())
                 auth()->user()->start_trial();
-            return redirect()->to(auth()->user()->store_url().'/dashboard');
+                
+            return back()->with('success', "تم الحفظ بنجاح");
         }
         return back()->with('error', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }

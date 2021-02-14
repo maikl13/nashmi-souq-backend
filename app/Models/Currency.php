@@ -9,6 +9,8 @@ class Currency extends Model
 {
     use ExchangeCurrency;
 
+    protected $fillable = ['code', 'slug', 'name', 'symbol'];
+
     public function getRouteKeyName() {
         return 'slug';
     }

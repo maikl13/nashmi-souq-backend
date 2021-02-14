@@ -103,9 +103,23 @@ class OrderController extends Controller
                 if($transaction){
                     $order->transaction_id = $transaction->id;
                     if($order->save()){
-                        if($request->payment_method == Order::PAYPAL_PAYMENT)
+                        if($request->payment_method == Order::PAYPAL_PAYMENT){
+                            $transaction->items = [];
+                            foreach($items as $id => $item){
+                                if($product = Product::find($id)) {
+                                    $transaction->items[] = [
+                                        'name' => $item['title'],
+                                        'price' => ceil($item['price']),
+                                        'desc' => $item['title'],
+                                        'qty' => $item['quantity']
+                                    ];
+                                }
+                            }
                             return $transaction->paypal_payment();
-                        return $transaction->direct_payment();
+                        }
+                        return $transaction->direct_payment([
+                            'description' => 'store subscription'
+                        ]);
                     }
                 }
             }

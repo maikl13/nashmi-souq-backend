@@ -14,7 +14,7 @@
                 <div class="section-content">
                     <p class="py-2 text-center">مبروك, لقد تمت عملية الدفع بنجاح.</p>
                     <div class="text-center">
-                        <a href="/account#payment" class="btn btn-info px-4 py-2">تفاصيل العمليات المالية</a>
+                        <a href="{{ route('account') }}#payment" class="btn btn-info px-4 py-2">تفاصيل العمليات المالية</a>
                     </div>
                 </div>
             </div>
