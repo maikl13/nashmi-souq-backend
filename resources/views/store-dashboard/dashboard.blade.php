@@ -121,7 +121,7 @@
                             </tr>
                         @empty
                             <tr class="border-bottom">
-                                <td colspan="3">لا يوجد طلبات حتى الآن</td>
+                                <td colspan="4">لا يوجد طلبات حتى الآن</td>
                             </tr>
                         @endforelse
                     </tbody>

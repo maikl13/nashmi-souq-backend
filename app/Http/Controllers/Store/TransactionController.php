@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Order;
+use Srmklive\PayPal\Services\ExpressCheckout;
 
 class TransactionController extends Controller
 {
@@ -23,9 +24,9 @@ class TransactionController extends Controller
                 $order->save();
                 return redirect()->route('order-saved', request()->store->store_slug);
             }
-            return view('main.payment.payment-success');
+            return $request->store ? view('store.payment.payment-success', [$request->store->store_slug]) : view('main.payment.payment-success');
         }
-        return view('main.payment.payment-failed');
+        return $request->store ? view('store.payment.payment-failed', [$request->store->store_slug]) : view('main.payment.payment-failed');
     }
 
     public function paypal_payment_result(Request $request)
@@ -34,7 +35,7 @@ class TransactionController extends Controller
         $response = $provider->getExpressCheckoutDetails($request->token);
 
         if($response['ACK'] != 'success' && $response['PAYERSTATUS'] != 'verified' || !$response['PAYERID'])
-            return view('main.payment.payment-failed');
+            return $request->store ? view('store.payment.payment-failed', [$request->store->store_slug]) : view('main.payment.payment-failed');
 
         $transaction = Transaction::where('uid', $response['INVNUM'])->first();
 
@@ -49,11 +50,18 @@ class TransactionController extends Controller
                 $transaction->status = Transaction::STATUS_PROCESSED;
             }
 
-            if( $transaction->save() )
-                return view('main.payment.payment-success');
+            if( $transaction->save() ){
+                $order = Order::where('transaction_id', $transaction->id)->first();
+                if($order){
+                    $order->status = Order::STATUS_PROCESSING;
+                    $order->save();
+                    return redirect()->route('order-saved', request()->store->store_slug);
+                }
+                return $request->store ? view('store.payment.payment-success', [$request->store->store_slug]) : view('main.payment.payment-success');
+            }
         }
 
-        return redirect()->route('home');
+        return $request->store ? view('store.payment.payment-failed', [$request->store->store_slug]) : view('main.payment.payment-failed');
     }
 
     public function withdraw(Request $request)

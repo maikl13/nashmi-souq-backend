@@ -67,7 +67,7 @@ trait ManageTransactions {
         // Total store revenues in local currency for non delivered packages
         foreach($this->store_packages()->where('status', '!=', Package::STATUS_DELIVERED)->get() as $package)
             if(!$package->is_rejected() && !$package->is_cancelled())
-                if($package->order->payment_method == Order::CREDIT_PAYMENT)
+                if($package->order->payment_method != Order::ON_DELIVERY_PAYMENT)
                     foreach ($package->package_items as $item)
                         $reserved_balance[$item->original_currency->code] += $item->original_price();
 

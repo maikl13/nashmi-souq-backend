@@ -55,7 +55,11 @@
                                         @else
                                             <li><del>خصم</del></li>
                                         @endif
-                                        <li>فترة تجريبية 15 يوم</li>
+                                        @if (setting('trial_period'))
+                                            <li>فترة تجريبية {{ setting('trial_period') > 2 ? setting('trial_period') : '' }} 
+                                                {{ trans_choice('{1} يوم|{2} يومين|[3,10] أيام|[11,*] يوم', setting('trial_period')) }}
+                                            </li>
+                                        @endif
                                         <li>دعم فني مجاني</li>
                                     </ul>
                                 </div>

@@ -37,7 +37,7 @@
                                     <a class="nav-link" id="promoted-listing-tab" data-toggle="tab" href="#promoted-listing" role="tab" aria-controls="promoted-listing" aria-selected="false">إعدادات الإعلانات المميزة</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="stores-subscriptions-tab" data-toggle="tab" href="#stores-subscriptions" role="tab" aria-controls="stores-subscriptions" aria-selected="false">إشتراكات المتاجر</a>
+                                    <a class="nav-link" id="stores-tab" data-toggle="tab" href="#stores" role="tab" aria-controls="stores" aria-selected="false">إعدادات المتاجر</a>
                                 </li>
                             </ul>
                         </div>
@@ -565,7 +565,33 @@
                                     </div>
                                 </div>
                                 
-                                <div class="tab-pane fade p-0" id="stores-subscriptions" role="tabpanel" aria-labelledby="stores-subscriptions-tab">
+                                <div class="tab-pane fade p-0" id="stores" role="tabpanel" aria-labelledby="stores-tab">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>إعدادات عامة</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <label for="trial_period" class="col-md-3 col-form-label">مدة الفترة التجريبية</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><small>يوم</small></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="trial_period" name="trial_period" value="{{ setting('trial_period', false) }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>إشتراكات المتاجر</h4>

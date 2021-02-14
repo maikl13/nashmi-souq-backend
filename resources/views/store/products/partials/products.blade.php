@@ -65,15 +65,6 @@
                                         @endif
                                     @endif
                                 </ul>
-                                <div class="row mt-2">
-                                    @if (auth()->guest() || auth()->user()->id != $product->user->id)
-                                        <div class="col pl-1">
-                                            <a href="{{ Auth::check() ? '#' : route('login') }}" class="main-btn btn-block {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $product->user->store_name() }}" data-logo="{{ $product->user->store_logo() }}" data-username="{{ $product->user->username }}" data-product="{{ $product->id }}">
-                                                <i class="fa fa-comments"></i> دردش
-                                            </a>
-                                        </div>
-                                    @endif
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,11 +96,6 @@
                                     </div>
                                     <div class="item-btn">
                                         <a href="{{ $product->url() }}" class="btn-block px-1">تفاصيل المنتج</a>
-
-                                        @if (auth()->guest() || auth()->user()->id != $product->user->id)
-                                            <a href="{{ Auth::check() ? '#' : route('login') }}" class="btn-block {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $product->user->store_name() }}" data-logo="{{ $product->user->store_logo() }}" data-username="{{ $product->user->username }}" data-product="{{ $product->id }}">
-                                                <i class="fa fa-comments"></i> دردش</a>
-                                        @endif
                                     </div>
                                 </div>
                             </div>

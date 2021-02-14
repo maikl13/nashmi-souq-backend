@@ -68,3 +68,11 @@ table.table-bordered.dataTable th, table.table-bordered.dataTable td {
     margin-left: 0;
     margin-right: .25rem !important;
 }
+
+.select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice__remove {
+    margin-left: 4px;
+    float: right !important;
+}
+.select2-container--default .select2-selection__rendered li {
+    padding-left: 10px !important;
+}

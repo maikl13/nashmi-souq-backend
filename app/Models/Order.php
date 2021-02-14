@@ -45,9 +45,11 @@ class Order extends Model
 
 
     public function payment_method(){
-        if( App::getLocale() == 'ar' )
-           return $this->payment_method == Self::CREDIT_PAYMENT ? 'بطاقة الائتمان' : 'الدفع عند الاستلام';
-        return $this->payment_method == Self::CREDIT_PAYMENT ? 'Credit Card' : 'Payment On Delivery';
+        switch ($this->payment_method) {
+            case Self::CREDIT_PAYMENT: return 'بطاقة الائتمان'; break;
+            case Self::ON_DELIVERY_PAYMENT: return 'الدفع عند الاستلام'; break;
+            case Self::PAYPAL_PAYMENT: return 'باي بال'; break;
+        }
     }
     public function is_on_credit_payment(){
         return $this->payment_method == Self::CREDIT_PAYMENT;

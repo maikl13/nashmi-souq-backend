@@ -33,10 +33,10 @@ trait StoreInfo {
     public function start_trial()
     {
         $subscription = $this->subscriptions()->first();
-        if(!$subscription)
+        if(!$subscription && setting('trial_period'))
             $subscription = $this->subscriptions()->create([
                 'start' => now(),
-                'end' => now()->addDays(14),
+                'end' => now()->addDays(setting('trial_period')),
                 'type' => Subscription::TYPE_TRIAL,
             ]);
         return $subscription;

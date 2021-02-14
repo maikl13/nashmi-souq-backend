@@ -69,7 +69,7 @@
                                                 <a href="{{ $listing->category->url() }}">{{ $listing->category->name }}</a>
                                             @endif
                                         </li>
-                                        <li><i class="far fa-eye"></i>{{ $listing->views + 102 }} مشاهدة</li>
+                                        <li><i class="far fa-eye"></i>{{ $listing->views + 46 }} مشاهدة</li>
                                     </ul>
                                 </div>
                                 <div class="item-details text-break">

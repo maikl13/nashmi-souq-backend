@@ -35,7 +35,7 @@ class OrderController extends Controller
             'payment_method' => 'required|in:'.Order::CREDIT_PAYMENT.','.Order::ON_DELIVERY_PAYMENT.','.Order::PAYPAL_PAYMENT,
             'note' => 'nullable|max:10000',
         ]);
-
+        
         $cart = new Cart;
         $items = $cart->items();
 
@@ -47,7 +47,7 @@ class OrderController extends Controller
         // order info
         $order->uid = unique_id();
         $order->payment_method = $request->payment_method;
-        $order->status = $order->payment_method == Order::CREDIT_PAYMENT ? Order::STATUS_UNPAID : Order::STATUS_PROCESSING;
+        $order->status = $order->payment_method == Order::ON_DELIVERY_PAYMENT ? Order::STATUS_PROCESSING : Order::STATUS_UNPAID;
         $order->price = $cart->total_price();
         $order->store_id = $store->id;
 

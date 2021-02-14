@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Currency;
 use Srmklive\PayPal\Services\ExpressCheckout;
-use Srmklive\PayPal\Services\AdaptivePayments;
 
 trait PaymentTrait {
 
@@ -123,17 +122,16 @@ trait PaymentTrait {
         // prepare paypal payment
         $provider = new ExpressCheckout;
 
-        // $logo = setting('logo') ? setting('logo') : 'logo';
-        // $options = [
-        //     'BRANDNAME' => config('app.name'),
-        //     'LOGOIMG' => config('url').'/'.$logo,
-        //     'CHANNELTYPE' => 'Merchant'
-        // ];
-        // $provider->addOptions($options);
+        $logo = setting('logo') ? setting('logo') : 'logo';
+        $options = [
+            'BRANDNAME' => config('app.name'),
+            'LOGOIMG' => config('url').'/'.$logo,
+            'CHANNELTYPE' => 'Merchant'
+        ];
+        $provider->addOptions($options);
 
         $data = $this->paypal_invoice_data();
         $response = $provider->setExpressCheckout($data);
-        dd( $response);
 
         return redirect($response['paypal_link']);
     }
@@ -142,14 +140,14 @@ trait PaymentTrait {
     {
         $data = [];
         $data['items'] = [[
-            'name' => "test name asdjg",
-            'price' => $this->price,
-            'desc' => "test description jkadhjkas",
+            'name' => "مدفوعات لسوق نشمي",
+            'price' => ceil($this->amount_usd),
+            'desc' => "مدفوعات لسوق نشمي عبر باي بال",
             'qty' => 1
         ]];
 
         $data['invoice_id'] = $this->uid;
-        $data['invoice_description'] = "test test test";
+        $data['invoice_description'] = "مدفوعات لسوق نشمي عبر باي بال";
         $data['return_url'] = url('/')."/paypal-payment-result";
         $data['cancel_url'] = url()->previous();
 
