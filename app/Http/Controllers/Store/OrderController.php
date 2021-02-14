@@ -104,18 +104,12 @@ class OrderController extends Controller
                     $order->transaction_id = $transaction->id;
                     if($order->save()){
                         if($request->payment_method == Order::PAYPAL_PAYMENT){
-                            $transaction_items = [];
-                            foreach($order->packages as $package){
-                                if($product = Product::find($id)) {
-                                    $transaction_items[] = [
-                                        'name' => $item['title'],
-                                        'price' => $price,
-                                        'desc' => $item['title'],
-                                        'qty' => 1
-                                    ];
-                                }
-                                break;
-                            }
+                            $transaction_items = [[
+                                'name' => 'مدفوعات لسوق نشمي لشراء منتجات',
+                                'price' => ceil($transaction->amount_usd),
+                                'desc' => 'مدفوعات لسوق نشمي لشراء منتجات',
+                                'qty' => 1
+                            ]];
                             $transaction->items = $transaction_items;
                             $transaction->save();
                             return $transaction->paypal_payment();

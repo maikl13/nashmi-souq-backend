@@ -140,7 +140,7 @@ trait PaymentTrait {
         $data['items'] = $this->items;
 
         $data['invoice_id'] = $this->uid;
-        $data['invoice_description'] = $options['desc'] ?? "حذاء شبكي سهل الارتداء للرجال من ريميني";
+        $data['invoice_description'] = $options['desc'] ?? "مدفوعات لسوق نشمي عبر باي بال";
         $data['return_url'] = url('/')."/paypal-payment-result";
         $data['cancel_url'] = url()->previous();
 
