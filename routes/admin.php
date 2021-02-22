@@ -81,6 +81,13 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 	Route::get('options/{option}/edit', 'OptionController@edit')->name('edit-option');
 	Route::put('options/{option}', 'OptionController@update');
 	Route::delete('options/{option}', 'OptionController@destroy');
+
+	// option_values
+	Route::get('options/{option}/option_values', 'OptionValueController@index')->name('option_values');
+	Route::post('option_values', 'OptionValueController@store');
+	Route::get('option_values/{option_value}/edit', 'OptionValueController@edit')->name('edit-option_value');
+	Route::put('option_values/{option_value}', 'OptionValueController@update');
+	Route::delete('option_values/{option_value}', 'OptionValueController@destroy');
 });
 
 
