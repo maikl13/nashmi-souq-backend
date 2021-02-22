@@ -17,6 +17,7 @@ Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'mystore'])-
 	Route::middleware(['active', 'store'])->group(function () {
 		Route::get('subscribe', 'SubscriptionController@subscribe')->name('subscribe');
 		Route::post('subscribe', 'SubscriptionController@store')->name('subscription.store');
+		Route::get('subscribed', 'SubscriptionController@subscribed')->name('subscribed');
 	});
 	Route::middleware(['active', 'store'])->prefix('dashboard')->group(function () {
 		Route::get('subscriptions', 'SubscriptionController@index')->name('subscriptions');
@@ -36,6 +37,10 @@ Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'mystore'])-
 		Route::post('orders/get-shipping', 'OrderController@get_shipping');
 		Route::post('orders/get-status', 'OrderController@get_status');
 		Route::post('orders/get-status-updates-log', 'OrderController@get_status_updates_log');
+
+		Route::get('promotions', 'PromotionController@index');
+		Route::post('promotions', 'PromotionController@store');
+		Route::delete('promotions/{promotion}', 'PromotionController@destroy');
 	});
 });
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Order;
+use App\Models\Subscription;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
 class TransactionController extends Controller
@@ -15,14 +16,20 @@ class TransactionController extends Controller
         if(!isset($request->uid) || !isset($request->resultIndicator)) abort(500);
 
         $transaction = Transaction::where('uid', $request->uid)->firstOrFail();
+        if($transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT) return;
+
         if($transaction->success_indicator === $request->resultIndicator){
             $transaction->status = Transaction::STATUS_PROCESSED;
             $transaction->save();
-            $order = Order::where('transaction_id', $transaction->id)->first();
-            if($order){
+            if($order = Order::where('transaction_id', $transaction->id)->first()){
                 $order->status = Order::STATUS_PROCESSING;
                 $order->save();
-                return redirect()->route('order-saved', request()->store->store_slug);
+                return redirect()->route('order-saved', auth()->user()->store_slug);
+            }
+            if($subscription = Subscription::where('transaction_id', $transaction->id)->first()){
+                $subscription->status = Subscription::STATUS_ACTIVE;
+                $subscription->save();
+                return redirect()->route('subscribed', auth()->user()->store_slug);
             }
             return $request->store ? view('store.payment.payment-success', [$request->store->store_slug]) : view('main.payment.payment-success');
         }
@@ -33,34 +40,37 @@ class TransactionController extends Controller
     {
         $provider = new ExpressCheckout;
         $response = $provider->getExpressCheckoutDetails($request->token);
-
         if($response['ACK'] != 'success' && $response['PAYERSTATUS'] != 'verified' || !$response['PAYERID'])
             return $request->store ? view('store.payment.payment-failed', [$request->store->store_slug]) : view('main.payment.payment-failed');
 
-        $transaction = Transaction::where('uid', $response['INVNUM'])->first();
 
-        $data = $transaction->paypal_invoice_data();
+        $transaction = Transaction::where('uid', $response['INVNUM'])->firstOrFail();
+        if($transaction->payment_method != Transaction::PAYMENT_PAYPAL) return;
 
-        $response = $provider->doExpressCheckoutPayment($data, $response['TOKEN'], $response['PAYERID']);
-        if($response['ACK'] == 'Success' && $response['PAYMENTINFO_0_PAYMENTSTATUS'] == 'Completed' && $response['PAYMENTINFO_0_ACK'] == 'Success') {
-            if($transaction){
+        if($transaction->is_pending()){
+            $response = $provider->doExpressCheckoutPayment($transaction->paypal_invoice_data(), $response['TOKEN'], $response['PAYERID']);
+            if( in_array($response['ACK'], ['Success', 'SuccessWithWarning']) && $response['PAYMENTINFO_0_PAYMENTSTATUS'] == 'Completed' && $response['PAYMENTINFO_0_ACK'] == 'Success') {
                 $transaction->amount_usd = $response['PAYMENTINFO_0_AMT'];
                 $transaction->success_indicator = $response['TOKEN'];
-                $transaction->transaction_id = $response['PAYMENTINFO_0_TRANSACTIONID'];
                 $transaction->status = Transaction::STATUS_PROCESSED;
-
-                if( $transaction->save() ){
-                    $order = Order::where('transaction_id', $transaction->id)->first();
-                    if($order){
-                        $order->status = Order::STATUS_PROCESSING;
-                        $order->save();
-                        return redirect()->route('order-saved', request()->store->store_slug);
-                    }
-                    return $request->store ? view('store.payment.payment-success', [$request->store->store_slug]) : view('main.payment.payment-success');
-                }
+                $transaction->save();
             }
         }
-        dd($response);
+
+        if($transaction->is_processed()){
+            if($order = Order::where('transaction_id', $transaction->id)->first()){
+                $order->status = Order::STATUS_PROCESSING;
+                $order->save();
+                return redirect()->route('order-saved', auth()->user()->store_slug);
+            }
+            if($subscription = Subscription::where('transaction_id', $transaction->id)->first()){
+                $subscription->status = Subscription::STATUS_ACTIVE;
+                $subscription->save();
+                return redirect()->route('subscribed', auth()->user()->store_slug);
+            }
+            return $request->store ? view('store.payment.payment-success', [$request->store->store_slug]) : view('main.payment.payment-success');
+        }
+        // dd($response);
 
         return $request->store ? view('store.payment.payment-failed', [$request->store->store_slug]) : view('main.payment.payment-failed');
     }

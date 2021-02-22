@@ -44,7 +44,7 @@ class SubscriptionsDataTable extends DataTable
      */
     public function query(Subscription $model)
     {
-        return auth()->user()->subscriptions();
+        return auth()->user()->subscriptions()->active();
     }
 
     /**

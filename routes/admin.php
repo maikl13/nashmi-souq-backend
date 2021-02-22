@@ -73,6 +73,14 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 	Route::get('bs/{banner}/edit', 'BannerController@edit')->name('edit-banner');
 	Route::put('bs/{banner}', 'BannerController@update');
 	Route::delete('bs/{banner}', 'BannerController@destroy');
+
+	
+	// options
+	Route::get('options', 'OptionController@index')->name('options');
+	Route::post('options', 'OptionController@store');
+	Route::get('options/{option}/edit', 'OptionController@edit')->name('edit-option');
+	Route::put('options/{option}', 'OptionController@update');
+	Route::delete('options/{option}', 'OptionController@destroy');
 });
 
 

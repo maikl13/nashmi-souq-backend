@@ -26,20 +26,14 @@
 								<input type="hidden" id="country_code" name="country_code" />
 							</div>
 						</div>
-					</div>
-					<div class="modal-body" dir="rtl">
 						<div class="form-group">
 							<label for="name" class="form-control-label"> الاسم :</label>
 							<input type="text" class="form-control text-right" id="name" name="name" value="{{ old('name') }}" required>
 						</div>
-					</div>
-					<div class="modal-body" dir="rtl">
 						<div class="form-group">
 							<label for="delivery_phone" class="form-control-label"> رقم هاتف شركة الشحن :</label>
 							<input type="text" class="form-control text-right" id="delivery_phone" name="delivery_phone" value="{{ old('delivery_phone') }}" required>
 						</div>
-					</div>
-					<div class="modal-body" dir="rtl">
 						<div class="form-group">
 							<label for="currency" class="form-control-label"> عملة الدولة : </label>
 							<select name="currency" id="currency" class="form-control">
@@ -48,6 +42,10 @@
 								@endforeach
 							</select>
 						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary"> حفظ </button>
+						<button type="button" class="btn btn-success" data-dismiss="modal"> تراجع </button>
 					</div>
 				</form>
 			@endif

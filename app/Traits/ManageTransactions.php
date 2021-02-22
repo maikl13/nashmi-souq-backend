@@ -92,6 +92,8 @@ trait ManageTransactions {
                 if(!$package->is_rejected() && !$package->is_cancelled())
                     $expensed_balance[$order->currency->code]  += $package->price();
 
+        // foreach($this->supscriptions as $supscription)
+
         return $detailed ? $this->detailed_balance($expensed_balance) : $this->local_balance($expensed_balance);
     }
 

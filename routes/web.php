@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::get('messages/unseen', 'MessageController@get_unseen_messages_count');
 
 
-	Route::get('deliver', 'DeliveryController@show');
+	Route::get('deliver', 'DeliveryController@show')->name('deliver');
 	Route::post('deliver', 'DeliveryController@send');
 	
 	Route::post('withdraw', 'TransactionController@withdraw');

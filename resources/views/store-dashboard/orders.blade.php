@@ -4,10 +4,10 @@
 
 @section('head')
 	<style>
-		/*#packages-table_length, #packages-table_filter { display: inline !important; }*/
-		#packages-table_length { display: none !important; }
-		#packages-table_filter { float: right !important; }
-		#packages-table_filter input {width: 75%; text-align: right; display: inline;}
+		/*#data-table_length, #data-table_filter { display: inline !important; }*/
+		#data-table_length { display: none !important; }
+		#data-table_filter { float: right !important; }
+		#data-table_filter input {width: 75%; text-align: right; display: inline;}
 		.dataTable tfoot,.dataTable thead { display: none; }
 		.dataTable td, .dataTable {padding: 0; bpackage: none;}
 		.dataTable tr:first-child {margin-top: 15px !important; display: table;}
@@ -46,12 +46,12 @@
 
 @section('content')
 	<div class="row mt-3">
-		<div class="col alert alert-info text-right">
+		<div class="col alert alert-default text-secondary bg-white text-right">
 			<span class="d-inline-block py-2">
 				<i class="fa fa-bullhorn" style="font-size: 30px;opacity: 0.4;line-height: 10px;top: 6px;position: relative;margin-left: 6px;transform: rotate3d(0, 1, 0, 180deg);"></i>
 				هل لديك طلب جاهز للشحن
 			</span>
-			<a href="/deliver" class="float-left btn btn-info py-2">
+			<a href="{{ route('deliver') }}" class="float-left btn btn-info py-2" style="">
 				<i class="fa fa-truck ml-1 mr-2" style="opacity: .8;"></i> الشحن عن طريق نشمي
 			</a>
 		</div>
@@ -125,7 +125,7 @@
 			} else {
 				status = $(this).val();
 			}
-			window.LaravelDataTables["packages-table"].column(7).search( status ).draw()
+			window.LaravelDataTables["data-table"].column(7).search( status ).draw()
 		});
 
 	</script>

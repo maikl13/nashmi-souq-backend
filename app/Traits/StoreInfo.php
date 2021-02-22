@@ -4,9 +4,15 @@ namespace App\Traits;
 
 use App\Models\Order;
 use App\Models\Subscription;
+use App\Models\Promotion;
 use Illuminate\Http\Request;
 
 trait StoreInfo {
+
+    public function promotions()
+    {
+        return $this->hasMany(Promotion::class);
+    }
 
     public function is_store()
     {
@@ -16,7 +22,7 @@ trait StoreInfo {
     public function is_active_store()
     {
         if(!$this->is_store()) return false;
-        $subscription = $this->subscriptions()->where('start', '<=', now())->where('end', '>=', now())->first();
+        $subscription = $this->subscriptions()->active()->where('start', '<=', now())->where('end', '>=', now()->subDays(setting('grace_period')))->first();
         return $subscription ? true : false;
     }
 
@@ -64,5 +70,17 @@ trait StoreInfo {
     public function has_payout_method()
     {
         return $this->bank_account || $this->paypal || $this->national_id || $this->vodafone_cash;
+    }
+
+    public function is_about_to_end()
+    {
+        $subscription = $this->subscriptions()->active()->orderBy('end', 'desc')->first();
+        return $subscription->end >= now() && $subscription->end < now()->addDays(3) ? true : false;
+    }
+
+    public function in_grace_period()
+    {
+        $subscription = $this->subscriptions()->active()->orderBy('end', 'desc')->first();
+        return $subscription->end < now() && $subscription->end >= now()->subDays(setting('grace_period')) ? true : false;
     }
 }

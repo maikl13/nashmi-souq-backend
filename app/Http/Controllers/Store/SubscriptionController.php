@@ -18,9 +18,6 @@ class SubscriptionController extends Controller
 
     public function subscribe()
     {
-        if (auth()->user()->is_active_store()) {
-            return redirect()->route('store-dashboard', auth()->user()->store_slug);
-        }
         return view('main.store.subscribe');
     }
 
@@ -50,8 +47,10 @@ class SubscriptionController extends Controller
         }
 
         $subscription = new Subscription;
-        $subscription->start = now();
-        $subscription->end = now()->addDays($period);
+        $subscription->user_id = auth()->user()->id;
+        $last_subscription = auth()->user()->subscriptions()->orderBy('end', 'desc')->first();
+        $subscription->start = $last_subscription ? $last_subscription->end->addSecond() : now();
+        $subscription->end = $subscription->start->addDays($period);
         $subscription->type = Subscription::TYPE_TRIAL;
 
         $currency = Currency::firstOrCreate(['code'=>'USD'],['slug'=>'usd','name'=>'الدولار الامريكي','symbol'=>'$']);
@@ -60,7 +59,10 @@ class SubscriptionController extends Controller
             $transaction = Transaction::payment_init($price, $currency, [
                 'payment_method' => $request->payment_method
             ]);
-            
+
+            $subscription->transaction_id = $transaction->id;
+            $subscription->save();
+
             if($request->payment_method == Transaction::PAYMENT_PAYPAL){
                 $transaction->items = [[
                     'name' => $subscription_name,
@@ -73,5 +75,10 @@ class SubscriptionController extends Controller
             }
             return $transaction->direct_payment();
         }
+    }
+
+    public function subscribed()
+    {
+        return view('store.subscribed');
     }
 }

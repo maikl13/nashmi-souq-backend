@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Banner;
+use App\Models\Promotion;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class BannersDataTable extends DataTable
+class PromotionsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,32 +19,23 @@ class BannersDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        return datatables()
-            ->eloquent($query)
-            ->addColumn('type', function($record){ return $record->type(); })
+        return datatables()->eloquent($query)
             ->addColumn('image', function ($record) {
-                return '<a href="'.$record->banner_image().'" data-fancybox="bs"><img src="'.$record->banner_image().'" border="0" width="160" class="img-rounded" align="center"/></a>';
+                return '<a href="'.$record->promotion_image().'" data-fancybox="promotions"><img src="'.$record->promotion_image().'" border="0" width="160" class="img-rounded" align="center"/></a>';
             })
             ->addColumn('url', function($record){ return $record->url; })
-            ->addColumn('period', function($record){ return $record->period; })
-            ->addColumn('remainder', function($record){ 
-                $h = $record->expires_at->diffInHours();
-                $days = floor($h / 24);
-                $hours = floor($h % 24);
-                return $record->expired() ? "منتهي" : "<span dir='rtl'>".$days." يوم و ".$hours." ساعة</span>";
-            })
             ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
-            ->addColumn('action', 'admin.banners.partials.action')
-            ->rawColumns(['image','remainder','action']);
+            ->addColumn('action', 'store-dashboard.promotions.partials.action')
+            ->rawColumns(['image','action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Banner $model
+     * @param \App\Models\Promotion $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Banner $model)
+    public function query(Promotion $model)
     {
         return $model->newQuery();
     }
@@ -56,7 +47,7 @@ class BannersDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table') ->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -68,12 +59,9 @@ class BannersDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('type')->title('النوع'),
             Column::make('image')->title('الصورة'),
             Column::make('url')->title('الرابط'),
-            Column::make('period')->title('المدة'),
             Column::make('created_at')->title('تاريخ الاضافة'),
-            Column::make('remainder')->title('سينتهي خلال'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')
@@ -88,6 +76,6 @@ class BannersDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Banners_' . date('YmdHis');
+        return 'Promotions_' . date('YmdHis');
     }
 }

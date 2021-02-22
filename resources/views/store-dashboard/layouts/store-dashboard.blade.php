@@ -17,6 +17,9 @@
 				@include('store-dashboard.layouts.partials.sidebar')
 
 				<div class="app-content">
+					
+					@include('store-dashboard.subscriptions.partials.status')
+
 					<div class="section">
                     	<ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/dashboard">لوحة الإدارة</a></li>

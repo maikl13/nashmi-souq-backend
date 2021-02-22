@@ -59,7 +59,7 @@
                         <div class="mt-3 text-center">
                             <span class="text-white"> الرصيد المتاح </span>
                             <h2 class="text-white mb-0">
-                                {{ auth()->user()->payout_balance() }} <small>{{ currency()->symbol }}</small>
+                                {{ round(auth()->user()->payout_balance(), 1) }} <small>{{ currency()->symbol }}</small>
                             </h2>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                         <div class="mt-3 text-center">
                             <span class="text-white"> الرصيد المعلق </span>
                             <h2 class="text-white mb-0">
-                                {{ auth()->user()->reserved_balance() }} <small>{{ currency()->symbol }}</small>
+                                {{ round(auth()->user()->reserved_balance(), 1) }} <small>{{ currency()->symbol }}</small>
                             </h2>
                         </div>
                     </div>

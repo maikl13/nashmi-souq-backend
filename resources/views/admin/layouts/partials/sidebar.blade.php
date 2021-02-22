@@ -62,6 +62,12 @@
 				<span class="side-menu__label">البانرات الإعلانية</span>
 			</a>
 		</li>
+		<li>
+			<a class="side-menu__item" href="/admin/options">
+				<i class="side-menu__icon fa fa-filter"></i>
+				<span class="side-menu__label">صفات المنتجات</span>
+			</a>
+		</li>
 		@if(Auth::user()->is_superadmin())
 			<li class="slide d-lg-none">
 				<a class="side-menu__item"  data-toggle="slide" href="#">

@@ -46,24 +46,7 @@ class AreasDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([
-                        'responsive' => true,
-                        'autoWidth' => false,
-                        'pageLength' => 25,
-                    ])
-                    ->setTableId('data-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Blfrtip')
-                    ->orderBy(0, 'desc')
-                    ->buttons(
-                        Button::make('delete'),
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**

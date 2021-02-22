@@ -583,6 +583,15 @@
                                                         <input type="number" step="0.01" class="form-control" id="trial_period" name="trial_period" value="{{ setting('trial_period', false) }}">
                                                     </div>
                                                 </div>
+                                                <div class="form-group row">
+                                                    <label for="grace_period" class="col-md-3 col-form-label">مدة فترة السماح</label>
+                                                    <div class="col-md-9 input-group" dir="ltr">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><small>يوم</small></span>
+                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control" id="grace_period" name="grace_period" value="{{ setting('grace_period', false) }}">
+                                                    </div>
+                                                </div>
                                                 <div class="form-group mb-0 mt-2 row justify-content-end">
                                                     <div class="col-md-9">
                                                         <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>

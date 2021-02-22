@@ -328,6 +328,14 @@ class SettingsTableSeeder extends Seeder
             [
                 'name' => 'yearly_subscription',
                 'value' => '90'
+            ],
+            [
+                'name' => 'trial_period',
+                'value' => '14'
+            ],
+            [
+                'name' => 'grace_period',
+                'value' => '3'
             ]
     	]);
     }

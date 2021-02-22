@@ -14,22 +14,28 @@
     <!--=====================================-->
     <!--=            Banner Start           =-->
     <!--=====================================-->
-    <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common {{-- minus-mgt-90 --}}" data-bg-image="{{ request()->store->store_banner() }}" style="padding: 8rem 0 7rem;">
-        <div class="container">
-            <div class="main-banner-box-layout1 animated-headline">
-                <h1 class="ah-headline item-title" style="line-height: 60px; font-size: 2.5rem">
-                    <span class="ah-words-wrapper">
-                        <b class="is-visible">{{ request()->store->store_slogan }}</b>
-                        <b>{{ request()->store->store_slogan }}</b>
-                    </span>
-                </h1>
-                
-                {{-- <div class="item-subtitle">{{ request()->store->store_slogan }}</div> --}}
+    
+    @if (request()->store->promotions()->count())
+        @include('store.layouts.partials.promotions')
+    @else
+        <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common {{-- minus-mgt-90 --}}" data-bg-image="{{ request()->store->store_banner() }}" style="padding: 8rem 0 7rem;">
+            <div class="container">
+                <div class="main-banner-box-layout1 animated-headline">
+                    <h1 class="ah-headline item-title" style="line-height: 60px; font-size: 2.5rem">
+                        <span class="ah-words-wrapper">
+                            <b class="is-visible">{{ request()->store->store_slogan }}</b>
+                            <b>{{ request()->store->store_slogan }}</b>
+                        </span>
+                    </h1>
+                    
+                    {{-- <div class="item-subtitle">{{ request()->store->store_slogan }}</div> --}}
 
-                @include('store.layouts.partials.search-box')
+                    @include('store.layouts.partials.search-box')
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
+    
 
     <!--=====================================-->
     <!--=       Product Box Start           =-->

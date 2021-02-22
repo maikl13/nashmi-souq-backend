@@ -5,7 +5,7 @@
 				<img alt="image" src="{{ Auth::user()->profile_picture() }}" class=" avatar-md rounded-circle">
 				<span class="mr-2 d-lg-block">
 					<span class="text-dark app-sidebar__user-name mt-5">{{ Auth::user()->name }}</span><br>
-					<span class="text-muted app-sidebar__user-name text-sm">{{ Auth::user()->role() }}</span>
+					<span class="text-muted app-sidebar__user-name text-sm">{{ Auth::user()->username }}</span>
 				</span>
 			</a>
 		</div>
@@ -27,6 +27,12 @@
 			<a class="side-menu__item" href="/dashboard/orders">
 				<i class="side-menu__icon fa fa-shopping-cart"></i>
 				<span class="side-menu__label">الطلبات</span>
+			</a>
+		</li>
+		<li>
+			<a class="side-menu__item" href="/dashboard/promotions">
+				<i class="side-menu__icon fa fa-bolt"></i>
+				<span class="side-menu__label">العروض الترويجية</span>
 			</a>
 		</li>
 		<li>
