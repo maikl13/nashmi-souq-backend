@@ -11,7 +11,7 @@ use Srmklive\PayPal\Services\ExpressCheckout;
 
 class TransactionController extends Controller
 {
-    public function payment_result(Request $request)
+    public function payment_result($store, Request $request)
     {
         if(!isset($request->uid) || !isset($request->resultIndicator)) abort(500);
 
@@ -24,7 +24,7 @@ class TransactionController extends Controller
             if($order = Order::where('transaction_id', $transaction->id)->first()){
                 $order->status = Order::STATUS_PROCESSING;
                 $order->save();
-                return redirect()->route('order-saved', auth()->user()->store_slug);
+                return redirect()->route('order-saved',  $store->store_slug);
             }
             if($subscription = Subscription::where('transaction_id', $transaction->id)->first()){
                 $subscription->status = Subscription::STATUS_ACTIVE;
@@ -36,7 +36,7 @@ class TransactionController extends Controller
         return $request->store ? view('store.payment.payment-failed', [$request->store->store_slug]) : view('main.payment.payment-failed');
     }
 
-    public function paypal_payment_result(Request $request)
+    public function paypal_payment_result($store, Request $request)
     {
         $provider = new ExpressCheckout;
         $response = $provider->getExpressCheckoutDetails($request->token);
@@ -61,7 +61,7 @@ class TransactionController extends Controller
             if($order = Order::where('transaction_id', $transaction->id)->first()){
                 $order->status = Order::STATUS_PROCESSING;
                 $order->save();
-                return redirect()->route('order-saved', auth()->user()->store_slug);
+                return redirect()->route('order-saved', $store->store_slug);
             }
             if($subscription = Subscription::where('transaction_id', $transaction->id)->first()){
                 $subscription->status = Subscription::STATUS_ACTIVE;

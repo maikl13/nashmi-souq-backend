@@ -1,3 +1,4 @@
+@php($options = App\Models\Option::get())
 @extends('store-dashboard.layouts.store-dashboard')
 
 @section('title', 'تعديل المنتج')
@@ -79,15 +80,52 @@
                     <option value="">- إختر القسم الفرعي</option>
                     @if ( isset($sub_categories_count) && $sub_categories_count )
                         @foreach ($category->all_children() as $sub_category)
-                            @php
+                            <?php
                                 $prefix = '';
                                 for ($i=2; $i < $sub_category->level(); $i++) { $prefix .= '___'; }
-                            @endphp
-                            <option value="{{ $sub_category->slug }}" {{ $sub_cat == $sub_category->slug ? 'selected' : '' }}>{{ $prefix }} {{ $sub_category->name }}</option>
+                            ?>
+                            <option value="{{ $sub_category->slug }}" {{ $sub_cat == $sub_category->slug ? 'selected' : '' }}>
+                                {{ $prefix }} {{ $sub_category->name }}</option>
                         @endforeach
                     @endif
                 </select>
             </div>
+            @if ($options->count())
+                <div class="form-group">
+                    <label for="images" class="form-control-label"> صفات المنتج :</label>
+                    <div class="options form-group mb-0" dir="ltr">
+                        @foreach ($product->options['values'] as $value)
+                            @if ($ov = App\Models\OptionValue::find($value))
+                                <div class="option input-group mb-2" dir="rtl">
+                                    <div class="input-group-append">
+                                        <select class="form-control option-name" name="option[]">
+                                            <option value="">- إختر صفة</option>
+                                            @foreach ($options as $option)
+                                                <option value="{{ $option->id }}" 
+                                                    {{ $option->id == $ov->option->id ? 'selected' : '' }}>{{ $option->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <select class="form-control option-value" name="option_values[]" dir="rtl">
+                                        <option value="">-</option>
+                                        @foreach (App\Models\OptionValue::orderBy('name')->get() as $option_value)
+                                            <option value="{{ $option_value->id }}" 
+                                                class="{{ $option_value->option->id == $ov->option->id ? '' : 'd-none' }}"
+                                                data-option="{{ $option_value->option->id }}" {{ $option_value->id == $ov->id ? 'selected' : '' }}>{{ $option_value->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="input-group-prepend">
+                                        <button class="removeOption btn btn-info" style="opacity: .7;border-radius: 5px 0 0 5px" type="button"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                        <button class="btn btn-primary btn-sm add-option" data-option-value-name="option_values[]" data-option-name="options[]">
+                            <i class="fa fa-plus py-2"></i> إضافة صفة للمنتج
+                        </button>
+                    </div>
+                </div>
+            @endif
             <div class="form-group">
                 <label for="images" class="form-control-label"> صور المنتج :</label>
                 <div class="img-gallery">
@@ -102,6 +140,8 @@
             <button type="button" class="btn btn-success" data-dismiss="modal"> تراجع </button>
         </div> 
     </form>
+
+    @include('store-dashboard.products.partials.partials')
 @endsection
 
 @section('scripts')
@@ -139,5 +179,27 @@
             $('.sub-categories-select2').select2(subCategoriesSelect2Options);
             var cascadLoadingSubCategories = new Select2Cascade($('.category-select'), $('.sub-category-select'), subCategoriesApiUrl, CategoriesSelect2Options, subCategoriesSelect2Options);
         });
+        
+		$(document).on('click', '.add-option', function(e){
+			e.preventDefault();
+			var option = $(".option.d-none").clone().removeClass('d-none');
+			option.insertBefore($(this));
+			option.find('.option-value').attr('name', $(this).attr('data-option-value-name'));
+			option.find('.option-name').attr('name', $(this).attr('data-option-name'));
+		});
+
+		$(document).on('change', '.option-name', function(){
+			var option = $(this).val(),
+				optionValue = $(this).parents('.option').find('.option-value');
+            optionValue.find('option:selected').removeAttr('selected');
+            optionValue.find('option:selected').prop('selected', false);
+            optionValue.find('option:not(:first-child)').addClass('d-none');
+            if(option)
+                optionValue.find('option[data-option='+option+']').removeClass('d-none');
+		});
+
+		$(document).on('click', '.removeOption', function(){
+		    $(this).parents('.option').remove();
+		});
     </script>
 @endsection

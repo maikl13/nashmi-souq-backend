@@ -14,7 +14,7 @@
         <a class="dropdown-item" href="/account">إعدادات الحساب</a>
         <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
         @if (auth()->check() && auth()->user()->is_store())
-            <a class="dropdown-item" href="{{ auth()->user()->store_url() }}">إدارة المتجر</a>
+            <a class="dropdown-item" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">إدارة المتجر</a>
         @endif
         <a class="dropdown-item" href="{{ route('logout') }}"
            onclick="event.preventDefault();

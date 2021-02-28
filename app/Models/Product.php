@@ -13,12 +13,36 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use FileHandler, SearchableTrait, ExchangeCurrency, SoftDeletes;
+
+    protected $casts = ['options'=> 'array', 'shown' => 'boolean'];
     
     public function newQuery()
     {
         if(request()->store)
             return parent::newQuery()->where('user_id', request()->store->id);
         return parent::newQuery();
+    }
+
+    public function scopeShown($query)
+    {
+        return $query->where('shown', true);
+    }
+
+    public function getTitleAttribute()
+    {
+        $title = $this->getAttributes()['title'];
+        foreach ($this->options['values'] as $option_value) {
+            $option_value = \App\Models\OptionValue::find($option_value);
+            $title .= ' - '.$option_value->name;
+        }
+        return $title;
+    }
+    public function getOptionsAttribute()
+    {
+        $options = $this->getAttributes()['options'];
+        if($options)
+            return json_decode($options, true);
+        return ['options'=>[],'values'=>[]];
     }
 
 	public function getRouteKeyName($value='')
@@ -147,4 +171,19 @@ class Product extends Model
             'products.description' => 1,
         ],
     ];
+    
+    // this is a recommended way to declare event handlers
+    protected static function boot() {
+        parent::boot();
+
+        static::deleted(function(Product $product) {
+            if($product->shown){
+                $next_product_in_group = Product::whereGroup($product->group)->first();
+                if($next_product_in_group){
+                    $next_product_in_group->shown = true;
+                    $next_product_in_group->save();
+                }
+            }
+        });
+    }
 }

@@ -16,6 +16,22 @@
 						<label for="name" class="form-control-label"> الاسم :</label>
 						<input type="text" class="form-control text-right" id="name" name="name" value="{{ old('name') }}" required>
 					</div>
+					<div class="form-group">
+						<label for="name" class="form-control-label"> الأقسام :</label>
+						<select name="categories[]" id="categories" class=" select2" style="width: 100%;" required multiple>
+							<option value=""> - </option>
+							@foreach (App\Models\Category::whereNull('category_id')->get() as $category)
+								<option value="{{ $category->id }}">{{ $category->name }}</option>
+								@foreach ($category->all_children() as $sub_category)
+									<?php 
+										$prefix = '';
+										for ($i=1; $i < $sub_category->level(); $i++) { $prefix .= '___'; }
+									?>
+									<option value="{{ $sub_category->id }}">{{ $prefix }}{{ $sub_category->name }}</option>
+								@endforeach
+							@endforeach
+						</select>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary"> حفظ </button>

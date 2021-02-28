@@ -1,3 +1,31 @@
+<?php
+    $options = [];
+    $vs = [];
+    $added_values = [];
+    $used_ps = [];
+    foreach ($product->options['values'] as $value) {
+        $option = optional(App\Models\OptionValue::find($value))->option_id;
+        $ps = App\Models\Product::whereGroup($product->group)->whereJsonContains('options->options', $option);
+        if($vs) $ps = $ps->whereJsonContains('options->values', $vs);
+        $ps = $ps->get();
+        $vs[] = $value;
+        foreach ($ps as $p) {
+            foreach ($p->options['values'] as $v) {
+                $v = App\Models\OptionValue::find($v);
+                if($v && $v->option_id == $option && !in_array($v->id, $added_values)){
+                    $value = [];
+                    $value['value'] = $v;
+                    $value['url'] = $p->url();
+                    $options[$option][] = $value;
+                    $added_values[] = $v->id;
+                    $used_ps[] = $p->id;
+                }
+            }
+        }
+    }
+    $related_ps = sizeof($options)>1 || App\Models\Product::whereGroup($product->group)->count() == 1 ?  App\Models\Product::whereId(0): 
+        App\Models\Product::whereGroup($product->group)->whereNotIn('id', $used_ps)->get();
+?>
 @extends('store.layouts.store')
 
 @section('title', 'معاينة المنتج | '. $product->title)
@@ -62,6 +90,43 @@
                                 <div class="item-details text-break">
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active" id="details" role="tabpanel">
+
+
+
+
+
+
+
+
+
+                                            {{-- Options --}}
+                                            @foreach ($options as $option => $values)
+                                            @php
+                                                // dd($values);
+                                            @endphp
+                                                @if ($option = App\Models\Option::find($option))
+                                                    <div class="mb-2">
+                                                        <strong class="mb-1 ml-2">{{ $option->name }} :</strong>
+                                                        @foreach ($values as $value)
+                                                            @php
+                                                                $option_value = $value['value']
+                                                            @endphp
+                                                            @if (sizeof($values) == 1)
+                                                                <span>{{ $option_value->name }}</span>
+                                                            @elseif (in_array($option_value->id, $product->options['values']))
+                                                                <span class="btn btn-sm btn-secondary">{{ $option_value->name }}</span>
+                                                            @else
+                                                                <a href="{{ $value['url'] }}" class="btn btn-sm btn-default">{{ $option_value->name }}</a>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                            @endforeach
+
+
+
+
+
                                             <p>{{ $product->description }}</p>
                                             @php
                                                 $data = json_decode($product->data, true);
@@ -75,6 +140,26 @@
                                                     @endforeach
                                                 </div>
                                             @endif
+                                            
+                                            @if ($related_ps->count())
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <strong>إختيارات أخرى : </strong> <br>
+                                                        @foreach ($related_ps as $p)
+                                                            <a href="{{ $p->url() }}">
+                                                                {{ $p->title }}
+                                                                @foreach ($p->options['values'] as $oval)
+                                                                    @php
+                                                                        $oval = App\Models\OptionValue::find($oval);
+                                                                    @endphp
+                                                                    <span class="badge badge-info">{{ $oval->name }}</span>
+                                                                @endforeach
+                                                            </a>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @endif
+
                                         </div>
                                         @if(!empty(trim($product->address)))
                                             <div class="mt-3 mb-4"> <strong>العنوان تفصيلي:</strong> {{ $product->address }}</div>

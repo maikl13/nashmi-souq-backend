@@ -33,25 +33,28 @@ class SubscriptionController extends Controller
                 $period = 183;
                 $price = setting('half_year_subscription');
                 $subscription_name = 'إشتراك نصف سنوي في المتاجر المدفوعة من سوق نشمي';
+                $type = Subscription::TYPE_HALF_YEAR;
                 break;
             case 3:
                 $period = 365;
                 $price = setting('yearly_subscription');
                 $subscription_name = 'إشتراك سنوي في المتاجر المدفوعة من سوق نشمي';
+                $type = Subscription::TYPE_YEARLY;
                 break;
             default:
                 $period = 30;
                 $price = setting('monthly_subscription');
                 $subscription_name = 'إشتراك شهري في المتاجر المدفوعة من سوق نشمي';
+                $type = Subscription::TYPE_MONTHLY;
                 break;
         }
 
         $subscription = new Subscription;
         $subscription->user_id = auth()->user()->id;
-        $last_subscription = auth()->user()->subscriptions()->orderBy('end', 'desc')->first();
+        $last_subscription = auth()->user()->subscriptions()->active()->orderBy('end', 'desc')->first();
         $subscription->start = $last_subscription ? $last_subscription->end->addSecond() : now();
         $subscription->end = $subscription->start->addDays($period);
-        $subscription->type = Subscription::TYPE_TRIAL;
+        $subscription->type = $type;
 
         $currency = Currency::firstOrCreate(['code'=>'USD'],['slug'=>'usd','name'=>'الدولار الامريكي','symbol'=>'$']);
 

@@ -30,6 +30,7 @@ $('.add').on('submit', function(e){
         success: function(data){
             datatable.draw();
             Form.trigger('reset');
+            Form.find('select').val('').trigger('change.select2')
             $('#add-modal').modal('hide')
             toastr.success('تم الحفظ بنجاح' );
         },

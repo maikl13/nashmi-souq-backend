@@ -17,6 +17,7 @@ class CreateOptionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->json('categories')->nullable();
             $table->timestamps();
         });
     }

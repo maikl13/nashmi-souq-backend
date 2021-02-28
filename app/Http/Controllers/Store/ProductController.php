@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Store;
 use Str;
 use Auth;
 use App\Models\Product;
+use App\Models\OptionValue;
 use App\Models\Category;
 use App\Models\State;
 use App\Models\Area;
@@ -26,7 +27,7 @@ class ProductController extends Controller
             'sub_categories.*' => 'nullable|exists:categories,id',
         ]);
 
-        $products = Product::query();
+        $products = Product::query()->shown();
 
         $categories = empty($request->categories) || $request->categories == [null] ? [] : $request->categories;
         $sub_categories = empty($request->sub_categories) || $request->sub_categories == [null] ? [] : $request->sub_categories;
@@ -70,41 +71,90 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
     	$request->validate([
             'product_title' => 'required|min:2|max:255',
             'description' => 'required|min:2|max:10000',
             'category' => 'required|exists:categories,slug',
     		'sub_category' => 'nullable|exists:categories,slug',
+            'images' => 'nullable',
             'images.*' => 'image|max:8192',
             'price' => 'nullable|numeric',
             'currency' => 'nullable|exists:currencies,id',
     	]);
 
-    	$product = new Product;
-        $product->title = $request->product_title;
-        
-        $product->initial_price = $request->initial_price;
-        $product->price = isset($request->price) && $request->price != null ? $request->price : $product->initial_price;
-        $product->currency_id = $request->currency;
-
+        $title = $request->product_title;
+        $description = $request->description;
         $slug = Str::slug($request->product_title);
         $count = Product::withTrashed()->where('slug', $slug)->count();
-        $product->slug = $count ? $slug.'-'.uniqid() : $slug;
-
-    	$product->description = $request->description;
-        $product->user_id = Auth::user()->id;
-
+        $slug = $count ? $slug.'-'.uniqid() : $slug;
         $category = Category::where('slug', $request->category)->first();
         $sub_category = Category::where('slug', $request->sub_category)->first();
+        $group = ($latest = Product::withTrashed()->orderBy('group', 'desc')->first()) ? $latest->group+1 : 1;
 
-        $product->category_id = $category->id;
-        $product->sub_category_id = $sub_category ? $sub_category->id : null;
+        if($request->units){
+            foreach ($request->units as $unit) {
+                $shown = isset($shown) ? false : true;
+                $product = new Product;
+                $product->title = $title;
+                $product->slug = $slug.'-'.uniqid();
+                $product->description = $description;
+                $product->initial_price = $unit['initial_price'] ?? $request->price;
+                $product->price = isset($unit['price']) && $unit['price'] != null ? $unit['price'] : $product->initial_price;
+                $product->currency_id = $request->currency;
+                $product->user_id = Auth::user()->id;
+                $product->category_id = $category->id;
+                $product->sub_category_id = $sub_category ? $sub_category->id : null;
+                $product->group = $group;
+                $product->shown = $shown;
 
-        if($product->save()){
+                $option_values = array_merge($unit['option_values'], $request->option_values);
+                if($option_values){
+                    array_unique($option_values);
+                    if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+                    $options = [];
+                    foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+                        $options['options'][] = $option_value->option_id;
+                        $options['values'][] = $option_value->id;
+                    }
+                    $product->options = $options;
+                }
+                
+                $product->save();
+                $product->upload_product_images(array_merge($unit['images']??[], $request->images??[]));
+            }
+        } else {
+            $product = new Product;
+            $product->title = $request->product_title;
+            $product->slug = $slug.'-'.uniqid();
+            $product->description = $request->description;
+            $product->initial_price = $request->initial_price;
+            $product->price = isset($request->price) && $request->price != null ? $request->price : $product->initial_price;
+            $product->currency_id = $request->currency;
+            $product->user_id = Auth::user()->id;
+            $product->category_id = $category->id;
+            $product->sub_category_id = $sub_category ? $sub_category->id : null;
+            $product->group = $group;
+            $product->shown = true;
+            
+            $option_values = $request->option_values;
+            if($option_values){
+                array_unique($option_values);
+                if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+                $options = [];
+                foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+                    $options['options'][] = $option_value->option_id;
+                    $options['values'][] = $option_value->id;
+                }
+                $product->options = $options;
+            }
+            
+            $product->save();
             $product->upload_product_images($request->images);
-            return response()->json('تم الحفظ بنجاح', 200);
         }
-        return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
+
+        return response()->json('تم الحفظ بنجاح', 200);
+        // return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
     public function edit($store, Product $product)
@@ -119,8 +169,8 @@ class ProductController extends Controller
         $this->authorize('delete', $product);
         
         $request->validate([
-            'product_title' => 'required|min:10|max:255',
-            'description' => 'required|min:10|max:10000',
+            'product_title' => 'required|min:2|max:255',
+            'description' => 'required|min:2|max:10000',
             'category' => 'required|exists:categories,slug',
             'sub_category' => 'nullable|exists:categories,slug',
             'address' => 'nullable|min:10|max:1000',
@@ -130,22 +180,29 @@ class ProductController extends Controller
         ]);
 
         $product->title = $request->product_title;
-
         $product->initial_price = $request->initial_price;
         $product->price = isset($request->price) && $request->price != null ? $request->price : $product->initial_price;
         $product->currency_id = $request->currency;
-
         $slug = Str::slug($request->product_title);
         $product->slug = optional(Product::where('slug', $slug)->first())->id != $product->id ? $slug.'-'.uniqid() : $slug;
-
         $product->description = $request->description;
         $product->user_id = Auth::user()->id;
-
         $category = Category::where('slug', $request->category)->first();
         $sub_category = Category::where('slug', $request->sub_category)->first();
-
         $product->category_id = $category->id;
         $product->sub_category_id = $sub_category ? $sub_category->id : null;
+
+        $option_values = $request->option_values;
+        if($option_values){
+            array_unique($option_values);
+            if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+            $options = [];
+            foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+                $options['options'][] = $option_value->option_id;
+                $options['values'][] = $option_value->id;
+            }
+            $product->options = $options;
+        }
 
         if($product->save()){
             $product->upload_product_images($request->images);

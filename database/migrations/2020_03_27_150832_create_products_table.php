@@ -34,6 +34,9 @@ class CreateProductsTable extends Migration
             $table->integer('views')->default(0);
             $table->text('note')->nullable();
             $table->text('data')->nullable();
+            $table->json('options')->nullable();
+            $table->bigInteger('group')->nullable();
+            $table->boolean('shown');
             $table->softDeletes();
             $table->timestamps();
         });

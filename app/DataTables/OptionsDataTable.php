@@ -21,8 +21,9 @@ class OptionsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->addColumn('categories', 'admin.options.partials.categories')
             ->addColumn('action', 'admin.options.partials.action')
-            ->rawColumns(['action']);
+            ->rawColumns(['action', 'categories']);
     }
 
     /**
@@ -57,10 +58,8 @@ class OptionsDataTable extends DataTable
             Column::make('id'),
             Column::make('name')->title('الاسم'),
             Column::make('slug')->title('المعرف'),
-            Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+            Column::computed('categories')->width(200)->addClass('text-center')->searchable(false)->title('الأقسام'),
+            Column::computed('action')->width(60)->addClass('text-center')->searchable(false)->title('⚙'),
         ];
     }
 

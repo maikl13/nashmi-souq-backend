@@ -51,8 +51,10 @@ $(document).on('submit', 'form.ajax', function(e){
             }
             if(Form.data('on-success'))
                 executeFunctionByName(Form.data('on-success'), window, data);
-            if(Form.hasClass('should-reset'))
+            if(Form.hasClass('should-reset')){
                 Form.trigger('reset');
+                // Form.find('select').val('').trigger('change.select2')
+            }
             if (data.redirect)
                 window.location.href = data.redirect;
         },

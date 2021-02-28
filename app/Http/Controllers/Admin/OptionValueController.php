@@ -31,7 +31,7 @@ class OptionValueController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:2|max:255',
+            'name' => 'required|min:1|max:255',
         ]);
 
         $option_value = new OptionValue;
@@ -70,7 +70,7 @@ class OptionValueController extends Controller
     public function update(Request $request, OptionValue $option_value)
     {
         $request->validate([
-            'name' => 'required|min:2|max:255',
+            'name' => 'required|min:1|max:255',
         ]);
 
         $option_value->name = $request->name;

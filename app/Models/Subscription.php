@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
 {
-    protected $fillable = ['user_id', 'start', 'end', 'type'];
+    protected $fillable = ['user_id', 'start', 'end', 'type', 'status'];
     protected $dates = ['created_at', 'updated_at', 'start', 'end'];
 
     const TYPE_TRIAL = 0;
@@ -31,14 +31,19 @@ class Subscription extends Model
     {
         switch ($this->attributes['type']) {
             case Self::TYPE_TRIAL: return "فترة تجريبية"; break;
-            case Self::TYPE_TRIAL: return "اشتراك شهري"; break;
-            case Self::TYPE_TRIAL: return "اشتراك نصف سنوي"; break;
-            case Self::TYPE_TRIAL: return "اشتراك سنوي"; break;
+            case Self::TYPE_MONTHLY: return "اشتراك شهري"; break;
+            case Self::TYPE_HALF_YEAR: return "اشتراك نصف سنوي"; break;
+            case Self::TYPE_YEARLY: return "اشتراك سنوي"; break;
         }
     }
 
     public function scopeActive($query)
     {
         return $query->where('status', Self::STATUS_ACTIVE);
+    }
+    
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
     }
 }

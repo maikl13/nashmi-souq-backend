@@ -29,13 +29,16 @@ class OptionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:2|max:255',
+            'name' => 'required|min:1|max:255',
+            'categories' => 'required|min:1',
+            'categories.*' => 'exists:categories,id',
         ]);
 
         $option = new Option;
         $option->name = $request->name;
         $slug = Str::slug($request->name);
         $option->slug = Option::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
+        $option->categories = $request->categories;
 
         if($option->save()){
             return response()->json('تم الحفظ بنجاح!', 200);
@@ -65,12 +68,15 @@ class OptionController extends Controller
     public function update(Request $request, Option $option)
     {
         $request->validate([
-            'name' => 'required|min:2|max:255',
+            'name' => 'required|min:1|max:255',
+            'categories' => 'required|min:1',
+            'categories.*' => 'exists:categories,id',
         ]);
 
         $option->name = $request->name;
         $slug = Str::slug($request->name);
         $option->slug = Option::where('slug', $slug)->where('id', '!=', $option->id)->count() ? $slug.'-'.uniqid() : $slug;
+        $option->categories = $request->categories;
 
         if($option->save()){
             return redirect()->route('options')->with('success', 'تم تعديل البيانات بنجاح.');

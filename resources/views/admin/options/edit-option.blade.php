@@ -22,31 +22,24 @@
             	@method('PUT')
 				<div class="modal-body" dir="rtl">
                     <div class="form-group">
-						<label for="option_selector" class="form-control-label"> الدولة :</label>
-						<div dir="ltr">
-							<input type="text" class="form-control text-right w-100" id="option" name="option" value="{{ old('option') }}" required>
-							<input type="hidden" id="option_code" name="option_code" />
-						</div>
-					</div>
-				</div>
-				<div class="modal-body" dir="rtl">
-                    <div class="form-group">
 						<label for="name" class="form-control-label"> الاسم :</label>
 						<input type="text" class="form-control" id="name" name="name" value="{{ old('name') ? old('name') : $option->name }}" required>
 					</div>
-				</div>
-				<div class="modal-body" dir="rtl">
 					<div class="form-group">
-						<label for="delivery_phone" class="form-control-label"> رقم هاتف شركة الشحن :</label>
-						<input type="text" class="form-control text-right" id="delivery_phone" name="delivery_phone" value="{{ old('delivery_phone') ? old('delivery_phone') : $option->delivery_phone }}" required>
-					</div>
-				</div>
-				<div class="modal-body" dir="rtl">
-					<div class="form-group">
-						<label for="currency" class="form-control-label"> عملة الدولة : </label>
-						<select name="currency" id="currency" class="form-control">
-							@foreach (App\Models\Currency::get() as $currency)
-								<option value="{{ $currency->id }}" {{ $currency->id == $option->currency_id ? 'selected' : '' }}>{{ $currency->code }} - {{ $currency->name }}</option>
+						<label for="name" class="form-control-label"> الأقسام :</label>
+						<select name="categories[]" id="categories" class=" select2" style="width: 100%;" required multiple>
+							<option value=""> - </option>
+							@foreach (App\Models\Category::whereNull('category_id')->get() as $category)
+								<option value="{{ $category->id }}" 
+									{{ in_array($category->id, $option->categories) ? 'selected' : '' }}>{{ $category->name }}</option>
+								@foreach ($category->all_children() as $sub_category)
+									<?php 
+										$prefix = '';
+										for ($i=1; $i < $sub_category->level(); $i++) { $prefix .= '___'; }
+									?>
+									<option value="{{ $sub_category->id }}"
+										{{ in_array($sub_category->id, $option->categories) ? 'selected' : '' }}>{{ $prefix }}{{ $sub_category->name }}</option>
+								@endforeach
 							@endforeach
 						</select>
 					</div>

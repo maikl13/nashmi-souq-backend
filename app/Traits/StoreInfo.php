@@ -44,6 +44,7 @@ trait StoreInfo {
                 'start' => now(),
                 'end' => now()->addDays(setting('trial_period')),
                 'type' => Subscription::TYPE_TRIAL,
+                'status' => Subscription::STATUS_ACTIVE,
             ]);
         return $subscription;
     }

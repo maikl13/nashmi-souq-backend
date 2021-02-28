@@ -56,9 +56,7 @@ Route::domain('{store}.'.config('app.domain'))->middleware(['active-store'])->gr
 	Route::post('cart/update-quantity', 'CartController@update_product_quantity');
 	Route::get('cart/update-totals', 'CartController@update_totals');
 });
-Route::get('payment-result', 'TransactionController@payment_result');
-Route::get('paypal-payment-result', 'TransactionController@paypal_payment_result');
-Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'store'])->group(function () {
+Route::domain('{store}.'.config('app.domain'))->group(function () {
 	Route::get('payment-result', 'TransactionController@payment_result');
 	Route::get('paypal-payment-result', 'TransactionController@paypal_payment_result');
 });

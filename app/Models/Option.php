@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
+    protected $casts = ['categories'=>'array'];
+    
     public function getRouteKeyName() {
         return 'slug';
     }

@@ -30,8 +30,9 @@ class ProductsDataTable extends DataTable
                 $c .= $record->sub_category ? '<br>'. $record->sub_category->name : '';
                 return $c; 
             })
+            ->addColumn('options', 'store-dashboard.products.partials.options')
             ->addColumn('action', 'store-dashboard.products.partials.action')
-            ->rawColumns(['action', 'category', 'image']);
+            ->rawColumns(['options', 'action', 'category', 'image']);
     }
 
     /**
@@ -68,6 +69,7 @@ class ProductsDataTable extends DataTable
             Column::make('title')->title('العنوان'),
             Column::make('price')->title('السعر'),
             Column::make('category')->title('القسم'),
+            Column::make('options')->title('صفات المنتج'),
             Column::make('views')->title('👁️'),
             Column::computed('action')
                   ->width(60)

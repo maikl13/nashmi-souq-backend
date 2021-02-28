@@ -23,6 +23,24 @@ $('.add').on('submit', function(e){
         data: new FormData(this),
         contentType: false,
         processData: false,
+        xhr: function() {
+            var xhr = new window.XMLHttpRequest();
+            xhr.upload.addEventListener("progress", function(evt) {
+                progress = Form.find(".progress");
+                progress.removeClass('d-none');
+                if (evt.lengthComputable) {
+                    var percentComplete = ((evt.loaded / evt.total) * 100);
+                    Form.find(".progress-bar").width(percentComplete + '%');
+
+                    if(percentComplete == 100){
+                        progress.addClass('d-none');
+                        $('<div class="mx-auto pb-2 text-center processing"><i class="fa fa-spinner fa-spin"></i> <i>برجاء الانتظار<i/></div>')
+                            .insertBefore(progress);
+                    }
+                }
+            }, false);
+            return xhr;
+        },
         beforeSend: function(){
             Form.find('button[type=submit]').attr("disabled", true);
             Form.find("button[type='submit']").prepend('<i class="fa fa-spinner fa-spin"></i> ');
@@ -30,6 +48,8 @@ $('.add').on('submit', function(e){
         success: function(data){
             datatable.draw();
             Form.trigger('reset');
+            // Form.find('select').val('').trigger('change.select2')
+            // Form.find('select').val('').trigger('change')
             $('#add-modal').modal('hide')
             toastr.success('تم الحفظ بنجاح' );
         },
@@ -51,6 +71,7 @@ $('.add').on('submit', function(e){
         complete: function (data){
             Form.find('button[type=submit]').attr("disabled", false);
             Form.find(".fa-spin").remove();
+            Form.find(".processing").remove();
         }
     });
 });
