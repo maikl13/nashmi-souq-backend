@@ -39,6 +39,22 @@
                                 <li><a href="https://wa.me/{{ str_replace('+', '', setting('whatsapp') ) }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
                             @endif
                         </ul>
+                        
+                        <div class="footer-title mt-4 pb-3">
+                            <h4 class="text-white mb-0">قم بتحميل التطبيق</h4>
+                        </div>
+                        <div class="row footer-box-layout1">
+                            <div class="text-center ml-2">
+                                <a href="https://play.google.com/store/apps/details?id=nashmi.souq.store" target="_blank"> 
+                                    <img style="border-radius: 20px;border: 3px solid #ffffff26;" width="130" src="/assets/images/googleplay.jpg">
+                                </a>
+                            </div>
+                            <div class="text-center">
+                                <a href="https://apple.co/3fNF3E9" target="_blank"> 
+                                    <img style="border-radius: 20px;border: 3px solid #ffffff26;" width="130" src="/assets/images/appstore.jpg">
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-4 col-xs-12">

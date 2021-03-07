@@ -49,18 +49,6 @@
                         </div>
                    </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-xs-12 col-sm-6 mt-4 text-center">
-                        <a href="https://play.google.com/store/apps/details?id=nashmi.souq.store" target="_blank" > 
-                            <img style="max-width:100%;border-radius: 20px;border: 2px solid #fff;" width="280" src="/assets/images/googleplay.jpg" >
-                        </a>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 mt-4 text-center">
-                        <a href="https://apple.co/3fNF3E9"  target="_blank"> 
-                            <img style="max-width:100%;border-radius: 20px;border: 2px solid #fff;" width="280" src="/assets/images/appstore.jpg" >
-                        </a>
-                    </div>
-                </div> 
             </div>
         </div>
     </section>
