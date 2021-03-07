@@ -51,8 +51,9 @@ trait StoreInfo {
 
     public function store_url()
     {
+        $protocol = env('APP_PROTOCOL') ?? 'http';
         if($this->is_store())
-            return 'http://'.$this->store_slug.'.'.str_replace('http://', '', str_replace('https://', '', config('app.url')));
+            return $protocol.'://'.$this->store_slug.'.'.str_replace('http://', '', str_replace('https://', '', config('app.url')));
         return config('app.url');
     }
 
