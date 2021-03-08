@@ -15,6 +15,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $current_version = '3.0';
+        $version = \Cookie::has('version') ? \Crypt::decryptString(\Cookie::get('version')) : '1.0';
+        $version = explode('|', $version);
+        $version = end($version);
+        if($version != $current_version){
+            foreach (['country','country_code','nashmi_souq_session','XSRF-TOKEN','session_locale','remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d'] as $key)
+                \Cookie::queue(\Cookie::forget($key));
+            \Cookie::queue(\Cookie::make('version', $current_version, 5*12*30*24*60));
+        }
+
         if (App::environment() === 'production')
             $this->app['request']->server->set('HTTPS', true);
     }
