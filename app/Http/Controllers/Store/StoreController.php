@@ -82,7 +82,6 @@ class StoreController extends Controller
             'categories.*' => 'exists:categories,id',
         ]);
 
-        $store_name = $user->store_name;
         $user->store_name = $request->store_name;
         $user->store_slug = $request->store_slug;
         $user->store_slogan = $request->store_slogan;
@@ -107,8 +106,7 @@ class StoreController extends Controller
         if($user->save()){
             if(!auth()->user()->started_trial())
                 auth()->user()->start_trial();
-            if($store_name != $user->store_name)
-                return redirect()->to($user->store_url().'/dashboard/store-settings')->with('success', "تم الحفظ بنجاح");
+            return redirect()->to($user->store_url().'/dashboard/store-settings')->with('success', "تم الحفظ بنجاح");
             return back()->with('success', "تم الحفظ بنجاح");
         }
         return back()->with('error', 'حدث خطأ ما! من فضلك حاول مجددا.');
