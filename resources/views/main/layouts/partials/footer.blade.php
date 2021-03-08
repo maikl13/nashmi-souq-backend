@@ -21,7 +21,7 @@
                         <p>{{ setting('website_description') }}</p>
                     </div>
                 </div>
-                <div class="col-lg-5 col-sm-8 col-xs-12">
+                <div class="col-lg-5 col-xs-12">
                     <div class="footer-box-layout1">
                         <div class="footer-title mt-4 pb-3">
                             <h4 class="text-white mb-0">مواقع صديقة</h4>
@@ -41,8 +41,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-4 col-xs-12">
-                    <div class="footer-box-layout1">
+                <div class="col-lg-3 col-xs-12">
+                    <div class="footer-box-layout1 mb-0">
                         <div class="footer-title mt-4 pb-3">
                             <h4 class="text-white mb-0">قم بمتابعتنا</h4>
                         </div>
@@ -81,6 +81,12 @@
                                     <img style="border-radius: 20px;border: 3px solid #ffffff26;" width="130" src="/assets/images/appstore.jpg">
                                 </a>
                             </div>
+                        </div>
+                        
+                        <hr class="mt-5 mb-4" style="border-color: hsl(0deg 0% 17%);">
+
+                        <div class="text-center" style="height: 114px;width: 206px;margin: 0 auto;">
+                            <iframe src="http://maroof.sa/Business/GetStamp?bid=152665" style="width: auto;height: 250px;overflow-y:hidden;left: 91px;position: relative;" frameborder="0" seamless="seamless" scrollable="no"></iframe>
                         </div>
                     </div>
                 </div>
