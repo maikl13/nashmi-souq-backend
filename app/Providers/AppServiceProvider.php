@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // $session_domain = config('session.domain');
-        $current_version = '3.01';
+        $current_version = '3.02';
         $version = \Cookie::has('version') ? \Crypt::decryptString(\Cookie::get('version')) : '1.0';
         $version = explode('|', $version);
         $version = end($version);
