@@ -76,10 +76,15 @@
                                     <li class="d-inline"><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
                                     <li class="d-inline"><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}</li>
                                     @if ($listing->price)
-                                        <li class="d-inline mr-2">
+                                        {{-- <li class="d-inline mr-2">
                                             <i class="fas fa-money-bill"></i>
                                             {{ $listing->local_price() }}
                                             <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
+                                        </li> --}}
+                                        <li class="d-inline mr-2">
+                                            <i class="fas fa-money-bill"></i>
+                                            {{ $listing->price() }}
+                                            <span class="currency-symbol" title="ب{{ $listing->currency->name }}">{{ $listing->currency->symbol }}</span>
                                         </li>
                                     @endif
                                 </ul>
