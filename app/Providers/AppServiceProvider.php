@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(UrlGenerator $url)
     {
         // $session_domain = config('session.domain');
-        $current_version = '3.02';
+        $current_version = '3.03';
         $version = \Cookie::has('version') ? \Crypt::decryptString(\Cookie::get('version')) : '1.0';
         $version = explode('|', $version);
         $version = end($version);
@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
                 // dd(config('session.domain'));
             }
         }
-        
+
         if (App::environment() === 'production')
             $url->formatScheme('https');
     }
