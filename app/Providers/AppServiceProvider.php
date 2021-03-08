@@ -15,6 +15,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+        if (App::environment() === 'production')
+            $this->app['request']->server->set('HTTPS', true);
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot(UrlGenerator $url)
+    {
         // $session_domain = config('session.domain');
         $current_version = '3.02';
         $version = \Cookie::has('version') ? \Crypt::decryptString(\Cookie::get('version')) : '1.0';
@@ -31,20 +43,8 @@ class AppServiceProvider extends ServiceProvider
                 // \Config::set('session.domain', $session_domain);
                 // dd(config('session.domain'));
             }
-
         }
-
-        if (App::environment() === 'production')
-            $this->app['request']->server->set('HTTPS', true);
-    }
-
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot(UrlGenerator $url)
-    {
+        
         if (App::environment() === 'production')
             $url->formatScheme('https');
     }
