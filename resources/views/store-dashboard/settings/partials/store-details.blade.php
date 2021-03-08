@@ -10,8 +10,8 @@
             <label class="control-label">رابط المتجر <span>*</span></label>
             
             <div class="input-group" dir="ltr">
-                <input class="form-control" id="store_slug" type="text" name="store_slug" placeholder="رابط المتجر" value="{{ old('store_slug') ?? Auth::user()->store_slug }}">
-                <div class="input-group-append">
+                <input class="form-control text-left" id="store_slug" type="text" name="store_slug" placeholder="رابط المتجر" value="{{ old('store_slug') ?? Auth::user()->store_slug }}">
+                <div class="input-group-append bg-gray">
                     <span class="input-group-text" id="basic-addon3" style="padding: 7px 11px;">.{{ config('app.domain') }}</span>
                 </div>
             </div>
