@@ -74,15 +74,20 @@
                                 </ul>
                                 <div class="row mt-2">
                                     @if (auth()->guest() || auth()->user()->id != $listing->user->id)
-                                        <div class="col pl-1">
-                                            <a href="{{ Auth::check() ? '#' : route('login') }}" class="main-btn btn-block {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}" data-listing="{{ $listing->id }}">
-                                                <i class="fa fa-comments"></i> دردش
+                                        <div class="col" style="padding: 0 !important;margin: 0 5px !important;white-space: nowrap;">
+                                            <a href="{{ Auth::check() ? '#' : route('login') }}" class="main-btn btn-block p-1 {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}" data-listing="{{ $listing->id }}">
+                                                <i class="fa fa-envelope"></i> دردش
                                             </a>
                                         </div>
                                     @endif
-                                    <div class="col pr-1">
+                                    <div class="col mb-1" style="padding: 0 !important;margin: 0 5px 5px 5px  !important;white-space: nowrap;">
                                         <a href="{{ Auth::check() ? 'tel:'.$listing->user->phone : route('login') }}" class="btn btn-info btn-block">
                                             <i class="fa fa-phone"></i> إتصل
+                                        </a>
+                                    </div>
+                                    <div class="col" style="padding: 0 !important;margin: 0 5px !important;white-space: nowrap;">
+                                        <a href="{{ $listing->url() }}#comments" class="btn btn-secondary btn-block">
+                                            <i class="fa fa-comments"></i> التعليقات
                                         </a>
                                     </div>
                                 </div>
@@ -129,8 +134,11 @@
 
                                         @if (auth()->guest() || auth()->user()->id != $listing->user->id)
                                             <a href="{{ Auth::check() ? '#' : route('login') }}" class="btn-block {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}" data-listing="{{ $listing->id }}">
-                                                <i class="fa fa-comments"></i> دردش</a>
+                                                <i class="fa fa-envelope"></i> دردش</a>
                                         @endif
+                                            <a href="{{ $listing->url() }}#comments" class="btn-block px-1">
+                                                <i class="fa fa-comments"></i> تعليق
+                                            </a>
                                         <a href="{{ Auth::check() ? 'tel:'.$listing->user->phone : route('login') }}" class="btn-block px-1"><i class="fa fa-phone"></i> إتصل</a>
                                     </div>
                                 </div>

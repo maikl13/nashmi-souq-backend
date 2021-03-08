@@ -1,4 +1,4 @@
-<div class="single-blog-box-layout1 pb-4">
+<div class="single-blog-box-layout1 pb-4" id="comments">
     <div class="blog-comment light-shadow-bg">
         <h3 class="widget-border-title">التعليقات 
             {{-- <small>{{ $listing->comments()->count() ? '('.$listing->comments()->parent()->count().')' : '' }}</small> --}}
