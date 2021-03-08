@@ -9,14 +9,12 @@
         <div class=" form-inline mr-auto horizontal" id="headerMenuCollapse">
 			<div class="d-none d-lg-block">
 				<ul class="nav">
-					@if(Auth::user()->is_superadmin())
-						<li class="nav-item">
-							<a class="nav-link mr-0" href="{{ request()->store->store_url() }}" target="_blank">
-								<i class="fa fa-eye"></i>
-								<span>معاينة المتجر</span>
-							</a>
-						</li>
-					@endif
+					<li class="nav-item">
+						<a class="nav-link mr-0" href="{{ request()->store->store_url() }}" target="_blank">
+							<i class="fa fa-eye"></i>
+							<span>معاينة المتجر</span>
+						</a>
+					</li>
 				</ul>
 		    </div>
 		</div>

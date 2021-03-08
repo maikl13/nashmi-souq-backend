@@ -11,6 +11,13 @@
 		</div>
 	</div>
 	<ul class="side-menu">
+		
+		<li class="d-sm-block d-lg-none d-xl-none">
+			<a class="side-menu__item" href="{{ request()->store->store_url() }}">
+				<i class="side-menu__icon fa fa-eye"></i>
+				<span class="side-menu__label">معاينة المتجر</span>
+			</a>
+		</li>
 		<li>
 			<a class="side-menu__item" href="/dashboard">
 				<i class="side-menu__icon fa fa-desktop"></i>

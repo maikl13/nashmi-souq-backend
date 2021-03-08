@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(UrlGenerator $url)
     {
         if(request()->getHost() == config('app.domain')){
-            $current_version = '3.04';
+            $current_version = '3.05';
             $version = \Cookie::has('version') ? \Crypt::decryptString(\Cookie::get('version')) : '1.0';
             $version = explode('|', $version);
             $version = end($version);
