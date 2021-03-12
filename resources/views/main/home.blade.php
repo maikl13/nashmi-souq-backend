@@ -16,9 +16,9 @@
     <!--=====================================-->
     <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common {{-- minus-mgt-90 --}}" data-bg-image="/assets/images/banner/banner1.jpg" style="padding: 8rem 0 7rem;">
         <div class="container">
-            <div class="main-banner-box-layout1 animated-headline">
-                <h1 class="ah-headline item-title" style="line-height: 60px; font-size: 2.5rem">
-                    <span class="ah-words-wrapper">
+            <div class="main-banner-box-layout1 animated-headline-">
+                <h1 class="ah-headline- item-title" style="line-height: 60px; font-size: 2.5rem">
+                    <span class="ah-words-wrapper-">
                         <b class="is-visible">{{ setting('slogan') }}</b>
                         <b>{{ setting('slogan') }}</b>
                     </span>
