@@ -50,11 +50,26 @@
             <?php 
                 $social_links = is_array( json_decode(Auth::user()->store_social_accounts) ) ? json_decode(Auth::user()->store_social_accounts) : [];
             ?>
-            <input type="text" class="form-control mb-2" name="social[]" value="{{ isset($social_links[0]) ? $social_links[0] : '' }}">
-            <input type="text" class="form-control mb-2" name="social[]" value="{{ isset($social_links[1]) ? $social_links[1] : '' }}">
-            <input type="text" class="form-control mb-2" name="social[]" value="{{ isset($social_links[2]) ? $social_links[2] : '' }}">
-            <input type="text" class="form-control mb-2" name="social[]" value="{{ isset($social_links[3]) ? $social_links[3] : '' }}">
-            <input type="text" class="form-control mb-2" name="social[]" value="{{ isset($social_links[4]) ? $social_links[4] : '' }}">
+            <div class="input-group mb-2">
+                <input type="text" class="form-control text-left" name="social[]" value="{{ $social_links[0] ?? '' }}">
+                <div class="input-group-append bg-gray" style="padding: 12px 18px;"><i class="fab fa-facebook-f"></i></div>
+            </div>
+            <div class="input-group mb-2">
+                <input type="text" class="form-control text-left" name="social[]" value="{{ $social_links[1] ?? '' }}">
+                <div class="input-group-append bg-gray" style="padding: 12px 18px;"><i class="fab fa-twitter"></i></div>
+            </div>
+            <div class="input-group mb-2">
+                <input type="text" class="form-control text-left" name="social[]" value="{{ $social_links[2] ?? '' }}">
+                <div class="input-group-append bg-gray" style="padding: 12px 18px;"><i class="fab fa-instagram"></i></div>
+            </div>
+            <div class="input-group mb-2">
+                <input type="text" class="form-control text-left" name="social[]" value="{{ $social_links[3] ?? '' }}">
+                <div class="input-group-append bg-gray" style="padding: 12px 18px;"><i class="fab fa-youtube"></i></div>
+            </div>
+            <div class="input-group mb-2">
+                <input type="text" class="form-control text-left" name="social[]" value="{{ $social_links[4] ?? '' }}">
+                <div class="input-group-append bg-gray" style="padding: 12px 18px;"><i class="fa fa-globe"></i></div>
+            </div>
         </div>
         <div class="form-group store-social" style="margin-bottom: 1.5rem !important;">
             <label class="control-label">أقسام المتجر</label>

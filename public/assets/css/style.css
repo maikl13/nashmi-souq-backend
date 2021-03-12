@@ -252,3 +252,6 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
 .store-search .no-gutters {
     margin: 0px -15px;
 }
+.swal2-actions {
+    font-size: 15px;
+}

@@ -45,17 +45,20 @@
 @endsection
 
 @section('content')
-	<div class="row mt-3">
-		<div class="col alert alert-default text-secondary bg-white text-right">
-			<span class="d-inline-block py-2">
-				<i class="fa fa-bullhorn" style="font-size: 30px;opacity: 0.4;line-height: 10px;top: 6px;position: relative;margin-left: 6px;transform: rotate3d(0, 1, 0, 180deg);"></i>
-				هل لديك طلب جاهز للشحن
-			</span>
-			<a href="{{ route('deliver') }}" class="float-left btn btn-info py-2" style="">
-				<i class="fa fa-truck ml-1 mr-2" style="opacity: .8;"></i> الشحن عن طريق نشمي
-			</a>
+	@if (strtolower(optional(country())->code) == 'eg')
+		<div class="row mt-3">
+			<div class="col alert alert-default text-secondary bg-white text-right">
+				<span class="d-inline-block py-2">
+					<i class="fa fa-bullhorn" style="font-size: 30px;opacity: 0.4;line-height: 10px;top: 6px;position: relative;margin-left: 6px;transform: rotate3d(0, 1, 0, 180deg);"></i>
+					هل لديك طلب جاهز للشحن
+				</span>
+				<a href="{{ route('deliver') }}" class="float-left btn btn-info py-2" style="">
+					<i class="fa fa-truck ml-1 mr-2" style="opacity: .8;"></i> الشحن عن طريق نشمي
+				</a>
+			</div>
 		</div>
-	</div>
+	@endif
+	
 	<div class="row card">
 		<div class="card-body">
 			<div class="e-table">

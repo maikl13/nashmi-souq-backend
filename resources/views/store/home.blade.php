@@ -54,14 +54,14 @@
                                 <div class="item-img">
                                     <a href="{{ $product->url() }}"><img src="{{ $product->product_image(['size'=>'xs']) }}" alt="Product"></a>
                                 </div>
-                                <div class="item-content">
+                                <div class="item-content p-3">
                                     <h3 class="item-title"><a href="{{ $product->url() }}" class="text-right">{{ $product->title }}</a></h3>
                                     <ul class="entry-meta">
-                                        <li class="d-none d-sm-block"><i class="far fa-clock"></i>{{ $product->created_at->diffForHumans() }}</li>
-                                        <li class="d-inline"><i class="fas fa-tags"></i>{{ $product->category ? $product->category->name : '' }}</li>
+                                        {{-- <li class="d-none d-sm-block"><i class="far fa-clock"></i>{{ $product->created_at->diffForHumans() }}</li> --}}
+                                        {{-- <li class="d-inline"><i class="fas fa-tags"></i>{{ $product->category ? $product->category->name : '' }}</li> --}}
                                         @if ($product->price)
-                                            <li class="d-inline mr-2">
-                                                <i class="fas fa-money-bill"></i>
+                                            <li class="d-inline" style="font-size: 16px;">
+                                                {{-- <i class="fas fa-money-bill"></i> --}}
                                                 {{ $product->local_price() }} 
                                                 <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
                                                 
@@ -74,6 +74,14 @@
                                             </li>
                                         @endif
                                     </ul>
+                                    
+                                    <form method="post" class="cart-form mt-2">
+                                        <input type="hidden" value="1" class="quantity" name="demo_vertical2"/>
+                                        <input type="hidden" value="{{ $product->id }}" class="product-id">
+                                        <button class="btn btn-info btn-block text-center py-2" type="submit">
+                                            <i class="fa fa-cart-plus ml-1"></i> إضافة لعربة التسوق
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

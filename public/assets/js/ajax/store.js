@@ -105,8 +105,8 @@ function update_totals(){
 
 function redirect_to_cart() {
     Swal.fire({
-      title: "تم اضافة المنتج لعربة التسوق",
-      width: 720,
+      text: "تم اضافة المنتج لعربة التسوق",
+      width: 520,
       padding: '3em',
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
