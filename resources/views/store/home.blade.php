@@ -5,7 +5,29 @@
 @section('head')
     <style>
         @media (max-width: 575px){
-            .home-listing { max-height: 110px; }
+            .home-listing { 
+                margin: 0;
+            }
+            .home-listing .item-img {
+                padding: 1rem 10px 0 0;
+                min-width: 110px;
+            }
+            .product-box-layout1 .item-img img {
+                width: auto;
+                height: auto;
+            }
+            .home-listing .item-content {
+                min-width: 218px;
+            }
+        }
+        @media (max-width: 350px){
+            .home-listing {
+                display: block;
+            }
+            .home-listing .item-img {
+                width: 100%;
+                padding: 0;
+            }
         }
     </style>
 @endsection
@@ -52,7 +74,7 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
                             <div class="product-box-layout1 home-listing">
                                 <div class="item-img">
-                                    <a href="{{ $product->url() }}"><img src="{{ $product->product_image(['size'=>'xs']) }}" alt="Product"></a>
+                                    <a href="{{ $product->url() }}"><img src="{{ $product->product_image(['size'=>'xs']) }}" class="w-100" alt="Product"></a>
                                 </div>
                                 <div class="item-content p-3">
                                     <h3 class="item-title mb-2">
