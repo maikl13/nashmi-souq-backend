@@ -59,7 +59,7 @@
                                             @if($product->price < $product->initial_price)
                                                 <del class="small text-muted">
                                                     {{ $product->local_initial_price() }}
-                                                    <small><span class="currency-symbol">{{ country()->currency->symbol }}</span></small>
+                                                    <span class="currency-symbol">{{ country()->currency->symbol }}</span>
                                                 </del>
                                             @endif
                                         </li>
