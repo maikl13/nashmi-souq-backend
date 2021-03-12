@@ -54,7 +54,7 @@
                                         <li class="d-inline text-secondary" style="font-size: 18px;">
                                             {{-- <i class="fas fa-money-bill"></i> --}}
                                             <span>{{ $product->local_price() }}</span>
-                                            <small><span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span></small>
+                                            <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
                                             
                                             @if($product->price < $product->initial_price)
                                                 <del class="small text-muted">
