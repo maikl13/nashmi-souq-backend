@@ -41,7 +41,9 @@
                                 <a href="{{ $product->url() }}"><img src="{{ $product->product_image(['size'=>'xs']) }}" alt="Product"></a>
                             </div>
                             <div class="item-content p-3">
-                                <h3 class="text-right font-weight-normal mb-2"><a href="{{ $product->url() }}">{{ $product->title }}</a></h3>
+                                <h3 class="item-title mb-2">
+                                    <a href="{{ $product->url() }}" class="text-right font-weight-normal">{{ $product->title }}</a>
+                                </h3>
                                 <ul class="entry-meta" dir="rtl">
                                     {{-- <li><i class="far fa-clock"></i>{{ $product->created_at->diffForHumans() }}</li> --}}
                                     {{-- <li class="d-inline">
