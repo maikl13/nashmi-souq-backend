@@ -57,7 +57,7 @@
                                             <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
                                             
                                             @if($product->price < $product->initial_price)
-                                                <del class="small text-muted">
+                                                <del class="small text-muted mr-2">
                                                     {{ $product->local_initial_price() }}
                                                     <span class="currency-symbol">{{ country()->currency->symbol }}</span>
                                                 </del>
