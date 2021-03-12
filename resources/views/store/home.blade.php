@@ -60,15 +60,15 @@
                                         {{-- <li class="d-none d-sm-block"><i class="far fa-clock"></i>{{ $product->created_at->diffForHumans() }}</li> --}}
                                         {{-- <li class="d-inline"><i class="fas fa-tags"></i>{{ $product->category ? $product->category->name : '' }}</li> --}}
                                         @if ($product->price)
-                                            <li class="d-inline" style="font-size: 16px;">
+                                            <li class="d-inline text-secondary" style="font-size: 18px;">
                                                 {{-- <i class="fas fa-money-bill"></i> --}}
-                                                {{ $product->local_price() }} 
-                                                <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
+                                                <span>{{ $product->local_price() }}</span>
+                                                <small><span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span></small>
                                                 
                                                 @if($product->price < $product->initial_price)
-                                                    <del>
+                                                    <del class="small text-muted">
                                                         {{ $product->local_initial_price() }}
-                                                        <span class="currency-symbol">{{ country()->currency->symbol }}</span>
+                                                        <small><span class="currency-symbol">{{ country()->currency->symbol }}</span></small>
                                                     </del>
                                                 @endif
                                             </li>
