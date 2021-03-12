@@ -41,7 +41,7 @@
                                 <a href="{{ $product->url() }}"><img src="{{ $product->product_image(['size'=>'xs']) }}" alt="Product"></a>
                             </div>
                             <div class="item-content p-3">
-                                <h3 class="item-title"><a href="{{ $product->url() }}">{{ $product->title }}</a></h3>
+                                <h3 class="text-right font-weight-normal mb-2"><a href="{{ $product->url() }}">{{ $product->title }}</a></h3>
                                 <ul class="entry-meta" dir="rtl">
                                     {{-- <li><i class="far fa-clock"></i>{{ $product->created_at->diffForHumans() }}</li> --}}
                                     {{-- <li class="d-inline">
@@ -51,13 +51,13 @@
                                         @endif
                                     </li> --}}
                                     @if ($product->price)
-                                        <li class="d-inline text-secondary" style="font-size: 18px;">
+                                        <li class="d-inline" style="font-size: 18px; color: #555;">
                                             {{-- <i class="fas fa-money-bill"></i> --}}
                                             <span>{{ $product->local_price() }}</span>
                                             <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
                                             
                                             @if($product->price < $product->initial_price)
-                                                <del class="small text-muted mr-2">
+                                                <del class="small mr-2" style="color: #aaa;">
                                                     {{ $product->local_initial_price() }}
                                                     <span class="currency-symbol">{{ country()->currency->symbol }}</span>
                                                 </del>
@@ -66,7 +66,7 @@
                                     @endif
                                 </ul>
                                 
-                                <form method="post" class="cart-form mt-2">
+                                <form method="post" class="cart-form mt-3">
                                     <input type="hidden" value="1" class="quantity" name="demo_vertical2"/>
                                     <input type="hidden" value="{{ $product->id }}" class="product-id">
                                     <button class="btn btn-info btn-block text-center py-2" type="submit">
