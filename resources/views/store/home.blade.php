@@ -45,7 +45,7 @@
                 <div class="main-banner-box-layout1 animated-headline-">
                     <h1 class="ah-headline- item-title" style="line-height: 60px; font-size: 2.5rem">
                         <span class="ah-words-wrapper-">
-                            <b class="is-visible">{{ request()->store->store_slogan }}</b>
+                            {{-- <b class="is-visible">{{ request()->store->store_slogan }}</b> --}}
                             <b>{{ request()->store->store_slogan }}</b>
                         </span>
                     </h1>
