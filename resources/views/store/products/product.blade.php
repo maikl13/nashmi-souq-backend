@@ -74,10 +74,10 @@
 
                                 <div class="single-entry-meta">
                                     <ul>
-                                        <li>
+                                        {{-- <li>
                                             <i class="far fa-clock"></i>
                                             {{ $product->created_at->diffForHumans() }}
-                                        </li>
+                                        </li> --}}
                                         <li>
                                             <i class="fas fa-tags"></i>
                                             @if($product->category)
