@@ -6,7 +6,7 @@
 				$latest_message = $conversation->messages()->latest()->first();
 			@endphp
 			@if ($latest_message)
-				<span class="chat-time">{{ latest_message->created_at->format('d m Y') == date('d m Y') ? $latest_message->created_at->format('h:i') : $latest_message->created_at->format('d M') }}</span>
+				<span class="chat-time">{{ $latest_message->created_at->format('d m Y') == date('d m Y') ? $latest_message->created_at->format('h:i') : $latest_message->created_at->format('d M') }}</span>
 			@endif
 			<h6 class="mb-0">{{ $conversation->other_partey()->store_name() }}</h6>
 			@if ($latest_message)
