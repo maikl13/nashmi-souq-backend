@@ -26,7 +26,7 @@
                     <input type="number" step=".01" class="form-control" name="initial_price" id="initial_price" value="{{ old('initial_price') ?? $product->initial_price }}">
                     <div class="input-group-prepend">
                         <select name="currency" id="currency" class="form-control" style="padding: 6px 15px !important;height: auto; border-radius: 0;">
-                            @foreach (App\Models\Currency::whereIn('id', auth()->user()->store_categories)->get() as $currency)
+                            @foreach (App\Models\Currency::get() as $currency)
                                 <option title="{{ $currency->name }}" value="{{ $currency->id }}"
                                     {{ $product->currency_id == $currency->id ? 'selected' : '' }}>{{ $currency->symbol }}</option>
                             @endforeach
