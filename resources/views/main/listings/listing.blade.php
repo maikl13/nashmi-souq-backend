@@ -4,7 +4,7 @@
 
 @section('description', \Str::limit(strip_tags($listing->description), 200))
 
-@section('image', asset($listing->listing_image()))
+@section('image', asset(str_replace('webp', 'jpg', $listing->listing_image())))
 
 @section('head')
     <link rel="stylesheet" type="text/css" href="/assets/plugins/fancybox-master/jquery.fancybox.min.css">
