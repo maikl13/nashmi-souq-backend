@@ -3,9 +3,9 @@
     <div class="author-content">
         <div class="author-name">
             <div class="item-img">
-                <img src="{{ $listing->user->store_image(['size'=>'xxs']) }}" width="50" height="50" alt="author">
+                <img src="{{ $listing->user->profile_picture(['size'=>'xxs']) }}" width="50" height="50" alt="author">
             </div>
-            <h4 class="author-title"><a href="{{ $listing->user->url() }}">{{ $listing->user->store_name() }}</a></h4>
+            <h4 class="author-title"><a href="{{ $listing->user->url() }}">{{ $listing->user->name }}</a></h4>
         </div>
         <div class="author-meta">
             <ul>
@@ -22,7 +22,7 @@
 
         @if(Auth::guest() || Auth::user()->id != $listing->user->id)
             <div class="author-mail">
-                <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->store_name() }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}" data-listing="{{ $listing->id }}">
+                <a href="{{ Auth::check() ? '#' : route('login') }}" class="mail-btn {{ Auth::check() ? 'toggle-chat' : '' }}" data-name="{{ $listing->user->name }}" data-logo="{{ $listing->user->store_logo() }}" data-username="{{ $listing->user->username }}" data-listing="{{ $listing->id }}">
                     <i class="fas fa-envelope"></i> التحدث مع ناشر الإعلان
                 </a>
             </div>

@@ -1,7 +1,31 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>{{ setting('website_name') }} | @yield('title')</title>
+        <title>{{ $store->store_name }} | @yield('title')</title>
+        <meta name="description" content="@yield('description', $store->store_description)">
+        
+        <!-- facebook open graph -->
+        <meta property="og:site_name" content="{{ config('app.name') }}" />
+        <meta property="og:locale" content="{{ app()->getLocale() }}" />
+        <meta property="og:locale:alternate" content="{{ app()->getLocale() == 'en' ? 'ar' : 'en' }}" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="{{ $store->store_name }} | @yield('title')">
+        <meta property="og:description" content="@yield('description', setting('website_description'))">
+        <meta property="og:image:height" content="256" />
+        <meta property="og:image:width" content="256" />
+        <!-- end facebook open graph -->
+
+        <!-- twitter cards -->
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:site" content="@83XKU76et1Qoepo">
+        <meta name="twitter:creator" content="@83XKU76et1Qoepo"/>
+        <meta name="twitter:title" content="{{ $store->store_name }} | @yield('title')"/>
+        <meta name="twitter:description" content="@yield('description', setting('website_description'))">
+        <!-- end twitter cards -->
+
+        <meta property="og:image" content="@yield('image', asset('/assets/images/logosquare.jpg'))"/>
+        <meta property="og:url" content="{{ request()->fullUrl() }}" />
+
         @include('store.layouts.partials.head')
         @yield('head')
     </head>

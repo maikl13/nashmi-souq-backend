@@ -30,6 +30,10 @@
 
 @section('title', 'معاينة المنتج | '. $product->title)
 
+@section('description', \Str::limit(strip_tags($product->description), 200))
+
+@section('image', asset($product->product_image()))
+
 @section('head')
     <link rel="stylesheet" type="text/css" href="/assets/plugins/fancybox-master/jquery.fancybox.min.css">
     <style>
