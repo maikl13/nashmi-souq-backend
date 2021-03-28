@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>{{ $store->store_name }} | @yield('title')</title>
-        <meta name="description" content="@yield('description', $store->store_description)">
+        <title>{{ request()->store->store_name }} | @yield('title')</title>
+        <meta name="description" content="@yield('description', request()->store->store_description)">
         
         <!-- facebook open graph -->
         <meta property="og:site_name" content="{{ config('app.name') }}" />
         <meta property="og:locale" content="{{ app()->getLocale() }}" />
         <meta property="og:locale:alternate" content="{{ app()->getLocale() == 'en' ? 'ar' : 'en' }}" />
         <meta property="og:type" content="website"/>
-        <meta property="og:title" content="{{ $store->store_name }} | @yield('title')">
+        <meta property="og:title" content="{{ request()->store->store_name }} | @yield('title')">
         <meta property="og:description" content="@yield('description', setting('website_description'))">
         <meta property="og:image:height" content="256" />
         <meta property="og:image:width" content="256" />
@@ -19,7 +19,7 @@
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:site" content="@83XKU76et1Qoepo">
         <meta name="twitter:creator" content="@83XKU76et1Qoepo"/>
-        <meta name="twitter:title" content="{{ $store->store_name }} | @yield('title')"/>
+        <meta name="twitter:title" content="{{ request()->store->store_name }} | @yield('title')"/>
         <meta name="twitter:description" content="@yield('description', setting('website_description'))">
         <!-- end twitter cards -->
 
