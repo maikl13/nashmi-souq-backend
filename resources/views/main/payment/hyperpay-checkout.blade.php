@@ -105,7 +105,7 @@
                 // }
             }
         </script>
-        <script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId={{ $checkout_id }}"></script>
+        <script src="{{ config('services.hyperpay.api_url') }}/v1/paymentWidgets.js?checkoutId={{ $checkout_id }}"></script>
     </body>
 </html>
 

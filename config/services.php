@@ -40,9 +40,9 @@ return [
 
     'hyperpay' => [
         'api_url' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_API_URL') :  env('HYPERPAY_LIVE_API_URL'),
-        'access_token' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_ACCESS_TOKEN') :  env('HYPERPAY_ACCESS_TOKEN'),
-        'entity_id' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_ENTITY_ID') :  env('HYPERPAY_ENTITY_ID'),
-        'mada_entity_id' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_MADA_ENTITY_ID') :  env('HYPERPAY_MADA_ENTITY_ID'),
-        'ssl' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_SSL') :  env('HYPERPAY_SSL'),
+        'access_token' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_ACCESS_TOKEN') :  env('HYPERPAY_LIVE_ACCESS_TOKEN'),
+        'entity_id' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_ENTITY_ID') :  env('HYPERPAY_LIVE_ENTITY_ID'),
+        'mada_entity_id' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_MADA_ENTITY_ID') :  env('HYPERPAY_LIVE_MADA_ENTITY_ID'),
+        'ssl' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_SSL') :  env('HYPERPAY_LIVE_SSL'),
     ]
 ];
