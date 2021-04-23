@@ -35,7 +35,7 @@ trait PaymentTrait {
     public function direct_payment($options=[]){
         if(
             (auth()->check() && optional(auth()->user()->country)->code == 'sa') || 
-            (auth()->guest() && location()->code == 'sa')
+            (auth()->guest() && optional(country())->code == 'sa')
         )
             return $this->hyperpay_payment($options);
         return $this->nbe_direct_payment($options);
