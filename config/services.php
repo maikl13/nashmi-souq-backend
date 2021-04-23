@@ -30,12 +30,19 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'mpgs' => [
-        'api_url' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_API_URL') :  env('MPGS_LIVE_API_URL'),
-        'merchant' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_MERCHANT') :  env('MPGS_LIVE_MERCHANT'),
-        'merchant_id' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_MERCHANT_ID') :  env('MPGS_LIVE_MERCHANT_ID'),
-        'api_password' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_API_PASSWORD') :  env('MPGS_LIVE_API_PASSWORD'),
-        'operation' => env('MPGS_MODE') == 'test' ? env('MPGS_TEST_OPERATION') :  env('MPGS_LIVE_OPERATION'),
-    ]
+    'nbe_mpgs' => [
+        'api_url' => env('NBE_MPGS_MODE') == 'test' ? env('NBE_MPGS_TEST_API_URL') :  env('NBE_MPGS_LIVE_API_URL'),
+        'merchant' => env('NBE_MPGS_MODE') == 'test' ? env('NBE_MPGS_TEST_MERCHANT') :  env('NBE_MPGS_LIVE_MERCHANT'),
+        'merchant_id' => env('NBE_MPGS_MODE') == 'test' ? env('NBE_MPGS_TEST_MERCHANT_ID') :  env('NBE_MPGS_LIVE_MERCHANT_ID'),
+        'api_password' => env('NBE_MPGS_MODE') == 'test' ? env('NBE_MPGS_TEST_API_PASSWORD') :  env('NBE_MPGS_LIVE_API_PASSWORD'),
+        'operation' => env('NBE_MPGS_MODE') == 'test' ? env('NBE_MPGS_TEST_OPERATION') :  env('NBE_MPGS_LIVE_OPERATION'),
+    ],
 
+    'hyperpay' => [
+        'api_url' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_API_URL') :  env('HYPERPAY_LIVE_API_URL'),
+        'access_token' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_ACCESS_TOKEN') :  env('HYPERPAY_ACCESS_TOKEN'),
+        'entity_id' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_ENTITY_ID') :  env('HYPERPAY_ENTITY_ID'),
+        'mada_entity_id' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_MADA_ENTITY_ID') :  env('HYPERPAY_MADA_ENTITY_ID'),
+        'ssl' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_SSL') :  env('HYPERPAY_SSL'),
+    ]
 ];

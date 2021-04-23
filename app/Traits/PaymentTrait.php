@@ -2,9 +2,9 @@
 
 namespace App\Traits;
 
-use Illuminate\Http\Request;
-use App\Models\Transaction;
 use App\Models\Currency;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
 trait PaymentTrait {
@@ -32,38 +32,37 @@ trait PaymentTrait {
         return $transaction;
     }
 
-    public function direct_payment($options=[])
+    public function direct_payment($options=[]){
+        if(
+            (auth()->check() && optional(auth()->user()->country)->code == 'sa') || 
+            (auth()->guest() && location()->code == 'sa')
+        )
+            return $this->hyperpay_payment($options);
+        return $this->nbe_direct_payment($options);
+    }
+
+    public function nbe_direct_payment($options=[])
     {
-        $transaction = $this;
-        $uid = $transaction->uid;
         $address1 = $options['address1'] ?? 'NOT REQUIRED';
         $address2 = $options['address2'] ?? 'NOT REQUIRED';
         $description = $options['description'] ?? 'Ordered goods';
-        $return_url = $options['return_url'] ?? url('/')."/payment-result?uid=$uid";
-        $currency = $options['currency'] ?? 'EGP';
-        $amount = ceil(exchange($transaction->amount, $transaction->currency->code, $currency));
-        $params = $this->request_hosted_checkout_interaction($amount, $currency, $uid, $return_url);
-        // $params = [
-        //     'result' => 'SUCCESS',
-        //     'successIndicator' => 'abc',
-        //     'session.id' => '123'
-        // ];
+        $amount = ceil(exchange($this->amount, $this->currency->code, 'EGP'));
+        $params = $this->nbe_request_hosted_checkout_interaction($amount, $options);
+        // $params = ['result' => 'SUCCESS','successIndicator' => 'abc','session.id' => '123'];
         if($params['result'] == 'SUCCESS'){
             if(!empty($params['session.id']) && !empty($params['successIndicator'])){
                 if(auth()->user()){
-                    $transaction->success_indicator = $params['successIndicator'];
-                    $transaction->save();
+                    $this->success_indicator = $params['successIndicator'];
+                    $this->save();
                 }
 
-                // return redirect()->to($return_url."&resultIndicator=abc");
-                // header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
-                return view('main.payment.hosted-checkout')->with([
+                return view('main.payment.nbe-hosted-checkout')->with([
                     'session_id' => $params['session.id'],
                     'amount' => $amount,
                     'address1' => $address1,
                     'address2' => $address2,
-                    'uid' => $uid,
-                    'currency' => $currency,
+                    'uid' => $this->uid,
+                    'currency' => "EGP",
                     'description' => $description,
                 ]);
             }
@@ -71,20 +70,32 @@ trait PaymentTrait {
         dd('An Error Occured');
     }
 
-    public function request_hosted_checkout_interaction($amount, $currency, $uid, $return_url)
+    public function nbe_request_hosted_checkout_interaction($amount, $options)
     {
-        $api_url = config('services.mpgs.api_url').'/api/nvp/version/57';
-        $api_password = config('services.mpgs.api_password');
-        $merchant_id = config('services.mpgs.merchant_id');
-        $operation = config('services.mpgs.operation');
-        $uid = $options['uid'] ?? uniqid();
-        $interaction_return_url = $return_url ? "interaction.returnUrl=$return_url&" : '';
+        $return_url = $options['return_url'] ?? url('/')."/payment-result?uid=".$this->uid;
+
+        $api_url = config('services.nbe_mpgs.api_url').'/api/nvp/version/57';
+        $api_password = config('services.nbe_mpgs.api_password');
+        $merchant_id = config('services.nbe_mpgs.merchant_id');
+        $operation = config('services.nbe_mpgs.operation');
+
+        $data = http_build_query([
+            'apiOperation' => 'CREATE_CHECKOUT_SESSION',
+            'apiPassword' => $api_password,
+            'apiUsername' => 'merchant.'.$merchant_id,
+            'merchant' => $merchant_id,
+            'interaction.operation' => $operation,
+            'interaction.returnUrl' => $return_url,
+            'order.id' => $this->uid,
+            'order.amount' => $amount,
+            'order.currency' => 'EGP',
+        ]);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $api_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "apiOperation=CREATE_CHECKOUT_SESSION&apiPassword=$api_password&apiUsername=merchant.$merchant_id&merchant=$merchant_id&interaction.operation=$operation&{$interaction_return_url}order.id=$uid&order.amount=$amount&order.currency=EGP");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $headers = array();
         $headers[] = 'Content-Type: application/x-www-form-urlencoded';
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -102,6 +113,73 @@ trait PaymentTrait {
         }
 
         return $params;
+    }
+
+    public function hyperpay_payment($options=[])
+    {
+        $return_url = $options['return_url'] ?? url('/')."/hyperpay-payment-result?uid=$this->uid";
+        $amount = ceil(exchange($this->amount, $this->currency->code, 'SAR'));
+        $params = $this->hyperpay_prepare_checkout($amount, $options, $return_url);
+        $params = json_decode($params, true);
+
+        if($params['result']['code'] == '000.200.100'){
+            if( !empty($params['id']) ){
+                if(auth()->user()){
+                    $this->success_indicator = $params['id'];
+                    $this->save();
+                }
+                return view('main.payment.hyperpay-checkout')->with([
+                    'return_url' => $return_url,
+                    'checkout_id' => $params['id'],
+                    'amount' => $amount
+                ]);
+            }
+        }
+        dd('An Error Occured');
+    }
+
+    public function hyperpay_prepare_checkout($amount, $options)
+    {
+        $address1 = $options['address1'] ?? 'NOT REQUIRED';
+        $address2 = $options['address2'] ?? 'NOT REQUIRED';
+        $description = $options['description'] ?? 'Ordered goods';
+
+        $api_url = config('services.hyperpay.api_url')."/v1/checkouts";
+        $access_token = config('services.hyperpay.access_token');
+        $entity_id = config('services.hyperpay.entity_id');
+        $ssl = config('services.hyperpay.ssl');
+        $uid = $options['uid'] ?? uniqid();
+
+        $data = http_build_query([
+            'entityId' => $entity_id,
+            'amount' => $amount,
+            'currency' => 'SAR',
+            'paymentType' => 'DB',
+            'merchantTransactionId' => $this->uid,
+            'customer.email' => optional(auth()->user())->email ?: 'user@example.com',
+            'billing.street1' => $address1,
+            'billing.city' => $address1,
+            'billing.state' => $address1,
+            'billing.country' => strtoupper(location()->code),
+            'billing.postcode' => 'NOT REQUIRED',
+            'customer.givenName' => optional(auth()->user())->name ?: 'User',
+            'customer.surname' => optional(auth()->user())->username ?: 'User',
+            'customer.mobile' => optional(auth()->user())->phone ?: '',
+        ]);
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization:Bearer '.$access_token));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $ssl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $responseData = curl_exec($ch);
+        if(curl_errno($ch)) {
+            return curl_error($ch);
+        }
+        curl_close($ch);
+        return $responseData;
     }
 
     public function pay_from_wallet($transaction)

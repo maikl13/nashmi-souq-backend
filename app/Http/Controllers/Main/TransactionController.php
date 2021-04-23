@@ -14,15 +14,44 @@ class TransactionController extends Controller
         if(!isset($request->uid) || !isset($request->resultIndicator)) abort(500);
 
         $transaction = Transaction::where('uid', $request->uid)->firstOrFail();
+        if($transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT) return;
+
         if($transaction->success_indicator === $request->resultIndicator){
             $transaction->status = Transaction::STATUS_PROCESSED;
             $transaction->save();
-            $order = Order::where('transaction_id', $transaction->id)->first();
-            if($order){
-                $order->status = Order::STATUS_PROCESSING;
-                $order->save();
-                return redirect()->route('order-saved');
-            }
+            return view('main.payment.payment-success');
+        }
+        return view('main.payment.payment-failed');
+    }
+
+    public function hyperpay_payment_result(Request $request)
+    {
+        if(!isset($request->uid) || !isset($request->resourcePath)) abort(500);
+
+        $transaction = Transaction::where('uid', $request->uid)->firstOrFail();
+        if($transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT) return;
+
+        $access_token = config('services.hyperpay.access_token');
+        $entity_id = config('services.hyperpay.entity_id');
+        $ssl = config('services.hyperpay.ssl');
+        $url = config('services.hyperpay.api_url').$request->resourcePath."?entityId=".$entity_id;
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization:Bearer '.$access_token));
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $ssl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $responseData = curl_exec($ch);
+        if(curl_errno($ch)) {
+            return curl_error($ch);
+        }
+        curl_close($ch);
+        $response = json_decode($responseData, true);
+
+        if(isset($response['result']) && isset($response['result']['code']) && $response['result']['code'] == '000.100.110'){
+            $transaction->status = Transaction::STATUS_PROCESSED;
+            $transaction->save();
             return view('main.payment.payment-success');
         }
         return view('main.payment.payment-failed');
@@ -92,6 +121,6 @@ class TransactionController extends Controller
         ]);
         $amount = $request->amount;
         $transaction = Transaction::payment_init($amount, currency(), ['type'=>Transaction::TYPE_DEPOSIT]);
-        return $transaction->direct_payment(['return_url'=>false]);
+        return $transaction->direct_payment([]);
     }
 }

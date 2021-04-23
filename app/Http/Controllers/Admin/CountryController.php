@@ -32,7 +32,7 @@ class CountryController extends Controller
             'name' => 'required|min:2|max:255',
             'country_code' => 'required',
             'currency' => 'required|exists:currencies,id',
-            'delivery_phone' => 'required|max:255',
+            'delivery_phone' => 'nullable|max:255',
         ]);
 
         $country = new Country;
@@ -73,7 +73,7 @@ class CountryController extends Controller
         $request->validate([
             'name' => 'required|min:2|max:255',
             'country_code' => 'required',
-            'delivery_phone' => 'required|max:255',
+            'delivery_phone' => 'nullable|max:255',
             'currency' => 'required|exists:currencies,id',
         ]);
 

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <script src="{{ config('services.mpgs.api_url') }}/checkout/version/57/checkout.js"
+        <script src="{{ config('services.nbe_mpgs.api_url') }}/checkout/version/57/checkout.js"
             data-error="errorCallback"
             data-cancel="cancelCallback">
         </script>
@@ -26,7 +26,7 @@
                         country      : 'USA'
                     }
                 },
-                merchant: '{{ config('services.mpgs.merchant_id') }}',
+                merchant: '{{ config('services.nbe_mpgs.merchant_id') }}',
                 order: {
                     amount: function() {
                         //Dynamic calculation of amount
@@ -39,7 +39,7 @@
                 interaction: {
                     operation: 'PURCHASE', // set this field to 'PURCHASE' for Hosted Checkout to perform a Pay Operation.
                     merchant: {
-                        name: '{{ config('services.mpgs.merchant') }}',
+                        name: '{{ config('services.nbe_mpgs.merchant') }}',
                         address: {
                             line1: '{{ $address1 }}',
                             line2: '{{ $address1 }}'            

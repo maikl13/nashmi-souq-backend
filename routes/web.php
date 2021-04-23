@@ -87,3 +87,5 @@ Route::get('c/{country}', 'MainController@change_country');
 
 Route::get('direct-payment', 'TransactionController@direct_payment');
 Route::post('direct-payment', 'TransactionController@make_direct_payment');
+Route::get('payment-result', 'TransactionController@payment_result');
+Route::get('hyperpay-payment-result', 'TransactionController@hyperpay_payment_result');

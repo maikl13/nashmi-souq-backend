@@ -61,8 +61,8 @@
 				</div>
 				<div class="modal-body" dir="rtl">
 					<div class="form-group">
-						<label for="delivery_phone" class="form-control-label"> رقم هاتف شركة الشحن :</label>
-						<input type="text" class="form-control text-right" id="delivery_phone" name="delivery_phone" value="{{ old('delivery_phone') ? old('delivery_phone') : $country->delivery_phone }}" required>
+						<label for="" class="form-controldelivery_phone-label"> رقم هاتف شركة الشحن :</label>
+						<input type="text" class="form-control text-right" id="delivery_phone" name="delivery_phone" value="{{ old('delivery_phone') ? old('delivery_phone') : $country->delivery_phone }}" >
 					</div>
 				</div>
 				<div class="modal-body" dir="rtl">
