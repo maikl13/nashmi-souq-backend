@@ -54,7 +54,7 @@
                         <div class="col-6">
                             <div class="mt-3 text-center">
                                 <span class="text-white"> المتاجر </span>
-                                <h2 class="text-white mb-0">{{ App\Models\User::whereNotNull('store_name')->count() }}</h2>
+                                <h2 class="text-white mb-0">{{ App\Models\User::whereNotNull('store_name')->whereNotNull('store_slug')->count() }}</h2>
                             </div>
                         </div>
                     </div>
