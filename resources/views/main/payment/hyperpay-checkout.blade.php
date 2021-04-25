@@ -51,6 +51,11 @@
             .wpwl-label {
                 margin-bottom: 5px;
             }
+            
+            .wpwl-wrapper-cardNumber {
+                direction: ltr;
+                text-align: right;
+            }
             /* .wpwl-control-brand, .wpwl-control-brand option {font-size: 15px;} */
             @media (max-width: 360px){
                 .card-header {text-align: center;}
@@ -91,6 +96,7 @@
                     'card-number-placeholder': {
                         'font-family': 'sans-serif',
                         'font-size': '18px',
+                        'direction': 'ltr'
                     },
                     'cvv-placeholder': {
                         'font-family': 'sans-serif',
