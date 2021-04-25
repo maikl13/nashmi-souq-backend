@@ -89,6 +89,6 @@ trait StoreInfo {
     public function remaining_days()
     {
         $subscription = $this->subscriptions()->active()->orderBy('end', 'desc')->first();
-        return $subscription->end->isFuture() ? $subscription->end->diffInDays() : 0;
+        return optional($subscription->end)->isFuture() ? $subscription->end->diffInDays() : 0;
     }
 }
