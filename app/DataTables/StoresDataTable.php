@@ -33,7 +33,7 @@ class StoresDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->whereNotNull('store_name');
+        return $model->whereNotNull('store_name')->whereNotNull('store_slug');
     }
 
     /**
