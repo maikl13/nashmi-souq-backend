@@ -9,6 +9,8 @@ use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\DataTables\UsersDataTable;
+use App\DataTables\StoresDataTable;
+use App\DataTables\SubscriptionsDataTable;
 use Auth;
 
 
@@ -45,6 +47,11 @@ class UserController extends Controller
             dd('done');
         }
         return $dataTable->render('admin.users.users');
+    }
+
+    public function stores(StoresDataTable $dataTable)
+    {
+        return $dataTable->render('admin.users.stores');
     }
 
 
@@ -97,10 +104,12 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user=null)
+    public function show(SubscriptionsDataTable $dataTable, User $user=null)
     {
         $user = $user ? $user : Auth::user();
-        return view('admin.users.user')->with('user', $user);
+        // return view('admin.users.user')->with('user', $user);
+        return $dataTable->with(['query' => $user->subscriptions()->active()])
+            ->render('admin.users.user', ['user' => $user]);
     }
 
 

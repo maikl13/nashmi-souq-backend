@@ -49,6 +49,21 @@
 
 	<?php $noicon = true; ?>
 	@include('main.users.partials.balance')
+	
+
+	<div class="card">
+		<div class="card-header text-right">
+			<h4 class="d-inline float-right">إشتراكات المتجر</h4>
+		</div>
+		<div class="card-body">
+			<div class="e-table">
+				<div class="table-responsive table-lg">
+					{!! $dataTable->table(['class' => 'table table-bordered text-center text-nowrap'], true) !!}
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div class="card">
 		<div class="card-header text-right">
 			<h4 class="d-inline float-right">العمليات المالية للحساب</h4>
@@ -59,4 +74,8 @@
 	</div>
 
     @include('main.users.partials.balance-details-modal')
+@endsection
+
+@section('scripts')
+	{!! $dataTable->scripts() !!}
 @endsection

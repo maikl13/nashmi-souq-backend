@@ -24,6 +24,12 @@
 			</a>
 		</li>
 		<li>
+			<a class="side-menu__item" href="/admin/stores">
+				<i class="side-menu__icon fa fa-shopping-cart"></i>
+				<span class="side-menu__label">المتاجر</span>
+			</a>
+		</li>
+		<li>
 			<a class="side-menu__item" href="/admin/listings">
 				<i class="side-menu__icon fa fa-list"></i>
 				<span class="side-menu__label">الإعلانات</span>

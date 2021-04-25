@@ -8,6 +8,7 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 
 	// Users
 	Route::get('users', 'UserController@index')->name('users.index');
+	Route::get('stores', 'UserController@stores')->name('users.stores');
 	Route::get('admins/add', 'UserController@create');
 	Route::post('admins/add', 'UserController@store');
 	Route::get('profile', 'UserController@show');

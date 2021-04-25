@@ -85,4 +85,10 @@ trait StoreInfo {
         $subscription = $this->subscriptions()->active()->orderBy('end', 'desc')->first();
         return $subscription->end < now() && $subscription->end >= now()->subDays(setting('grace_period')) ? true : false;
     }
+
+    public function remaining_days()
+    {
+        $subscription = $this->subscriptions()->active()->orderBy('end', 'desc')->first();
+        return $subscription->end->isFuture() ? $subscription->end->diffInDays() : 0;
+    }
 }

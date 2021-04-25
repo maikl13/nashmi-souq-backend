@@ -2,15 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Subscription;
-use App\Models\Country;
+use App\Models\User;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class SubscriptionsDataTable extends DataTable
+class StoresDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -22,29 +21,19 @@ class SubscriptionsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('period', function($record){
-                return $record->period;
-            })
-            ->addColumn('start', function($record){
-                return $record->start->format('Y-m-d');
-            })
-            ->addColumn('end', function($record){
-                return $record->end->format('Y-m-d');
-            })
-            ->addColumn('type', function($record){
-                return $record->type;
-            });
+            ->addColumn('remaining', function($user){ return $user->remaining_days(); })
+            ->addColumn('action', 'admin.users.stores-action')->setRowId(function ($user) { return $user->id; });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Subscription $model
+     * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Subscription $model)
+    public function query(User $model)
     {
-        return $this->query ? $this->query : auth()->user()->subscriptions()->active();
+        return $model->whereNotNull('store_name');
     }
 
     /**
@@ -65,11 +54,11 @@ class SubscriptionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
-            Column::make('period')->title('المدة'),
-            Column::make('start')->title('من'),
-            Column::make('end')->title('الى'),
-            Column::make('type')->title('نوع الاشتراك'),
+            Column::make('id')->searchable(false),
+            Column::make('store_name')->title('اسم المتجر'),
+            Column::make('name')->title('اسم المستخدم'),
+            Column::make('remaining')->title('الأيام المتبقية'),
+            Column::computed('action')->searchable(false)->title('⚙'),
         ];
     }
 
@@ -80,6 +69,6 @@ class SubscriptionsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Subscriptions_' . date('YmdHis');
+        return 'Users_' . date('YmdHis');
     }
 }
