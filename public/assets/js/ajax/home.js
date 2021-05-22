@@ -6,8 +6,8 @@ $(document).on("click", '.more-listings', function(e){
     $.get({
         url: '/?page='+page,
         beforeSend: function(){
-            $(this).attr("disabled", true);
-            $(this).html('<i class="fa fa-spinner fa-spin" style="padding: 2px 0px;"></i>');
+            btn.attr("disabled", true);
+            btn.html('<i class="fa fa-spinner fa-spin" style="padding: 2px 0px;"></i> ' + btnText);
         },
         success: function(data){
             console.log(data);
@@ -20,7 +20,7 @@ $(document).on("click", '.more-listings', function(e){
         },
         complete: function (data){
             page++;
-            $(this).attr("disabled", false).text( btnText );;
+            btn.attr("disabled", false).text( btnText );;
         }
     });
 });
