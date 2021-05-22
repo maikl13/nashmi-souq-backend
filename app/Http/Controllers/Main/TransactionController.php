@@ -117,7 +117,7 @@ class TransactionController extends Controller
     public function make_direct_payment(Request $request)
     {
         $request->validate([
-            'amount' => 'integer|min:1|max:1000000'
+            'amount' => 'numeric|min:1|max:1000000'
         ]);
         $amount = $request->amount;
         $transaction = Transaction::payment_init($amount, currency(), ['type'=>Transaction::TYPE_DEPOSIT]);

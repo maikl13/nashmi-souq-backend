@@ -58,7 +58,7 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <input type="number" step="1" class="form-control" name="amount" id="amount" value="{{ old('amount') ? old('amount') : '' }}">
+                                                        <input type="number" step=".01" class="form-control" name="amount" id="amount" value="{{ old('amount') ? old('amount') : '' }}">
                                                     </div>
                                                 </div>
                                             </div>

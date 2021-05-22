@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Main;
 
-use App\Http\Controllers\Controller;
+use App\Models\Listing;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class MainController extends Controller
 {
@@ -14,7 +15,12 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('main.home');
+        $listings = Listing::localized()->active()->featured()->paginate(8);
+
+        if (request()->ajax())
+            return response()->json(view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);
+
+        return view('main.home', ['listings' => $listings]);
     }
 
 

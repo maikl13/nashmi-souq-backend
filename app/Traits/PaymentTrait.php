@@ -46,7 +46,7 @@ trait PaymentTrait {
         $address1 = $options['address1'] ?? 'NOT REQUIRED';
         $address2 = $options['address2'] ?? 'NOT REQUIRED';
         $description = $options['description'] ?? 'Ordered goods';
-        $amount = ceil(exchange($this->amount, $this->currency->code, 'EGP'));
+        $amount = exchange($this->amount, $this->currency->code, 'EGP');
         $params = $this->nbe_request_hosted_checkout_interaction($amount, $options);
         // $params = ['result' => 'SUCCESS','successIndicator' => 'abc','session.id' => '123'];
         if($params['result'] == 'SUCCESS'){
@@ -118,7 +118,7 @@ trait PaymentTrait {
     public function hyperpay_payment($options=[])
     {
         $return_url = $options['return_url'] ?? url('/')."/hyperpay-payment-result?uid=$this->uid";
-        $amount = ceil(exchange($this->amount, $this->currency->code, 'SAR'));
+        $amount = exchange($this->amount, $this->currency->code, 'SAR');
         $params = $this->hyperpay_prepare_checkout($amount, $options, $return_url);
         $params = json_decode($params, true);
 
