@@ -3,7 +3,7 @@
 @section('title', 'إضافة مسئول')
 
 @section('breadcrumb')
-	<li class="breadcrumb-item"><a href="/ad(min/users">{{ __('Users') }}</a></li>
+	<li class="breadcrumb-item"><a href="/admin/users">{{ __('Users') }}</a></li>
 		<li class="breadcrumb-item active">{{ __('Add Admin') }}</li>
 @endsection
 

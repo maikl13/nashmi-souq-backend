@@ -62,10 +62,9 @@
             {{ $stores->links() }}
 
             <div class="row mt-5">
-                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
-                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
-                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
-                <div class="col-lg-3 col-md-6 mb-3 text-center">{!! ad('large_rectangle') !!}</div>
+                @foreach (ads('large_rectangle', 4, true) as $ad)
+                    <div class="col-lg-3 col-md-6 mb-3 text-center">{!! $ad !!}</div>
+                @endforeach
             </div>
         </div>
     </section>

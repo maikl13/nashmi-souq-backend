@@ -66,9 +66,9 @@
                     @include('main.listings.partials.listings')
 
                     <div class="row mt-3">
-                        <div class="col-sm-6 col-md-4 text-center mb-2">{!! ad('large_rectangle') !!}</div>
-                        <div class="col-sm-6 col-md-4 text-center mb-2">{!! ad('large_rectangle') !!}</div>
-                        <div class="col-sm-6 col-md-4 text-center mb-2">{!! ad('large_rectangle') !!}</div>
+                        @foreach (ads('large_rectangle', 3, true) as $ad)
+                            <div class="col-sm-6 col-md-4 text-center mb-2">{!! $ad !!}</div>
+                        @endforeach
                     </div>
                 </div>
             </div>

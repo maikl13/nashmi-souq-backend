@@ -90,22 +90,44 @@ function ad_space($type='', $banner)
 
 function ad($type='leaderboard')
 {
-	switch ($type) {
-		case 'large_rectangle': 
-			$banner = Banner::valid()->where('type', Banner::TYPE_LARGE_RECTANGLE)->inRandomOrder()->first();
-			break;
-		case 'leaderboard': 
-			$banner = Banner::valid()->where('type', Banner::TYPE_LEADERBOARD)->inRandomOrder()->first();
-			break;
-		case 'large_leaderboard': 
-			$banner = Banner::valid()->where('type', Banner::TYPE_LARGE_LEADERBOARD)->inRandomOrder()->first();
-			break;
-		case 'mobile_banner': 
-			$banner = Banner::valid()->where('type', Banner::TYPE_MOBILE_BANNER)->inRandomOrder()->first();
-			break;
-	}
+	$types = [
+		'large_rectangle' => Banner::TYPE_LARGE_RECTANGLE,
+		'leaderboard' => Banner::TYPE_LEADERBOARD,
+		'large_leaderboard' => Banner::TYPE_LARGE_LEADERBOARD,
+		'mobile_banner' => Banner::TYPE_MOBILE_BANNER,
+	];
+
+	$banner = Banner::valid()->where('type', $types[$type])->inRandomOrder()->first();
 
 	return ad_space($type, $banner);
+}
+
+function ads($type='leaderboard', $limit=1, $strict=false)
+{
+	$types = [
+		'large_rectangle' => Banner::TYPE_LARGE_RECTANGLE,
+		'leaderboard' => Banner::TYPE_LEADERBOARD,
+		'large_leaderboard' => Banner::TYPE_LARGE_LEADERBOARD,
+		'mobile_banner' => Banner::TYPE_MOBILE_BANNER,
+	];
+
+	$banners = Banner::valid()->where('type', $types[$type])->inRandomOrder()->limit($limit)->get();
+
+	$ads = [];
+
+	foreach ($banners as $banner)
+		$ads[] = ad_space($type, $banner);
+
+	if($strict && sizeof($ads) < $limit){
+		$x = $limit-sizeof($ads);
+		for ($i=0; $i < $x; $i++)
+			$ads[] = ad_space($type, false);
+	}
+
+	if(!sizeof($ads))
+		$ads[] = ad_space($type, false);
+
+	return $ads;
 }
 
 

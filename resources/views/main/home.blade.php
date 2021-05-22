@@ -31,22 +31,9 @@
                 {{-- ad spaces --}}
                 <div class="container" dir="ltr">
                     <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="2000" data-smart-speed="500" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="1" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="1" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="1" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="1" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
-                        <div class="col mt-4 text-center">
-                            <span class="d-none d-md-block">{!! ad('large_leaderboard') !!}</span>
-                            <span class="d-block d-md-none">{!! ad('large_leaderboard') !!}</span>
-                        </div>
-                        <div class="col mt-4 text-center">
-                            <span class="d-none d-md-block">{!! ad('large_leaderboard') !!}</span>
-                            <span class="d-block d-md-none">{!! ad('large_leaderboard') !!}</span>
-                        </div>
-                        <div class="col mt-4 text-center">
-                            <span class="d-none d-md-block">{!! ad('large_leaderboard') !!}</span>
-                            <span class="d-block d-md-none">{!! ad('large_leaderboard') !!}</span>
-                        </div>
-                        <div class="col mt-4 text-center">
-                            <span class="d-none d-md-block">{!! ad('large_leaderboard') !!}</span>
-                            <span class="d-block d-md-none">{!! ad('large_leaderboard') !!}</span>
-                        </div>
+                        @foreach (ads('large_leaderboard', 7) as $ad)
+                            <span class="d-block mt-3">{!! $ad !!}</span>
+                        @endforeach
                    </div>
                 </div>
             </div>
@@ -77,16 +64,9 @@
         {{-- ad spaces --}}
         <div class="container" dir="ltr">
                 <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="2000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="2" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="3" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="4" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
-                    {!! ad('large_rectangle') !!}
+                    @foreach (ads('large_rectangle', 10) as $ad)
+                        {!! $ad !!}
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -122,10 +102,12 @@
                 
                 {{-- ad spaces --}}
                 <div class="row mb-4">
-                    <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
-                    <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-                    <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
-                    <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+                    @foreach (ads('leaderboard', 2, true) as $ad)
+                        <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! $ad !!}</div>
+                    @endforeach
+                    @foreach (ads('mobile_banner', 2, true) as $ad)
+                        <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! $ad !!}</div>
+                    @endforeach
                 </div>
 
                 <div class="row">
@@ -157,16 +139,9 @@
     <section class="brand-wrap-layout1" dir="ltr">
         <div class="container py-5">
             <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="2000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="2" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="3" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="4" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
-                {!! ad('mobile_banner') !!}
+                @foreach (ads('mobile_banner', 10) as $ad)
+                    {!! $ad !!}
+                @endforeach
             </div>
         </div>
 
