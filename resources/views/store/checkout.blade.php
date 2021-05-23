@@ -74,6 +74,7 @@
                                         <label for="payment" class="form-control-label">طريقة الدفع :</label>
                                         <select class="form-control" id="payment" name="payment_method">
                                             <option value="{{ App\Models\Order::CREDIT_PAYMENT }}">بطاقة إئتمانية</option>
+                                            <option value="{{ App\Models\Order::MADA_PAYMENT }}">مدى</option>
                                             <option value="{{ App\Models\Order::PAYPAL_PAYMENT }}">باي بال</option>
                                             <option value="{{ App\Models\Order::ON_DELIVERY_PAYMENT }}">الدفع عند الإستلام</option>
                                         </select>

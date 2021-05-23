@@ -32,7 +32,7 @@ class OrderController extends Controller
             'state' => 'required|exists:states,id',
             'phone' => 'required|max:16',
             'address' => 'required|max:255',
-            'payment_method' => 'required|in:'.Order::CREDIT_PAYMENT.','.Order::ON_DELIVERY_PAYMENT.','.Order::PAYPAL_PAYMENT,
+            'payment_method' => 'required|in:'.Order::CREDIT_PAYMENT.','.Order::ON_DELIVERY_PAYMENT.','.Order::PAYPAL_PAYMENT.','.Order::MADA_PAYMENT,
             'note' => 'nullable|max:10000',
         ]);
         
@@ -97,6 +97,7 @@ class OrderController extends Controller
                 $price = $order->price();
                 switch ($request->payment_method) {
                     case Order::PAYPAL_PAYMENT: $payment_method = Transaction::PAYMENT_PAYPAL; break;
+                    case Order::MADA_PAYMENT: $payment_method = Transaction::PAYMENT_MADA; break;
                     default: $payment_method = Transaction::PAYMENT_DIRECT_PAYMENT; break;
                 }
                 $transaction = Transaction::payment_init($price, $order->currency, ['payment_method'=>$payment_method]);
@@ -114,6 +115,7 @@ class OrderController extends Controller
                             $transaction->save();
                             return $transaction->paypal_payment();
                         }
+
                         return $transaction->direct_payment([
                             'description' => 'store subscription'
                         ]);

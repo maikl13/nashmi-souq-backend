@@ -47,6 +47,7 @@ trait PaymentTrait {
         $address2 = $options['address2'] ?? 'NOT REQUIRED';
         $description = $options['description'] ?? 'Ordered goods';
         $amount = exchange($this->amount, $this->currency->code, 'EGP');
+        if(env('NBE_MPGS_MODE') == 'test') $amount = ceil($amount);
         $params = $this->nbe_request_hosted_checkout_interaction($amount, $options);
         // $params = ['result' => 'SUCCESS','successIndicator' => 'abc','session.id' => '123'];
         if($params['result'] == 'SUCCESS'){
@@ -119,6 +120,7 @@ trait PaymentTrait {
     {
         $return_url = $options['return_url'] ?? url('/')."/hyperpay-payment-result?uid=$this->uid";
         $amount = exchange($this->amount, $this->currency->code, 'SAR');
+        if(env('HYPERPAY_MODE') == 'test') $amount = ceil($amount);
         $params = $this->hyperpay_prepare_checkout($amount, $options, $return_url);
         $params = json_decode($params, true);
 
@@ -131,7 +133,8 @@ trait PaymentTrait {
                 return view('main.payment.hyperpay-checkout')->with([
                     'return_url' => $return_url,
                     'checkout_id' => $params['id'],
-                    'amount' => $amount
+                    'amount' => $amount,
+                    'mada' => ($this->payment_method == Transaction::PAYMENT_MADA) ? true : false,
                 ]);
             }
         }
@@ -146,7 +149,7 @@ trait PaymentTrait {
 
         $api_url = config('services.hyperpay.api_url')."/v1/checkouts";
         $access_token = config('services.hyperpay.access_token');
-        $entity_id = config('services.hyperpay.entity_id');
+        $entity_id = ($this->payment_method == Transaction::PAYMENT_MADA) ? config('services.hyperpay.mada_entity_id') : config('services.hyperpay.entity_id');
         $ssl = config('services.hyperpay.ssl');
         $uid = $options['uid'] ?? uniqid();
 

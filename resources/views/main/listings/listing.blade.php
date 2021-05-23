@@ -135,7 +135,7 @@
                 </div>
                 <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area mt-0">
                     
-                    <div class="d-xs-none d-sm-none d-md-none d-lg-block mb-3">
+                    <div class="d-none d-sm-none d-md-none d-lg-block mb-3">
                         @include('main.listings.partials.price')
                         @include('main.listings.partials.publisher-details')
                     </div>

@@ -14,6 +14,7 @@ class Order extends Model
     const CREDIT_PAYMENT = 1;
     const ON_DELIVERY_PAYMENT = 2;
     const PAYPAL_PAYMENT = 3;
+    const MADA_PAYMENT = 3;
 
     const STATUS_UNPAID = 0; // for orders with credit payments that hasn't been paid yet
     const STATUS_PROCESSING = 1; // new order
@@ -49,13 +50,15 @@ class Order extends Model
             case Self::CREDIT_PAYMENT: return 'بطاقة الائتمان'; break;
             case Self::ON_DELIVERY_PAYMENT: return 'الدفع عند الاستلام'; break;
             case Self::PAYPAL_PAYMENT: return 'باي بال'; break;
+            case Self::MADA_PAYMENT: return 'مدى'; break;
         }
     }
-    public function is_on_credit_payment(){
-        return $this->payment_method == Self::CREDIT_PAYMENT;
-    }
-    public function is_on_delivery_payment(){
-        return $this->payment_method == Self::ON_DELIVERY_PAYMENT;
+    public function is_paid(){
+        return in_array($this->payment_method, [
+            Self::CREDIT_PAYMENT,
+            Self::PAYPAL_PAYMENT,
+            Self::MADA_PAYMENT
+        ]);
     }
     public function shipping_method(){
         if( App::getLocale() == 'ar' )

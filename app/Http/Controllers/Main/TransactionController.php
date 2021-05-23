@@ -29,10 +29,15 @@ class TransactionController extends Controller
         if(!isset($request->uid) || !isset($request->resourcePath)) abort(500);
 
         $transaction = Transaction::where('uid', $request->uid)->firstOrFail();
-        if($transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT) return;
+        if(
+            $transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT &&
+            $transaction->payment_method != Transaction::PAYMENT_MADA
+        ) return;
 
         $access_token = config('services.hyperpay.access_token');
         $entity_id = config('services.hyperpay.entity_id');
+        if($transaction->payment_method == Transaction::PAYMENT_MADA)
+            $entity_id = config('services.hyperpay.mada_entity_id');
         $ssl = config('services.hyperpay.ssl');
         $url = config('services.hyperpay.api_url').$request->resourcePath."?entityId=".$entity_id;
         
@@ -102,10 +107,25 @@ class TransactionController extends Controller
     public function add_balance(Request $request)
     {
         $request->validate([
-            'amount' => 'integer|min:1|max:1000000'
+            'amount' => 'numeric|min:1|max:1000000',
+            'payment_method' => 'in:'.Transaction::PAYMENT_DIRECT_PAYMENT.','.Transaction::PAYMENT_PAYPAL.','.Transaction::PAYMENT_MADA,
         ]);
         $amount = $request->amount;
-        $transaction = Transaction::payment_init($amount, currency(), ['type'=>Transaction::TYPE_DEPOSIT]);
+        $transaction = Transaction::payment_init($amount, currency(), [
+            'type'=>Transaction::TYPE_DEPOSIT,
+            'payment_method'=>$request->payment_method
+        ]);
+        if($request->payment_method == Transaction::PAYMENT_PAYPAL){
+            $transaction_items = [[
+                'name' => 'مدفوعات لسوق نشمي لشحن رصيد المحفظة',
+                'price' => ceil($transaction->amount_usd),
+                'desc' => 'مدفوعات لسوق نشمي لشحن رصيد المحفظة',
+                'qty' => 1
+            ]];
+            $transaction->items = $transaction_items;
+            $transaction->save();
+            return $transaction->paypal_payment();
+        }
         return $transaction->direct_payment();
     }
     
@@ -117,10 +137,25 @@ class TransactionController extends Controller
     public function make_direct_payment(Request $request)
     {
         $request->validate([
-            'amount' => 'numeric|min:1|max:1000000'
+            'amount' => 'numeric|min:1|max:1000000',
+            'payment_method' => 'in:'.Transaction::PAYMENT_DIRECT_PAYMENT.','.Transaction::PAYMENT_PAYPAL.','.Transaction::PAYMENT_MADA,
         ]);
         $amount = $request->amount;
-        $transaction = Transaction::payment_init($amount, currency(), ['type'=>Transaction::TYPE_DEPOSIT]);
+        $transaction = Transaction::payment_init($amount, currency(), [
+            'type'=>Transaction::TYPE_DEPOSIT,
+            'payment_method'=>$request->payment_method
+        ]);
+        if($request->payment_method == Transaction::PAYMENT_PAYPAL){
+            $transaction_items = [[
+                'name' => 'مدفوعات مباشرة لسوق نشمي',
+                'price' => ceil($transaction->amount_usd),
+                'desc' => 'مدفوعات مباشرة لسوق نشمي',
+                'qty' => 1
+            ]];
+            $transaction->items = $transaction_items;
+            $transaction->save();
+            return $transaction->paypal_payment();
+        }
         return $transaction->direct_payment([]);
     }
 }

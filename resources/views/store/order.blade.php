@@ -110,7 +110,7 @@
             var packageId = $(this).data('package-id');
             Swal.fire({
                 title: "هل أنت متأكد!",
-                text: "سيتم إلغاء الشحنة {{ $order->is_on_credit_payment() ? 'و سيتم إضافة قيمة الشحنة لرصيد محفظتك' : '' }}",
+                text: "سيتم إلغاء الشحنة {{ $order->is_paid() ? 'و سيتم إضافة قيمة الشحنة لرصيد محفظتك' : '' }}",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

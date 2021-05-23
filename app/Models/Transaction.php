@@ -21,13 +21,14 @@ class Transaction extends Model
     const STATUS_CANCELLED = 2;
 
     const PAYMENT_DIRECT_PAYMENT = 1;
-    const PAYMENT_BANK_DEPOSIT = 2;
-    const PAYMENT_FAWRY = 3;
+    const PAYMENT_MADA = 2;
+    const PAYMENT_BANK_DEPOSIT = 3;
     const PAYMENT_VODAFONE_CASH = 4;
     const PAYMENT_POSTAL_OFFICE = 5;
     const PAYMENT_PAYPAL = 6;
     const PAYMENT_WALLET = 7;
-    const PAYMENT_OTHER = 6;
+    const PAYMENT_FAWRY = 8;
+    const PAYMENT_OTHER = 9;
 
     protected $casts = ['items' => 'array'];
 
@@ -94,7 +95,8 @@ class Transaction extends Model
 
     public function payment_method(){
         switch ($this->payment_method) {
-            case $this::PAYMENT_DIRECT_PAYMENT: return 'دفع مباشر'; break;
+            case $this::PAYMENT_DIRECT_PAYMENT: return 'دفع مباشر - NBE'; break;
+            case $this::PAYMENT_MADA: return 'مدى'; break;
             case $this::PAYMENT_BANK_DEPOSIT: return 'إيداع بنكي'; break;
             case $this::PAYMENT_FAWRY: return 'فوري'; break;
             case $this::PAYMENT_VODAFONE_CASH: return 'فودافون كاش'; break;

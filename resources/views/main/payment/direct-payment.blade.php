@@ -62,6 +62,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="control-label">طريقة الدفع</label>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <select name="payment_method" id="" class="form-control">
+                                                            <option value="{{ App\Models\Transaction::PAYMENT_DIRECT_PAYMENT }}">بطاقة إئتمانية</option>
+                                                            <option value="{{ App\Models\Transaction::PAYMENT_MADA }}">مدى</option>
+                                                            <option value="{{ App\Models\Transaction::PAYMENT_PAYPAL }}">باي بال</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="post-section">
                                                 <div class="row">
                                                     <div class="col-sm-12">

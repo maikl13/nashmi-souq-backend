@@ -25,7 +25,7 @@ class SubscriptionController extends Controller
     {
         $request->validate([
             'subscription_type' => 'in:1,2,3',
-            'payment_method' => 'in:'.Transaction::PAYMENT_DIRECT_PAYMENT.','.Transaction::PAYMENT_PAYPAL,
+            'payment_method' => 'in:'.Transaction::PAYMENT_DIRECT_PAYMENT.','.Transaction::PAYMENT_PAYPAL.','.Transaction::PAYMENT_MADA,
         ]);
 
         switch ($request->subscription_type) {

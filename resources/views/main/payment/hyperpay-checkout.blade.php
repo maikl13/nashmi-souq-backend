@@ -77,7 +77,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ $return_url }}" class="paymentWidgets" data-brands="VISA MASTER">برجاء الإنتظار...</form>
+                    <form action="{{ $return_url }}" class="paymentWidgets" data-brands="{{ $mada ? 'MADA' : 'VISA MASTER' }}">برجاء الإنتظار...</form>
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@
                 // Use our internal BIN list to precisely detect brands
                 brandDetectionType: "binlist",
                 // Give priority to detected brands
-                brandDetectionPriority: ["VISA","MASTER"],
+                brandDetectionPriority: ["MADA","VISA","MASTER"],
                 
                 iframeStyles: {
                     'card-number-placeholder': {

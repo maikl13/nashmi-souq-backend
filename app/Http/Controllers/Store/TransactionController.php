@@ -41,10 +41,15 @@ class TransactionController extends Controller
         if(!isset($request->uid) || !isset($request->resourcePath)) abort(500);
 
         $transaction = Transaction::where('uid', $request->uid)->firstOrFail();
-        if($transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT) return;
+        if(
+            $transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT &&
+            $transaction->payment_method != Transaction::PAYMENT_MADA
+        ) return;
         
         $access_token = config('services.hyperpay.access_token');
         $entity_id = config('services.hyperpay.entity_id');
+        if($transaction->payment_method == Transaction::PAYMENT_MADA)
+            $entity_id = config('services.hyperpay.mada_entity_id');
         $ssl = config('services.hyperpay.ssl');
         $url = config('services.hyperpay.api_url').$request->resourcePath."?entityId=".$entity_id;
 
