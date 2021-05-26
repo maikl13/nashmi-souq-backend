@@ -42,7 +42,7 @@
                                     <li><i class="far fa-clock"></i> {{ $order->created_at->format('M d, Y') }}</li>
                                     <li>
                                         <i class="fas fa-money-bill"></i>
-                                        <span>وسيلة الدفع : </span>{{ $order->payment_method() }}
+                                        <span>وسيلة الدفع : </span>{{ $order->get_payment_method() }}
                                     </li>
                                 </ul>
                             </div>

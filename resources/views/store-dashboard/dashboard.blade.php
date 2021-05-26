@@ -116,7 +116,7 @@
                             <tr class="border-bottom"> 
                                 <td> {{ $order->buyer_name }} </td>
                                 <td> {{ $order->price }}  <small>{{ $order->currency->symbol }}</small></td>
-                                <td> {{ $order->payment_method() }} </td>
+                                <td> {{ $order->get_payment_method() }} </td>
                                 <td> {{ $order->status() }} </td>
                             </tr>
                         @empty

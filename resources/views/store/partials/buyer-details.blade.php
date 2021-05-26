@@ -28,7 +28,7 @@
 					</tr>
 					<tr>
 						<td>وسيلة الدفع</td>
-						<td class="text-right">{{ $order->payment_method() }}</td>
+						<td class="text-right">{{ $order->get_payment_method() }}</td>
 					</tr>
 					{{-- <tr>
 						<td>طريقة الاستلام</td>

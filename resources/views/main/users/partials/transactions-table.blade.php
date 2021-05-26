@@ -28,7 +28,7 @@
                             @endif
                         </div>
                     </td>
-                    <td>{{ $transaction->payment_method() }}</td>
+                    <td>{{ $transaction->get_payment_method() }}</td>
                     <td>{{ $transaction->status() }}</td>
                     <td>{{ $transaction->created_at->diffForHumans() }}</td>
                 </tr>

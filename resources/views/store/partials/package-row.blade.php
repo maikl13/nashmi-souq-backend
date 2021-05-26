@@ -20,7 +20,7 @@
 						<li><i class="far fa-clock"></i> {{ $order->created_at->diffForHumans() }}</li>
 						<li>
 							<i class="fas fa-money-bill"></i>
-							<span>وسيلة الدفع : </span>{{ $order->payment_method() }}
+							<span>وسيلة الدفع : </span>{{ $order->get_payment_method() }}
 						</li>
 						{{-- <li>
 							<i class="fas fa-map-marker-alt"></i>
