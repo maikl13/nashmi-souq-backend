@@ -93,9 +93,9 @@ class Transaction extends Model
         return $this->amount;
     }
 
-    public function payment_method(){
+    public function get_payment_method(){
         switch ($this->payment_method) {
-            case $this::PAYMENT_DIRECT_PAYMENT: return 'دفع مباشر - NBE'; break;
+            case $this::PAYMENT_DIRECT_PAYMENT: return 'دفع مباشر'; break;
             case $this::PAYMENT_MADA: return 'مدى'; break;
             case $this::PAYMENT_BANK_DEPOSIT: return 'إيداع بنكي'; break;
             case $this::PAYMENT_FAWRY: return 'فوري'; break;

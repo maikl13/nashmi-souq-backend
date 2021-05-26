@@ -45,7 +45,7 @@ class Order extends Model
     }
 
 
-    public function payment_method(){
+    public function get_payment_method(){
         switch ($this->payment_method) {
             case Self::CREDIT_PAYMENT: return 'بطاقة الائتمان'; break;
             case Self::ON_DELIVERY_PAYMENT: return 'الدفع عند الاستلام'; break;
