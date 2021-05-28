@@ -164,7 +164,7 @@ trait PaymentTrait {
             'billing.city' => $address1,
             'billing.state' => $address1,
             'billing.country' => strtoupper(location()->code),
-            'billing.postcode' => 'NOT REQUIRED',
+            'billing.postcode' => '12345',
             'customer.givenName' => optional(auth()->user())->name ?: 'User',
             'customer.surname' => optional(auth()->user())->username ?: 'User',
             'customer.mobile' => optional(auth()->user())->phone ?: '',
