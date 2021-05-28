@@ -58,7 +58,7 @@ class Order extends Model
             Self::CREDIT_PAYMENT,
             Self::PAYPAL_PAYMENT,
             Self::MADA_PAYMENT
-        ]);
+        ]) && $this->status != Self::STATUS_UNPAID && $this->transaction && $this->transaction->is_processed();
     }
     public function shipping_method(){
         if( App::getLocale() == 'ar' )
@@ -73,13 +73,17 @@ class Order extends Model
         }
     }
     public function is_unpaid(){
-        return $this->status == Self::STATUS_UNPAID;
+        return $this->status == Self::STATUS_UNPAID || !$this->transaction || !$this->transaction->is_pending();
     }
     public function is_processing(){
         return $this->status == Self::STATUS_PROCESSING;
     }
     public function is_delivered(){
         return $this->status == Self::STATUS_DELIVERED;
+    }
+
+    public function transaction(){
+        return $this->belongsTo(Transaction::class);
     }
 
 

@@ -66,10 +66,12 @@ trait ManageTransactions {
         
         // Total store revenues in local currency for non delivered packages
         foreach($this->store_packages()->where('status', '!=', Package::STATUS_DELIVERED)->get() as $package)
-            if(!$package->is_rejected() && !$package->is_cancelled())
-                if($package->order->payment_method != Order::ON_DELIVERY_PAYMENT)
+            if(!$package->is_rejected() && !$package->is_cancelled()){
+                $order = $package->order;
+                if($order->payment_method != Order::ON_DELIVERY_PAYMENT && $order->status != Order::STATUS_UNPAID && $order->transaction && $order->transaction->is_processed())
                     foreach ($package->package_items as $item)
                         $reserved_balance[$item->original_currency->code] += $item->original_price();
+            }
 
         return $detailed ? $this->detailed_balance($reserved_balance) : $this->local_balance($reserved_balance);
     }
@@ -88,9 +90,10 @@ trait ManageTransactions {
                 $expensed_balance[$sub_transaction->original_currency->code] += $sub_transaction->original_amount;
 
         foreach($this->orders()->where('payment_method', Order::CREDIT_PAYMENT)->where('status', '!=', Order::STATUS_UNPAID)->get() as $order)
-            foreach($order->packages as $package)
-                if(!$package->is_rejected() && !$package->is_cancelled())
-                    $expensed_balance[$order->currency->code]  += $package->price();
+            if($order->transaction && $order->transaction->is_processed())
+                foreach($order->packages as $package)
+                    if(!$package->is_rejected() && !$package->is_cancelled())
+                        $expensed_balance[$order->currency->code] += $package->price();
 
         foreach($this->subscriptions()->active()->get() as $supscription)
             if($transaction = $supscription->transaction)
