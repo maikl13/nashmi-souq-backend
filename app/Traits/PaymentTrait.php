@@ -149,7 +149,7 @@ trait PaymentTrait {
                     'return_url' => $return_url,
                     'checkout_id' => $params['id'],
                     'amount' => $amount,
-                    'mada' => ($this->payment_method == Transaction::PAYMENT_MADA) ? true : false,
+                    'mada' => (session('payment_method') == Transaction::PAYMENT_MADA) ? true : false,
                 ]);
             }
         }
