@@ -14,21 +14,30 @@ trait PaymentTrait {
         $currency = $currency ? $currency : currency();
         $type = $options['type'] ?? Transaction::TYPE_PAYMENT;
         $payment_method = $options['payment_method'] ?? Transaction::PAYMENT_DIRECT_PAYMENT;
+        $save = $options['save'] ?? true;
 
         $transaction = new Transaction;
         $transaction->uid = unique_id();
         $transaction->amount = $amount;
         $transaction->currency_id = $currency->id;
+        
+        session()->put('payment_method', $payment_method);
 
-        if(auth()->user()){
-            $transaction->user_id = auth()->user()->id;
-            $transaction->type = $type;
-            $transaction->status = Transaction::STATUS_PENDING;
-            $transaction->payment_method = $payment_method;
-            if($transaction->save())
-                return $transaction;
-            return false;
+        if($save){
+            if(auth()->user()){
+                $transaction->user_id = auth()->user()->id;
+                $transaction->type = $type;
+                $transaction->status = Transaction::STATUS_PENDING;
+                $transaction->payment_method = $payment_method;
+                if($transaction->save())
+                    return $transaction;
+                return false;
+            } else {
+                dd('Payment Failed, Please Sign in first');
+            }
         }
+
+
         return $transaction;
     }
 
@@ -52,7 +61,10 @@ trait PaymentTrait {
         // $params = ['result' => 'SUCCESS','successIndicator' => 'abc','session.id' => '123'];
         if($params['result'] == 'SUCCESS'){
             if(!empty($params['session.id']) && !empty($params['successIndicator'])){
-                if(auth()->user()){
+
+                session()->put('success_indicator', $params['successIndicator']);
+
+                if($this->id){
                     $this->success_indicator = $params['successIndicator'];
                     $this->save();
                 }
@@ -126,7 +138,10 @@ trait PaymentTrait {
 
         if($params['result']['code'] == '000.200.100'){
             if( !empty($params['id']) ){
-                if(auth()->user()){
+                
+                session()->put('success_indicator', $params['id']);
+
+                if($this->id){
                     $this->success_indicator = $params['id'];
                     $this->save();
                 }

@@ -15,10 +15,19 @@ class TransactionController extends Controller
     {
         if(!isset($request->uid) || !isset($request->resultIndicator)) abort(500);
 
-        $transaction = Transaction::where('uid', $request->uid)->firstOrFail();
-        if($transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT) return;
+        $payment_method = session('payment_method');
+        $success_indicator = session('success_indicator');
 
-        if($transaction->success_indicator === $request->resultIndicator){
+        $transaction = Transaction::where('uid', $request->uid)->first();
+
+        if($transaction) {
+            $payment_method = $transaction->payment_method;
+            $success_indicator = $transaction->success_indicator;
+        }
+
+        if($payment_method != Transaction::PAYMENT_DIRECT_PAYMENT) return;
+
+        if($success_indicator === $request->resultIndicator){
             $transaction->status = Transaction::STATUS_PROCESSED;
             $transaction->save();
             if($order = Order::where('transaction_id', $transaction->id)->first()){
@@ -40,15 +49,23 @@ class TransactionController extends Controller
     {
         if(!isset($request->uid) || !isset($request->resourcePath)) abort(500);
 
-        $transaction = Transaction::where('uid', $request->uid)->firstOrFail();
+        $payment_method = session('payment_method');
+        dd($payment_method);
+
+        $transaction = Transaction::where('uid', $request->uid)->first();
+
+        if($transaction) {
+            $payment_method = $transaction->payment_method;
+        }
+
         if(
-            $transaction->payment_method != Transaction::PAYMENT_DIRECT_PAYMENT &&
-            $transaction->payment_method != Transaction::PAYMENT_MADA
+            $payment_method != Transaction::PAYMENT_DIRECT_PAYMENT &&
+            $payment_method != Transaction::PAYMENT_MADA
         ) return;
         
         $access_token = config('services.hyperpay.access_token');
         $entity_id = config('services.hyperpay.entity_id');
-        if($transaction->payment_method == Transaction::PAYMENT_MADA)
+        if($payment_method == Transaction::PAYMENT_MADA)
             $entity_id = config('services.hyperpay.mada_entity_id');
         $ssl = config('services.hyperpay.ssl');
         $url = config('services.hyperpay.api_url').$request->resourcePath."?entityId=".$entity_id;
@@ -66,7 +83,11 @@ class TransactionController extends Controller
         curl_close($ch);
         $response = json_decode($responseData, true);
 
-        if(isset($response['result']) && isset($response['result']['code']) && $response['result']['code'] == '000.100.110'){
+        if(
+            isset($response['result']) && 
+            isset($response['result']['code']) && 
+            in_array($response['result']['code'], ['000.100.110', '000.000.000'])
+        ){
             $transaction->status = Transaction::STATUS_PROCESSED;
             $transaction->save();
             if($order = Order::where('transaction_id', $transaction->id)->first()){
@@ -80,6 +101,12 @@ class TransactionController extends Controller
                 return redirect()->route('subscribed', auth()->user()->store_slug);
             }
             return $request->store ? view('store.payment.payment-success', [$request->store->store_slug]) : view('main.payment.payment-success');
+        } else if (
+            isset($response['result']) && 
+            isset($response['result']['code']) && 
+            in_array($response['result']['code'], ['200.300.404'])
+        ){
+            return redirect()->route('home');
         }
         return $request->store ? view('store.payment.payment-failed', [$request->store->store_slug]) : view('main.payment.payment-failed');
     }
