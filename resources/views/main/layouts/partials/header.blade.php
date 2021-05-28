@@ -50,7 +50,7 @@
                                             </a>
                                         @endif
                                         <a class="dropdown-item" href="/account">إعدادات الحساب</a>
-                                        <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
+                                        <a class="dropdown-item" href="/account/my-listing">إعلاناتي</a>
                                         <a class="dropdown-item" href="/my-orders">طلباتي</a>
                                         @if (auth()->check() && auth()->user()->is_store())
                                             <a class="dropdown-item" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">إدارة المتجر</a>

@@ -12,7 +12,7 @@
         @endif
         <a class="dropdown-item" href="{{ Auth::user()->url() }}">صفحتي الشخصية</a>
         <a class="dropdown-item" href="/account">إعدادات الحساب</a>
-        <a class="dropdown-item" href="/account#my-listing">إعلاناتي</a>
+        <a class="dropdown-item" href="/account/my-listing">إعلاناتي</a>
         @if (auth()->check() && auth()->user()->is_store())
             <a class="dropdown-item" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">إدارة المتجر</a>
         @endif

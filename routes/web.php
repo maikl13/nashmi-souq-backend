@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::post('store-logo/delete', 'UserController@delete_store_logo');
 
 	Route::get('account', 'UserController@edit')->name('account');
+	Route::redirect('/account/my-listing', '/account#my-listing');
 	Route::put('account/edit', 'UserController@update');
 	Route::put('account/change-password', 'UserController@update_password');
 	Route::put('account/update-payout-methods', 'UserController@update_payout_methods');
