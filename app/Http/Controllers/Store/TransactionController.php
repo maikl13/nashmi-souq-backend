@@ -50,7 +50,7 @@ class TransactionController extends Controller
         if(!isset($request->uid) || !isset($request->resourcePath)) abort(500);
 
         $payment_method = session('payment_method');
-        dd($payment_method);
+        // dd($payment_method);
 
         $transaction = Transaction::where('uid', $request->uid)->first();
 
