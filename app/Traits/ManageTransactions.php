@@ -28,12 +28,12 @@ trait ManageTransactions {
             $payout_balance[$currency->code] = 0;
 
         // deposits
-        $deposit_transactions = $this->transactions()->where('type', Transaction::TYPE_DEPOSIT)->where('status', Transaction::STATUS_PROCESSED)->get();
+        $deposit_transactions = $this->transactions()->where('type', Transaction::TYPE_DEPOSIT)->processed()->get();
         foreach ($deposit_transactions as $transaction)
             $payout_balance[$transaction->currency->code] += $transaction->amount;
  
         // deposits => Payments Can be treated as deposit too since it's a deposit that is expensed immediately
-        $payment_transactions = $this->transactions()->where('type', Transaction::TYPE_PAYMENT)->where('status', Transaction::STATUS_PROCESSED)->get();
+        $payment_transactions = $this->transactions()->where('type', Transaction::TYPE_PAYMENT)->processed()->get();
         foreach ($payment_transactions as $transaction)
             $payout_balance[$transaction->currency->code] += $transaction->amount;
 
@@ -87,7 +87,7 @@ trait ManageTransactions {
             foreach($transaction->sub_transactions as $sub_transaction)
                 $expensed_balance[$sub_transaction->original_currency->code] += $sub_transaction->original_amount;
 
-        foreach($this->orders()->where('payment_method', Order::CREDIT_PAYMENT)->get() as $order)
+        foreach($this->orders()->where('payment_method', Order::CREDIT_PAYMENT)->where('status', '!=', Order::STATUS_UNPAID)->get() as $order)
             foreach($order->packages as $package)
                 if(!$package->is_rejected() && !$package->is_cancelled())
                     $expensed_balance[$order->currency->code]  += $package->price();
