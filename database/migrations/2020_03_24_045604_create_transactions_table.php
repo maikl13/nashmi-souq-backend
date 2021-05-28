@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->tinyInteger('type')->index();
-            $table->integer('amount');
+            $table->decimal('amount', 20, 2);
             $table->decimal('amount_usd', 20, 4)->nullable();
             $table->tinyInteger('payment_method')->index();
             $table->tinyInteger('status')->index();

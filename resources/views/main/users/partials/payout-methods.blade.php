@@ -34,35 +34,41 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="control-label">فودافون كاش <span>**</span></label>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input class="form-control" id="vodafone_cash" type="tel" name="vodafone_cash" placeholder="رقم فوادفون كاش" value="{{ old('vodafone_cash') ? old('vodafone_cash') : Auth::user()->vodafone_cash }}">
+                    
+                    @if(
+                        (auth()->check() && optional(auth()->user()->country)->code == 'eg') || 
+                        (auth()->guest() && optional(country())->code == 'eg')
+                    )
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label class="control-label">فودافون كاش <span>**</span></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" id="vodafone_cash" type="tel" name="vodafone_cash" placeholder="رقم فوادفون كاش" value="{{ old('vodafone_cash') ? old('vodafone_cash') : Auth::user()->vodafone_cash }}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label class="control-label">حوالة البريد المصري <span>**</span></label>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input class="form-control" id="national_id" type="text" name="national_id" placeholder="رقمك القومي المكون من 14 رقم" value="{{ old('national_id') ? old('national_id') : Auth::user()->national_id }}">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label class="control-label">حوالة البريد المصري <span>**</span></label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" id="national_id" type="text" name="national_id" placeholder="رقمك القومي المكون من 14 رقم" value="{{ old('national_id') ? old('national_id') : Auth::user()->national_id }}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <i>** متاحة داخل مصر فقط</i>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <i>** متاحة داخل مصر فقط</i>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     
                     <div class="row">
                         <div class="col-sm-3"></div>

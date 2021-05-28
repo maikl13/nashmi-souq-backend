@@ -164,7 +164,7 @@ trait PaymentTrait {
 
         $api_url = config('services.hyperpay.api_url')."/v1/checkouts";
         $access_token = config('services.hyperpay.access_token');
-        $entity_id = ($this->payment_method == Transaction::PAYMENT_MADA) ? config('services.hyperpay.mada_entity_id') : config('services.hyperpay.entity_id');
+        $entity_id = (session('payment_method') == Transaction::PAYMENT_MADA) ? config('services.hyperpay.mada_entity_id') : config('services.hyperpay.entity_id');
         $ssl = config('services.hyperpay.ssl');
         $uid = $options['uid'] ?? uniqid();
 

@@ -56,6 +56,7 @@ class TransactionController extends Controller
         $entity_id = config('services.hyperpay.entity_id');
         if($payment_method == Transaction::PAYMENT_MADA)
             $entity_id = config('services.hyperpay.mada_entity_id');
+
         $ssl = config('services.hyperpay.ssl');
         $url = config('services.hyperpay.api_url').$request->resourcePath."?entityId=".$entity_id;
         
