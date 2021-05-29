@@ -52,7 +52,7 @@
         <div class="row mb-4">
             @php($active = old('registration_method', 'phone'))
             <button class="registeration-method col btn btn-{{ $active == 'phone' ? 'danger' : 'default' }} btn-block m-0 rounded-0 p-3" data-method="phone">
-                التسجيل بالهاتف
+                التسجيل بحساب الواتساب
             </button>
             <button class="registeration-method col btn btn-{{ $active == 'email' ? 'danger' : 'default' }} btn-block m-0 rounded-0 p-3" data-method="email">
                 التسجيل بالبريد الالكتروني
