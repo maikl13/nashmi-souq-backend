@@ -9,7 +9,7 @@ trait ExchangeCurrency {
     public static function exchange($amount, $currency1, $currency2, $for_client=false)
     {
         if($currency1 == $currency2) return $amount;
-        $base='USD';
+        $base='EUR';
         $rate = Self::rate($currency1, $currency2, $base);
         $new_amount = $amount*$rate;
         return $for_client ? round($new_amount-$new_amount*0.001, 4) : round($new_amount+$new_amount*0.001, 4);
@@ -26,7 +26,7 @@ trait ExchangeCurrency {
         return cache()->get($currency1.'/'.$currency2);
     }
     
-    public static function is_valid_code($code, $base='USD')
+    public static function is_valid_code($code, $base='EUR')
     {
         try {
             Swap::latest($base."/$code");
