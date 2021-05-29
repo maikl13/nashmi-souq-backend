@@ -70,7 +70,7 @@
             whatsapp: "+20 100 450 3999", // WhatsApp number
             call_to_action: "", // Call to action
             button_color: "#E74339", // Color of button
-            position: "right", // Position may be 'right' or 'left'
+            position: "left", // Position may be 'right' or 'left'
             order: "facebook,whatsapp", // Order of buttons
         };
         var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
