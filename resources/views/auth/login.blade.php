@@ -43,12 +43,12 @@
         @endif
         
         <div class="form-group row">
-            <label for="phone" class="col-md-3 col-form-label text-md-right">{{ __('Phone') }}</label>
+            <label for="phoneoremail" class="col-md-4 col-form-label text-md-right">الهاتف أو البريد الالكتروني</label>
 
-            <div class="col-md-9">
-                <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus dir="ltr">
+            <div class="col-md-8">
+                <input id="phoneoremail" type="tel" class="form-control @error('phoneoremail') is-invalid @enderror" name="phoneoremail" value="{{ old('phoneoremail') }}" required autocomplete="phoneoremail" autofocus dir="ltr">
 
-                @error('phone')
+                @error('phoneoremail')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -57,9 +57,9 @@
         </div>
 
         <div class="form-group row">
-            <label for="password" class="col-md-3 col-form-label text-md-right">{{ __('Password') }}</label>
+            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" dir="ltr">
 
                 @error('password')

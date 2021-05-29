@@ -13,12 +13,12 @@
         @csrf
 
         <div class="form-group row">
-            <label for="phone" class="col-md-3 col-form-label text-md-right">{{ __('Phone') }}</label>
+            <label for="phoneoremail" class="col-md-4 col-form-label text-md-right">الهاتف أو البريد الالكتروني</label>
 
-            <div class="col-md-9">
-                <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+            <div class="col-md-8">
+                <input id="phoneoremail" type="phoneoremail" class="form-control @error('phoneoremail') is-invalid @enderror" name="phoneoremail" value="{{ old('phoneoremail') }}" required autocomplete="phoneoremail" autofocus>
 
-                @error('phone')
+                @error('phoneoremail')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

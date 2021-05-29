@@ -37,18 +37,37 @@
             margin-top: 10px;
             padding-left: 10px;
         }
+
+        .btn-default {
+            background-color: #f0f0f0;
+        }
+        .btn-danger {
+            opacity: 0.9;
+        }
     </style>
 @endsection
 
 @section('page-content')
+    <div class="col">
+        <div class="row mb-4">
+            @php($active = old('registration_method', 'phone'))
+            <button class="registeration-method col btn btn-{{ $active == 'phone' ? 'danger' : 'default' }} btn-block m-0 rounded-0 p-3" data-method="phone">
+                التسجيل بالهاتف
+            </button>
+            <button class="registeration-method col btn btn-{{ $active == 'email' ? 'danger' : 'default' }} btn-block m-0 rounded-0 p-3" data-method="email">
+                التسجيل بالبريد الالكتروني
+            </button>
+        </div>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
-
+        <input type="hidden" name="registration_method" value="{{ old('registration_method', 'phone') }}">
         {{-- <div class="form-group row">
             <label for="name" class="col-md-3 col-form-label text-md-right">{{ __('Name') }}</label>
 
             <div class="col-md-9">
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
 
                 @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -56,58 +75,61 @@
                     </span>
                 @enderror
             </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="email" class="col-md-3 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-            <div class="col-md-9">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="password" class="col-md-3 col-form-label text-md-right">{{ __('Password') }}</label>
-
-            <div class="col-md-9">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="password-confirm" class="col-md-3 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-            <div class="col-md-9">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-            </div>
         </div> --}}
 
+        <div class="phone-registeration-fields registeration-fields {{ $active == 'phone' ? '' : 'd-none' }}">
+            <div class="form-group row">
+                <label for="phone" class="col-md-12 col-form-label text-md-right">{{ __('Phone') }} :</label>
 
-        <div class="form-group row">
-            <label for="phone" class="col-md-12 col-form-label text-md-right">{{ __('Phone') }} :</label>
+                <div class="col-md-12">
+                    <div class="d-flex" dir="ltr">
+                        <input id="phone" type="tel" class="text-left w-100 @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" autocomplete="phone" placeholder="رقم الهاتف">
+                    </div>
 
-            <div class="col-md-12">
-                <div class="d-flex" dir="ltr">
-                    <input id="phone" type="tel" class="text-left w-100 @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="رقم الهاتف">
+                    @error('phone')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
+            </div>
+        </div>
 
-                @error('phone')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+        <div class="email-registeration-fields registeration-fields {{ $active == 'phone' ? 'd-none' : '' }}">
+            <div class="form-group row">
+                <label for="email" class="col-md-12 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                <div class="col-md-12">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" placeholder="{{ __('E-Mail Address') }}">
+
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="password" class="col-md-12 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                <div class="col-md-12">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="{{ __('Password') }}">
+
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="password-confirm" class="col-md-12 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                <div class="col-md-12">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" placeholder="{{ __('Confirm Password') }}">
+                </div>
             </div>
         </div>
 
@@ -119,7 +141,7 @@
             </div>
         </div>
 
-        <div class="form-group row mb-0">
+        <div class="form-group row mb-0 phone-registeration-fields registeration-fields {{ $active == 'phone' ? '' : 'd-none' }}">
             <div class="col">
                 <div class="alert alert-warning mb-0">
                     <div class="media">
@@ -149,6 +171,18 @@
         $("#phone").CcPicker({
             "dataUrl": "/assets/plugins/ccpicker/data.json",
             "countryCode": "{{ strtolower(location()->code) }}"
+        });
+    </script>
+
+    <script>
+        $(document).on('click', '.registeration-method', function(){
+            $('.registeration-method').removeClass('btn-danger').addClass('btn-default');
+            $(this).addClass('btn-danger').removeClass('btn-default');
+            var method = $(this).data('method');
+
+            $('input[name=registration_method]').val(method);
+            $('.registeration-fields').addClass('d-none');
+            $('.'+method+'-registeration-fields').removeClass('d-none');
         });
     </script>
 @endsection

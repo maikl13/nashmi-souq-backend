@@ -53,15 +53,22 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $validator = Validator::make($data, [ 'phone' => ['phone:AUTO,'.$data['phone_phoneCode']] ]);
+        if($data['registration_method'] == 'email'){
+            return Validator::make($data, [
+                'email' => ['required', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+        } else {
+            $validator = Validator::make($data, [ 'phone' => ['phone:AUTO,'.$data['phone_phoneCode']] ]);
 
-        if($validator->fails()) return $validator;
+            if($validator->fails()) return $validator;
 
-        $data['phone'] = phone($data['phone'], $data['phone_phoneCode'])->formatE164();
+            $data['phone'] = phone($data['phone'], $data['phone_phoneCode'])->formatE164();
 
-        return Validator::make($data, [
-            'phone' => ['required', 'string', 'max:255', 'unique:users', 'phone:AUTO,'.$data['phone_phoneCode']],
-        ],['phone' => 'من فضلك قم بإدخال رقم هاتف صحيح']);
+            return Validator::make($data, [
+                'phone' => ['required', 'string', 'max:255', 'unique:users', 'phone:AUTO,'.$data['phone_phoneCode']],
+            ],['phone' => 'من فضلك قم بإدخال رقم هاتف صحيح']);
+        }
     }
 
     /**
@@ -73,19 +80,27 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $uid = uniqid();
-        $otp = rand(100100, 999000);
-        
-        $user = User::create([
-            'name' => 'User_'.$uid,
-            'username' => $uid,
-            'phone' => phone($data['phone'], $data['phone_phoneCode'])->formatE164(),
-            'phone_national' => phone($data['phone'], $data['phone_phoneCode'])->formatForMobileDialingInCountry($data['phone_phoneCode']),
-            'phone_country_code' => $data['phone_phoneCode'],
-            'password' => Hash::make($otp),
-            'otp' => $otp,
-        ]);
+        $otp = $data['registration_method'] == 'email' ? null : rand(100100, 999000);
 
-        if($user) $user->send_otp();
+        $user_data = [];
+        $user_data['name'] = 'User_'.$uid;
+        $user_data['username'] = $uid;
+        $user_data['password'] = Hash::make($otp);
+        $user_data['otp'] = $otp;
+        
+        if($data['registration_method'] == 'email'){
+            $user_data['email'] = $data['email'];
+        } else {
+            $user_data['phone'] = phone($data['phone'], $data['phone_phoneCode'])->formatE164();
+            $user_data['phone_national'] = phone($data['phone'], $data['phone_phoneCode'])->formatForMobileDialingInCountry($data['phone_phoneCode']);
+            $user_data['phone_country_code'] = $data['phone_phoneCode'];
+        }
+
+        $user = User::create($user_data);
+        
+        if($user && $data['registration_method'] != 'email') 
+            $user->send_otp();
+
         return $user;
     }
 
@@ -96,7 +111,8 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         // prevent after registeration login
-        // $this->guard()->login($user);
+        if($user->email)
+            $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;

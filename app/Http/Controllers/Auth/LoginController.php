@@ -52,7 +52,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'phone' => 'required|string',
+            'phoneoremail' => 'required|string',
             'password' => 'required|string',
         ]);
 
@@ -65,20 +65,26 @@ class LoginController extends Controller
         $authinticated = false;
         $remember = $request->remember ? true : false;
         
-        $user = User::where('phone', $request->phone)->first();
-        if(Auth::attempt(['phone' => $request->phone, 'password' => $request->password], $remember) ) 
+        $user = User::where('email', $request->phoneoremail)->first();
+        if(Auth::attempt(['email' => $request->phoneoremail, 'password' => $request->password], $remember) ) 
             $authinticated = true;
 
         if(!$authinticated){
-            $user = $user ?? User::where('phone_national', $request->phone)->first();
-            if(Auth::attempt(['phone_national' => $request->phone, 'password' => $request->password], $remember) )
+            $user = User::where('phone', $request->phoneoremail)->first();
+            if(Auth::attempt(['phone' => $request->phoneoremail, 'password' => $request->password], $remember) ) 
+                $authinticated = true;
+        }
+
+        if(!$authinticated){
+            $user = $user ?? User::where('phone_national', $request->phoneoremail)->first();
+            if(Auth::attempt(['phone_national' => $request->phoneoremail, 'password' => $request->password], $remember) )
                 $authinticated = true;
         }
 
         if(!$authinticated){
             $validator = Validator::make($request->all(), ['phone' => ['phone:'.strtoupper(location()->code)] ]);
             if(!$validator->fails()){
-                $phone = phone($request->phone, location()->code);
+                $phone = phone($request->phoneoremail, location()->code);
                 $user = $user ?? User::where('phone', $phone)->first();
                 if(Auth::attempt(['phone' => $phone, 'password' => $request->password], $remember) ) 
                     $authinticated = true;
@@ -88,7 +94,7 @@ class LoginController extends Controller
         if(!$authinticated){
             $validator = Validator::make($request->all(), ['phone' => ['phone:'.strtoupper(country()->code)] ]);
             if(!$validator->fails()){
-                $phone = phone($request->phone, country()->code);
+                $phone = phone($request->phoneoremail, country()->code);
                 $user = $user ?? User::where('phone', $phone)->first();
                 if(Auth::attempt(['phone' => $phone, 'password' => $request->password], $remember) ) $authinticated = true;
             }
