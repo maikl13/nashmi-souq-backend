@@ -1322,6 +1322,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 
 .mean-container .mean-nav > ul {
     overflow-y: scroll;
+    overflow-x: hidden;
     height: calc(100vh - 75px);
     /*height: auto;*/
 }
