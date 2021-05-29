@@ -46,7 +46,7 @@
             <label for="phoneoremail" class="col-md-4 col-form-label text-md-right">الهاتف أو البريد الالكتروني</label>
 
             <div class="col-md-8">
-                <input id="phoneoremail" type="tel" class="form-control @error('phoneoremail') is-invalid @enderror" name="phoneoremail" value="{{ old('phoneoremail') }}" required autocomplete="phoneoremail" autofocus dir="ltr">
+                <input id="phoneoremail" type="text" class="form-control @error('phoneoremail') is-invalid @enderror" name="phoneoremail" value="{{ old('phoneoremail') }}" required autocomplete="phoneoremail" autofocus dir="ltr">
 
                 @error('phoneoremail')
                     <span class="invalid-feedback" role="alert">

@@ -83,7 +83,7 @@
 
                 <div class="col-md-12">
                     <div class="d-flex" dir="ltr">
-                        <input id="phone" type="tel" class="text-left w-100 @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" autocomplete="phone" placeholder="رقم الهاتف">
+                        <input id="phone" type="text" class="text-left w-100 @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" autocomplete="phone" placeholder="رقم الهاتف">
                     </div>
 
                     @error('phone')
