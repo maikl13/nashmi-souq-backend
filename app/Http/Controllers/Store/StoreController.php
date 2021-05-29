@@ -66,8 +66,8 @@ class StoreController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'store_name' => 'required|min:2|max:255',
-            'store_slug' => 'required|alpha_dash|min:1|max:255|unique:users,store_slug,'.$user->id,
+            'store_name' => 'required|min:2|max:30',
+            'store_slug' => 'required|alpha_dash|min:1|max:20|unique:users,store_slug,'.$user->id,
             'store_slogan' => 'nullable|min:20|max:255',
             'store_website' => 'nullable|url|max:255',
             'store_email' => 'nullable|email|max:255',

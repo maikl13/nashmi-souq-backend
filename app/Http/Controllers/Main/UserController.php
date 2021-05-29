@@ -34,8 +34,8 @@ class UserController extends Controller
             return response()->json('كلمة المرور غير صحيحة.', 500);
 
         $request->validate([
-            'name' => 'required|min:2|max:255',
-            'username' => 'required|min:2|max:255',
+            'name' => 'required|min:2|max:25',
+            'username' => 'required|min:2|max:25',
             'email' => 'nullable|email|max:255|unique:users,email,'.$user->id,
             'profile_picture' => 'image|max:8192',
             'country' => 'exists:countries,id',
