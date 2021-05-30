@@ -117,7 +117,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function hasVerifiedEmail()
     {
-        return $this->email && ! is_null($this->email_verified_at);
+        return !$this->email || ! is_null($this->email_verified_at);
     }
 
     // this is a recommended way to declare event handlers
