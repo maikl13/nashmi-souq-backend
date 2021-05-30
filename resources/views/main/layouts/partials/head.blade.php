@@ -46,3 +46,6 @@
 {{-- <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet"> --}}
 {{-- <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet"> --}}
 <link href="https://fonts.googleapis.com/css?family=Almarai&display=swap" rel="stylesheet">
+
+<!-- Google Adsense -->
+<script data-ad-client="ca-pub-1250310795030706" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
