@@ -3,17 +3,17 @@
 // ====================================================================
 // * Sellers Routes
 // ====================================================================
-Route::domain(config('app.domain'))->middleware(['auth'])->group(function () {
+Route::domain(config('app.domain'))->middleware(['auth', 'verified'])->group(function () {
 	Route::get('stores/new', 'StoreController@create');
 	Route::put('stores/new', 'StoreController@update');
 });
 
-Route::domain(config('app.domain'))->middleware(['auth', 'store'])->group(function () {
+Route::domain(config('app.domain'))->middleware(['auth', 'verified', 'store'])->group(function () {
 	Route::get('categories', 'StoreController@categories')->name('store-categories');
 	Route::put('categories', 'StoreController@store_categories')->name('store-categories.store');
 });
 
-Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'mystore'])->group(function () {
+Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'verified', 'mystore'])->group(function () {
 	Route::middleware(['active', 'store'])->group(function () {
 		Route::get('subscribe', 'SubscriptionController@subscribe')->name('subscribe');
 		Route::post('subscribe', 'SubscriptionController@store')->name('subscription.store');
@@ -61,7 +61,7 @@ Route::domain('{store}.'.config('app.domain'))->group(function () {
 	Route::get('paypal-payment-result', 'TransactionController@paypal_payment_result');
 	Route::get('hyperpay-payment-result', 'TransactionController@hyperpay_payment_result');
 });
-Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'active-store'])->group(function () {
+Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'verified', 'active-store'])->group(function () {
 	Route::get('checkout', 'CartController@checkout')->name('checkout');
 	Route::post('order/new', 'OrderController@store');
 	Route::get('order/new', 'OrderController@order_saved')->name('order-saved');

@@ -27,6 +27,12 @@
                                 @endforeach
                                 </div>
                             @endif
+                            @if(request()->store->store_website)
+                                <a href="{{ request()->store->store_website }}" class="text-white d-block"><i class="fas fa-globe-asia"></i> {{ request()->store->store_website }}</a>
+                            @endif
+                            @if (request()->store->store_email)
+                                <a href="mail:{{ request()->store->store_email }}" class="text-white d-block"><i class="fas fa-envelope"></i> {{ request()->store->store_email }}</a>
+                            @endif
                         </ul>
                     </div>
                 </div>

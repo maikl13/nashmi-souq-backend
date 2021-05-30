@@ -5,21 +5,23 @@
 @endsection
 
 @section('content')
-    <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumbs-area">
-                        <h1>@yield('title')</h1>
-                        <ul>
-                            <li> <a href="{{ Url('/') }}">الرئيسية</a> </li>
-                            <li>@yield('title')</li>
-                        </ul>
+    @section('hero-area')
+        <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumbs-area">
+                            <h1>@yield('title')</h1>
+                            <ul>
+                                <li> <a href="{{ Url('/') }}">الرئيسية</a> </li>
+                                <li>@yield('title')</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @show
 
     <section class="section-padding-equal-70">
         <div class="container">
@@ -28,7 +30,11 @@
                     <div class="contact-page-box-layout1 light-shadow-bg">
                         <div class="light-box-register">
                             <div class="contact-form-box">
-                                <h3 class="item-title">@yield('title')</h3>
+                                <h3 class="item-title">
+                                    @section('card-title')
+                                        @yield('title')
+                                    @show
+                                </h3>
                                 <div>
 
                                 	@yield('page-content')

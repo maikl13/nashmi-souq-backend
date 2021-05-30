@@ -6,7 +6,6 @@
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" dir="rtl">
         <a class="dropdown-item">{{ Auth::user()->name }}</a>
         <a class="dropdown-item" href="/my-orders">طلباتي</a>
-        <a class="dropdown-item" href="{{ url('/') }}/account">إعدادات الحساب</a>
         @if (auth()->check() && request()->store && request()->store->id == auth()->user()->id)
             <a class="dropdown-item" href="/dashboard">إدارة المتجر</a>
         @endif

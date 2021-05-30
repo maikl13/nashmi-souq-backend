@@ -14,7 +14,7 @@ use App\Traits\SendWhatsappMessage;
 use App\Traits\SendOTP;
 use App\Traits\ExchangeCurrency;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendWhatsappMessage, SendOTP, ExchangeCurrency;
 
@@ -108,6 +108,17 @@ class User extends Authenticatable
     }
     public function upload_store_logo($file){
         return $this->upload_file($file, 'store_logo', ['ext'=>'jpg', 'w'=>null, 'h'=>null]);
+    }
+
+    /**
+     * Override the default function here 
+     * to allow using the website for those who registers by phone
+     * @return boolean
+     */
+    public function hasVerifiedEmail()
+    {
+        return false;
+        return $this->email && ! is_null($this->email_verified_at);
     }
 
     // this is a recommended way to declare event handlers

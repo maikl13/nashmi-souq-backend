@@ -32,33 +32,34 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 	Route::put('account/change-password', 'UserController@update_password');
 	Route::put('account/update-payout-methods', 'UserController@update_payout_methods');
 
+	Route::group(['middleware' => ['verified']], function () {
+		Route::get('listings', 'ListingController@index');
+		Route::get('listings/add', 'ListingController@create');
+		Route::post('listings', 'ListingController@store');
+		Route::post('listings/promote', 'ListingController@promote');
+		Route::delete('listings/{listing}', 'ListingController@destroy');
+		Route::get('listings/{listing}/edit', 'ListingController@edit');
+		Route::put('listings/{listing}', 'ListingController@update');
+		Route::post('listings/{listing}/delete-image', 'ListingController@delete_listing_image');
 
-	Route::get('listings', 'ListingController@index');
-	Route::get('listings/add', 'ListingController@create');
-	Route::post('listings', 'ListingController@store');
-	Route::post('listings/promote', 'ListingController@promote');
-	Route::delete('listings/{listing}', 'ListingController@destroy');
-	Route::get('listings/{listing}/edit', 'ListingController@edit');
-	Route::put('listings/{listing}', 'ListingController@update');
-	Route::post('listings/{listing}/delete-image', 'ListingController@delete_listing_image');
-
-	Route::post('messages/add', 'MessageController@store');
-	Route::get('conversation/{user}', 'MessageController@get_conversation');
-	Route::get('conversations', 'MessageController@get_conversations');
-	Route::get('messages/unseen', 'MessageController@get_unseen_messages_count');
+		Route::post('messages/add', 'MessageController@store');
+		Route::get('conversation/{user}', 'MessageController@get_conversation');
+		Route::get('conversations', 'MessageController@get_conversations');
+		Route::get('messages/unseen', 'MessageController@get_unseen_messages_count');
 
 
-	Route::get('deliver', 'DeliveryController@show')->name('deliver');
-	Route::post('deliver', 'DeliveryController@send');
-	
-	Route::post('withdraw', 'TransactionController@withdraw');
-	
-	Route::get('balance', 'TransactionController@add_balance_page');
-	Route::post('balance', 'TransactionController@add_balance');
+		Route::get('deliver', 'DeliveryController@show')->name('deliver');
+		Route::post('deliver', 'DeliveryController@send');
+		
+		Route::post('withdraw', 'TransactionController@withdraw');
+		
+		Route::get('balance', 'TransactionController@add_balance_page');
+		Route::post('balance', 'TransactionController@add_balance');
 
-	Route::post('/comments', 'CommentController@store');
-	Route::post('comments/edit', 'CommentController@update');
-	Route::delete('/comments/{comment}/delete', 'CommentController@destroy');
+		Route::post('/comments', 'CommentController@store');
+		Route::post('comments/edit', 'CommentController@update');
+		Route::delete('/comments/{comment}/delete', 'CommentController@destroy');
+	});
 });
 
 // ====================================================================
@@ -66,7 +67,7 @@ Route::group(['middleware' => ['auth', 'active']], function () {
 // ====================================================================
 
 Route::namespace('\App\Http\Controllers')->group(function () {
-    Auth::routes();
+	Auth::routes(['verify' => true]);
 });
 
 Route::get('/', 'MainController@index')->name('home');
