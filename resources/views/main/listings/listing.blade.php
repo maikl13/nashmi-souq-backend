@@ -2,7 +2,7 @@
 
 @section('title', 'معاينة الإعلان | '. $listing->title)
 
-@section('description', \Str::limit(strip_tags($listing->description), 200))
+@section('description', preg_replace('~[\r\n]+~', ' ', \Str::limit(strip_tags($listing->description), 200)))
 
 @section('image', asset(str_replace('webp', 'jpg', $listing->listing_image())))
 

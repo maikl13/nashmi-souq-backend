@@ -30,7 +30,7 @@
 
 @section('title', 'معاينة المنتج | '. $product->title)
 
-@section('description', \Str::limit(strip_tags($product->description), 200))
+@section('description', preg_replace('~[\r\n]+~', ' ', \Str::limit(strip_tags($product->description), 200)))
 
 @section('image', asset(str_replace('webp', 'jpg', $product->product_image())))
 
