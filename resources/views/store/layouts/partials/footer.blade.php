@@ -28,10 +28,14 @@
                                 </div>
                             @endif
                             @if(request()->store->store_website)
-                                <a href="{{ request()->store->store_website }}" class="text-white d-block"><i class="fas fa-globe-asia"></i> {{ request()->store->store_website }}</a>
+                                <a href="{{ request()->store->store_website }}" class="d-block" style="color: #eee;">
+                                    <i class="fas fa-globe-asia"></i> {{ request()->store->store_website }}
+                                </a>
                             @endif
                             @if (request()->store->store_email)
-                                <a href="mail:{{ request()->store->store_email }}" class="text-white d-block"><i class="fas fa-envelope"></i> {{ request()->store->store_email }}</a>
+                                <a href="mailto:{{ request()->store->store_email }}" class="d-block" style="color: #a4a4a4;">
+                                    <i class="fas fa-envelope"></i> {{ request()->store->store_email }}
+                                </a>
                             @endif
                         </ul>
                     </div>
