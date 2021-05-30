@@ -130,10 +130,11 @@ class User extends Authenticatable implements MustVerifyEmail
         });
 
         Self::saving(function ($user) {
-            if(($user->original['email'] ?? null) && $user->original['email']  != $user->email){
-                $user->email_verified_at = null;
-                $user->sendEmailVerificationNotification();
-            }
+            if($user->original['id'] ?? null)
+                if(($user->original['email'] ?? null) && $user->original['email']  != $user->email){
+                    $user->email_verified_at = null;
+                    $user->sendEmailVerificationNotification();
+                }
         });
     }
 }
