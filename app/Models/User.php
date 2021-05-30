@@ -117,7 +117,6 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function hasVerifiedEmail()
     {
-        return false;
         return $this->email && ! is_null($this->email_verified_at);
     }
 
@@ -128,6 +127,13 @@ class User extends Authenticatable implements MustVerifyEmail
         static::deleting(function(User $user) {
             // before delete() method call this
             return $user->delete_file('profile_picture');
+        });
+
+        Self::saving(function ($user) {
+            if(($user->original['email'] ?? null) != $user->email){
+                $user->email_verified_at = null;
+                $user->sendEmailVerificationNotification();
+            }
         });
     }
 }
