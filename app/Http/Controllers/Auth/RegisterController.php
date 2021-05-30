@@ -85,7 +85,7 @@ class RegisterController extends Controller
         $user_data = [];
         $user_data['name'] = 'User_'.$uid;
         $user_data['username'] = $uid;
-        $user_data['password'] = Hash::make($otp);
+        $user_data['password'] = Hash::make($data['password']);
         $user_data['otp'] = $otp;
         
         if($data['registration_method'] == 'email'){
