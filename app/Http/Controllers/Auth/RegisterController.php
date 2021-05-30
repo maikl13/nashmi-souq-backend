@@ -80,20 +80,19 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $uid = uniqid();
-        $otp = $data['registration_method'] == 'email' ? null : rand(100100, 999000);
 
         $user_data = [];
         $user_data['name'] = 'User_'.$uid;
         $user_data['username'] = $uid;
-        $user_data['password'] = Hash::make($data['password']);
-        $user_data['otp'] = $otp;
         
         if($data['registration_method'] == 'email'){
             $user_data['email'] = $data['email'];
+            $user_data['password'] = Hash::make($data['password']);
         } else {
             $user_data['phone'] = phone($data['phone'], $data['phone_phoneCode'])->formatE164();
             $user_data['phone_national'] = phone($data['phone'], $data['phone_phoneCode'])->formatForMobileDialingInCountry($data['phone_phoneCode']);
             $user_data['phone_country_code'] = $data['phone_phoneCode'];
+            $user_data['otp'] = rand(100100, 999000);
         }
 
         $user = User::create($user_data);
