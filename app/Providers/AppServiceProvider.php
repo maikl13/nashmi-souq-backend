@@ -31,17 +31,14 @@ class AppServiceProvider extends ServiceProvider
         // \Config::set('session.domain', null);
         // \Cookie::queue(\Cookie::make('version', '3.26', 5*12*30*24*60));
 
-        if(request()->path() != 'clear-cookies'){
+        if(\Cookie::has('version') && request()->path() != 'clear-cookies'){
             $current_version = env('APP_VERSION');
 
             $version = \Cookie::has('version') ? \Crypt::decryptString(\Cookie::get('version')) : '1.0';
             $version = explode('|', $version);
             $version = end($version);
 
-            // $fields = ['country','country_code','version'];
             $fields = ['country','country_code','nashmi_souq_session','XSRF-TOKEN','session_locale','remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d', 'version'];
-
-            // dd($version);
 
             if($version != $current_version){
                 \Config::set('session.domain', null);

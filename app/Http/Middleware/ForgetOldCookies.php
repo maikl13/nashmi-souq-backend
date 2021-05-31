@@ -16,9 +16,8 @@ class ForgetOldCookies
      */
     public function handle($request, Closure $next)
     {
-        if(request()->path() != 'clear-cookies'){
+        if($version = cookie()->get('version') && request()->path() != 'clear-cookies'){
             $current_version = env('APP_VERSION');
-            $version = \Cookie::get('version', '1.0');
 
             if($version != $current_version)
                 return redirect()->to('/clear-cookies');
