@@ -38,6 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \App\Http\Middleware\HttpsProtocol::class,
             \App\Http\Middleware\SetStoreCategories::class,
+            \App\Http\Middleware\ForgetOldCookies::class,
         ],
 
         'api' => [
