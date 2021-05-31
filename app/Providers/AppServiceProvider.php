@@ -38,7 +38,8 @@ class AppServiceProvider extends ServiceProvider
             $version = explode('|', $version);
             $version = end($version);
 
-            $fields = ['country','country_code','version'];
+            // $fields = ['country','country_code','version'];
+            $fields = ['country','country_code','nashmi_souq_session','XSRF-TOKEN','session_locale','remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d', 'version'];
 
             // dd($version);
 
