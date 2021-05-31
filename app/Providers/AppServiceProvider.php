@@ -28,16 +28,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot(UrlGenerator $url)
     {
         if(request()->getHost() == config('app.domain')){
-            $current_version = '3.09';
+            $current_version = '3.10';
             $version = \Cookie::has('version') ? \Crypt::decryptString(\Cookie::get('version')) : '1.0';
             $version = explode('|', $version);
             $version = end($version);
             if($version != $current_version){
-                foreach (['country','country_code','nashmi_souq_session','XSRF-TOKEN','session_locale','remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d'] as $key)
-                    \Cookie::queue(\Cookie::forget($key));
+                $fields = ['country','country_code','nashmi_souq_session','XSRF-TOKEN','session_locale','remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d'];
+                foreach ($fields as $key) \Cookie::queue(\Cookie::forget($key));
                 \Config::set('session.domain', null);
-                foreach (['country','country_code','nashmi_souq_session','XSRF-TOKEN','session_locale','remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d'] as $key)
-                    \Cookie::queue(\Cookie::forget($key));
+                foreach ($fields as $key) \Cookie::queue(\Cookie::forget($key));
+                \Config::set('session.domain', env('SESSION_DOMAIN', null));
                 \Cookie::queue(\Cookie::make('version', $current_version, 5*12*30*24*60));
             }
         }
