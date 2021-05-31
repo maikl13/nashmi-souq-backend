@@ -91,3 +91,17 @@ Route::get('direct-payment', 'TransactionController@direct_payment');
 Route::post('direct-payment', 'TransactionController@make_direct_payment');
 Route::get('payment-result', 'TransactionController@payment_result');
 Route::get('hyperpay-payment-result', 'TransactionController@hyperpay_payment_result');
+
+Route::get('clear-cookies', function(){
+	$current_version = env('APP_VERSION');
+	$version = \Cookie::get('version', '1.0');
+
+	if($version != $current_version){
+		$fields = ['country', 'country_code', 'version', 'reset'];
+		foreach ($fields as $key) 
+			\Cookie::queue(Cookie::forget($key));
+		\Cookie::queue(\Cookie::make('version', $current_version, 5*12*30*24*60));
+	}
+
+	return redirect()->route('home');
+});
