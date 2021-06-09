@@ -36,8 +36,6 @@ trait PaymentTrait {
                 dd('Payment Failed, Please Sign in first');
             }
         }
-
-
         return $transaction;
     }
 
@@ -56,7 +54,11 @@ trait PaymentTrait {
         $address2 = $options['address2'] ?? 'NOT REQUIRED';
         $description = $options['description'] ?? 'Ordered goods';
         $amount = exchange($this->amount, $this->currency->code, 'EGP');
-        if(env('NBE_MPGS_MODE') == 'test') $amount = ceil($amount);
+        if(env('NBE_MPGS_MODE') == 'test'){
+            $amount = ceil($amount);
+        } else {
+            $amount = round($amount, 2);
+        }
         $params = $this->nbe_request_hosted_checkout_interaction($amount, $options);
         // $params = ['result' => 'SUCCESS','successIndicator' => 'abc','session.id' => '123'];
         if($params['result'] == 'SUCCESS'){
@@ -132,7 +134,11 @@ trait PaymentTrait {
     {
         $return_url = $options['return_url'] ?? url('/')."/hyperpay-payment-result?uid=$this->uid";
         $amount = exchange($this->amount, $this->currency->code, 'SAR');
-        if(env('HYPERPAY_MODE') == 'test') $amount = ceil($amount);
+        if(env('HYPERPAY_MODE') == 'test'){
+            $amount = ceil($amount);
+        } else {
+            $amount = round($amount, 2);
+        }
         $params = $this->hyperpay_prepare_checkout($amount, $options, $return_url);
         $params = json_decode($params, true);
 
