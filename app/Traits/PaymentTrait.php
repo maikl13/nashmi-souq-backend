@@ -138,6 +138,7 @@ trait PaymentTrait {
             $amount = ceil($amount);
         } else {
             $amount = round($amount, 2);
+            $amount = sprintf('%0.2f', $amount);
         }
         $params = $this->hyperpay_prepare_checkout($amount, $options, $return_url);
         $params = json_decode($params, true);
