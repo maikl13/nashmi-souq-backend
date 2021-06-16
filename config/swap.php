@@ -22,7 +22,7 @@ return [
     */
     'options' => [
         'cache_ttl' => 86400, // 24 hour
-        'base_currency' => 'USD',
+        'base_currency' => 'EUR',
     ],
 
     /*
