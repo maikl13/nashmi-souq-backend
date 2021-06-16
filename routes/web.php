@@ -70,6 +70,7 @@ Route::namespace('\App\Http\Controllers')->group(function () {
 	Auth::routes(['verify' => true]);
 });
 
+Route::get('/test', 'MainController@test');
 Route::get('/', 'MainController@index')->name('home');
 
 Route::get('listings', 'ListingController@index')->name('listings');

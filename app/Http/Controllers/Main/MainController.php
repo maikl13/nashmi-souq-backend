@@ -23,6 +23,22 @@ class MainController extends Controller
         return view('main.home', ['listings' => $listings]);
     }
 
+    public function test()
+    {
+        $base = 'USD';
+        $currency1 = 'EGP';
+        $currency2 = 'USD';
+        // cache()->remember($currency1.'/'.$currency2, 86400, function() use ($currency1, $currency2, $base){
+        //     $base_to_currency1 = Swap::latest($base."/$currency1");
+        //     $base_to_currency2 = Swap::latest($base."/$currency2");
+        //     $currency1_to_currency2 = $base_to_currency2->getValue()/$base_to_currency1->getValue();
+        //     return $currency1_to_currency2;
+        // });
+        return cache()->get($currency1.'/'.$currency2);
+        die();
+        // dd(cache()->get('EGP/USD'));
+    }
+
 
     public function privacy_policy()
     {
