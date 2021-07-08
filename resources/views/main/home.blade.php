@@ -14,17 +14,19 @@
     <!--=====================================-->
     <!--=            Banner Start           =-->
     <!--=====================================-->
-    <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common {{-- minus-mgt-90 --}}" data-bg-image="/assets/images/banner/banner1.jpg" style="padding: 8rem 0 7rem;">
-        <div class="container">
-            <div class="main-banner-box-layout1 animated-headline-">
-                <h1 class="ah-headline- item-title" style="line-height: 60px; font-size: 2.5rem">
-                    <span class="ah-words-wrapper-">
-                        {{-- <b class="is-visible">{{ setting('slogan') }}</b> --}}
-                        <b>{{ setting('slogan') }}</b>
-                    </span>
-                </h1>
-                
-                <div class="item-subtitle">إبحث في أكثر من {{ App\Models\Listing::count() + 36200 }} إعلان موزعين بين أكثر من {{ App\Models\Category::count() }} قسم</div>
+    <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common py-5 {{-- minus-mgt-90 --}}" data-bg-image="/assets/images/banner/banner1.jpg">
+        <div class="container py-lg-5">
+            <div class="main-banner-box-layout1 animated-headline- py-xl-3">
+                <div class="d-none d-lg-block">
+                    <h1 class="ah-headline- item-title" style="line-height: 60px; font-size: 2.5rem">
+                        <span class="ah-words-wrapper-">
+                            {{-- <b class="is-visible">{{ setting('slogan') }}</b> --}}
+                            <b>{{ setting('slogan') }}</b>
+                        </span>
+                    </h1>
+                    
+                    <div class="item-subtitle">إبحث في أكثر من {{ App\Models\Listing::count() + 36200 }} إعلان موزعين بين أكثر من {{ App\Models\Category::count() }} قسم</div>
+                </div>
 
                 @include('main.layouts.partials.search-box')
 

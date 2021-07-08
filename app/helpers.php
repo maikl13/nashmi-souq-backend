@@ -72,7 +72,7 @@ function location(){
 	return $country ?? Country::first();
 }
 
-function ad_space($type='', $banner)
+function ad_space($type='', $banner=false)
 {
 	switch ($type) {
 		// case 'large_rectangle': $width = 336; $height = 280; break;
