@@ -9639,7 +9639,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/souq/resources/js/realtime.js */"./resources/js/realtime.js");
+module.exports = __webpack_require__(/*! /Users/mahmoud/Sites/souq/resources/js/realtime.js */"./resources/js/realtime.js");
 
 
 /***/ })

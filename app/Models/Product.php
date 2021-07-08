@@ -31,7 +31,7 @@ class Product extends Model
     public function getTitleAttribute()
     {
         $title = $this->getAttributes()['title'];
-        foreach ($this->options['values'] as $option_value) {
+        foreach (optional($this->options)['values'] ?? [] as $option_value) {
             $option_value = \App\Models\OptionValue::find($option_value);
             $title .= ' - '.$option_value->name;
         }
