@@ -2,7 +2,7 @@
 
 @if ($product)
     @php
-        $option_values = App\Models\OptionValue::whereIn('id', $product->options['values'])->get();
+        $option_values = App\Models\OptionValue::whereIn('id', optional($product->options)['values'] ?? [])->get();
     @endphp
 
     @foreach ($option_values as $option_value)
