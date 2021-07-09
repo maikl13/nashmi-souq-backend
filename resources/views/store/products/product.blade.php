@@ -3,7 +3,7 @@
     $vs = [];
     $added_values = [];
     $used_ps = [];
-    foreach ($product->options['values'] as $value) {
+    foreach (optional($product->options)['values'] ?? [] as $value) {
         $option = optional(App\Models\OptionValue::find($value))->option_id;
         if ($option) {
             $ps = App\Models\Product::whereGroup($product->group)->whereJsonContains('options->options', $option);
