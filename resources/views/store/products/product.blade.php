@@ -5,20 +5,22 @@
     $used_ps = [];
     foreach ($product->options['values'] as $value) {
         $option = optional(App\Models\OptionValue::find($value))->option_id;
-        $ps = App\Models\Product::whereGroup($product->group)->whereJsonContains('options->options', $option);
-        if($vs) $ps = $ps->whereJsonContains('options->values', $vs);
-        $ps = $ps->get();
-        $vs[] = $value;
-        foreach ($ps as $p) {
-            foreach ($p->options['values'] as $v) {
-                $v = App\Models\OptionValue::find($v);
-                if($v && $v->option_id == $option && !in_array($v->id, $added_values)){
-                    $value = [];
-                    $value['value'] = $v;
-                    $value['url'] = $p->url();
-                    $options[$option][] = $value;
-                    $added_values[] = $v->id;
-                    $used_ps[] = $p->id;
+        if ($option) {
+            $ps = App\Models\Product::whereGroup($product->group)->whereJsonContains('options->options', $option);
+            if($vs) $ps = $ps->whereJsonContains('options->values', $vs);
+            $ps = $ps->get();
+            $vs[] = $value;
+            foreach ($ps as $p) {
+                foreach ($p->options['values'] as $v) {
+                    $v = App\Models\OptionValue::find($v);
+                    if($v && $v->option_id == $option && !in_array($v->id, $added_values)){
+                        $value = [];
+                        $value['value'] = $v;
+                        $value['url'] = $p->url();
+                        $options[$option][] = $value;
+                        $added_values[] = $v->id;
+                        $used_ps[] = $p->id;
+                    }
                 }
             }
         }
