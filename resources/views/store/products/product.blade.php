@@ -153,7 +153,8 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <strong>إختيارات أخرى : </strong> <br>
-                                                        @foreach ($related_ps as $p)
+                                                        @foreach ($related_ps as $i => $p)
+                                                            {{ $i > 0 ? ' - ' : '' }}
                                                             <a href="{{ $p->url() }}">
                                                                 {{ $p->title }}
                                                                 @foreach ($p->options['values'] as $oval)
