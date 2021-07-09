@@ -70,7 +70,7 @@
 
             <div class="row">
                 @if (request()->store->products()->shown()->count())
-                    @foreach (request()->store->products()->shown()->limit(16)->get() as $product)
+                    @foreach (request()->store->products()->latest()->shown()->limit(16)->get() as $product)
                         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
                             <div class="product-box-layout1 home-listing">
                                 <div class="item-img">
