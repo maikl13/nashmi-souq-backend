@@ -33,7 +33,8 @@ class Product extends Model
         $title = $this->getAttributes()['title'];
         foreach (optional($this->options)['values'] ?? [] as $option_value) {
             $option_value = \App\Models\OptionValue::find($option_value);
-            $title .= ' - '.$option_value->name;
+            if($option_value)
+                $title .= ' - '.$option_value->name;
         }
         return $title;
     }
