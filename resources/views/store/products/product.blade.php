@@ -11,15 +11,17 @@
             $ps = $ps->get();
             $vs[] = $value;
             foreach ($ps as $p) {
-                foreach ($p->options['values'] as $v) {
+                foreach (optional($p->options)['values'] ?? [] as $v) {
                     $v = App\Models\OptionValue::find($v);
-                    if($v && $v->option_id == $option && !in_array($v->id, $added_values)){
-                        $value = [];
-                        $value['value'] = $v;
-                        $value['url'] = $p->url();
-                        $options[$option][] = $value;
-                        $added_values[] = $v->id;
-                        $used_ps[] = $p->id;
+                    if ($v) {
+                        if($v && $v->option_id == $option && !in_array($v->id, $added_values)){
+                            $value = [];
+                            $value['value'] = $v;
+                            $value['url'] = $p->url();
+                            $options[$option][] = $value;
+                            $added_values[] = $v->id;
+                            $used_ps[] = $p->id;
+                        }
                     }
                 }
             }
@@ -158,7 +160,9 @@
                                                                     @php
                                                                         $oval = App\Models\OptionValue::find($oval);
                                                                     @endphp
-                                                                    <span class="badge badge-info">{{ $oval->name }}</span>
+                                                                    @if ($oval)
+                                                                        <span class="badge badge-info">{{ $oval->name }}</span>
+                                                                    @endif
                                                                 @endforeach
                                                             </a>
                                                         @endforeach
