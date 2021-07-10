@@ -70,6 +70,7 @@
                     $category = App\Models\Category::where('slug', $cat)->first(); 
                     $sub_categories_count = 0;
                     if($category) $sub_categories_count = $category->children()->count();
+                    $sub_cat = '';
                     if($product->sub_category) $sub_cat = $product->sub_category->slug;
                     if(old('sub_category')) $sub_cat = old('sub_category');
                 ?>
