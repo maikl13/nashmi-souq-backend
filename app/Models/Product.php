@@ -41,7 +41,7 @@ class Product extends Model
     public function getOptionsAttribute()
     {
         $options = $this->getAttributes()['options'];
-        if($options)
+        if($options && sizeof($options))
             return json_decode($options, true);
         return ['options'=>[],'values'=>[]];
     }
