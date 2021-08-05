@@ -1,4 +1,4 @@
-@foreach ($listings as $listing)
+@foreach ($listings as $k => $listing)
     <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
         <div class="product-box-layout1 home-listing {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
             <div class="item-img">

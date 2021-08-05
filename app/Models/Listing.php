@@ -21,13 +21,13 @@ class Listing extends Model
         return $query->where('status', 1);
     }
 
-    public function scopeFeatured($query, $strict=false){
-        if($strict){
-            return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
-                ->select('listings.*', 'featured_listings.listing_id')
-                ->whereRaw(DB::raw("IF('".now()."' < `featured_listings`.`expired_at`, 1, Null)"));
-        }
+    public function scopeFeaturedOrFixed($query){
+        return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+            ->select('listings.*', 'featured_listings.listing_id')
+            ->whereRaw(DB::raw("IF('".now()."' < `featured_listings`.`expired_at`, 1, Null)"));
+    }
 
+    public function scopeFeaturedOrFixedFirst($query){
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
             ->select('listings.*', 
                 'featured_listings.listing_id', 
@@ -36,6 +36,37 @@ class Listing extends Model
             )
             ->orderByRaw('`featuring_level` desc, `featured` desc, `id` desc');
     }
+
+    public function scopeFeatured($query){
+        return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+            ->select('listings.*', 'featured_listings.listing_id')
+            ->whereRaw(DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` <= 8, 1, Null)"));
+    }
+
+    public function scopeFeaturedFirst($query){
+        return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+            ->select('listings.*', 
+                'featured_listings.listing_id', 
+                DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` <= 8, 1, Null) as `featuring_level`"),
+            )
+            ->orderByRaw('`featuring_level` desc, `id` desc');
+    }
+
+    public function scopeFixed($query){
+        return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+            ->select('listings.*', 'featured_listings.listing_id')
+            ->whereRaw(DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` > 8, 1, Null)"));
+    }
+
+    public function scopeFixedFirst($query){
+        return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+            ->select('listings.*', 
+                'featured_listings.listing_id', 
+                DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` > 8, 1, Null) as `featuring_level`"),
+            )
+            ->orderByRaw('`featuring_level` desc, `id` desc');
+    }
+
 
     const TYPE_SELL = 1;
     const TYPE_BUY = 2;

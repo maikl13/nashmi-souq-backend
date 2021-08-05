@@ -33,17 +33,17 @@ class ListingController extends Controller
 
         //search
         if($request->q && !empty($request->q)) 
-            $listings = $listings->search($request->q)->featured();
+            $listings = $listings->search($request->q)->featuredOrFixedFirst();
         // filter by type
         if($request->type && !empty($request->type)) 
             $listings = $listings->where('type', $request->type);
 
         // filter by category
         if( !empty($categories) || !empty($sub_categories) ){
-            $listings = $listings->Where(function($query) use ($categories, $sub_categories){
+            $listings = $listings->where(function($query) use ($categories, $sub_categories){
                 $query->whereIn('category_id', $categories)
                     ->orWhereIn('sub_category_id', $sub_categories);
-            });
+            })->featuredOrFixedFirst();
         }
 
         // filter by location

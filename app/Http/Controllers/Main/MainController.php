@@ -15,7 +15,7 @@ class MainController extends Controller
      */
     public function index()
     {
-        $listings = Listing::localized()->active()->featured()->paginate(8);
+        $listings = Listing::localized()->active()->featuredFirst()->paginate(8)->shuffle();
 
         if (request()->ajax())
             return response()->json(view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);

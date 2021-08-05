@@ -32,7 +32,7 @@ class TransactionController extends Controller
             'user' => 'exists:users,id',
             'currency' => 'exists:currencies,id',
             'transaction_type' => 'in:'.Transaction::TYPE_DEPOSIT.','.Transaction::TYPE_WITHDRAWAL,
-            'payment_method' => 'in:'.Transaction::PAYMENT_BANK_DEPOSIT.','.Transaction::PAYMENT_FAWRY.','.Transaction::PAYMENT_VODAFONE_CASH.','.Transaction::PAYMENT_OTHER,
+            'payment_method' => 'in:'.Transaction::PAYMENT_BANK_DEPOSIT.','.Transaction::PAYMENT_FAWRY.','.Transaction::PAYMENT_VODAFONE_CASH.','.Transaction::PAYMENT_POSTAL_OFFICE.','.Transaction::PAYMENT_PAYPAL.','.Transaction::PAYMENT_OTHER,
             'transaction_status' => 'in:'.Transaction::STATUS_PENDING.','.Transaction::STATUS_PROCESSED,
             'amount' => 'integer|min:1',
         ]);

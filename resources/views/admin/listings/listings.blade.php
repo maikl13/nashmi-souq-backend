@@ -59,10 +59,10 @@
 			window.LaravelDataTables["data-table"].column(2).search( $(this).val() ).draw()
 		});
 		$(document).on("change", '.country-filter',function(e){
-			window.LaravelDataTables["data-table"].column(5).search( $(this).val() ).draw()
+			window.LaravelDataTables["data-table"].column(6).search( $(this).val() ).draw()
 		});
 		$(document).on("change", '.featured-filter',function(e){
-			window.LaravelDataTables["data-table"].column(7).search( $(this).val() ).draw()
+			window.LaravelDataTables["data-table"].column(8).search( $(this).val() ).draw()
 		});
 	</script>
 @endsection
