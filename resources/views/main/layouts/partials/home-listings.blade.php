@@ -1,4 +1,18 @@
 @foreach ($listings as $k => $listing)
+    @if($k%3)
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706"
+            crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-format="fluid"
+            data-ad-layout-key="-db+83+4m-f8+ef"
+            data-ad-client="ca-pub-1250310795030706"
+            data-ad-slot="7813512154"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    @endif
+
     <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
         <div class="product-box-layout1 home-listing {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
             <div class="item-img">
