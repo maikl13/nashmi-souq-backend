@@ -16,8 +16,10 @@
 
                 @foreach( App\Models\Listing::where('category_id', $listing->category_id)->localized()->active()->featuredFirst()->where('listings.id', '!=', $listing->id)->latest()->limit(8)->get() as $related )
                     <div class="product-box-layout1 box-shadwo-light mb-1 mg-1 {{ $related->is_featured() ? 'item-trending' : '' }} {{ $related->is_fixed() ? 'item-fixed' : '' }}">
-                        <div class="item-img">
-                            <a href="{{ $related->url() }}"><img src="{{ $related->listing_image(['size'=>'xs']) }}" alt="Product"></a>
+                        <div>
+                            <a href="{{ $related->url() }}" style="height: 250px;display: block;overflow: hidden;">
+                                <img src="{{ $related->listing_image(['size'=>'xs']) }}" alt="Product" style="object-fit: cover;width: 100%;height: 100%;">
+                            </a>
                         </div>
                         <div class="item-content">
                             <h3 class="item-title"><a href="{{ $related->url() }}">{{ $related->title }}</a></h3>
