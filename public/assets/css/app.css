@@ -57,9 +57,12 @@ CSS INDEX
     6.6 Text
 
 --------------------------------------------*/
+
+
 /*=======================================================================
 1. Typography 
 =========================================================================*/
+
 body {
     font-family: "Roboto", sans-serif;
     font-size: 1rem;
@@ -115,8 +118,8 @@ h1 {
 }
 
 h2 {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
 }
 
 @media only screen and (max-width: 991px) {
@@ -163,10 +166,14 @@ h6 {
     line-height: 1.875rem;
 }
 
+
 /*=======================================================================
 2. Bootstrap Overwrite
 =========================================================================*/
+
+
 /*------------------- 2.1 Form -------------------*/
+
 .form-group {
     position: relative;
 }
@@ -199,11 +206,13 @@ h6 {
 }
 
 .form-group input.form-control::-webkit-input-placeholder,
-  .form-group textarea.form-control::-webkit-input-placeholder {
+.form-group textarea.form-control::-webkit-input-placeholder {
     color: #646464;
 }
 
+
 /*------------------- 2.2 Grid -------------------*/
+
 @media only screen and (min-width: 1230px) {
     .container {
         max-width: 1210px;
@@ -220,8 +229,8 @@ h6 {
     margin-right: 0;
 }
 
-.container-fluid.full-width .row > [class^="col-"],
-  .container-fluid.full-width .row > [class*=" col-"] {
+.container-fluid.full-width .row>[class^="col-"],
+.container-fluid.full-width .row>[class*=" col-"] {
     padding-right: 0;
     padding-left: 0;
 }
@@ -231,8 +240,8 @@ h6 {
     margin-left: 0;
 }
 
-.row.no-gutters > [class^="col-"],
-.row.no-gutters > [class*=" col-"] {
+.row.no-gutters>[class^="col-"],
+.row.no-gutters>[class*=" col-"] {
     padding-right: 0;
     padding-left: 0;
 }
@@ -242,7 +251,7 @@ h6 {
     padding-right: 0.90625rem;
 }
 
-.row.gutters-1 > [class^="col-"] {
+.row.gutters-1>[class^="col-"] {
     padding-left: 0.03125rem;
     padding-right: 0.03125rem;
 }
@@ -252,7 +261,7 @@ h6 {
     padding-right: 0.875rem;
 }
 
-.row.gutters-2 > [class^="col-"] {
+.row.gutters-2>[class^="col-"] {
     padding-left: 0.0625rem;
     padding-right: 0.0625rem;
 }
@@ -262,7 +271,7 @@ h6 {
     padding-right: 0.84375rem;
 }
 
-.row.gutters-3 > [class^="col-"] {
+.row.gutters-3>[class^="col-"] {
     padding-left: 0.09375rem;
     padding-right: 0.09375rem;
 }
@@ -272,7 +281,7 @@ h6 {
     padding-right: 0.8125rem;
 }
 
-.row.gutters-4 > [class^="col-"] {
+.row.gutters-4>[class^="col-"] {
     padding-left: 0.125rem;
     padding-right: 0.125rem;
 }
@@ -282,7 +291,7 @@ h6 {
     padding-right: 0.78125rem;
 }
 
-.row.gutters-5 > [class^="col-"] {
+.row.gutters-5>[class^="col-"] {
     padding-left: 0.15625rem;
     padding-right: 0.15625rem;
 }
@@ -292,7 +301,7 @@ h6 {
     padding-right: 0.75rem;
 }
 
-.row.gutters-6 > [class^="col-"] {
+.row.gutters-6>[class^="col-"] {
     padding-left: 0.1875rem;
     padding-right: 0.1875rem;
 }
@@ -302,7 +311,7 @@ h6 {
     padding-right: 0.71875rem;
 }
 
-.row.gutters-7 > [class^="col-"] {
+.row.gutters-7>[class^="col-"] {
     padding-left: 0.21875rem;
     padding-right: 0.21875rem;
 }
@@ -312,7 +321,7 @@ h6 {
     padding-right: 0.6875rem;
 }
 
-.row.gutters-8 > [class^="col-"] {
+.row.gutters-8>[class^="col-"] {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
 }
@@ -322,7 +331,7 @@ h6 {
     padding-right: 0.65625rem;
 }
 
-.row.gutters-9 > [class^="col-"] {
+.row.gutters-9>[class^="col-"] {
     padding-left: 0.28125rem;
     padding-right: 0.28125rem;
 }
@@ -332,7 +341,7 @@ h6 {
     padding-right: 0.625rem;
 }
 
-.row.gutters-10 > [class^="col-"] {
+.row.gutters-10>[class^="col-"] {
     padding-left: 0.3125rem;
     padding-right: 0.3125rem;
 }
@@ -342,7 +351,7 @@ h6 {
     padding-right: 0.59375rem;
 }
 
-.row.gutters-11 > [class^="col-"] {
+.row.gutters-11>[class^="col-"] {
     padding-left: 0.34375rem;
     padding-right: 0.34375rem;
 }
@@ -352,7 +361,7 @@ h6 {
     padding-right: 0.5625rem;
 }
 
-.row.gutters-12 > [class^="col-"] {
+.row.gutters-12>[class^="col-"] {
     padding-left: 0.375rem;
     padding-right: 0.375rem;
 }
@@ -362,7 +371,7 @@ h6 {
     padding-right: 0.53125rem;
 }
 
-.row.gutters-13 > [class^="col-"] {
+.row.gutters-13>[class^="col-"] {
     padding-left: 0.40625rem;
     padding-right: 0.40625rem;
 }
@@ -372,7 +381,7 @@ h6 {
     padding-right: 0.5rem;
 }
 
-.row.gutters-14 > [class^="col-"] {
+.row.gutters-14>[class^="col-"] {
     padding-left: 0.4375rem;
     padding-right: 0.4375rem;
 }
@@ -382,7 +391,7 @@ h6 {
     padding-right: 0.46875rem;
 }
 
-.row.gutters-15 > [class^="col-"] {
+.row.gutters-15>[class^="col-"] {
     padding-left: 0.46875rem;
     padding-right: 0.46875rem;
 }
@@ -392,7 +401,7 @@ h6 {
     padding-right: 0.3125rem;
 }
 
-.row.gutters-20 > [class^="col-"] {
+.row.gutters-20>[class^="col-"] {
     padding-left: 0.625rem;
     padding-right: 0.625rem;
 }
@@ -402,18 +411,15 @@ h6 {
         margin-left: -1.25rem;
         margin-right: -1.25rem;
     }
-
-    .row.gutters-40 > [class^="col-"] {
+    .row.gutters-40>[class^="col-"] {
         padding-left: 1.25rem;
         padding-right: 1.25rem;
     }
-
     .row.gutters-50 {
         margin-left: -1.5625rem;
         margin-right: -1.5625rem;
     }
-
-    .row.gutters-50 > [class^="col-"] {
+    .row.gutters-50>[class^="col-"] {
         padding-left: 1.5625rem;
         padding-right: 1.5625rem;
     }
@@ -424,17 +430,20 @@ h6 {
         margin-left: -0.9375rem;
         margin-right: -0.9375rem;
     }
-
-    .row.gutters-50 > [class^="col-"] {
+    .row.gutters-50>[class^="col-"] {
         padding-left: 0.9375rem;
         padding-right: 0.9375rem;
     }
 }
 
+
 /*=======================================================================
 3. Vendor Custom Style
 =========================================================================*/
+
+
 /*------------------- 3.1 Owl Carousel Nav -------------------*/
+
 .nav-control-layout1 .owl-nav {
     margin-top: 0;
 }
@@ -586,10 +595,14 @@ h6 {
     opacity: 1;
 }
 
+
 /*=======================================================================
 4. Template Layout Style
 =========================================================================*/
+
+
 /*------------------- 4.1 Back To Top -------------------*/
+
 .scrollup {
     overflow: hidden;
     position: fixed;
@@ -629,7 +642,9 @@ h6 {
     bottom: 1.5625rem;
 }
 
+
 /*------------------- 4.2 Button -------------------*/
+
 .btn-fill-xl {
     color: #ffffff;
     font-size: 0.9375rem;
@@ -698,7 +713,9 @@ h6 {
     color: #ffffff;
 }
 
+
 /*------------------- 4.3 Footer -------------------*/
+
 .footer-top-wrap {
     background-color: #1a1a1a;
     padding: 4.6875rem 0 2.875rem;
@@ -841,7 +858,9 @@ h6 {
     display: block;
 }
 
+
 /*------------------- 4.4 Global -------------------*/
+
 a {
     text-decoration: none;
     cursor: pointer;
@@ -889,12 +908,14 @@ hr {
 }
 
 .form-response .alert-danger p,
-  .form-response .alert.alert-info p,
-  .form-response .alert.alert-success p {
+.form-response .alert.alert-info p,
+.form-response .alert.alert-success p {
     margin-bottom: 0;
 }
 
+
 /*------------------- 4.5 Header Menu -------------------*/
+
 header.header {
     position: relative;
     z-index: 15;
@@ -933,7 +954,7 @@ header.header {
     display: block;
 }
 
-.header-menu nav.template-main-menu > ul {
+.header-menu nav.template-main-menu>ul {
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -944,20 +965,20 @@ header.header {
     justify-content: center;
 }
 
-.header-menu nav.template-main-menu > ul > li > a {
+.header-menu nav.template-main-menu>ul>li>a {
     -webkit-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
 }
 
-.header-menu nav.template-main-menu > ul > li > a:hover {
+.header-menu nav.template-main-menu>ul>li>a:hover {
     color: #f85c70;
 }
 
-nav.template-main-menu > ul > li {
+nav.template-main-menu>ul>li {
     position: relative;
 }
 
-nav.template-main-menu > ul > li > a {
+nav.template-main-menu>ul>li>a {
     font-size: 0.9375rem;
     font-weight: 500;
     line-height: 1;
@@ -967,12 +988,12 @@ nav.template-main-menu > ul > li > a {
     transition: all 0.3s ease-in-out;
 }
 
-nav.template-main-menu > ul > li a.has-dropdown {
+nav.template-main-menu>ul>li a.has-dropdown {
     position: relative;
     padding-right: 1.875rem !important;
 }
 
-nav.template-main-menu > ul > li a.has-dropdown:after {
+nav.template-main-menu>ul>li a.has-dropdown:after {
     content: "\f103";
     font-family: "Flaticon";
     font-size: 0.5rem;
@@ -988,7 +1009,7 @@ nav.template-main-menu > ul > li a.has-dropdown:after {
     transition: all 0.3s ease-in-out;
 }
 
-nav.template-main-menu > ul > li ul.sub-menu {
+nav.template-main-menu>ul>li ul.sub-menu {
     border-top: 0.125rem solid #f85c70;
     background-color: #ffffff;
     padding: 0.9375rem 1.25rem;
@@ -1009,11 +1030,11 @@ nav.template-main-menu > ul > li ul.sub-menu {
     transition: all 0.3s ease-in-out;
 }
 
-nav.template-main-menu > ul > li ul.sub-menu li {
+nav.template-main-menu>ul>li ul.sub-menu li {
     position: relative;
 }
 
-nav.template-main-menu > ul > li ul.sub-menu li a {
+nav.template-main-menu>ul>li ul.sub-menu li a {
     position: relative;
     font-size: 0.875rem;
     text-transform: capitalize;
@@ -1026,12 +1047,12 @@ nav.template-main-menu > ul > li ul.sub-menu li a {
     transition: all 0.3s ease-in-out;
 }
 
-nav.template-main-menu > ul > li ul.sub-menu li a:hover {
+nav.template-main-menu>ul>li ul.sub-menu li a:hover {
     color: #ffffff;
     background-color: #f85c70;
 }
 
-nav.template-main-menu > ul > li ul.mega-menu {
+nav.template-main-menu>ul>li ul.mega-menu {
     padding: 0.625rem 0;
     background-color: #ffffff;
     border-top: 0.125rem solid #f85c70;
@@ -1050,14 +1071,14 @@ nav.template-main-menu > ul > li ul.mega-menu {
     transition: all 0.3s ease-in-out;
 }
 
-nav.template-main-menu > ul > li ul.mega-menu > li {
+nav.template-main-menu>ul>li ul.mega-menu>li {
     width: 14.375rem;
     display: inline-block;
     margin: 0 0.3125rem;
     float: left;
 }
 
-nav.template-main-menu > ul > li ul.mega-menu > li > ul.sub-menu {
+nav.template-main-menu>ul>li ul.mega-menu>li>ul.sub-menu {
     position: relative;
     width: 100%;
     border: none;
@@ -1069,22 +1090,22 @@ nav.template-main-menu > ul > li ul.mega-menu > li > ul.sub-menu {
     transform: scaleY(1);
 }
 
-nav.template-main-menu > ul > li ul.mega-menu-col-3 {
+nav.template-main-menu>ul>li ul.mega-menu-col-3 {
     width: 45rem;
 }
 
 @media only screen and (max-width: 1199px) {
-    nav.template-main-menu > ul > li ul.mega-menu-col-3 {
+    nav.template-main-menu>ul>li ul.mega-menu-col-3 {
         left: -12.5rem;
     }
 }
 
-nav.template-main-menu > ul > li ul.mega-menu-col-2 {
+nav.template-main-menu>ul>li ul.mega-menu-col-2 {
     width: 30rem;
     left: -11.875rem;
 }
 
-nav.template-main-menu > ul > li:hover ul.sub-menu {
+nav.template-main-menu>ul>li:hover ul.sub-menu {
     opacity: 1;
     visibility: visible;
     -webkit-transform: scaleY(1);
@@ -1092,7 +1113,7 @@ nav.template-main-menu > ul > li:hover ul.sub-menu {
     transform: scaleY(1);
 }
 
-nav.template-main-menu > ul > li:hover ul.mega-menu {
+nav.template-main-menu>ul>li:hover ul.mega-menu {
     opacity: 1;
     visibility: visible;
     -webkit-transform: scaleY(1);
@@ -1100,17 +1121,17 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     transform: scaleY(1);
 }
 
-.header-menu.menu-layout1 nav.template-main-menu > ul > li > a {
+.header-menu.menu-layout1 nav.template-main-menu>ul>li>a {
     padding: 2.25rem 1.25rem;
     color: #ffffff;
 }
 
-.header-menu.menu-layout1 nav.template-main-menu > ul > li > a:hover {
+.header-menu.menu-layout1 nav.template-main-menu>ul>li>a:hover {
     color: #f85c70;
 }
 
 @media only screen and (max-width: 1199px) {
-    .header-menu.menu-layout1 nav.template-main-menu > ul > li > a {
+    .header-menu.menu-layout1 nav.template-main-menu>ul>li>a {
         padding: 2.25rem 0.9375rem;
     }
 }
@@ -1119,21 +1140,21 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     background-color: #ffffff;
 }
 
-.header-menu.menu-layout2 nav.template-main-menu > ul > li > a {
+.header-menu.menu-layout2 nav.template-main-menu>ul>li>a {
     padding: 2.25rem 1.25rem;
 }
 
-.header-menu.menu-layout2 nav.template-main-menu > ul > li > a:hover {
+.header-menu.menu-layout2 nav.template-main-menu>ul>li>a:hover {
     color: #f85c70;
 }
 
 @media only screen and (max-width: 1199px) {
-    .header-menu.menu-layout2 nav.template-main-menu > ul > li > a {
+    .header-menu.menu-layout2 nav.template-main-menu>ul>li>a {
         padding: 2.25rem 0.9375rem;
     }
 }
 
-.header-menu.menu-layout2 nav.template-main-menu > ul a.has-dropdown:after {
+.header-menu.menu-layout2 nav.template-main-menu>ul a.has-dropdown:after {
     color: #111111;
 }
 
@@ -1160,11 +1181,11 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     display: block;
 }
 
-.header-menu.menu-layout1.rt-sticky nav.template-main-menu > ul > li > a {
+.header-menu.menu-layout1.rt-sticky nav.template-main-menu>ul>li>a {
     color: #2a2a2a;
 }
 
-.header-menu.menu-layout1.rt-sticky nav.template-main-menu > ul > li a.has-dropdown:after {
+.header-menu.menu-layout1.rt-sticky nav.template-main-menu>ul>li a.has-dropdown:after {
     color: #111111;
 }
 
@@ -1176,12 +1197,12 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     box-shadow: 0rem 0.0625rem 0.3125rem 0rem rgba(0, 0, 0, 0.2);
 }
 
-.header-menu.menu-layout2.rt-sticky nav.template-main-menu > ul > li > a {
+.header-menu.menu-layout2.rt-sticky nav.template-main-menu>ul>li>a {
     padding: 1.75rem 1.25rem;
 }
 
 @media only screen and (max-width: 1199px) {
-    .header-menu.menu-layout2.rt-sticky nav.template-main-menu > ul > li > a {
+    .header-menu.menu-layout2.rt-sticky nav.template-main-menu>ul>li>a {
         padding: 1.75rem 0.9375rem;
     }
 }
@@ -1320,20 +1341,20 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     background: transparent !important;
 }
 
-.mean-container .mean-nav > ul {
+.mean-container .mean-nav>ul {
     overflow-y: scroll;
     overflow-x: hidden;
     height: calc(100vh - 75px);
     /*height: auto;*/
 }
 
-.mean-container .mean-nav > ul:after {
+.mean-container .mean-nav>ul:after {
     content: '';
     display: block;
     clear: both;
 }
 
-.mean-container .mean-nav > ul > li > a {
+.mean-container .mean-nav>ul>li>a {
     font-size: 0.875rem;
     color: #2a2a2a;
     font-weight: 500;
@@ -1343,16 +1364,16 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     transition: all 0.5s ease-out;
 }
 
-.mean-container .mean-nav > ul > li > a:hover {
+.mean-container .mean-nav>ul>li>a:hover {
     color: #f85c70;
 }
 
-.mean-container .mean-nav > ul > li:hover > a {
+.mean-container .mean-nav>ul>li:hover>a {
     color: #f85c70;
     background-color: #ffffff;
 }
 
-.mean-container .mean-nav > ul > li li a {
+.mean-container .mean-nav>ul>li li a {
     color: #2a2a2a;
     opacity: 1;
     font-weight: 500;
@@ -1360,11 +1381,11 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     font-size: 0.875rem;
 }
 
-.mean-container .mean-nav > ul > li li a:hover {
+.mean-container .mean-nav>ul>li li a:hover {
     background-color: #ffffff;
 }
 
-.mean-container .mean-nav > ul > li a.mean-expand {
+.mean-container .mean-nav>ul>li a.mean-expand {
     background-color: transparent;
     margin-top: 0;
     height: 1.25rem;
@@ -1376,7 +1397,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     top: -0.25rem;
 }
 
-.mean-container .mean-nav > ul > li a.mean-expand:hover {
+.mean-container .mean-nav>ul>li a.mean-expand:hover {
     background-color: transparent;
 }
 
@@ -1402,7 +1423,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     padding-top: 4.6rem;
 }
 
+
 /*------------------- 4.6 Inner Page Banner -------------------*/
+
 .inner-page-banner {
     position: relative;
     padding: 3.4375rem 0 5rem;
@@ -1486,7 +1509,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     display: none;
 }
 
+
 /*------------------- 4.7 Pagination -------------------*/
+
 .pagination-layout1 {
     margin-top: 1.875rem;
     background-color: #ffffff;
@@ -1503,7 +1528,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 }
 
 .pagination-layout1 .btn-prev a,
-  .pagination-layout1 .btn-next a {
+.pagination-layout1 .btn-next a {
     padding: 0.375rem 0.9375rem;
     color: #646464;
     font-weight: 600;
@@ -1515,12 +1540,12 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 }
 
 .pagination-layout1 .btn-prev a:hover,
-    .pagination-layout1 .btn-next a:hover {
+.pagination-layout1 .btn-next a:hover {
     color: #f85c70;
 }
 
 .pagination-layout1 .btn-prev a i,
-    .pagination-layout1 .btn-next a i {
+.pagination-layout1 .btn-next a i {
     color: #f85c70;
 }
 
@@ -1563,7 +1588,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     color: #ccc !important;
 }
 
+
 /*------------------- 4.8 Preloader -------------------*/
+
 #preloader {
     background: #ffffff url("../../assets/images/preloader.gif") no-repeat scroll center center;
     height: 100%;
@@ -1575,7 +1602,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     z-index: 9999999;
 }
 
+
 /*------------------- 4.9 Section Heading -------------------*/
+
 .heading-layout1 {
     text-align: center;
     margin-bottom: 3.125rem;
@@ -1642,7 +1671,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     padding: 0;
 }
 
+
 /*------------------- 4.10 Widget -------------------*/
+
 @media only screen and (max-width: 991px) {
     .sidebar-break-md {
         margin-top: 3.125rem;
@@ -1904,7 +1935,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     padding: 0;
 }
 
-.widget-filter .accordion-box .filter-item-list > .card-header > .parent-list {
+.widget-filter .accordion-box .filter-item-list>.card-header>.parent-list {
     font-size: 1rem;
     font-weight: 700;
     color: #2a2a2a;
@@ -1913,7 +1944,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     border-bottom: 0.0625rem solid #dddddd;
 }
 
-.widget-filter .accordion-box .filter-item-list > .card-header > .parent-list:not(.single):after {
+.widget-filter .accordion-box .filter-item-list>.card-header>.parent-list:not(.single):after {
     height: 1.375rem;
     width: 1.375rem;
     line-height: 1.4375rem;
@@ -1924,11 +1955,11 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     right: 1.25rem;
 }
 
-.widget-filter .accordion-box .filter-item-list > .card-header > .parent-list:hover {
+.widget-filter .accordion-box .filter-item-list>.card-header>.parent-list:hover {
     color: #2a2a2a;
 }
 
-.widget-filter .accordion-box .filter-item-list > .card-header .collapsed.parent-list:not(.single):after {
+.widget-filter .accordion-box .filter-item-list>.card-header .collapsed.parent-list:not(.single):after {
     background-color: #a9a9a9;
 }
 
@@ -2308,10 +2339,14 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     border-color: #f85c70;
 }
 
+
 /*=======================================================================
 5. Template Page Style
 =========================================================================*/
+
+
 /*------------------- 5.1 About Us -------------------*/
+
 .about-wrap-layout1 {
     padding: 5.3125rem 0;
 }
@@ -2337,7 +2372,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     font-size: 1.75rem;
 }
 
+
 /*------------------- 5.2 Account -------------------*/
+
 .widget-account-menu .nav-tabs {
     border: none;
 }
@@ -2678,7 +2715,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     }
 }
 
+
 /*------------------- 5.3 Banner -------------------*/
+
 .main-banner-wrap-layout1 {
     padding: 13.75rem 0 14.375rem;
 }
@@ -2763,7 +2802,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     font-style: normal !important;
 }
 
+
 /*------------------- 5.4 Blog -------------------*/
+
 .blog-box-layout1 {
     background-color: #ffffff;
     box-shadow: 0 0 0.125rem 0 rgba(0, 0, 0, 0.1);
@@ -3134,14 +3175,17 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     padding-top: 0.5rem;
     background-color: #fafafa;
 }
+
 .single-blog-box-layout1 .blog-comment .comment-box .media .more {
     position: absolute;
     top: 11px;
     left: 0;
 }
+
 .single-blog-box-layout1 .blog-comment .comment-box .media .more a {
     color: #f85c70;
 }
+
 @media only screen and (max-width: 575px) {
     .single-blog-box-layout1 .blog-comment .comment-box .media.reply {
         /* margin-left: 1rem; */
@@ -3286,7 +3330,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     color: #f85c70;
 }
 
+
 /*------------------- 5.5 Brand -------------------*/
+
 .brand-wrap-layout1 {
     padding: 4.375rem 0 4.375rem;
 }
@@ -3306,7 +3352,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     width: auto !important;
 }
 
+
 /*------------------- 5.6 Category -------------------*/
+
 .category-box-layout1 a {
     display: block;
     background-color: #f5f7fa;
@@ -3478,7 +3526,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     box-shadow: 0rem 0rem 0.625rem 0.0625rem rgba(0, 0, 0, 0.2);
 }
 
+
 /*------------------- 5.7 Contact -------------------*/
+
 .contact-page-box-layout1 .google-map {
     margin-bottom: 3.75rem;
 }
@@ -3559,7 +3609,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     background-color: #e43d40;
 }
 
+
 /*------------------- 5.8 Counter -------------------*/
+
 .counter-wrap-layout1 {
     padding: 6.25rem 0 3.125rem;
     position: relative;
@@ -3642,7 +3694,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     color: #ffffff;
 }
 
+
 /*------------------- 5.9 Error Page -------------------*/
+
 .error-page-box-layout1 {
     text-align: center;
 }
@@ -3672,14 +3726,16 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     background-color: #e43d40;
 }
 
+
 /*------------------- 5.10 FAQ -------------------*/
+
 .faq-box-layout1 {
     background-color: #ffffff;
     padding: 1.875rem;
     box-shadow: 0 0.0625rem 0.0625rem 0 rgba(0, 0, 0, 0.1);
 }
 
-.faq-box-layout1 > .item-title {
+.faq-box-layout1>.item-title {
     font-size: 2rem;
     color: #2a2a2a;
     font-weight: 700;
@@ -3687,7 +3743,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 }
 
 @media only screen and (max-width: 991px) {
-    .faq-box-layout1 > .item-title {
+    .faq-box-layout1>.item-title {
         font-size: 1.75rem;
     }
 }
@@ -3769,7 +3825,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     margin-bottom: 0;
 }
 
+
 /*------------------- 5.11 Location Search -------------------*/
+
 .location-box-layout1 {
     position: relative;
     border-radius: 2px;
@@ -3838,7 +3896,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     opacity: 1;
 }
 
+
 /*------------------- 5.12 Modal -------------------*/
+
 .modal-location .modal-dialog .modal-content {
     min-height: 26.25rem;
     padding: 2.5rem;
@@ -3934,7 +3994,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     background-color: #e43d40;
 }
 
+
 /*------------------- 5.13 Post Ad -------------------*/
+
 .post-ad-box-layout1 .post-alert {
     margin-bottom: 1.75rem;
 }
@@ -3994,7 +4056,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 }
 
 .post-ad-box-layout1 .post-section .form-group select,
-  .post-ad-box-layout1 .post-section .form-group input {
+.post-ad-box-layout1 .post-section .form-group input {
     height: 2.5rem;
 }
 
@@ -4086,7 +4148,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     margin-bottom: 1.875rem;
 }
 
+
 /*------------------- 5.14 Pricing Table -------------------*/
+
 .pricing-box-layout1 {
     background-color: #f5f7fa;
     text-align: center;
@@ -4132,7 +4196,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     background-color: #e43d40;
 }
 
+
 /*------------------- 5.15 Process -------------------*/
+
 .process-wrap-layout1 {
     padding: 6.875rem 0 7.5rem;
     background-image: url("../../assets/images/figure/process-bg.jpg");
@@ -4242,7 +4308,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     transform: scale(1.1);
 }
 
+
 /*------------------- 5.16 Product -------------------*/
+
 .product-wrap-layout1 {
     padding: 5.3125rem 0 3.4375rem;
     margin-top: -2.5rem;
@@ -5263,7 +5331,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     display: none;
 }
 
-.product-box-list .row > [class^="col-"] {
+.product-box-list .row>[class^="col-"] {
     max-width: 100% !important;
     -webkit-box-flex: 100%;
     -ms-flex: 100%;
@@ -5720,6 +5788,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 0, 0 100%);
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 100%);
 }
+
 .item-fixed {
     position: relative;
 }
@@ -5755,7 +5824,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     overflow: hidden;
 }
 
+
 /*------------------- 5.17 Search Box -------------------*/
+
 .search-wrap-layout1 {
     padding: 3.75rem 0;
     position: relative;
@@ -5905,7 +5976,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     }
 }
 
+
 /*------------------- 5.18 Search Result -------------------*/
+
 .search-result-box-layout1 .search-item-result {
     background-color: #ffffff;
     border-radius: 0.125rem;
@@ -5944,7 +6017,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     color: #e43d40;
 }
 
+
 /*------------------- 5.19 Store -------------------*/
+
 .store-wrap-layout1 {
     padding: 6.25rem 0 4.375rem;
 }
@@ -6134,7 +6209,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     margin-right: 0.625rem;
 }
 
+
 /*------------------- 5.20 Testimonial -------------------*/
+
 .testimonial-box-layout1 {
     margin-bottom: 1.875rem;
     background-color: #ffffff;
@@ -6193,10 +6270,14 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     color: #ffffff;
 }
 
+
 /*=======================================================================
 6. Helper Classes
 =========================================================================*/
+
+
 /*------------------- 6.1 Background -------------------*/
+
 .bg-dark-overlay {
     position: relative;
     z-index: 2;
@@ -6265,7 +6346,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     background-color: #bd081c;
 }
 
+
 /*------------------- 6.2 Margin -------------------*/
+
 .minus-mgt-90 {
     margin-top: -5.625rem;
 }
@@ -6288,7 +6371,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     margin: 0.0625rem;
 }
 
+
 /*------------------- 6.3 Misc -------------------*/
+
 .bg-common {
     background-position: center;
     background-size: cover;
@@ -6316,14 +6401,15 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 .light-shadow-bg .light-box-content {
     padding: 1.875rem;
 }
+
 .light-shadow-bg .light-box-content .progress {
     margin: 0 -1.875rem -1.875rem;
     border-radius: 0;
 }
+
 .light-shadow-bg .light-box-content .progress .progress-bar {
     background: #f85c70;
 }
-
 
 @media only screen and (max-width: 767px) {
     .light-shadow-bg .light-box-content {
@@ -6342,7 +6428,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     box-shadow: 0 0 0.1875rem 0 rgba(0, 0, 0, 0.1);
 }
 
+
 /*------------------- 6.4 Padding -------------------*/
+
 .pd-x-20 {
     padding: 0 1.25rem;
 }
@@ -6357,7 +6445,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     padding-bottom: 1.875rem;
 }
 
+
 /*------------------- 6.5 Section Space -------------------*/
+
 .section-padding-top-heading {
     padding-top: 4.9375rem;
     padding-bottom: 3.4375rem;
@@ -6430,7 +6520,9 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
     }
 }
 
+
 /*------------------- 6.6 Text -------------------*/
+
 .color-primary {
     color: #f85c70;
 }
@@ -6446,7 +6538,8 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 .text-bold {
     font-weight: 700;
 }
+
 .form-control:focus {
     border-color: #f85c70;
-    box-shadow: 0 0 0 0rem rgba(0,123,255,.25);
+    box-shadow: 0 0 0 0rem rgba(0, 123, 255, .25);
 }

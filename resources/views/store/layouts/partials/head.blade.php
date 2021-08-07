@@ -33,7 +33,7 @@
 <!-- Toastr Plugin -->
 <link rel="stylesheet" href="/admin-assets/plugins/toastr/build/toastr.css">
 <!-- Site Stylesheet -->
-<link rel="stylesheet" href="/assets/css/app.css?v=1.2">
+<link rel="stylesheet" href="/assets/css/app.css?v=1.3">
 <link rel="stylesheet" href="/assets/css/rtl.css">
 @auth
 	<link rel="stylesheet" href="/assets/css/chat.css">
