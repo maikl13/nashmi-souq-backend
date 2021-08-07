@@ -51,7 +51,7 @@
     <section class="section-padding-top-heading bg-accent">
         <div class="container">
             <div class="heading-layout1">
-                <h3 class="heading-title">أحدث الإعلانات</h3>
+                <h2 class="heading-title">أحدث الإعلانات</h2>
             </div>
 
             <div class="row listings">

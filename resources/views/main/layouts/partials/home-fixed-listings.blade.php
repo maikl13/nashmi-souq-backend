@@ -6,7 +6,7 @@
     <section class="section-padding-top-heading bg-white">
         <div class="container">
             <div class="heading-layout1">
-                <h3 class="heading-title">الإعلانات المثبتة</h3>
+                <h2 class="heading-title">الإعلانات المثبتة</h2>
             </div>
             <div class="">
                 <div class="item-related-product">
@@ -15,8 +15,10 @@
             
                             @foreach($fixed_listings as $fixed_listing )
                                 <div class="product-box-layout1 box-shadwo-light mb-1 mg-1 {{ $fixed_listing->is_featured() ? 'item-trending' : '' }} {{ $fixed_listing->is_fixed() ? 'item-fixed' : '' }}">
-                                    <div class="item-img">
-                                        <a href="{{ $fixed_listing->url() }}"><img src="{{ $fixed_listing->listing_image(['size'=>'xs']) }}" alt="Product"></a>
+                                    <div>
+                                        <a href="{{ $fixed_listing->url() }}" style="height: 250px;">
+                                            <img src="{{ $fixed_listing->listing_image(['size'=>'xs']) }}" alt="Product" style="object-fit: cover;">
+                                        </a>
                                     </div>
                                     <div class="item-content">
                                         <h3 class="item-title"><a href="{{ $fixed_listing->url() }}">{{ $fixed_listing->title }}</a></h3>
