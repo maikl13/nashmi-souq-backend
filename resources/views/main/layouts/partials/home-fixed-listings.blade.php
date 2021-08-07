@@ -16,8 +16,8 @@
                             @foreach($fixed_listings as $fixed_listing )
                                 <div class="product-box-layout1 box-shadwo-light mb-1 mg-1 {{ $fixed_listing->is_featured() ? 'item-trending' : '' }} {{ $fixed_listing->is_fixed() ? 'item-fixed' : '' }}">
                                     <div>
-                                        <a href="{{ $fixed_listing->url() }}" style="height: 250px;">
-                                            <img src="{{ $fixed_listing->listing_image(['size'=>'xs']) }}" alt="Product" style="object-fit: cover;">
+                                        <a href="{{ $fixed_listing->url() }}" style="height: 250px;display: block;overflow: hidden;">
+                                            <img src="{{ $fixed_listing->listing_image(['size'=>'xs']) }}" alt="Product" style="object-fit: cover;width: 100%;height: 100%;">
                                         </a>
                                     </div>
                                     <div class="item-content">
