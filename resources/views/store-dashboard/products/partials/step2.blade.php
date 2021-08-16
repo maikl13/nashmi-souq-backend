@@ -24,16 +24,14 @@
     </div>
 </div>
 
-@if ($options->count())
-    <div class="form-group">
-        <label for="images" class="form-control-label"> الصفات العامة للمنتج :</label>
-        <div class="options form-group mb-0" dir="ltr">
-            <button class="btn btn-primary btn-sm add-option" data-option-value-name="option_values[]" data-option-name="options[]">
-                <i class="fa fa-plus py-2"></i> إضافة صفة للمنتج
-            </button>
-        </div>
+<div class="form-group options-container" style="display: none">
+    <label for="images" class="form-control-label"> الصفات العامة للمنتج :</label>
+    <div class="options form-group mb-0" dir="ltr">
+        <button class="btn btn-primary btn-sm add-option" data-option-value-name="option_values[]" data-option-name="options[]">
+            <i class="fa fa-plus py-2"></i> إضافة صفة للمنتج
+        </button>
     </div>
-@endif
+</div>
 
 <div class="form-group mb-0">
     <label for="images" class="form-control-label"> صور المنتج :</label>

@@ -1,4 +1,3 @@
-@php($options = App\Models\Option::get())
 @extends('store-dashboard.layouts.store-dashboard')
 
 @section('title', 'المنتجات')
@@ -62,6 +61,29 @@
             $('.sub-categories-select2').select2(subCategoriesSelect2Options);
             var cascadLoadingSubCategories = new Select2Cascade($('.category-select'), $('.sub-category-select'), subCategoriesApiUrl, CategoriesSelect2Options, subCategoriesSelect2Options);
         });
+
+		$(document).on('change', '.category-select, .sub-category-select', function(){
+			load_options();
+		});
+
+		function load_options() {
+			var subCategorySlug = $('.sub-category-select').val();
+			var categorySlug = $('.category-select').val();
+			var categorySlug = subCategorySlug ? subCategorySlug : categorySlug;
+
+			$.get({
+				url: '/api/categories/'+categorySlug+'/options',
+				success: function(data) {
+					if (data) {
+						$('.options-container').show();
+						$('select.option-name').html(data);
+					} else {
+						console.log(data);
+						$('.options-container').hide();
+					}
+				}
+			})
+		}
     </script>
 
 	<script>

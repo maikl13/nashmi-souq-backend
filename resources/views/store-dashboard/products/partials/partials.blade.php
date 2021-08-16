@@ -33,10 +33,12 @@
         </div>
     </div>
 
-    <div class="options form-group mb-0" dir="ltr">
-        <button class="btn btn-primary btn-sm add-option" data-option-value-name="option_values[]" data-option-name="options[]">
-            <i class="fa fa-plus py-2"></i> إضافة صفة للمنتج
-        </button>
+    <div class="optiona-container" style="display: none">
+        <div class="options form-group mb-0" dir="ltr">
+            <button class="btn btn-primary btn-sm add-option" data-option-value-name="option_values[]" data-option-name="options[]">
+                <i class="fa fa-plus py-2"></i> إضافة صفة للمنتج
+            </button>
+        </div>
     </div>
     
     
@@ -45,22 +47,17 @@
     </a>
 </div>
 
-@if ($options->count())
-    <div class="option input-group mb-2 d-none" dir="rtl">
-        <div class="input-group-append">
-            <select class="form-control option-name" name="option[]">
-                <option value="">- إختر صفة</option>
-                @foreach ($options as $option)
-                    <option value="{{ $option->id }}">{{ $option->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <select class="form-control option-value" name="option_values[]" dir="rtl">
-            <option value="">-</option>
-            @foreach (App\Models\OptionValue::orderBy('name')->get() as $option_value)
-                <option value="{{ $option_value->id }}" class="d-none"
-                    data-option="{{ $option_value->option->id }}">{{ $option_value->name }}</option>
-            @endforeach
-        </select>
+
+<div class="option input-group mb-2 d-none" dir="rtl">
+    <div class="input-group-append">
+        <select class="form-control option-name" name="option[]"></select>
     </div>
-@endif
+
+    <select class="form-control option-value" name="option_values[]" dir="rtl">
+        <option value="">-</option>
+        @foreach (App\Models\OptionValue::orderBy('name')->get() as $option_value)
+            <option value="{{ $option_value->id }}" class="d-none"
+                data-option="{{ $option_value->option->id }}">{{ $option_value->name }}</option>
+        @endforeach
+    </select>
+</div>

@@ -17,11 +17,9 @@
 					<div class="step d-none" data-step="2">
 						@include('store-dashboard.products.partials.step2')
 					</div>
-					@if ($options->count())
-						<div class="step d-none" data-step="3">
-							@include('store-dashboard.products.partials.step3')
-						</div>
-					@endif
+					<div class="step d-none" data-step="3">
+						@include('store-dashboard.products.partials.step3')
+					</div>
 				</div>
 				<div class="modal-footer"> 
 					<button type="button" class="btn btn-primary previous d-none"><i class="fa fa-angle-right"></i> السابق </button>
@@ -36,7 +34,6 @@
             </form>
 		</div>
 	</div>
-	
 </div>
 
 @include('store-dashboard.products.partials.partials')
