@@ -62,6 +62,10 @@
             var cascadLoadingSubCategories = new Select2Cascade($('.category-select'), $('.sub-category-select'), subCategoriesApiUrl, CategoriesSelect2Options, subCategoriesSelect2Options);
         });
 
+		$(document).ready(function(){
+			load_options();
+		});
+
 		$(document).on('change', '.category-select, .sub-category-select', function(){
 			load_options();
 		});
@@ -78,7 +82,6 @@
 						$('.options-container').show();
 						$('select.option-name').html(data);
 					} else {
-						console.log(data);
 						$('.options-container').hide();
 					}
 				}

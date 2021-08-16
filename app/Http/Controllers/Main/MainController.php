@@ -15,7 +15,14 @@ class MainController extends Controller
      */
     public function index()
     {
-        $listings = Listing::localized()->active()->featuredFirst()->paginate(8)->shuffle();
+        // $listings = Listing::localized()->active()->featuredFirst()->paginate(8)->shuffle();
+        // featured first and exclude fixed
+        $listings = Listing::localized()->active()->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
+            ->select('listings.*', 
+                'featured_listings.listing_id', 
+                \DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` >= 9, -1, 1) as `featuring_level`"),
+            )
+            ->orderByRaw('`featuring_level` desc, `id` desc')->paginate(8)->shuffle();
 
         if (request()->ajax())
             return response()->json(view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);
