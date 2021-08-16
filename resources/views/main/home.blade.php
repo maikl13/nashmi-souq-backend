@@ -113,31 +113,23 @@
                     @foreach (ads('mobile_banner', 2, true) as $ad)
                         <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! $ad !!}</div>
                     @endforeach --}}
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706"
-                        crossorigin="anonymous"></script>
-                    <!-- Home Page - categories -top -->
-                    <ins class="adsbygoogle"
-                        style="display:block"
+                    <amp-ad width="100vw" height="320"
+                        type="adsense"
                         data-ad-client="ca-pub-1250310795030706"
                         data-ad-slot="1187204680"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706"
-                        crossorigin="anonymous"></script>
-                    <!-- Home Page - categories -top -->
-                    <ins class="adsbygoogle"
-                        style="display:block"
+                        data-auto-format="rspv"
+                        data-full-width="">
+                    <div overflow=""></div>
+                    </amp-ad>
+                    
+                    <amp-ad width="100vw" height="320"
+                        type="adsense"
                         data-ad-client="ca-pub-1250310795030706"
                         data-ad-slot="1187204680"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                        data-auto-format="rspv"
+                        data-full-width="">
+                    <div overflow=""></div>
+                    </amp-ad>
                 </div>
 
                 <div class="row">
