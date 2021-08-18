@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\PaymentTrait;
 use App\Traits\ExchangeCurrency;
+use App\Notifications\OrderRecieved;
+use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
@@ -29,6 +30,9 @@ class Order extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function store(){
+        return $this->belongsTo(User::class, 'store_id');
     }
     public function country(){
         // The buyer's country at the moment of making the order
@@ -94,7 +98,18 @@ class Order extends Model
                 $price += $package->price();
         return $price;
     }
+
     public function price_in($currency){
         return Self::exchange($this->price(), $this->currency->code, 'EGP');
+    }
+
+    protected static function boot() {
+        parent::boot();
+
+        static::created(function(Order $order) {
+            try {
+                $order->store->notify(new OrderRecieved($order));
+            } catch (\Throwable $th) {/*_*/}
+        });
     }
 }
