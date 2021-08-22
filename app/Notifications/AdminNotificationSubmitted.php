@@ -21,7 +21,7 @@ class AdminNotificationSubmitted extends Notification implements ShouldQueue
 
     public function via($notifiable)
     {
-        return ['mail', WhatsAppChatApiChannel::class];
+        return ['mail'];
     }
 
     public function toMail($notifiable)
