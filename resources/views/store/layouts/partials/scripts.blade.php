@@ -67,7 +67,7 @@
     (function () {
         var options = {
             facebook: "108589284172449", // Facebook page ID
-            whatsapp: "+966564419857", // WhatsApp number
+            whatsapp: "+201283024411", // WhatsApp number
             call_to_action: "", // Call to action
             button_color: "#E74339", // Color of button
             position: "left", // Position may be 'right' or 'left'
