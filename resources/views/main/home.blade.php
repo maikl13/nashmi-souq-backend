@@ -107,13 +107,13 @@
                 
                 {{-- ad spaces --}}
                 <div class="row mb-4">
-                    {{-- @foreach (ads('leaderboard', 2, true) as $ad)
+                    @foreach (ads('leaderboard', 2, true) as $ad)
                         <div class="col-md-6 mb-3 text-center d-none d-md-block">{!! $ad !!}</div>
                     @endforeach
                     @foreach (ads('mobile_banner', 2, true) as $ad)
                         <div class="col-md-6 mb-3 text-center d-block d-md-none">{!! $ad !!}</div>
-                    @endforeach --}}
-                    <amp-ad width="100vw" height="320"
+                    @endforeach
+                    {{-- <amp-ad width="100vw" height="320"
                         type="adsense"
                         data-ad-client="ca-pub-1250310795030706"
                         data-ad-slot="1187204680"
@@ -129,7 +129,7 @@
                         data-auto-format="rspv"
                         data-full-width="">
                     <div overflow=""></div>
-                    </amp-ad>
+                    </amp-ad> --}}
                 </div>
 
                 <div class="row">

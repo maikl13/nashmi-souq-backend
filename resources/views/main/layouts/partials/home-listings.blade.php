@@ -1,5 +1,5 @@
 @foreach ($listings as $k => $listing)
-    @if($k%3)
+    {{-- @if($k%3)
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706"
             crossorigin="anonymous"></script>
         <ins class="adsbygoogle"
@@ -11,7 +11,7 @@
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-    @endif
+    @endif --}}
 
     <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
         <div class="product-box-layout1 home-listing {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">

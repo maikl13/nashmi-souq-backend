@@ -26,7 +26,7 @@
         <meta property="og:image" content="@yield('image', asset('/assets/images/logosquare.jpg'))"/>
         <meta property="og:url" content="{{ request()->fullUrl() }}" />
 
-        <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+        {{-- <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script> --}}
         @include('main.layouts.partials.head')
         @yield('head')
     </head>
