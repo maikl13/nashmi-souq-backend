@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Str;
+use App\Models\Brand;
 use App\Models\Option;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -140,4 +141,37 @@ class CategoryController extends Controller
         return false;
     }
     
+    public function category_options_list(Category $category)
+    {
+        $options = Option::whereJsonContains('categories', "{$category->id}");
+
+        while ($category->parent) {
+            $category = $category->parent;
+            $options = $options->orWhereJsonContains('categories', "{$category->id}");
+        }
+
+        $options = $options->get();
+        
+        if(count($options))
+            return response()->json($options, 200);
+
+        return false;
+    }
+
+    public function brands(Category $category)
+    {
+        $brands = Brand::whereJsonContains('categories', "{$category->id}");
+
+        while ($category->parent) {
+            $category = $category->parent;
+            $brands = $brands->orWhereJsonContains('categories', "{$category->id}");
+        }
+
+        $brands = $brands->get();
+        
+        if(count($brands))
+            return view('main.listings.partials.brands-select', ['brands' => $brands]);
+
+        return false;
+    }
 }

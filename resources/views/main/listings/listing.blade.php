@@ -1,6 +1,6 @@
 @extends('main.layouts.main')
 
-@section('title', 'معاينة الإعلان | '. $listing->title)
+@section('title', $listing->title)
 
 @section('description', preg_replace('~[\r\n]+~', ' ', \Str::limit(strip_tags($listing->description), 200)))
 
@@ -17,7 +17,7 @@
     <!--=====================================-->
     <!--=        Inner Banner Start         =-->
     <!--=====================================-->
-    <section class="inner-page-banner" data-bg-image="/assets/images/banner/banner1.jpg">
+    <section class="inner-page-banner" style="background-position: center;" data-bg-image="{{ $listing->listing_image() }}">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="item-details text-break">
                                     <div class="tab-content pt-0">
-                                        <div class="tab-pane fade show active" id="details" role="tabpanel">
+                                        <div>
                                             <p>{{ $listing->description }}</p>
                                             @php
                                                 $data = json_decode($listing->data, true);
@@ -93,6 +93,31 @@
                                                 </div>
                                             @endif
                                         </div>
+
+                                        <div>
+                                            @if ($listing->brand)
+                                                <div class="bg-light p-2 mb-2">
+                                                    <strong>العلامة التجارية : </strong>
+                                                    @if($listing->brand->parent)
+                                                        <span>{{ $listing->brand->parent->name }}</span> - 
+                                                    @endif
+                                                    <span>{{ $listing->brand->name }}</span>
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div>
+                                            @foreach (optional($listing->options)['values'] ?? [] as $option_value_id)
+                                                @php($option_value = \App\Models\OptionValue::find($option_value_id))
+                                                @if ($option_value)
+                                                    <div class="bg-light p-2 mb-2">
+                                                        <strong>{{ optional($option_value->option)->name }} : </strong>
+                                                        <span>{{ $option_value->name }}</span>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+
                                         @if(!empty(trim($listing->address)))
                                             <div class="mt-3 mb-4"> <strong>العنوان تفصيلي:</strong> {{ $listing->address }}</div>
                                         @endif

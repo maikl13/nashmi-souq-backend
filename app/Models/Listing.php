@@ -13,6 +13,8 @@ class Listing extends Model
 {
     use FileHandler, SearchableTrait, ExchangeCurrency;
 
+    protected $casts = ['options'=> 'array'];
+
     public function scopeLocalized($query){
         return $query->whereIn('state_id', country()->states()->pluck('id')->toArray());
     }
@@ -87,6 +89,11 @@ class Listing extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     public function category()

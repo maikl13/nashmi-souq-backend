@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div class="optiona-container" style="display: none">
+    <div class="options-container" style="display: none">
         <div class="options form-group mb-0" dir="ltr">
             <button class="btn btn-primary btn-sm add-option" data-option-value-name="option_values[]" data-option-name="options[]">
                 <i class="fa fa-plus py-2"></i> إضافة صفة للمنتج

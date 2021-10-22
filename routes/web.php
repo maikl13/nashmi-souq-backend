@@ -106,3 +106,16 @@ Route::get('clear-cookies', function(){
 
 	return redirect()->route('home');
 });
+
+Route::namespace('\App\Http\Controllers\Admin')->prefix('api')->group(function () {
+	Route::get('categories/{category}/sub-categories', 'CategoryController@sub_categories');
+	Route::get('states/{state}/areas', 'StateController@areas');
+
+	Route::get('categories/{category}/options', 'CategoryController@category_options');
+	Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_category_options');
+
+	Route::get('categories/{category}/options-list', 'CategoryController@category_options_list');
+
+	Route::get('categories/{category}/brands', 'CategoryController@brands');
+	Route::get('brands/{brand}/models', 'BrandController@models');
+});

@@ -56,6 +56,14 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 	Route::put('areas/{area}', 'AreaController@update');
 	Route::delete('areas/{area}', 'AreaController@destroy');
 
+	// brands
+	Route::get('brands', 'BrandController@index')->name('brands');
+	Route::get('brands/{brand}/models', 'BrandController@index');
+	Route::post('brands', 'BrandController@store');
+	Route::get('brands/{brand}/edit', 'BrandController@edit')->name('edit-brand');
+	Route::put('brands/{brand}', 'BrandController@update');
+	Route::delete('brands/{brand}', 'BrandController@destroy');
+
 	// Transactions
 	Route::get('transactions', 'TransactionController@index')->name('transactions');
 	Route::post('transactions', 'TransactionController@store');

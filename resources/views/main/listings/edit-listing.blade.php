@@ -77,7 +77,7 @@
                                 <div class="col-sm-9">
                                     <div class="form-group">
                                         <div class="input-group mb-3">
-                                            <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : $listing->price() }}">
+                                            <input type="number" step=".01" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : ($listing->price() ?: '') }}">
                                             <div class="input-group-prepend">
                                                 <select name="currency" id="currency" class="form-control">
                                                     @foreach (App\Models\Currency::get() as $currency)
@@ -197,6 +197,54 @@
                                                 @endforeach
                                             @endif
                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row brands-container" style="display: none;">
+                                <div class="col-sm-3">
+                                    <label class="control-label">العلامة التجارية</label>
+                                </div>
+                                <div class=" col-sm-9">
+                                    <div class="form-group brand-select-container">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row models-container" style="display: none;">
+                                <div class="col-sm-3">
+                                    <label class="control-label">الموديل</label>
+                                </div>
+                                <div class=" col-sm-9">
+                                    <div class="form-group models-select-container">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-section post-category mb-4 options-container" style="display: none;">
+                            <div class="post-ad-title">
+                                <i class="fas fa-tags"></i>
+                                <h3 class="item-title" style="flex: auto;">صفات المنتج</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">                                    
+                                    <div class="options form-group mb-0" dir="ltr">
+                                        <div class="option input-group mb-2 d-none" dir="rtl">
+                                            <div class="col-sm-3">
+                                                <label class="option-name"></label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group mb-3">
+                                                    <select class="form-control option-value" name="option_values[]" dir="rtl" disabled>
+                                                        <option value="">-</option>
+                                                        @foreach (App\Models\OptionValue::orderBy('name')->get() as $option_value)
+                                                            <option value="{{ $option_value->id }}" class="d-none"
+                                                                data-option="{{ $option_value->option->id }}">{{ $option_value->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -382,5 +430,140 @@
                 $('#skills').parents('.row').hide();
             }
         })
+    </script>
+
+    @php
+        foreach(optional($listing->options)['values'] ?? [] as $k => $option_value) {
+            $options[$listing->options['options'][$k]] = $option_value;
+        }
+    @endphp
+    <script>
+        @if ($listing->brand)
+            @if ($listing->brand->parent)
+                var selectedBrand = '{{ $listing->brand->parent->slug }}'; 
+                var selectedModel = '{{ $listing->brand->slug }}'; 
+            @else
+                var selectedBrand = '{{ $listing->brand->slug }}'; 
+                var selectedModel = ''; 
+            @endif
+        @endif
+
+
+        var options = JSON.parse('{!! json_encode($options ?? []) !!}');
+
+        $(document).ready(function(){
+            setTimeout(function(){
+                load_options();
+                load_brands();
+            }, 200);
+        });
+
+        $(document).on('change', '.category-select', function(){
+            $('sub-category-select').val('');
+        });
+
+        $(document).on('change', '.category-select, .sub-category-select', function(){
+            setTimeout(function(){
+                load_options();
+                load_brands();
+            }, 100);
+        });
+
+        function load_options() {
+            var subCategorySlug = $('.sub-category-select').val();
+            var categorySlug = $('.category-select').val();
+            var categorySlug = subCategorySlug ? subCategorySlug : categorySlug;
+
+            $.get({
+                url: '/api/categories/'+categorySlug+'/options-list',
+                success: function(data) {
+                    if (data) {
+                        $(".option:not('.d-none')").remove();
+                        $('.options-container').show();
+                        $.each(data, function (index, value) {
+                            var option = $(".option.d-none").clone().removeClass('d-none');
+                            option.find('.option-name').text(value.name)
+                            option.find('select').each(function (index, element) {
+                                $(element).attr('disabled', false);
+                                if(options) {
+                                    $(element).val(options[value.id]);
+                                    delete options;
+                                }
+                            });
+                            option.insertBefore($('.option.d-none'));
+                            option.find('.option-value option[data-option='+value.id+']').removeClass('d-none');
+                        });
+                    } else {
+                        $('.options-container').hide();
+                    }
+                }
+            })
+        }
+
+        function load_brands() {
+            $('.models-container').hide();
+            $('.models-select-container').html('');
+
+            var subCategorySlug = $('.sub-category-select').val();
+            var categorySlug = $('.category-select').val();
+            var categorySlug = subCategorySlug ? subCategorySlug : categorySlug;
+
+            $.get({
+                url: '/api/categories/'+categorySlug+'/brands',
+                success: function(data) {
+                    if (data) {
+                        $('.brands-container').show();
+                        $('.brand-select-container').html(data);
+                        if(selectedBrand){
+                            $('.brand-select-container select').val(selectedBrand);
+                            load_models()
+                            delete selectedBrand;
+                        }
+                        $('.brand-select-container select').select2();
+                    } else {
+                        $('.brands-container').hide();
+                        $('.brand-select-container').html('');
+                    }
+                }
+            })
+        }
+
+        $(document).on('change', '.brands-container .brand-select', function(){
+            setTimeout(function(){
+                load_models();
+            }, 100);
+        });
+
+        function load_models() {
+            var brand = $('.brand-select').val();
+
+            $.get({
+                url: '/api/brands/'+brand+'/models',
+                success: function(data) {
+                    if (data) {
+                        $('.models-container').show();
+                        $('.models-select-container').html(data);
+                        if(selectedModel){
+                            $('.models-select-container select').val(selectedModel);
+                            delete selectedModel;
+                        }
+                        $('.models-select-container select').select2();
+                    } else {
+                        $('.models-container').hide();
+                        $('.models-select-container').html('');
+                    }
+                }
+            })
+        }
+
+        $(document).on('change', '.option-name', function(){
+            var option = $(this).val(),
+                optionValue = $(this).parents('.option').find('.option-value');
+            optionValue.find('option:selected').removeAttr('selected');
+            optionValue.find('option:selected').prop('selected', false);
+            optionValue.find('option:not(:first-child)').addClass('d-none');
+            if(option)
+                optionValue.find('option[data-option='+option+']').removeClass('d-none');
+        });
     </script>
 @endsection

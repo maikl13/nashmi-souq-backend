@@ -109,9 +109,6 @@
 
                                             {{-- Options --}}
                                             @foreach ($options as $option => $values)
-                                            @php
-                                                // dd($values);
-                                            @endphp
                                                 @if ($option = App\Models\Option::find($option))
                                                     <div class="mb-2">
                                                         <strong class="mb-1 ml-2">{{ $option->name }} :</strong>

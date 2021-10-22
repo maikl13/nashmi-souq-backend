@@ -19,7 +19,7 @@
 				<div class="app-content">
 					<div class="section">
                     	<ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/admin">{{ __('Dashboard') }}</a></li>
                             @yield('breadcrumb')
 							<li class="ml-auto d-lg-flex d-none">
 								<span class="sparkline_bar mr-2 float-left"></span>

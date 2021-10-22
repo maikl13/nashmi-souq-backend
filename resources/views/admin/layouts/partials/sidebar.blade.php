@@ -75,6 +75,12 @@
 			</a>
 		</li>
 		<li>
+			<a class="side-menu__item" href="/admin/brands">
+				<i class="side-menu__icon fa fa-rocket"></i>
+				<span class="side-menu__label">العلامات التجارية</span>
+			</a>
+		</li>
+		<li>
 			<a class="side-menu__item" href="/admin/notifications">
 				<i class="side-menu__icon fa fa-bell"></i>
 				<span class="side-menu__label">الاشعارات</span>

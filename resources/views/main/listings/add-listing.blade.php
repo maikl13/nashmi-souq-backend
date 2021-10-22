@@ -35,7 +35,7 @@
         <div class="container">
             <div class="post-ad-box-layout1 light-shadow-bg">
                 <div class="post-ad-form light-box-content">
-                    <form action="/listings" method="post" enctype="multipart/form-data" class="ajax should-reset">
+                    <form action="/listings" method="post" enctype="multipart/form-data" class="ajax ashould-reset">
                         @csrf
                         <div class="post-section post-information">
                             <div class="post-ad-title">
@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="form-group">
-                                        <textarea name="description" class="form-control textarea" id="description" cols="30" rows="8" required>{!! old('description') ? old('description') : '' !!}</textarea>
+                                        <textarea name="description" class="form-control textarea" id="description" cols="30" rows="4" required>{!! old('description') ? old('description') : '' !!}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                 <div class="col-sm-3">
                                     <label class="control-label">القسم الفرعي <span>*</span></label>
                                 </div>
-                                <div class="col-sm-9">
+                                <div class=" col-sm-9">
                                     <div class="form-group">
                                         <select name="sub_category" class="sub-category-select sub-categories-select2 form-control @error('sub_category') is-invalid @enderror" {{ isset($sub_categories_count) && $sub_categories_count ? '' : 'disabled' }}>
                                             <option value="">- إختر القسم الفرعي</option>
@@ -187,6 +187,54 @@
                                                 @endforeach
                                             @endif
                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row brands-container" style="display: none;">
+                                <div class="col-sm-3">
+                                    <label class="control-label">العلامة التجارية</label>
+                                </div>
+                                <div class=" col-sm-9">
+                                    <div class="form-group brand-select-container">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row models-container" style="display: none;">
+                                <div class="col-sm-3">
+                                    <label class="control-label">الموديل</label>
+                                </div>
+                                <div class=" col-sm-9">
+                                    <div class="form-group models-select-container">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-section post-category mb-4 options-container" style="display: none;">
+                            <div class="post-ad-title">
+                                <i class="fas fa-tags"></i>
+                                <h3 class="item-title" style="flex: auto;">صفات المنتج</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">                                    
+                                    <div class="options form-group mb-0" dir="ltr">
+                                        <div class="option input-group mb-2 d-none" dir="rtl">
+                                            <div class="col-sm-3">
+                                                <label class="option-name"></label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group mb-3">
+                                                    <select class="form-control option-value" name="option_values[]" dir="rtl" disabled>
+                                                        <option value="">-</option>
+                                                        @foreach (App\Models\OptionValue::orderBy('name')->get() as $option_value)
+                                                            <option value="{{ $option_value->id }}" class="d-none"
+                                                                data-option="{{ $option_value->option->id }}">{{ $option_value->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -336,4 +384,102 @@
             }
         })
     </script>
+
+    <script>
+        $(document).on('change', '.category-select', function(){
+			$('sub-category-select').val('');
+		});
+
+        $(document).on('change', '.category-select, .sub-category-select', function(){
+            setTimeout(function(){
+    			load_options();
+    			load_brands();
+            }, 100);
+		});
+
+		function load_options() {
+			var subCategorySlug = $('.sub-category-select').val();
+			var categorySlug = $('.category-select').val();
+			var categorySlug = subCategorySlug ? subCategorySlug : categorySlug;
+
+			$.get({
+				url: '/api/categories/'+categorySlug+'/options-list',
+				success: function(data) {
+					if (data) {
+                        $(".option:not('.d-none')").remove();
+						$('.options-container').show();
+                        $.each(data, function (index, value) {
+                            var option = $(".option.d-none").clone().removeClass('d-none');
+                            option.find('.option-name').text(value.name)
+                            option.find('select').each(function (index, element) {
+                                $(element).attr('disabled', false);
+                            });
+                            option.insertBefore($('.option.d-none'));
+                            option.find('.option-value option[data-option='+value.id+']').removeClass('d-none');
+                        });
+
+					} else {
+						$('.options-container').hide();
+					}
+				}
+			})
+		}
+
+		function load_brands() {
+            $('.models-container').hide();
+            $('.models-select-container').html('');
+
+			var subCategorySlug = $('.sub-category-select').val();
+			var categorySlug = $('.category-select').val();
+			var categorySlug = subCategorySlug ? subCategorySlug : categorySlug;
+
+			$.get({
+				url: '/api/categories/'+categorySlug+'/brands',
+				success: function(data) {
+					if (data) {
+						$('.brands-container').show();
+                        $('.brand-select-container').html(data);
+                        $('.brand-select-container select').select2();
+					} else {
+                        $('.brands-container').hide();
+                        $('.brand-select-container').html('');
+                    }
+				}
+			})
+		}
+
+        $(document).on('change', '.brands-container .brand-select', function(){
+            setTimeout(function(){
+                load_models();
+            }, 100);
+        });
+
+		function load_models() {
+			var brand = $('.brand-select').val();
+
+			$.get({
+				url: '/api/brands/'+brand+'/models',
+				success: function(data) {
+					if (data) {
+						$('.models-container').show();
+                        $('.models-select-container').html(data);
+                        $('.models-select-container select').select2();
+					} else {
+                        $('.models-container').hide();
+                        $('.models-select-container').html('');
+                    }
+				}
+			})
+		}
+
+		$(document).on('change', '.option-name', function(){
+			var option = $(this).val(),
+				optionValue = $(this).parents('.option').find('.option-value');
+			optionValue.find('option:selected').removeAttr('selected');
+			optionValue.find('option:selected').prop('selected', false);
+			optionValue.find('option:not(:first-child)').addClass('d-none');
+            if(option)
+                optionValue.find('option[data-option='+option+']').removeClass('d-none');
+		});
+	</script>
 @endsection

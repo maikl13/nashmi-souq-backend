@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Main;
 
 use Str;
 use Auth;
+use App\Models\Area;
+use App\Models\Brand;
+use App\Models\State;
 use App\Models\Listing;
 use App\Models\Category;
-use App\Models\State;
-use App\Models\Area;
+use App\Models\OptionValue;
+use Illuminate\Http\Request;
 use App\Models\FeaturedListing;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
@@ -87,6 +89,7 @@ class ListingController extends Controller
             'images.*' => 'image|max:8192',
             'price' => 'nullable|numeric',
             'currency' => 'nullable|exists:currencies,id',
+            'brand.*' => 'nullable|exists:brands,slug',
     	]);
 
     	$listing = new Listing;
@@ -125,6 +128,24 @@ class ListingController extends Controller
             $listing->data = json_encode($data);
         }
 
+        $option_values = $request->option_values;
+        if($option_values){
+            array_unique($option_values);
+            if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+            $options = [];
+            foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+                $options['options'][] = $option_value->option_id;
+                $options['values'][] = $option_value->id;
+            }
+            $listing->options = $options;
+        }
+
+        if(is_array($request->brand) && sizeof($request->brand)) {
+            $brand = isset($request->brand[1]) && $request->brand[1] ? $request->brand[1] : $request->brand[0];
+            $brand = Brand::where('slug', $brand)->first();
+            $listing->brand_id = optional($brand)->id;
+        }
+
         if($listing->save()){
             $listing->upload_listing_images($request->images);
             return response()->json(['redirect' => route('account').'#my-listing'] , 200);
@@ -155,6 +176,7 @@ class ListingController extends Controller
             'images.*' => 'image|max:8192',
             'price' => 'nullable|numeric',
             'currency' => 'nullable|exists:currencies,id',
+            'brand.*' => 'nullable|exists:brands,slug',
         ]);
 
         $listing->title = $request->listing_title;
@@ -190,6 +212,26 @@ class ListingController extends Controller
             if($request->qualification) $data['qualification'] = $request->qualification;
             if($request->skills) $data['skills'] = $request->skills;
             $listing->data = json_encode($data);
+        }
+        
+        $listing->options = [];
+        $option_values = $request->option_values;
+        if($option_values){
+            array_unique($option_values);
+            if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+            $options = [];
+            foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+                $options['options'][] = $option_value->option_id;
+                $options['values'][] = $option_value->id;
+            }
+            $listing->options = $options;
+        }
+
+        $listing->brand_id = null;
+        if(is_array($request->brand) && sizeof($request->brand)) {
+            $brand = isset($request->brand[1]) && $request->brand[1] ? $request->brand[1] : $request->brand[0];
+            $brand = Brand::where('slug', $brand)->first();
+            $listing->brand_id = optional($brand)->id;
         }
 
         if($listing->save()){

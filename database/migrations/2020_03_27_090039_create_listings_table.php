@@ -33,11 +33,14 @@ class CreateListingsTable extends Migration
             $table->foreign('state_id')->references('id')->on('states');
             $table->bigInteger('area_id')->unsigned()->nullable();
             $table->foreign('area_id')->references('id')->on('areas');
+            $table->bigInteger('brand_id')->unsigned()->nullable();
+            $table->foreign('brand_id')->references('id')->on('brands');
             $table->tinyInteger('status')->default(1);
             $table->text('address')->nullable();
             $table->integer('views')->default(0);
             $table->text('note')->nullable();
             $table->text('data')->nullable();
+            $table->json('options')->nullable();
             $table->timestamps();
         });
     }
