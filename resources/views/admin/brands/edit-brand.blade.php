@@ -5,7 +5,7 @@
 @section('breadcrumb')
 	<li class="breadcrumb-item"><a href="/admin/brands">العلامات التجارية</a></li>
 	@if ($brand->parent)
-		<li class="breadcrumb-item"><a href="/admin/brands/{{ $brand->parent->slug }}">{{ $brand->parent->name }}</a></li>
+		<li class="breadcrumb-item"><a href="/admin/brands/{{ $brand->parent->slug }}/models">{{ $brand->parent->name }}</a></li>
 	@endif
 	<li class="breadcrumb-item active">تعديل {{ $brand->brand_id ? 'موديل' : 'علامة تجارية' }}</li>
 @endsection
