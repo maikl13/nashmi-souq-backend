@@ -58,7 +58,7 @@ Route::group(['middleware' => ['auth', 'roles:admin-superadmin']],function () {
 
 	// brands
 	Route::get('brands', 'BrandController@index')->name('brands');
-	Route::get('brands/{brand}/models', 'BrandController@index');
+	Route::get('brands/{brand}/models', 'BrandController@index')->name('models');
 	Route::post('brands', 'BrandController@store');
 	Route::get('brands/{brand}/edit', 'BrandController@edit')->name('edit-brand');
 	Route::put('brands/{brand}', 'BrandController@update');

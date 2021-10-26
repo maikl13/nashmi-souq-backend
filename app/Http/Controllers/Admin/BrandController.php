@@ -79,12 +79,13 @@ class BrandController extends Controller
         ]);
 
         $brand->name = $request->name;
-        $brand->brand_id = $request->brand_id;
         $brand->categories = is_array($request->categories) && !$brand->brand_id ? $request->categories : [];
         $slug = Str::slug($request->name);
         $brand->slug = Brand::where('slug', $slug)->where('id', '!=', $brand->id)->count() ? $slug.'-'.uniqid() : $slug;
 
         if($brand->save()){
+            if($brand->brand_id)
+                return redirect()->route('models', [$brand->parent])->with('success', 'تم تعديل البيانات بنجاح.');
             return redirect()->route('brands')->with('success', 'تم تعديل البيانات بنجاح.');
         }
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
