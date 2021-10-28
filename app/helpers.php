@@ -51,6 +51,16 @@ function country(){
 	return $country;
 }
 
+function country_api(){
+	$country = location();
+
+	if(Auth::check() && Auth::user()->country) $country = Auth::user()->country;
+
+    /*if( request()->cookie('country'))
+        $country = Country::where('code', request()->cookie('country'))->first() ?? $country;*/
+	return $country;
+}
+
 function location(){
 	if( config('app.env') != 'local' ){
 		if( request()->cookie('country_code')){
