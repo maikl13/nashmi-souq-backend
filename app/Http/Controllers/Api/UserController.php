@@ -416,6 +416,7 @@ $validator = Validator::make($request->all(), [
      public function register_by_whatsapp(Request $request){
         $validator = Validator::make($request->all(), [
             'phone' => 'required|string|max:255|unique:users|phone:AUTO,'.$request['phone_phoneCode'],
+            'phone_phoneCode'=>'required'
     	
             
              ],['phone'=>'من فضلك قم بادخال رقم هاتف صحيح']);
