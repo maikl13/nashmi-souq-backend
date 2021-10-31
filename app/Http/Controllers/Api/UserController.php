@@ -18,6 +18,7 @@ use App\Models\OptionValue;
 use App\Models\Brand;
 use Illuminate\Auth\Events\Registered;
 use App\Models\Comment;
+use App\Events\NewMessage;
 
 class UserController extends Controller
 {
@@ -508,6 +509,97 @@ $validator = Validator::make($request->all(), [
                 'data'=>'تم حذف التعليق بنجاح'
               ],200);
         return response()->json(['data'=>'حدث خطأ من فضلك حاول مجددا'],500);
+    }
+    
+     public function send_message(Request $request){
+          $validator = Validator::make($request->all(), [
+             'message' => 'required|min:1|max:10000',
+            'recipient' => 'required|exists:users,username'
+            
+             ]);
+      if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
+        }
+     }
+  
+        $sender = Auth::user();
+        $recipient = User::where('username', $request->recipient)->first();
+
+        if($sender->id == $recipient->id) 
+           return response()->json(['data'=>' خطأ'],500);
+
+        $conversation = Auth::user()->conversations_with( $recipient )->latest()->first();
+
+        if($listing = Listing::find($request->listing_id)){
+            if($conversation && $conversation->listing_id != $listing->id)
+                $new_conversation = true;
+        }
+        
+        if(!$conversation || isset($new_conversation)){
+            $conversation = new Conversation;
+            $conversation->uid = uniqid('', true);
+            $conversation->sender_id = $sender->id;
+            $conversation->recipient_id = $recipient->id;
+            $conversation->listing_id = $listing ? $listing->id : null;
+        }
+        // save conversation anyway to update updated_at field 
+        // to make it appear top in the latest conversations
+        $conversation->save();
+        
+        $message = new Message;
+        $message->message = $request->message;
+        $message->conversation_id = $conversation->id;
+        $message->sender_id = $sender->id;
+        $message->recipient_id = $recipient->id;
+        
+        if($message->save()){
+            event(new NewMessage($message));
+            return response()->json([
+                'data'=>'تم  ارسال الرسالة بنجاح'
+              ],200);
+            
+        } else {
+             return response()->json(['data'=>'حدث خطأ من فضلك حاول مجددا'],500);
+        }
+    }
+
+     public function get_conversation($user, Request $request)
+        {
+            $recipient = User::where('username', $user)->first();
+            $conversations = Auth::user()->conversations_with( $recipient )->get();
+
+            if($conversations){
+                foreach($conversations as $conversation)
+                    foreach ($conversation->messages()->where('recipient_id', auth()->user()->id)->unseen()->get() as $message) {
+                        $message->seen = now(); // date("Y-m-d H:i:s")
+                        $message->save();
+                    }
+                 return response()->json([
+                'data'=>$conversations
+              ],200);
+               
+            }
+
+            return response()->json([
+                'data'=>null
+              ],200);
+        }
+
+    public function get_conversations()
+    {       
+        $conversations=Auth::user()->unique_conversations()->latest()->orderBy('updated_at', 'desc')->paginate(25)->get();
+          return response()->json([
+                'data'=>$conversations
+              ],200);
+    }
+
+    
+    public function get_unseen_messages_count()
+    {
+          return response()->json([
+                'data'=>Auth::user()->recieved_messages()->unseen()->count()
+              ],200);
+        
     }
     
     
