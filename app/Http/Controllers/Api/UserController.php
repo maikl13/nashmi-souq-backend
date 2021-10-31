@@ -14,6 +14,7 @@ use Hash;
 use App\Models\Listing;
 use App\Models\OptionValue;
 use App\Models\Brand;
+use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
@@ -388,6 +389,56 @@ $validator = Validator::make($request->all(), [
              }
           return response()->json(['data'=>'حدث خطأ من فضلك حاول مجددا'],500);
     }
+    
+    
+    public function register_by_email(Request $request){
+        
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255|unique:users',
+    		'password' => 'required|string|min:8|confirmed'
+            
+             ]);
+      if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
+        }
+        $uid = uniqid();
+
+        $user_data = [];
+        $user_data['name'] = 'User_'.$uid;
+        $user_data['username'] = $uid;
+        $user_data['email'] = $data['email'];
+        $user_data['password'] = Hash::make($data['password']);
+        $user = User::create($user_data);
+         event(new Registered($user));
+        return response()->json(['status'=>'success','data'=>$user,'message'=>'تم التسجيل بنجاح'],200) ;
+    }
+    
+     public function register_by_whatsapp(Request $request){
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|string|max:255|unique:users|phone:AUTO,'.$request['phone_phoneCode'],
+    	
+            
+             ],['phone'=>'من فضلك قم بادخال رقم هاتف صحيح']);
+      if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
+        }
+         $user_data = [];
+        $user_data['name'] = 'User_'.$uid;
+        $user_data['username'] = $uid;
+         $user_data['phone'] = phone($request['phone'], $request['phone_phoneCode'])->formatE164();
+            $user_data['phone_national'] = phone($request['phone'], $request['phone_phoneCode'])->formatForMobileDialingInCountry($request['phone_phoneCode']);
+            $user_data['phone_country_code'] = $request['phone_phoneCode'];
+            $user_data['otp'] = rand(100100, 999000);
+         $user = User::create($user_data);
+        
+      
+            $user->send_otp();
+           event(new Registered($user));
+        return response()->json(['status'=>'success','data'=>$user,'message'=>'تم التسجيل بنجاح'],200) ;
+     }
+    
+    
+    
     
     
     
