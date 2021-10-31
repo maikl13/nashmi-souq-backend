@@ -520,7 +520,7 @@ $validator = Validator::make($request->all(), [
       if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
         }
-     }
+     
   
         $sender = Auth::user();
         $recipient = User::where('username', $request->recipient)->first();
