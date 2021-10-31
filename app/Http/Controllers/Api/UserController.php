@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Propaganistas\LaravelPhone\PhoneNumber;
 use Auth;
 use Str;
 use Hash;
@@ -18,6 +20,7 @@ use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
+    use RegistersUsers;
     /**
      * Display a listing of the resource.
      *
