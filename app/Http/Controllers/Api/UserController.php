@@ -17,6 +17,7 @@ use App\Models\Listing;
 use App\Models\OptionValue;
 use App\Models\Brand;
 use Illuminate\Auth\Events\Registered;
+use App\Models\Comment;
 
 class UserController extends Controller
 {
@@ -443,8 +444,71 @@ $validator = Validator::make($request->all(), [
         return response()->json(['status'=>'success','data'=>$user,'message'=>'تم التسجيل بنجاح'],200) ;
      }
     
+    public function add_comment(Request $request){
+        
+          $validator = Validator::make($request->all(), [
+             'comment' => 'required',
+            'listing_id' => 'nullable|exists:listings,id',
+            'comment_id' => 'nullable|exists:comments,id',
+            
+             ]);
+      if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
+        }
+       
+
+        if(!$request->listing_id && !$request->comment_id)
+            return response()->json(['data'=>'حدث خطأ من فضلك حاول مجددا'],500);
+            $comment = new Comment;
+            $comment->body = $request->comment;
+            $comment->user_id =  Auth::user()->id;
+        
+        if($request->comment_id){
+            $parent_comment = Comment::findOrFail($request->comment_id);
+            $comment->reply_on = $parent_comment->id;
+            $listing = $parent_comment->commentable;
+        } else {
+            $listing = Listing::findOrFail($request->listing_id);
+        }
+
+        $comment->commentable_id = $listing->id;
+        $comment->commentable_type = 'App\Models\Listing';
+
+        if($comment->save()){
+            
+            return response()->json([
+                'data'=>'تم اضافة التعليق بنجاح',
+                'parent_comment_id' => isset($parent_comment) ? $parent_comment->id : null,
+                'comment' => $comment
+            ], 200);
+        }
+    }   
     
     
+     public function edit_comment(Request $request,$id){
+        $comment = Comment::findOrFail($id);
+        $this->authorize('edit', $comment);
+         $comment->body = $request->comment;
+         if($comment->save()){
+              return response()->json([
+                'data'=>'تم تعديل التعليق بنجاح',
+                  'comment'=>$comment->body
+              ],200);
+           
+        }
+        return response()->json(['data'=>'حدث خطأ من فضلك حاول مجددا'],500);
+         
+     }    
+    public function destroy_comment(Request $request,$id){
+         $comment = Comment::findOrFail($id);
+         $this->authorize('delete', $comment);
+
+        if($comment->delete())
+             return response()->json([
+                'data'=>'تم حذف التعليق بنجاح'
+              ],200);
+        return response()->json(['data'=>'حدث خطأ من فضلك حاول مجددا'],500);
+    }
     
     
     
