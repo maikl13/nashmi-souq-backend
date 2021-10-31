@@ -568,7 +568,7 @@ $validator = Validator::make($request->all(), [
      public function get_conversation($user, Request $request)
         {
             $recipient = User::where('username', $user)->first();
-            $conversations = Auth::user()->conversations_with( $recipient )->with('messages')get();
+            $conversations = Auth::user()->conversations_with( $recipient )->with('messages')->get();
 
             if($conversations){
                 foreach($conversations as $conversation)
