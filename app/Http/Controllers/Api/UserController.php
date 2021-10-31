@@ -423,7 +423,9 @@ $validator = Validator::make($request->all(), [
       if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
         }
+         $uid = uniqid();
          $user_data = [];
+         
         $user_data['name'] = 'User_'.$uid;
         $user_data['username'] = $uid;
          $user_data['phone'] = phone($request['phone'], $request['phone_phoneCode'])->formatE164();
