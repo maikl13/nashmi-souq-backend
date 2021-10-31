@@ -52,6 +52,10 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('add_comment', 'UserController@add_comment');
     Route::post('edit_comment/{id}', 'UserController@edit_comment');
 	Route::post('delete_comment/{id}', 'UserController@destroy_comment');
+    Route::post('send_message', 'UserController@send_message');
+    Route::get('get_conversation/{user}', 'UserController@get_conversation');
+    Route::get('get_conversations', 'UserController@get_conversations');
+    Route::get('get_unseen_messages_count', 'UserController@get_unseen_messages_count');
 });
 
 /*
