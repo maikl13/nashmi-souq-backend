@@ -19,6 +19,8 @@ use App\Models\Brand;
 use Illuminate\Auth\Events\Registered;
 use App\Models\Comment;
 use App\Events\NewMessage;
+use App\Models\Message;
+use App\Models\Conversation;
 
 class UserController extends Controller
 {
