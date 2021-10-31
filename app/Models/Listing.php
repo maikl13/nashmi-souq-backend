@@ -19,6 +19,10 @@ class Listing extends Model
     public function scopeLocalized($query){
         return $query->whereIn('state_id', country()->states()->pluck('id')->toArray());
     }
+    
+    public function scopeApiLocalized($query){
+        return $query->whereIn('state_id', country_api()->states()->pluck('id')->toArray());
+    }
 
     public function scopeActive($query){
         return $query->where('status', 1);
