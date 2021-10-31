@@ -589,7 +589,7 @@ $validator = Validator::make($request->all(), [
 
     public function get_conversations()
     {       
-        $conversations=Auth::user()->unique_conversations()->latest()->orderBy('updated_at', 'desc')->paginate(25)->get();
+        $conversations=Auth::user()->unique_conversations()->latest()->orderBy('updated_at', 'desc')->paginate(25);
           return response()->json([
                 'data'=>$conversations
               ],200);
