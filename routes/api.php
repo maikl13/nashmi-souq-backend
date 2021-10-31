@@ -49,6 +49,7 @@ Route::group(['middleware'=>'auth:api'],function(){
      Route::post('edit_listing/{id}', 'UserController@edit');
      Route::post('delete_listing_image/{id}', 'UserController@delete_listing_image');
      Route::post('update_payout_methods', 'UserController@update_payout_methods');
+    Route::post('add_comment', 'UserController@add_comment');
 });
 
 /*
