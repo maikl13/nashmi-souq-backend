@@ -406,8 +406,8 @@ $validator = Validator::make($request->all(), [
         $user_data = [];
         $user_data['name'] = 'User_'.$uid;
         $user_data['username'] = $uid;
-        $user_data['email'] = $data['email'];
-        $user_data['password'] = Hash::make($data['password']);
+        $user_data['email'] = $request['email'];
+        $user_data['password'] = Hash::make($request['password']);
         $user = User::create($user_data);
          event(new Registered($user));
         return response()->json(['status'=>'success','data'=>$user,'message'=>'تم التسجيل بنجاح'],200) ;
