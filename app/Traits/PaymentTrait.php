@@ -40,11 +40,11 @@ trait PaymentTrait {
     }
 
     public function direct_payment($options=[]){
-        // if(
-        //     (auth()->check() && optional(auth()->user()->country)->code == 'sa') || 
-        //     (auth()->guest() && optional(country())->code == 'sa') ||
-        //     session('payment_method') == Transaction::PAYMENT_MADA
-        // )
+        if(
+            (auth()->check() && optional(auth()->user()->country)->code == 'sa') || 
+            (auth()->guest() && optional(country())->code == 'sa') ||
+            session('payment_method') == Transaction::PAYMENT_MADA
+        )
             return $this->hyperpay_payment($options);
         return $this->nbe_direct_payment($options);
     }
