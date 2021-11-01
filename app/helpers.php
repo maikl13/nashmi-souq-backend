@@ -153,6 +153,14 @@ function currency(){
 	return country()->currency;
 }
 
+function currency_api(){
+    if(auth()->check())
+		if(Auth::check() && Auth::user()->country)
+			return auth()->user()->country->currency;
+	return country_api()->currency;
+}
+    
+
 function exchange($amount, $currency1, $currency2, $for_client=false){
 	return User::exchange($amount, $currency1, $currency2, $for_client=false);
 }
