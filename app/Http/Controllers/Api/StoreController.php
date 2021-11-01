@@ -24,12 +24,12 @@ class StoreController extends Controller
                         'price' => ceil(exchange(setting('monthly_subscription'), 'USD', currency_api()->code)).' '.currency_api()->symbol,
                     ], [
                         'name' => 'نصف سنوي',
-                        'price' => ceil(exchange(setting('half_year_subscription'), 'USD', currency_api()->code)),
-                        'discount' => setting('monthly_subscription') ? round((1-((setting('half_year_subscription')/6)/setting('monthly_subscription')))*100, 1) : 0.' '.currency_api()->symbol
+                        'price' => ceil(exchange(setting('half_year_subscription'), 'USD', currency_api()->code)).' '.currency_api()->symbol,
+                        'discount' => setting('monthly_subscription') ? round((1-((setting('half_year_subscription')/6)/setting('monthly_subscription')))*100, 1) : 0
                     ], [
                         'name' => 'سنوي',
-                        'price' => ceil(exchange(setting('yearly_subscription'), 'USD', currency_api()->code)),
-                        'discount' => setting('yearly_subscription') ? round((1-((setting('yearly_subscription')/12)/setting('monthly_subscription')))*100, 1) : 0.' '.currency_api()->symbol
+                        'price' => ceil(exchange(setting('yearly_subscription'), 'USD', currency_api()->code)).' '.currency_api()->symbol,
+                        'discount' => setting('yearly_subscription') ? round((1-((setting('yearly_subscription')/12)/setting('monthly_subscription')))*100, 1) : 0
                     ]
                 ];
       
