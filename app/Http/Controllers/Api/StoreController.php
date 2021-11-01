@@ -130,8 +130,13 @@ class StoreController extends Controller
                                        ],500);
     }
 
-  
-    
+  public function list_stores () {
+    $stores = User::whereNotNull('store_name')->orderBy('store_logo', 'desc')->paginate(15);
+         return response()->json(['data'=>$stores
+                                      
+                                       ],200);
+  }
+      
     
     
     
