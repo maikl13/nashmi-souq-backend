@@ -57,6 +57,7 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('get_conversation/{user}', 'UserController@get_conversation');
     Route::get('get_conversations', 'UserController@get_conversations');
     Route::get('get_unseen_messages_count', 'UserController@get_unseen_messages_count');
+    Route::get('create_update_store', 'StoreController@create_update_store');
 });
 
 /*
