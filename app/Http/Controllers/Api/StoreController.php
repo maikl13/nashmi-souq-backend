@@ -104,6 +104,31 @@ class StoreController extends Controller
 
    
     
+   public function store_categories(Request $request)
+    {
+        $user = Auth::user();
+        
+        $validator = Validator::make($request->all(), [
+             'categories' => 'min:1',
+            'categories.*' => 'exists:categories,id',
+             ]);
+      if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
+        }
+        
+        
+        if($user->is_store()){
+            $user->store_categories = $request->categories;
+            if($user->save()){
+               return response()->json(['data'=>'تم الحفظ بنجاح'
+                                      
+                                       ],200);
+            }
+        }
+        return response()->json(['data'=>'حدث خطأ من فضلك حاول مجددا'
+                                       
+                                       ],500);
+    }
 
   
     
