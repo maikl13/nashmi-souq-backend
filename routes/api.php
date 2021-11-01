@@ -39,6 +39,7 @@ Route::get('areas/{id}', 'CountryController@areas');
 Route::get('settings', 'settingsController@index');
 Route::get('stores_pricing', 'StoreController@pricing');
 Route::post('login', 'UserController@login');
+Route::get('stores', 'StoreController@list_stores');
 Route::post('register_by_email', 'UserController@register_by_email');
 Route::post('register_by_whatsapp', 'UserController@register_by_whatsapp');
 Route::group(['middleware'=>'auth:api'],function(){
