@@ -37,6 +37,7 @@ Route::get('country_listings/{code}', 'ListingsController@country_listings');
 Route::get('countries', 'CountryController@index');
 Route::get('areas/{id}', 'CountryController@areas');
 Route::get('settings', 'settingsController@index');
+Route::get('stores_pricing', 'StoreController@pricing');
 Route::post('login', 'UserController@login');
 Route::post('register_by_email', 'UserController@register_by_email');
 Route::post('register_by_whatsapp', 'UserController@register_by_whatsapp');
