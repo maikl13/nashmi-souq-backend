@@ -70,6 +70,7 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('edit_store_product/{id}', 'StoreController@edit_store_product')->middleware('store_api');
     Route::get('promotions', 'StoreController@promotions')->middleware('store_api');
     Route::get('store_promotions', 'StoreController@store_promotions')->middleware('store_api');
+    Route::post('create_store_promotion', 'StoreController@create_store_promotion')->middleware('store_api');
     Route::post('delete_promotions/{id}', 'StoreController@delete_promotions')->middleware('store_api');
     
 });
