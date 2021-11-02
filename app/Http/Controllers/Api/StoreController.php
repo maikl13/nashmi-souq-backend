@@ -136,6 +136,22 @@ class StoreController extends Controller
                                       
                                        ],200);
   }
+    
+    public function delete_store_banner()
+    {
+         Auth::user()->delete_file('store_banner');
+        return response()->json(['data'=>'تم الحذف بنجاح'
+                                      
+                                       ],200);
+    }
+
+    public function delete_store_logo()
+    {
+         Auth::user()->delete_file('store_logo');
+        return response()->json(['data'=>'تم الحذف بنجاح'
+                                      
+                                       ],200);
+    }
       
     
     
