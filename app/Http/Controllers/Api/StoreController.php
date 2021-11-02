@@ -289,7 +289,21 @@ class StoreController extends Controller
         return response()->json(['data'=>$promotions],200);
         
     }
+    
+    public function delete_promotions(Request $request,$id){
+        $promotion=Promotion::find($id);
+        if($promotion->user_id!=auth()->user()->id){
+            abort(403);
+        }
+        else {
+            $promotion->delete();
+             return response()->json(['data'=>'تم الحذف بنجاح'
+                                   ],200);
+        }
+        
+    }
       
+    
     
     
     
