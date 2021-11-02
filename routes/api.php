@@ -61,6 +61,8 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('create_store', 'StoreController@create_update_store');
     Route::post('store_categories', 'StoreController@store_categories')->middleware('store_api');
     Route::post('update_store', 'StoreController@create_update_store');
+    Route::post('delete_store_banner', 'StoreController@delete_store_banner');
+    Route::post('delete_store_logo', 'StoreController@delete_store_logo');
 });
 
 /*
