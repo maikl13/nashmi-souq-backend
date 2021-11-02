@@ -25,6 +25,6 @@ class Promotion extends Model
     
      public function getImagePathAttribute(){
        
-        return $this->promotion_image;
+        return $this->promotion_image();
     }
 }
