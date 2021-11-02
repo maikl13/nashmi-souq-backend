@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Promotion extends Model
 {
     use FileHandler;
+    protected $appends=['imagepath'];
 
     public function user()
     {
@@ -20,5 +21,10 @@ class Promotion extends Model
     }
     public function upload_promotion_image($file, $w=1280, $h=375){
         return $this->upload_file($file, 'image', ['ext'=>'jpg','w'=>$w, 'h'=>$h, 'allowed'=>['o', '']]);
+    }
+    
+     public function getImagePathAttribute(){
+       
+        return $this->promotion_image;
     }
 }
