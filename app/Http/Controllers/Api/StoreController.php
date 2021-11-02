@@ -302,6 +302,29 @@ class StoreController extends Controller
         }
         
     }
+    
+    public function create_store_promotion(Request $request){
+        
+        $validator = Validator::make($request->all(), [
+              'url' => 'required|url',
+            'image' => 'required|image|max:8192'
+             ]);
+      if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
+        }
+       
+        $promotion = new Promotion;
+        $promotion->user_id = auth()->user()->id;
+        $promotion->url = $request->url;
+        
+        if($promotion->save()){
+            $promotion->image = $promotion->upload_promotion_image($request->image);
+            return response()->json(['data'=>'تم الحفظ بنجاح'
+                                   ],200);
+        }
+         return response()->json(['data'=>'حدث خطأ من فضلك حاول لاحقا'
+                                   ],500);
+    }
       
     
     
