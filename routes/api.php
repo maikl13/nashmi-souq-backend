@@ -63,6 +63,15 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('update_store', 'StoreController@create_update_store');
     Route::post('delete_store_banner', 'StoreController@delete_store_banner');
     Route::post('delete_store_logo', 'StoreController@delete_store_logo');
+    Route::get('store_subscriptions', 'StoreController@store_subscriptions')->middleware('store_api');
+    Route::get('store_products', 'StoreController@store_subscriptions')->middleware('store_api');
+    Route::get('search_store_products', 'StoreController@search_store_products')->middleware('store_api');
+    Route::post('create_store_product', 'StoreController@create_store_product')->middleware('store_api');
+    Route::post('edit_store_product/{id}', 'StoreController@edit_store_product')->middleware('store_api');
+    Route::get('promotions', 'StoreController@promotions')->middleware('store_api');
+    Route::post('store_promotions', 'StoreController@store_promotions')->middleware('store_api');
+    Route::post('delete_promotions', 'StoreController@delete_promotions')->middleware('store_api');
+    
 });
 
 /*
