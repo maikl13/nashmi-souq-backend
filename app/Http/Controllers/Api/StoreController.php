@@ -55,7 +55,7 @@ class StoreController extends Controller
             'social.*' => 'nullable|url',
             'store_banner' => 'nullable|image|max:8192',
             'store_logo' => 'nullable|image|max:8192',
-            // 'country' => 'exists:countries,id',
+             'country' => 'exists:countries,id',
             'subscription_type' => 'in:1,2,3',
             'categories' => 'min:1',
             'categories.*' => 'exists:categories,id',
@@ -73,7 +73,7 @@ class StoreController extends Controller
         $user->store_email = $request->store_email;
         $user->store_address = $request->store_address;
         $user->store_description = $request->store_description;
-        // $user->country_id = $request->country;
+        $user->country_id = $request->country;
         $user->subscription_type = $request->subscription_type;
 
         $social_links = [];
