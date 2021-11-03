@@ -604,6 +604,14 @@ $validator = Validator::make($request->all(), [
         
     }
     
+    public function my_orders()
+    {
+          return response()->json([
+                'data'=>Auth::user()->orders()->latest()->paginate(15)
+          ],200);
+        
+    }
+    
     
     
 
