@@ -334,8 +334,8 @@ class StoreController extends Controller
       
     public function edit_store_product(Request $request,$id){
         $product=Product::find($id);
-        $user=Auth::user();
-        $this->authorize('delete',$user,$product);
+        
+        $this->authorize('delete',$product);
         
         $request->validate([
             'product_title' => 'required|min:2|max:255',
