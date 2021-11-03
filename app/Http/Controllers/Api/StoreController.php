@@ -420,6 +420,14 @@ class StoreController extends Controller
         
     }
     
+    public function show_product($id){
+        $product=Product::find($id);
+        $product->views = $product->views+1;
+        $product->save();
+        return response()->json(['data'=>$product]);
+        
+    }
+    
     
     
 }
