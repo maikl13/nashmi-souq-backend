@@ -199,8 +199,8 @@ class StoreController extends Controller
          $validator = Validator::make($request->all(), [
              'product_title' => 'required|min:2|max:255',
             'description' => 'required|min:2|max:10000',
-            'category' => 'required|exists:categories,slug',
-    		'sub_category' => 'nullable|exists:categories,slug',
+            'category' => 'required|exists:categories,id',
+    		'sub_category' => 'nullable|exists:categories,id',
             'images' => 'nullable',
             'images.*' => 'image|max:8192',
             'price' => 'nullable|numeric',
@@ -215,8 +215,8 @@ class StoreController extends Controller
         $slug = Str::slug($request->product_title);
         $count = Product::withTrashed()->where('slug', $slug)->count();
         $slug = $count ? $slug.'-'.uniqid() : $slug;
-        $category = Category::where('slug', $request->category)->first();
-        $sub_category = Category::where('slug', $request->sub_category)->first();
+        $category = Category::where('id', $request->category)->first();
+        $sub_category = Category::where('id', $request->sub_category)->first();
         $group = ($latest = Product::withTrashed()->orderBy('group', 'desc')->first()) ? $latest->group+1 : 1;
 
         if($request->units){
@@ -249,6 +249,8 @@ class StoreController extends Controller
                 
                 $product->save();
                 $product->upload_product_images(array_merge($unit['images']??[], $request->images??[]));
+                return response()->json(['data'=>'تم حفظ المنتج بنجاح'
+                                    ],200);
             }
         } else {
             $product = new Product;
@@ -278,9 +280,12 @@ class StoreController extends Controller
             
             $product->save();
             $product->upload_product_images($request->images);
+            return response()->json(['data'=>'تم حفظ المنتج بنجاح'
+                                    ],200);
         }
        
-        //return response()->json(['data'=>$products],200);
+       return response()->json(['data'=>'خطأ فى حفظ المنتج'
+                                    ],500);
     }
     
     
