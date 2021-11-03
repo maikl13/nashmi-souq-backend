@@ -85,9 +85,9 @@ Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_cate
 
 // الكود ده مهم للفرونت اند :)
 Route::namespace('\App\Http\Controllers\Admin')->group(function () {
-	Route::get('categories/{category}/sub-categories', 'CategoryController@sub_categories');
-	Route::get('states/{state}/areas', 'StateController@areas');
+	Route::get('categories/{category}/sub-categories', '\App\Http\Controllers\Admin\CategoryController@sub_categories');
+	Route::get('states/{state}/areas', '\App\Http\Controllers\Admin\StateController@areas');
 
-	Route::get('categories/{category}/options', 'CategoryController@category_options');
-	Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_category_options');
+	Route::get('categories/{category}/options', '\App\Http\Controllers\Admin\CategoryController@category_options');
+	Route::get('sub-categories/{sub_category}/options', '\App\Http\Controllers\Admin\CategoryController@sub_category_options');
 });
