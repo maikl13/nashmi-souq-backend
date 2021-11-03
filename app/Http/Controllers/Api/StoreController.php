@@ -334,7 +334,7 @@ class StoreController extends Controller
       
     public function edit_store_product(Request $request,$id){
         $product=Product::find($id);
-        $user=Auth::user()->id;
+        $user=Auth::user();
         $this->authorize('delete', $user,$product);
         
         $request->validate([
