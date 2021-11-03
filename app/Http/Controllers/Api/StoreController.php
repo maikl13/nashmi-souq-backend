@@ -333,6 +333,7 @@ class StoreController extends Controller
     }
       
     public function edit_store_product(Request $request,$id){
+        dd('good');
         $product=Product::find($id);
         if($product->user_id!=Auth::user()->id){
             abort(403);
