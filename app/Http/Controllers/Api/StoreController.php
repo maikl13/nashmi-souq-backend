@@ -160,8 +160,8 @@ class StoreController extends Controller
     
     public function store_subscriptions()
     {
-        dd(auth()->user()->subscriptions());
-         return response()->json(['data'=>auth()->user()->subscriptions()->active()],200);
+        
+         return response()->json(['data'=>auth()->user()->subscriptions()->active()->get()],200);
         
     }
     
