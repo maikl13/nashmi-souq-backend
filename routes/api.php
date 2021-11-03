@@ -42,6 +42,8 @@ Route::post('login', 'UserController@login');
 Route::get('stores', 'StoreController@list_stores');
 Route::post('register_by_email', 'UserController@register_by_email');
 Route::post('register_by_whatsapp', 'UserController@register_by_whatsapp');
+Route::get('list_store_products/{id}', 'StoreController@list_store_products');
+Route::get('search_store_products/{id}', 'StoreController@search_store_products');
 Route::group(['middleware'=>'auth:api'],function(){
     Route::get('my_listings', 'UserController@my_listings');
     Route::post('update_account', 'UserController@update');
@@ -68,6 +70,8 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('search_store_products', 'StoreController@search_store_products')->middleware('store_api');
     Route::post('create_store_product', 'StoreController@create_store_product')->middleware('store_api');
     Route::post('edit_store_product/{id}', 'StoreController@edit_store_product')->middleware('store_api');
+    Route::post('delete_store_product/{id}', 'StoreController@delete_store_product')->middleware('store_api');
+    Route::post('delete_product_image/{id}', 'StoreController@delete_product_image')->middleware('store_api');
     Route::get('promotions', 'StoreController@promotions')->middleware('store_api');
     Route::get('store_promotions', 'StoreController@store_promotions')->middleware('store_api');
     Route::post('create_store_promotion', 'StoreController@create_store_promotion')->middleware('store_api');
