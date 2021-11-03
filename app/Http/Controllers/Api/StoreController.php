@@ -386,6 +386,63 @@ class StoreController extends Controller
                                    ],500);
     }
     
+    public function delete_product_image(Request $request,$id){
+          $product=Product::find($id);
+        if($product->user_id!=Auth::user()->id){
+            abort(403);
+        }
+        
+         if($product->delete_file('images', $request->key)){
+              return response()->json(['data'=>'تم حذف الصورة بنجاح'],200);
+         }
+          return response()->json(['data'=>'حدث خطأ من فضلك حاول مجددا'],500);
+         
+    }
+    
+    public function delete_store_product(Request $request,$id){
+        $product=Product::find($id);
+        if($product->user_id!=Auth::user()->id){
+            abort(403);
+        }
+        else {
+            $product->delete();
+             return response()->json(['data'=>'تم الحذف بنجاح'
+                                   ],200);
+        }
+        
+    }
+    
+    public function search_store_products(Request $request,$id){
+        $validator = Validator::make($request->all(), [
+            'categories.*' => 'nullable|exists:categories,id',
+            'sub_categories.*' => 'nullable|exists:categories,id'
+             ]);
+      if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
+        }
+          $products = Product::query()->shown();
+        $categories = empty($request->categories) || $request->categories == [null] ? [] : $request->categories;
+        $sub_categories = empty($request->sub_categories) || $request->sub_categories == [null] ? [] : $request->sub_categories;
+
+        //search
+        if($request->q && !empty($request->q)) 
+            $products = $products->search($request->q);
+        if( !empty($categories) || !empty($sub_categories) ){
+            $products = $products->Where(function($query) use ($categories, $sub_categories){
+                $query->whereIn('category_id', $categories)
+                    ->orWhereIn('sub_category_id', $sub_categories);
+            });
+        }
+
+        $products = $products->where('user_id',$id)->latest()->paginate(15);
+        return response()->json(['data'=>$products]);
+    }
+    public function list_store_products($id){
+        $products = Product::query()->shown();
+        $products=$products->where('user_id',$id)->latest()->paginate(15);
+        return response()->json(['data'=>$products]);
+        
+    }
     
     
     
