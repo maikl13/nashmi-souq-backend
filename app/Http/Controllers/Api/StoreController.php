@@ -342,8 +342,8 @@ class StoreController extends Controller
          $validator = Validator::make($request->all(), [
             'product_title' => 'required|min:2|max:255',
             'description' => 'required|min:2|max:10000',
-            'category' => 'required|exists:categories,slug',
-            'sub_category' => 'nullable|exists:categories,slug',
+            'category' => 'required|exists:categories,id',
+            'sub_category' => 'nullable|exists:categories,id',
             'images.*' => 'image|max:8192',
             'price' => 'nullable|numeric',
             'initial_price'=> 'nullable|numeric',
