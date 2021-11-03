@@ -43,7 +43,7 @@ Route::get('stores', 'StoreController@list_stores');
 Route::post('register_by_email', 'UserController@register_by_email');
 Route::post('register_by_whatsapp', 'UserController@register_by_whatsapp');
 Route::get('list_store_products/{id}', 'StoreController@list_store_products');
-Route::get('search_store_products/{id}', 'StoreController@search_store_products');
+Route::post('search_store_products/{id}', 'StoreController@search_store_products');
 Route::group(['middleware'=>'auth:api'],function(){
     Route::get('my_listings', 'UserController@my_listings');
     Route::post('update_account', 'UserController@update');
