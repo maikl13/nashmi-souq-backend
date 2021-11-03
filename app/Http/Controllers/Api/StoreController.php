@@ -333,14 +333,13 @@ class StoreController extends Controller
     }
       
     public function edit_store_product(Request $request,$id){
-        dd('good');
+       
         $product=Product::find($id);
         if($product->user_id!=Auth::user()->id){
             abort(403);
         }
         
-        
-        $request->validate([
+         $validator = Validator::make($request->all(), [
             'product_title' => 'required|min:2|max:255',
             'description' => 'required|min:2|max:10000',
             'category' => 'required|exists:categories,slug',
@@ -349,8 +348,11 @@ class StoreController extends Controller
             'price' => 'nullable|numeric',
             'initial_price'=> 'nullable|numeric',
             'currency' => 'nullable|exists:currencies,id',
-        ]);
-
+             ]);
+      if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
+        }
+       
         $product->title = $request->product_title;
         $product->initial_price = $request->initial_price;
         $product->price = isset($request->price) && $request->price != null ? $request->price : $product->initial_price;
