@@ -209,7 +209,7 @@ class StoreController extends Controller
       if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
         }
-        dd($request->all());
+       
          $title = $request->product_title;
         $description = $request->description;
         $slug = Str::slug($request->product_title);
