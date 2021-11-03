@@ -429,6 +429,12 @@ class StoreController extends Controller
         
     }
     
+    public function store_orders(){
+       
+        return response()->json(['data'=>auth()->user()->orders()->paginate(15)]);
+        
+    }
+    
     
     
 }
