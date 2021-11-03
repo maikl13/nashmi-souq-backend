@@ -61,6 +61,8 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('get_conversation/{user}', 'UserController@get_conversation');
     Route::get('get_conversations', 'UserController@get_conversations');
     Route::get('get_unseen_messages_count', 'UserController@get_unseen_messages_count');
+    Route::get('my-orders', 'UserController@my-orders');
+   
     Route::post('create_store', 'StoreController@create_update_store');
     Route::post('store_categories', 'StoreController@store_categories')->middleware('store_api');
     Route::post('update_store', 'StoreController@create_update_store');
@@ -68,6 +70,7 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('delete_store_logo', 'StoreController@delete_store_logo');
     Route::get('store_subscriptions', 'StoreController@store_subscriptions')->middleware('store_api');
     Route::get('store_products', 'StoreController@store_products')->middleware('store_api');
+    Route::get('store_orders', 'StoreController@store_orders')->middleware('store_api');
     Route::get('search_store_products', 'StoreController@search_store_products')->middleware('store_api');
     Route::post('create_store_product', 'StoreController@create_store_product')->middleware('store_api');
     Route::post('edit_store_product/{id}', 'StoreController@edit_store_product')->middleware('store_api');
