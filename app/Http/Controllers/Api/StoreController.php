@@ -170,30 +170,6 @@ class StoreController extends Controller
         return response()->json(['data'=>$products],200);
     }
     
-    public function search_store_products(Request $request)
-    {
-         $validator = Validator::make($request->all(), [
-             'categories.*' => 'nullable|exists:categories,id',
-            'sub_categories.*' => 'nullable|exists:categories,id',
-             ]);
-      if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
-        }
-        $categories = empty($request->categories) || $request->categories == [null] ? [] : $request->categories;
-        $sub_categories = empty($request->sub_categories) || $request->sub_categories == [null] ? [] : $request->sub_categories;
-        $products = Product::query()->where('user_id',auth()->user()->id);
-         if($request->q && !empty($request->q)) 
-            $products = $products->search($request->q);
-        if( !empty($categories) || !empty($sub_categories) ){
-            $products = $products->Where(function($query) use ($categories, $sub_categories){
-                $query->whereIn('category_id', $categories)
-                    ->orWhereIn('sub_category_id', $sub_categories);
-            });
-        }
-        $products=$products->latest()->paginate(15);
-        return response()->json(['data'=>$products],200);
-    }
-    
     public function create_store_product(Request $request)
     {
          $validator = Validator::make($request->all(), [
