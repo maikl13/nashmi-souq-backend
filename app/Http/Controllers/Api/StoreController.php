@@ -204,6 +204,7 @@ class StoreController extends Controller
             'images' => 'nullable',
             'images.*' => 'image|max:8192',
             'price' => 'nullable|numeric',
+             'initial_price'=> 'nullable|numeric',
             'currency' => 'nullable|exists:currencies,id',
              ]);
       if ($validator->fails()) {
@@ -331,7 +332,53 @@ class StoreController extends Controller
                                    ],500);
     }
       
-    
+    public function edit_store_product(Request $request,$id){
+        $product=Product::find($id);
+        $this->authorize('delete', $product);
+        
+        $request->validate([
+            'product_title' => 'required|min:2|max:255',
+            'description' => 'required|min:2|max:10000',
+            'category' => 'required|exists:categories,slug',
+            'sub_category' => 'nullable|exists:categories,slug',
+            'images.*' => 'image|max:8192',
+            'price' => 'nullable|numeric',
+            'initial_price'=> 'nullable|numeric',
+            'currency' => 'nullable|exists:currencies,id',
+        ]);
+
+        $product->title = $request->product_title;
+        $product->initial_price = $request->initial_price;
+        $product->price = isset($request->price) && $request->price != null ? $request->price : $product->initial_price;
+        $product->currency_id = $request->currency;
+        $slug = Str::slug($request->product_title);
+        $product->slug = optional(Product::where('slug', $slug)->first())->id != $product->id ? $slug.'-'.uniqid() : $slug;
+        $product->description = $request->description;
+         $category = Category::where('id', $request->category)->first();
+        $sub_category = Category::where('id', $request->sub_category)->first();
+        $product->category_id = $category->id;
+        $product->sub_category_id = $sub_category ? $sub_category->id : null;
+
+        $option_values = $request->option_values;
+        if($option_values){
+            array_unique($option_values);
+            if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+            $options = [];
+            foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+                $options['options'][] = $option_value->option_id;
+                $options['values'][] = $option_value->id;
+            }
+            $product->options = $options;
+        }
+
+        if($product->save()){
+            $product->upload_product_images($request->images);
+             return response()->json(['data'=>'تم تعديل المنتج بنجاح'
+                                    ],200);
+        }
+        return response()->json(['data'=>'حدث خطأ من فضلك حاول لاحقا'
+                                   ],500);
+    }
     
     
     
