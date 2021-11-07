@@ -20,8 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('categories', 'CategoryController@index');
 
-Route::get('sub_categories/{id}', 'CategoryController@sub_categories');
-Route::get('categories/{id}/options', 'CategoryController@category_options');
+Route::get('get_sub_categories/{id}', 'CategoryController@sub_categories');
+Route::get('get_categories/{id}/options', 'CategoryController@category_options');
 Route::get('listing_types', 'CategoryController@listing_types');
 Route::get('listing_states', 'CategoryController@listing_states');
 Route::post('listings', 'ListingsController@index');
@@ -37,9 +37,14 @@ Route::get('country_listings/{code}', 'ListingsController@country_listings');
 Route::get('countries', 'CountryController@index');
 Route::get('areas/{id}', 'CountryController@areas');
 Route::get('settings', 'settingsController@index');
+Route::get('stores_pricing', 'StoreController@pricing');
 Route::post('login', 'UserController@login');
+Route::get('stores', 'StoreController@list_stores');
 Route::post('register_by_email', 'UserController@register_by_email');
 Route::post('register_by_whatsapp', 'UserController@register_by_whatsapp');
+Route::get('list_store_products/{id}', 'StoreController@list_store_products');
+Route::post('search_store_products/{id}', 'StoreController@search_store_products');
+Route::get('show_product/{id}', 'StoreController@show_product');
 Route::group(['middleware'=>'auth:api'],function(){
     Route::get('my_listings', 'UserController@my_listings');
     Route::post('update_account', 'UserController@update');
@@ -56,6 +61,26 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('get_conversation/{user}', 'UserController@get_conversation');
     Route::get('get_conversations', 'UserController@get_conversations');
     Route::get('get_unseen_messages_count', 'UserController@get_unseen_messages_count');
+    Route::get('my-orders', 'UserController@my_orders');
+   
+    Route::post('create_store', 'StoreController@create_update_store');
+    Route::post('store_categories', 'StoreController@store_categories')->middleware('store_api');
+    Route::post('update_store', 'StoreController@create_update_store');
+    Route::post('delete_store_banner', 'StoreController@delete_store_banner');
+    Route::post('delete_store_logo', 'StoreController@delete_store_logo');
+    Route::get('store_subscriptions', 'StoreController@store_subscriptions')->middleware('store_api');
+    Route::get('store_products', 'StoreController@store_products')->middleware('store_api');
+    Route::get('store_orders', 'StoreController@store_orders')->middleware('store_api');
+    Route::get('search_store_products', 'StoreController@search_store_products')->middleware('store_api');
+    Route::post('create_store_product', 'StoreController@create_store_product')->middleware('store_api');
+    Route::post('edit_store_product/{id}', 'StoreController@edit_store_product')->middleware('store_api');
+    Route::post('delete_store_product/{id}', 'StoreController@delete_store_product')->middleware('store_api');
+    Route::post('delete_product_image/{id}', 'StoreController@delete_product_image')->middleware('store_api');
+    Route::get('promotions', 'StoreController@promotions')->middleware('store_api');
+    Route::get('store_promotions', 'StoreController@store_promotions')->middleware('store_api');
+    Route::post('create_store_promotion', 'StoreController@create_store_promotion')->middleware('store_api');
+    Route::post('delete_promotions/{id}', 'StoreController@delete_promotions')->middleware('store_api');
+    
 });
 
 /*
@@ -68,9 +93,9 @@ Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_cate
 
 // الكود ده مهم للفرونت اند :)
 Route::namespace('\App\Http\Controllers\Admin')->group(function () {
-	Route::get('categories/{category}/sub-categories', 'CategoryController@sub_categories');
-	Route::get('states/{state}/areas', 'StateController@areas');
+	Route::get('categories/{category}/sub-categories', '\App\Http\Controllers\Admin\CategoryController@sub_categories');
+	Route::get('states/{state}/areas', '\App\Http\Controllers\Admin\StateController@areas');
 
-	Route::get('categories/{category}/options', 'CategoryController@category_options');
-	Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_category_options');
+	Route::get('categories/{category}/options', '\App\Http\Controllers\Admin\CategoryController@category_options');
+	Route::get('sub-categories/{sub_category}/options', '\App\Http\Controllers\Admin\CategoryController@sub_category_options');
 });
