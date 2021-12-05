@@ -79,7 +79,7 @@
                                 <div class="item-details text-break">
                                     <div class="tab-content pt-0">
                                         <div>
-                                            <p>{{ $listing->description }}</p>
+                                            <p style="white-space: pre;">{{ $listing->description }}</p>
                                             @php
                                                 $data = json_decode($listing->data, true);
                                             @endphp
