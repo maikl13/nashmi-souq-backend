@@ -132,7 +132,7 @@
 
 
 
-                                            <p style="white-space: pre;">{{ $product->description }}</p>
+                                            <p style="white-space: pre-line;">{{ $product->description }}</p>
                                             @php
                                                 $data = json_decode($product->data, true);
                                             @endphp
