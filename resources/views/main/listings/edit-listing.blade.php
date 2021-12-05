@@ -296,7 +296,7 @@
                                             <option value="">- إختر المنطقة</option>
                                             @if ( isset($areas_count) && $areas_count )
                                                 @foreach ($state->areas()->get() as $area)
-                                                    <option value="{{ $area->slug }}" {{ $a == $area->slug ? 'selected' : '' }}>{{ $area->name }}</option>
+                                                    <option value="{{ $area->slug }}" {{ ($a ?? null) == $area->slug ? 'selected' : '' }}>{{ $area->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
