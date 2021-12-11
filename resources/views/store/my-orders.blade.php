@@ -29,7 +29,8 @@
                     <div class="section-head inner-haed">
                         <h3 class="pb-1" style="line-height: 35px">
                             <div class="float-left">
-                                <span class="float-right">{{ $order->price() }} 
+                                <span class="float-right">
+                                    {{ preg_replace('/(\.00$)/i', '', number_format($order->price(), 2)) }}
                                     <span class="currency-symbol" title="ب{{ $order->currency->name }}">{{ $order->currency->symbol }}</span>
                                 </span>
                             </div>

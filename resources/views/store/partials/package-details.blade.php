@@ -47,7 +47,8 @@
                     </tr> --}}
                     <tr>
                         <td>إجمالي السعر</td>
-                        <td>{{ $package->price() }} 
+                        <td>
+                            {{ preg_replace('/(\.00$)/i', '', number_format($package->price(), 2)) }}
                             <span class="currency-symbol" title="ب{{ $package->order->currency->name }}">{{ $package->order->currency->symbol }}</span>
                         </td>
                     </tr>

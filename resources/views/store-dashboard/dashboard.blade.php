@@ -115,7 +115,7 @@
                         @forelse( App\Models\Order::latest()->limit(7)->get() as $order )
                             <tr class="border-bottom"> 
                                 <td> {{ $order->buyer_name }} </td>
-                                <td> {{ $order->price }}  <small>{{ $order->currency->symbol }}</small></td>
+                                <td> {{ preg_replace('/(\.00$)/i', '', number_format($order->price(), 2)) }} <small>{{ $order->currency->symbol }}</small></td>
                                 <td> {{ $order->get_payment_method() }} </td>
                                 <td> {{ $order->status() }} </td>
                             </tr>

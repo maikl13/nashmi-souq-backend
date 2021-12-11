@@ -38,7 +38,7 @@
                                     @if ($listing->price)
                                         <li class="item-price">
                                             <i class="fas fa-money-bill"></i>
-                                            {{ $listing->price() }}
+                                            {{ preg_replace('/(\.00$)/i', '', number_format($listing->price(), 2)) }}
                                             @if ($listing->currency)
                                                 <span class="currency-symbol" title="ب{{ $listing->currency->name }}">{{ $listing->currency->symbol }}</span>
                                             @endif
