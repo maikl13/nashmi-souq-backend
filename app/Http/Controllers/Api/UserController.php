@@ -249,6 +249,18 @@ $validator = Validator::make($request->all(), [
             $brand = Brand::where('id', $brand)->first();
             $listing->brand_id = optional($brand)->id;
         }
+         
+         $option_values = $request->option_values;
+        if($option_values){
+            array_unique($option_values);
+            if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+            $options = [];
+            foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+                $options['options'][] = $option_value->option_id;
+                $options['values'][] = $option_value->id;
+            }
+            $listing->options = $options;
+        }
 
         if($listing->save()){
             if($request->has('images')){
