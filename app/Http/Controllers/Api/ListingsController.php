@@ -113,7 +113,7 @@ class ListingsController extends Controller
     
      public function user_listings($id) {
        
-        $listings = Listing::where('user_id', $id)->apilocalized()->active()->featuredFirst();
+        $listings = Listing::where('user_id', $id)->active()->featuredFirst();
     
       $listings = $listings->with(['user','comments','state','area','category','sub_category'])->latest()->paginate(15);
       
