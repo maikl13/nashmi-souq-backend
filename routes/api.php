@@ -80,7 +80,7 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('store_promotions', 'StoreController@store_promotions')->middleware('store_api');
     Route::post('create_store_promotion', 'StoreController@create_store_promotion')->middleware('store_api');
     Route::post('delete_promotions/{id}', 'StoreController@delete_promotions')->middleware('store_api');
-    
+    Route::post('checkout', 'StoreController@checkout')->middleware('store_api');
 });
 
 /*
