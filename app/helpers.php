@@ -93,7 +93,7 @@ function ad_space($type='', $banner=false)
 	}
 
 	$src = $banner ? $banner->banner_image() : '/assets/images/bs/'.$type.'.png';
-	$url = $banner ? $banner->url : 'https://wa.me/message/HLJYPS5QSY5DF1';
+	$url = $banner ? $banner->url : 'https://wa.me/+201004503999';
 
 	return '<a href="'.$url.'" target="_blank"><img style="width: '. $width .'px; height: auto; max-width: 100%; margin: 0 auto;" src="'.$src.'"></a>';
 }
