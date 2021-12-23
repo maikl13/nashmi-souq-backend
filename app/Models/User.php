@@ -28,6 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'store_categories' => 'array',
     ];
+     protected $appends=['storebannerpath'];
+      protected $appends=['storelogopath'];
     
     public static $profile_picture_sizes = [
         '' => ['w'=>256, 'h'=>256, 'quality'=>80],
@@ -108,6 +110,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function upload_store_logo($file){
         return $this->upload_file($file, 'store_logo', ['ext'=>'jpg', 'w'=>null, 'h'=>null]);
+    }
+    
+    public function getStoreBannerPathAttribute(){
+        
+        return $this->store_banner();
+    }
+    
+    public function getStoreLogoPathAttribute(){
+        
+        return $this->store_logo();
     }
 
     /**
