@@ -28,8 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'store_categories' => 'array',
     ];
-     protected $appends=['storebannerpath'];
-      protected $appends=['storelogopath'];
+     protected $appends=['storebannerpath','storelogopath'];
+      
     
     public static $profile_picture_sizes = [
         '' => ['w'=>256, 'h'=>256, 'quality'=>80],
