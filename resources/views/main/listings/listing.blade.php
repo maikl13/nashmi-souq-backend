@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs-area">
-                        <h1>{{ $listing->title }}</h1>
+                        <h1 class="text-break">{{ $listing->title }}</h1>
                         <ul>
                             <li> <a href="/">الرئيسية</a> </li>
                             <li> <a href="/listings">الإعلانات</a> </li>
