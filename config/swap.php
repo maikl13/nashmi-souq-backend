@@ -75,10 +75,10 @@ return [
     'services' => [
         // 'currency_layer' => ['access_key' => '62deca8011b048dc56ed1e4988d31eab', 'enterprise' => false], 
         // 'fixer' => ['access_key' => 'c112f3482274f1e8f8bd77a584e4e2eb', 'enterprise' => false],
-        // 'fixer' => ['access_key' => 'c14918a163d54cd4446728384f1e4635', 'enterprise' => false],
+        'fixer' => ['access_key' => 'c14918a163d54cd4446728384f1e4635', 'enterprise' => false],
         // 'european_central_bank' => true,
         // 'exchange_rates_api' => true,
-        'open_exchange_rates' => ['app_id' => '89084bd3770f4bf78e419b5080e5ed1b', 'enterprise' => false],
+        // 'open_exchange_rates' => ['app_id' => '89084bd3770f4bf78e419b5080e5ed1b', 'enterprise' => false],
 
         // 'fixer' => ['access_key' => 'YOUR_KEY', 'enterprise' => false],
         // 'currency_layer' => ['access_key' => 'secret', 'enterprise' => false],],
