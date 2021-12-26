@@ -18,7 +18,7 @@ trait ExchangeCurrency {
     public static function rate_from_base($base, $currency)
     {
         if($base == $currency) return 1;
-        return cache()->store('database')->remember($base.'/'.$currency, 259200, function() use ($currency, $base){
+        return cache()->store('database')->remember($base.'/'.$currency, 432000, function() use ($currency, $base){
             return Swap::latest($base."/$currency")->getValue();
         });
     }
