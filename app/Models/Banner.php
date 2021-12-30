@@ -68,9 +68,9 @@ class Banner extends Model
     
     public function getImagesPathAttribute(){
         $images=[];
-        foreach($this->banner_image() as $i) {
-            $images[]=$i;
-        }
+       
+            $images[]=$this->banner_image();
+        
         return $images;
     }
 
