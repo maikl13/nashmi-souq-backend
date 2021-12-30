@@ -11,6 +11,7 @@ class Banner extends Model
     use FileHandler;
 
     protected $dates = ['created_at', 'updated_at', 'expires_at'];
+     protected $appends=['imagespath'];
 
     const TYPE_LARGE_RECTANGLE = 1;
     const TYPE_LEADERBOARD = 2;
@@ -63,6 +64,14 @@ class Banner extends Model
     }
     public function upload_banner_image($file, $w=256, $h=256){
         return $this->upload_file($file, 'image', ['ext'=>'jpg','w'=>$w, 'h'=>$h, 'allowed'=>['o', '']]);
+    }
+    
+    public function getImagesPathAttribute(){
+        $images=[];
+        foreach($this->banner_image() as $i) {
+            $images[]=$i;
+        }
+        return $images;
     }
 
     // this is a recommended way to declare event handlers
