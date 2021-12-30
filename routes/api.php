@@ -24,6 +24,9 @@ Route::get('get_sub_categories/{id}', 'CategoryController@sub_categories');
 Route::get('get_categories/{id}/options', 'CategoryController@category_options');
 Route::get('listing_types', 'CategoryController@listing_types');
 Route::get('listing_states', 'CategoryController@listing_states');
+
+Route::get('banners', 'CategoryController@banners');
+
 Route::post('listings', 'ListingsController@index');
 Route::post('search_listings', 'ListingsController@search_listings');
 Route::get('related_listings/{id}', 'ListingsController@related_listings');
