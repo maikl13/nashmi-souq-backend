@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 
 
 class CategoryController extends Controller
@@ -128,6 +129,11 @@ class CategoryController extends Controller
          $states = country() ? country()->states : [];
          return response()->json(['data'=>$states],200);     
         
+    }
+    
+    public function banners(){
+        $banners = Banner::valid()->inRandomOrder()->get();
+        return response()->json(['data'=>$banners],200);     
     }
     
     
