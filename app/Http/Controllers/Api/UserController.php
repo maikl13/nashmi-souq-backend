@@ -92,9 +92,10 @@ class UserController extends Controller
             if($user && $request->password == $user->otp){
                 $user->password = Hash::make($user->otp);
                 $user->save();
-                Auth::login($user);
-                $authinticated = true;
+                //Auth::login($user);
+                //$authinticated = true;
             }
+             Auth::login($user);
               return response()->json(['data'=>$user],200);
         }
 
