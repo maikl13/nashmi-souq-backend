@@ -88,15 +88,15 @@ class UserController extends Controller
             }
         }
 
-         if($authinticated){
+         if(!$authinticated){
             if($user && $request->password == $user->otp){
                 $user->password = Hash::make($user->otp);
                 $user->save();
-                //Auth::login($user);
-                //$authinticated = true;
+                Auth::login($user);
+                $authinticated = true;
             }
-             Auth::login($user);
-              return response()->json(['data'=>$user],200);
+             
+              //return response()->json(['data'=>$user],200);
         }
 
         if($authinticated) {
@@ -106,7 +106,7 @@ class UserController extends Controller
             }
              $user->api_token=Str::random(60);
              $user->save();
-             
+             Auth::login($user);
           return response()->json(['data'=>$user],200);
         }
 
