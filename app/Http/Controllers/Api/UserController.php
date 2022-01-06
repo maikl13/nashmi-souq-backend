@@ -46,6 +46,13 @@ class UserController extends Controller
       
         
         $user = User::where('email', $request->phoneoremail)->first();
+         if(Auth::attempt(['email' => $request->phoneoremail, 'password' => $request->password]) ){
+             dd('good');
+         }
+        else
+        {
+            dd('bad');
+        }
         if(Auth::attempt(['email' => $request->phoneoremail, 'password' => $request->password]) ) 
             $authinticated = true;
 
