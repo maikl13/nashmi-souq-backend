@@ -96,7 +96,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->upload_file($file, 'profile_picture', ['ext'=>'jpg','sizes'=>Self::$profile_picture_sizes]);
     }
 
-    public function store_banner( $options=[] ){
+    public function store_banner_get( $options=[] ){
         $options = array_merge($options, ['default'=>'store-banner']);
         return $this->image($this->store_banner, $options) ?? null;
     }
@@ -104,9 +104,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->upload_file($file, 'store_banner', ['ext'=>'jpg','w'=>1180, 'h'=>300, 'allowed'=>['o', '', 's']]);
     }
 
-    public function store_logo( $options=[] ){
+    public function store_logo_get( $options=[] ){
         $options = array_merge($options, ['default'=>'store']);
-        return $this->image($this->store_logo, $options);
+        return $this->image($this->store_logo, $options)?? null;
     }
     public function upload_store_logo($file){
         return $this->upload_file($file, 'store_logo', ['ext'=>'jpg', 'w'=>null, 'h'=>null]);
@@ -114,12 +114,12 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function getStoreBannerPathAttribute(){
         
-        return $this->store_banner();
+        return $this->store_banner_get();
     }
     
     public function getStoreLogoPathAttribute(){
         
-        return $this->store_logo();
+        return $this->store_logo_get();
     }
 
     /**
