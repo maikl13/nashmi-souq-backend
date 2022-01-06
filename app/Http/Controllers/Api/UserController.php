@@ -132,7 +132,7 @@ class UserController extends Controller
         
 $validator = Validator::make($request->all(), [
             'name' => 'required|min:2|max:25',
-            'username' => 'required|min:2|max:25|unique:users,username',
+            'username' => 'required|min:2|max:25|unique:users,username,'.$user->id,
             'email' => 'nullable|email|max:255|unique:users,email,'.$user->id,
             'profile_picture' => 'image|max:8192',
             'country' => 'exists:countries,id',
