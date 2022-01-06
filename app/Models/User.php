@@ -98,7 +98,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function store_banner( $options=[] ){
         $options = array_merge($options, ['default'=>'store-banner']);
-        return $this->image($this->store_banner, $options);
+        return $this->image($this->store_banner, $options) ?? null;
     }
     public function upload_store_banner($file){
         return $this->upload_file($file, 'store_banner', ['ext'=>'jpg','w'=>1180, 'h'=>300, 'allowed'=>['o', '', 's']]);
