@@ -45,14 +45,7 @@ class UserController extends Controller
         $authinticated = false;
       
         
-        $user = User::where('email', $request->phoneoremail)->first();
-         if(Auth::attempt(['email' => $request->phoneoremail, 'password' => $request->password]) ){
-             dd('good');
-         }
-        else
-        {
-            dd('bad');
-        }
+       
         if(Auth::attempt(['email' => $request->phoneoremail, 'password' => $request->password]) ) 
             $authinticated = true;
 
@@ -117,7 +110,7 @@ class UserController extends Controller
           return response()->json(['data'=>$user],200);
         }
 
-       dd($authinticated);
+     
        return response()->json(['data'=>'خطأ فى تسجيل الدخول بيانات خاطئة'],401);
        
     }
@@ -142,7 +135,7 @@ class UserController extends Controller
 $validator = Validator::make($request->all(), [
             'name' => 'required|min:2|max:25',
             'username' => 'required|min:2|max:25|unique:users,username,'.$user->id,
-            'email' => 'nullable|email|max:255|unique:users,email,'.$user->id,
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
             'profile_picture' => 'image|max:8192',
             'country' => 'exists:countries,id',
              ]);
