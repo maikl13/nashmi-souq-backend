@@ -110,7 +110,7 @@ class UserController extends Controller
           return response()->json(['data'=>$user],200);
         }
 
-       
+       dd($authinticated);
        return response()->json(['data'=>'خطأ فى تسجيل الدخول بيانات خاطئة'],401);
        
     }
