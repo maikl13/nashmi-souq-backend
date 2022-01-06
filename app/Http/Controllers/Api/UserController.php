@@ -429,7 +429,9 @@ $validator = Validator::make($request->all(), [
         $user_data['password'] = Hash::make($request['password']);
         $user = User::create($user_data);
          event(new Registered($user));
-        return response()->json(['status'=>'success','data'=>$user,'message'=>'تم التسجيل بنجاح'],200) ;
+       return response()->json(['status'=>'success','data'=>$user,
+        'message'=>'تم التسجيل بنجاح',
+        200]);
     }
     
      public function register_by_whatsapp(Request $request){
