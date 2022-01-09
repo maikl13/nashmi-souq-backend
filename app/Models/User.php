@@ -106,6 +106,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function upload_store_banner($file){
         return $this->upload_file($file, 'store_banner', ['ext'=>'jpg','w'=>1180, 'h'=>300, 'allowed'=>['o', '', 's']]);
     }
+    
+    public function store_logo( $options=[] ){
+        $options = array_merge($options, ['default'=>'store']);
+        return $this->image($this->store_logo, $options)?? null;
+    }
 
     public function store_logo_get( $options=[] ){
         $options = array_merge($options, ['default'=>'store']);
