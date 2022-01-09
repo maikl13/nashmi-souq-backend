@@ -95,7 +95,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function upload_profile_picture($file){
         return $this->upload_file($file, 'profile_picture', ['ext'=>'jpg','sizes'=>Self::$profile_picture_sizes]);
     }
-
+    public function store_banner( $options=[] ){
+        $options = array_merge($options, ['default'=>'store-banner']);
+        return $this->image($this->store_banner, $options) ?? null;
+    }
     public function store_banner_get( $options=[] ){
         $options = array_merge($options, ['default'=>'store-banner']);
         return $this->image($this->store_banner, $options) ?? null;
