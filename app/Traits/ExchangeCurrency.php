@@ -29,7 +29,7 @@ trait ExchangeCurrency {
                     'name' => 'exchange_rates',
                 ]);
                 
-                $exchange_rates = json_decode($setting->value) ?? [];
+                $exchange_rates = json_decode($setting->value, true) ?? [];
                 $exchange_rates["{$base}/{$currency}"] = $rate;
                 $setting->value = $exchange_rates;
                 $setting->save();
@@ -38,7 +38,7 @@ trait ExchangeCurrency {
             });
         } catch (\Throwable $th) {
             try {
-                $rate = json_decode(setting('exchange_rates'))["{$base}/{$currency}"];
+                $rate = json_decode(setting('exchange_rates'), true)["{$base}/{$currency}"];
             } catch (\Throwable $th) {
                 abort(500);
             }
