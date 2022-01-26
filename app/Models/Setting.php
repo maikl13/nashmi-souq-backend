@@ -8,4 +8,6 @@ use App\Traits\CleanHtml;
 class Setting extends Model
 {
     use CleanHtml;
+    
+    protected $fillable = ['name'];
 }

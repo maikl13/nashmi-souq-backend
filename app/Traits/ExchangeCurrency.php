@@ -2,8 +2,9 @@
 
 namespace App\Traits;
 
-use Illuminate\Http\Request;
 use Swap;
+use App\Models\Setting;
+use Illuminate\Http\Request;
 
 trait ExchangeCurrency { 
     public static function exchange($amount, $currency1, $currency2, $for_client=false)
@@ -18,9 +19,32 @@ trait ExchangeCurrency {
     public static function rate_from_base($base, $currency)
     {
         if($base == $currency) return 1;
-        return cache()->store('database')->remember($base.'/'.$currency, 432000, function() use ($currency, $base){
-            return Swap::latest($base."/$currency")->getValue();
-        });
+        
+        try {
+            $rate = cache()->store('database')->remember("{$base}/{$currency}", 432000, function() use ($currency, $base){
+                $rate = Swap::latest("{$base}/{$currency}")->getValue();
+
+                // Store rate in settings
+                $setting = Setting::where('name', 'exchange_rates')->firstOrCreate([
+                    'name' => 'exchange_rates',
+                ]);
+                
+                $exchange_rates = json_decode($setting->value) ?? [];
+                $exchange_rates["{$base}/{$currency}"] = $rate;
+                $setting->value = $exchange_rates;
+                $setting->save();
+
+                return $rate;
+            });
+        } catch (\Throwable $th) {
+            try {
+                $rate = json_decode(setting('exchange_rates'))["{$base}/{$currency}"];
+            } catch (\Throwable $th) {
+                abort(500);
+            }
+        }
+
+        return $rate ?? 1;
     }
 
     public static function rate($currency1, $currency2, $base)
