@@ -241,7 +241,7 @@ trait FileHandler {
         } else {
             foreach ($sizes as $size) {
                 $img = $path.$size.$image;
-                if( strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false || strpos( $_SERVER['HTTP_USER_AGENT'], ' Chrome/' ) !== false ) {
+                if( strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'] ?? '', ' Chrome/') !== false ) {
                     $webp_img = str_replace('.png', '.webp', $img);
                     $webp_img = str_replace('.jpg', '.webp', $img);
                     if($disk->exists($webp_img)) return $disk->url($webp_img);
