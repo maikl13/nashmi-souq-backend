@@ -229,7 +229,7 @@ trait FileHandler {
         // Move required size to top and the most sizes near to it will follow
         $k = array_search($size, $sizes);
         uksort($sizes, function ($a, $b) use ($k){
-            return 7-abs($a-$k) > 7-abs($b-$k) ? 0 : 1;
+            return (7 - abs($a-$k)) > (7 - abs($b-$k)) ? 0 : 1;
         });
 
         $path = $this->path();

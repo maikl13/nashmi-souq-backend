@@ -111,7 +111,7 @@
                                 <tr class="border-bottom"> 
                                     <td> {{ $user->name }} </td>
                                     <td> {{ $user->email }} </td>
-                                    <td dir="ltr">{{ $user->created_at->format('d M, Y') }}</td>
+                                    <td dir="ltr">{{ optional($user->created_at)->format('d M, Y') }}</td>
                                 </tr>
                             @empty
                                 <tr class="border-bottom">

@@ -69,13 +69,14 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-4 d-flex justify-content-end">
+                <div class="col-lg-4 d-flex justify-content-end p-0">
                     <div class="header-action-layout1">
                         <ul>
                             @guest
                                 <li class="header-login-icon">
-                                    <a href="{{ route('login') }}" class="color-primary" data-toggle="tooltip" data-placement="top" title="تسجيل الدخول" style="font-size: 1.25rem">
-                                        <i class="far fa-user"></i>
+                                    <a href="{{ route('login') }}" class="color-primary" style="font-size: 1.25rem">
+                                        <i class="fa fa-sign-in-alt" style="vertical-align: middle;"></i> 
+                                        <small class="pr-1">تسجيل الدخول</small>
                                     </a>
                                 </li>
                             @else
@@ -103,9 +104,10 @@
 </header>
 
 
-<span class="d-lg-none mobile-nav-icon add-listing-btn"> 
+<span class="d-lg-none mobile-nav-icon add-listing-btn px-3"> 
     <a href="/listings/add" class="item-btn"><i class="fas fa-plus"></i> أضف إعلانك</a>
 </span>
+
 @auth
     <a class="d-lg-none mobile-nav-icon toggle-conversations">
         <span class="unread" {!! Auth::user()->recieved_messages()->unseen()->count() ? '' : 'style="display: none;"' !!}>{{ Auth::user()->recieved_messages()->unseen()->count() }}</span>
@@ -115,8 +117,9 @@
     @include('main.layouts.partials.conversations-dropdown')
 @endauth
 @guest
-    <a class="d-lg-none mobile-nav-icon toggle-guestnav">
-        <i class="far fa-user"></i>
+    <a class="d-lg-none mobile-nav-icon toggle-guestnav text-center px-1" style="font-size: 18px;">
+        <i class="fa fa-sign-in-alt" style="vertical-align: middle;"></i>
+        <small>دخول</small>
     </a>
     <section style="display: none;" class="guestnav-dropdown">
         <div class="container" dir="ltr">
