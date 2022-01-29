@@ -1416,7 +1416,13 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     -webkit-transition: unset;
     transition: unset;
     /*padding: 1rem 0.875rem 0.75rem;*/
-    padding: 1.5rem;
+    padding: 1.7rem 1.5rem;
+}
+
+@media (max-width: 399px){
+    .mean-container a.meanmenu-reveal {
+        padding: 1.7rem 0.8rem;
+    }
 }
 
 .mean-container #wrapper {
