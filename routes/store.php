@@ -19,6 +19,7 @@ Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'verified', 
 		Route::post('subscribe', 'SubscriptionController@store')->name('subscription.store');
 		Route::get('subscribed', 'SubscriptionController@subscribed')->name('subscribed');
 	});
+
 	Route::middleware(['active', 'store'])->prefix('dashboard')->group(function () {
 		Route::get('subscriptions', 'SubscriptionController@index')->name('subscriptions');
 	});
@@ -56,11 +57,13 @@ Route::domain('{store}.'.config('app.domain'))->middleware(['active-store'])->gr
 	Route::post('cart/update-quantity', 'CartController@update_product_quantity');
 	Route::get('cart/update-totals', 'CartController@update_totals');
 });
+
 Route::domain('{store}.'.config('app.domain'))->group(function () {
 	Route::get('payment-result', 'TransactionController@payment_result');
 	Route::get('paypal-payment-result', 'TransactionController@paypal_payment_result');
 	Route::get('hyperpay-payment-result', 'TransactionController@hyperpay_payment_result');
 });
+
 Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'verified', 'active-store'])->group(function () {
 	Route::get('checkout', 'CartController@checkout')->name('checkout');
 	Route::post('order/new', 'OrderController@store');
@@ -72,18 +75,19 @@ Route::domain('{store}.'.config('app.domain'))->middleware(['auth', 'verified', 
 	Route::post('product/add-review', 'ProductController@add_review');
 	Route::get('get-product-reviews', 'ProductController@get_reviews');
 	Route::get('get-product-rate', 'ProductController@get_rate');
-	
 });
 
 // ====================================================================
 // * Visitors Routes
 // ====================================================================
 Route::get('stores', 'StoreController@index');
+
 Route::get('stores/pricing', 'StoreController@pricing');
 
 Route::domain('{store}.'.config('app.domain'))->group(function () {
 	Route::get('/unavailable', 'StoreController@unavailable')->name('store-unavailable');
 });
+
 Route::domain('{store}.'.config('app.domain'))->middleware(['active-store'])->group(function () {
 	Route::get('/', 'StoreController@home')->name('store-home');
 	Route::get('products', 'ProductController@list');

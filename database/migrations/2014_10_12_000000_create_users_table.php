@@ -44,7 +44,9 @@ class CreateUsersTable extends Migration
             $table->json('store_categories')->nullable();
             $table->tinyInteger('subscription_type')->default(1);
             $table->timestamp('trial_started_at')->nullable();
-
+            $table->boolean('store_online_payments')->default(true);
+            $table->boolean('store_cod_payments')->default(true);
+            
             // payout_methods
             $table->string('bank_account')->nullable();
             $table->string('paypal')->nullable();

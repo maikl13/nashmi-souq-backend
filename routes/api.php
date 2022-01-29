@@ -48,15 +48,16 @@ Route::post('register_by_whatsapp', 'UserController@register_by_whatsapp');
 Route::get('list_store_products/{id}', 'StoreController@list_store_products');
 Route::post('search_store_products/{id}', 'StoreController@search_store_products');
 Route::get('show_product/{id}', 'StoreController@show_product');
+
 Route::group(['middleware'=>'auth:api'],function(){
     Route::get('my_listings', 'UserController@my_listings');
     Route::post('update_account', 'UserController@update');
     Route::post('change_password', 'UserController@change_password');
-     Route::post('add_listing', 'UserController@add_listing');
-     Route::post('delete_listing/{id}', 'UserController@destroy');
-     Route::post('edit_listing/{id}', 'UserController@edit');
-     Route::post('delete_listing_image/{id}', 'UserController@delete_listing_image');
-     Route::post('update_payout_methods', 'UserController@update_payout_methods');
+    Route::post('add_listing', 'UserController@add_listing');
+    Route::post('delete_listing/{id}', 'UserController@destroy');
+    Route::post('edit_listing/{id}', 'UserController@edit');
+    Route::post('delete_listing_image/{id}', 'UserController@delete_listing_image');
+    Route::post('update_payout_methods', 'UserController@update_payout_methods');
     Route::post('add_comment', 'UserController@add_comment');
     Route::post('edit_comment/{id}', 'UserController@edit_comment');
 	Route::post('delete_comment/{id}', 'UserController@destroy_comment');
@@ -94,7 +95,6 @@ Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_cate
 */
 
 
-// الكود ده مهم للفرونت اند :)
 Route::namespace('\App\Http\Controllers\Admin')->group(function () {
 	Route::get('categories/{category}/sub-categories', '\App\Http\Controllers\Admin\CategoryController@sub_categories');
 	Route::get('states/{state}/areas', '\App\Http\Controllers\Admin\StateController@areas');

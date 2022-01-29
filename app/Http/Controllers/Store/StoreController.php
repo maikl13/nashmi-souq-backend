@@ -91,6 +91,8 @@ class StoreController extends Controller
         $user->store_description = $request->store_description;
         // $user->country_id = $request->country;
         $user->subscription_type = $request->subscription_type;
+        $user->store_online_payments = $request->store_online_payments == 'on';
+        $user->store_cod_payments = $request->store_cod_payments == 'on';
 
         $social_links = [];
         if(is_array($request->social))

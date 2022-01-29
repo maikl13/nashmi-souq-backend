@@ -98,7 +98,7 @@ Route::get('clear-cookies', function(){
 	$version = \Cookie::get('version', '1.0');
 
 	if($version != $current_version){
-        $fields = ['country','country_code','nashmi_souq_session','XSRF-TOKEN','session_locale','remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d', 'version'];
+        $fields = ['country', 'country_code', 'nashmi_souq_session', 'XSRF-TOKEN', 'session_locale', 'version'];
 		foreach ($fields as $key) 
 			\Cookie::queue(Cookie::forget($key));
 		\Cookie::queue(\Cookie::make('version', $current_version, 5*12*30*24*60));

@@ -83,6 +83,18 @@
                 @endforeach
             </select>
         </div>
+        <div class="form-group">
+            <label class="control-label">وسائل الدفع</label>
+            <div>
+                <input type="checkbox" name="store_online_payments" id="store_online_payments" 
+                    {{ old('store_online_payments', auth()->user()->store_online_payments) ? 'checked' : '' }}> 
+                <label for="store_online_payments">دفع الكتروني</label>
+
+                <input type="checkbox" name="store_cod_payments" id="store_cod_payments" class="mr-3"
+                    {{ old('store_cod_payments', auth()->user()->store_cod_payments) ? 'checked' : '' }}> 
+                <label for="store_cod_payments">الدفع عند الاستلام</label>
+            </div>
+        </div>
         <div class="form-group text-right">
             <label class="control-label">صورة غلاف المتجر</label>
             <input class="form-control store-banner" id="store_banner" type="file" accept="image/*" name="store_banner">

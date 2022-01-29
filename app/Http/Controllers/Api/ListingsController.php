@@ -32,15 +32,14 @@ class ListingsController extends Controller
         $sub_categories = empty($request->sub_categories) || $request->sub_categories == [null] ? [] : $request->sub_categories;
         $states = empty($request->states) || $request->states == [null] ? [] : $request->states;
         $areas = empty($request->areas) || $request->areas == [null] ? [] : $request->areas;
-         $types = empty($request->type) || $request->type == [null] ? [] : $request->type;
+        $types = empty($request->type) || $request->type == [null] ? [] : $request->type;
         
         //search
         /*if($request->q && !empty($request->q)) 
             $listings = $listings->search($request->q)->featuredOrFixedFirst();*/
         // filter by type
       
-        
-            //$listings = $listings->where('type', $request->type);
+        //$listings = $listings->where('type', $request->type);
 
         // filter by category
         if( !empty($categories) || !empty($sub_categories) ){
@@ -57,90 +56,82 @@ class ListingsController extends Controller
                     ->orWhereIn('area_id', $areas);
             });
         }
+        
         if( !empty($types)){
             $listings = $listings->Where(function($query) use ($types){
                 $query->whereIn('type', $types);
                     
             });
         }
-            $listings = $listings->with(['user','comments','state','area','category','sub_category'])->latest()->paginate(15);
-          
-        
-        
-        return response()->json(['data'=>$listings]);
-       
+
+        $listings = $listings->with(['user', 'comments', 'state', 'area', 'category', 'sub_category'])->latest()->paginate(15);
+
+        return response()->json(['data' => $listings]);
     }
     
-    public function search_listings(Request $request) {
+    public function search_listings(Request $request) 
+    {
         $validator = Validator::make($request->all(), [
-           'q' => 'required'
+            'q' => 'required'
         ]);
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
         }
+
         $listings = Listing::query()->apilocalized()->active();
-       $listings = $listings->search($request->q)->featuredOrFixedFirst();
-       $listings = $listings->with(['user','comments','state','area','category','sub_category'])->latest()->paginate(15);
-           return response()->json(['data'=>$listings]);
+        $listings = $listings->search($request->q)->featuredOrFixedFirst();
+        $listings = $listings->with(['user', 'comments', 'state', 'area', 'category', 'sub_category'])->latest()->paginate(15);
+
+        return response()->json(['data' => $listings]);
     }
     
-    public function related_listings($id) {
-        $listing=Listing::find($id);
+    public function related_listings($id) 
+    {
+        $listing = Listing::find($id);
         $listings = Listing::where('category_id', $listing->category_id)->localized()->active()->featuredFirst()->where('listings.id', '!=', $listing->id);
     
-      $listings = $listings->with(['user','comments','state','area','category','sub_category'])->latest()->limit(10)->get();
+        $listings = $listings->with(['user', 'comments', 'state', 'area', 'category', 'sub_category'])->latest()->limit(10)->get();
       
-        return response()->json(['data'=>$listings]);
+        return response()->json(['data' => $listings]);
     }
     
-    public function category_listings($id) {
-       
+    public function category_listings($id){
         $listings = Listing::where('category_id', $id)->apilocalized()->active()->featuredFirst();
     
-      $listings = $listings->with(['user','comments','state','area','category','sub_category'])->latest()->paginate(15);
-      
-        return response()->json(['data'=>$listings]);
+        $listings = $listings->with(['user', 'comments', 'state', 'area', 'category', 'sub_category'])->latest()->paginate(15);
+
+        return response()->json(['data' => $listings]);
     }
     
-    public function sub_category_listings($id) {
-       
+    public function sub_category_listings($id) 
+    {
         $listings = Listing::where('sub_category_id', $id)->apilocalized()->active()->featuredFirst();
     
-      $listings = $listings->with(['user','comments','state','area','category','sub_category'])->latest()->paginate(15);
+        $listings = $listings->with(['user', 'comments', 'state', 'area', 'category', 'sub_category'])->latest()->paginate(15);
       
-        return response()->json(['data'=>$listings]);
+        return response()->json(['data' => $listings]);
     }
     
-     public function user_listings($id) {
-       
+    public function user_listings($id) 
+    {
         $listings = Listing::where('user_id', $id)->active()->featuredFirst();
-    
-      $listings = $listings->with(['user','comments','state','area','category','sub_category'])->latest()->paginate(15);
+
+        $listings = $listings->with(['user', 'comments', 'state', 'area', 'category', 'sub_category'])->latest()->paginate(15);
       
-        return response()->json(['data'=>$listings]);
+        return response()->json(['data' => $listings]);
     }
     
-    
-    
-    public function country_listings($code) {
-       
-       $country=Country::where('code',$code)->first();
+    public function country_listings($code) 
+    {
+       $country = Country::where('code', $code)->first();
+
        if($country){
-           $listings = Listing::whereIn('state_id', $country->states()->pluck('id')->toArray())->active()->featuredFirst();
-             $listings = $listings->with(['user','comments','state','area','category','sub_category'])->latest()->paginate(15);
-      
-        return response()->json(['data'=>$listings]);
+            $listings = Listing::whereIn('state_id', $country->states()->pluck('id')->toArray())->active()->featuredFirst();
+            $listings = $listings->with(['user', 'comments', 'state', 'area', 'category', 'sub_category'])->latest()->paginate(15);
+            return response()->json(['data' => $listings]);
+       } else {
+           return response()->json(['data' => 'لا يوجد بلد بهذا الكود']);
        }
-       else {
-           return response()->json(['data'=>'لا يوجد بلد بهذا الكود']);
-       }
-        
-    
-    
     }
-    
-    
-    
-    
-    
 }

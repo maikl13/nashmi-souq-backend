@@ -112,8 +112,4 @@ Route::group(['middleware' => ['auth', 'roles:superadmin']],function () {
 	Route::get('site-settings', 'SettingController@index');
 	Route::post('site-settings/update', 'SettingController@save');
 	Route::post('site-settings/{image}/delete', 'SettingController@delete_image');
-
-	// ...
 });
-
-

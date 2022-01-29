@@ -73,10 +73,15 @@
                                     <div class="form-group mb-3">
                                         <label for="payment" class="form-control-label">طريقة الدفع :</label>
                                         <select class="form-control" id="payment" name="payment_method">
-                                            <option value="{{ App\Models\Order::CREDIT_PAYMENT }}">بطاقة إئتمانية</option>
-                                            <option value="{{ App\Models\Order::MADA_PAYMENT }}">مدى</option>
-                                            <option value="{{ App\Models\Order::PAYPAL_PAYMENT }}">باي بال</option>
-                                            <option value="{{ App\Models\Order::ON_DELIVERY_PAYMENT }}">الدفع عند الإستلام</option>
+                                            @if (request()->store->store_online_payments)
+                                                <option value="{{ App\Models\Order::CREDIT_PAYMENT }}">بطاقة إئتمانية</option>
+                                                <option value="{{ App\Models\Order::MADA_PAYMENT }}">مدى</option>
+                                                <option value="{{ App\Models\Order::PAYPAL_PAYMENT }}">باي بال</option>
+                                            @endif
+
+                                            @if (request()->store->store_cod_payments)
+                                                <option value="{{ App\Models\Order::ON_DELIVERY_PAYMENT }}">الدفع عند الإستلام</option>
+                                            @endif
                                         </select>
                                     </div>
                                 </div>

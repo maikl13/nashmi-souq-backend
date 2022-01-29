@@ -13,19 +13,8 @@ class settingsController extends Controller
 {
     public function index(Request $request)
     {
-        
-        $settings=Setting::get();
-          
-        
-        
-        return response()->json(['data'=>$settings]);
-       
+        $settings = Setting::get();
+
+        return response()->json(['data' => $settings]);
     }
-    
-   
-    
-    
-    
-    
-    
 }

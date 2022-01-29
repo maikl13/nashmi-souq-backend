@@ -74,7 +74,7 @@
                         <ul>
                             @guest
                                 <li class="header-login-icon">
-                                    <a href="{{ route('login') }}" class="color-primary" style="font-size: 1.25rem">
+                                    <a href="{{ route('login') }}" class="color-primary" style="font-size: 1.12rem">
                                         <i class="fa fa-sign-in-alt" style="vertical-align: middle;"></i> 
                                         <small class="pr-1">تسجيل الدخول</small>
                                     </a>

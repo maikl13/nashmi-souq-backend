@@ -27,12 +27,22 @@ class OrderController extends Controller
     }
 
     public function store($store, Request $request){
+        $allowed_payment_methods = [];
+
+        if($store->store_online_payments){
+            $allowed_payment_methods = [Order::CREDIT_PAYMENT, Order::PAYPAL_PAYMENT, Order::MADA_PAYMENT];
+        }
+        
+        if($store->store_cod_payments){
+            $allowed_payment_methods[] = Order::ON_DELIVERY_PAYMENT;
+        }
+
         $request->validate([
             'name' => 'required|max:255',
             'state' => 'required|exists:states,id',
             'phone' => 'required|max:16',
             'address' => 'required|max:255',
-            'payment_method' => 'required|in:'.Order::CREDIT_PAYMENT.','.Order::ON_DELIVERY_PAYMENT.','.Order::PAYPAL_PAYMENT.','.Order::MADA_PAYMENT,
+            'payment_method' => 'required|in:'.implode(',', $allowed_payment_methods),
             'note' => 'nullable|max:10000',
         ]);
         
