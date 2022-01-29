@@ -80,6 +80,8 @@ class StoreController extends Controller
             'subscription_type' => 'in:1,2,3',
             'categories' => 'min:1',
             'categories.*' => 'exists:categories,id',
+            'store_online_payments' => 'required_without:store_cod_payments',
+            'store_cod_payments' => 'required_without:store_online_payments',
         ]);
 
         $user->store_name = $request->store_name;

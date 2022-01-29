@@ -197,6 +197,8 @@ return [
         'store_banner'          => 'صورة غلاف المتجر',
         'store_logo'            => 'شعار المتجر',
         'subscription_type'     => 'نوع الاشتراك',
+        'store_online_payments' => 'الدفع الالكتروني',
+        'store_cod_payments'    => 'الدفع عند الاستلام',
 
         'categories.*'          => 'الأقسام',
         'sub_categories.*'      => 'الأقسام الفرعية',

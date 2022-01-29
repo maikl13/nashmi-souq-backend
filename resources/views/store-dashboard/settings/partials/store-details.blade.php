@@ -89,7 +89,7 @@
                 <input type="checkbox" name="store_online_payments" id="store_online_payments" 
                     {{ old('store_online_payments', auth()->user()->store_online_payments) ? 'checked' : '' }}> 
                 <label for="store_online_payments">دفع الكتروني</label>
-
+                    
                 <input type="checkbox" name="store_cod_payments" id="store_cod_payments" class="mr-3"
                     {{ old('store_cod_payments', auth()->user()->store_cod_payments) ? 'checked' : '' }}> 
                 <label for="store_cod_payments">الدفع عند الاستلام</label>
