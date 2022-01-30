@@ -18,6 +18,7 @@ class CreateBannersTable extends Migration
             $table->string('image');
             $table->string('url');
             $table->tinyInteger('type')->default(1);
+            $table->json('countries');
             $table->integer('period');
             $table->datetime('expires_at');
             $table->timestamps();

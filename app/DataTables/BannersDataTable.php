@@ -33,6 +33,10 @@ class BannersDataTable extends DataTable
                 $hours = floor($h % 24);
                 return $record->expired() ? "منتهي" : "<span dir='rtl'>".$days." يوم و ".$hours." ساعة</span>";
             })
+            ->addColumn('countries', function($record){
+                $countries = $record->countries()->pluck(['name'])->toArray();
+                return implode(', ', $countries);
+            })
             ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
             ->addColumn('action', 'admin.banners.partials.action')
             ->rawColumns(['image','remainder','action']);
@@ -72,8 +76,9 @@ class BannersDataTable extends DataTable
             Column::make('image')->title('الصورة'),
             Column::make('url')->title('الرابط'),
             Column::make('period')->title('المدة'),
-            Column::make('created_at')->title('تاريخ الاضافة'),
             Column::make('remainder')->title('سينتهي خلال'),
+            Column::make('countries')->title('الدول'),
+            Column::make('created_at')->title('تاريخ الاضافة'),
             Column::computed('action')
                   ->width(60)
                   ->addClass('text-center')

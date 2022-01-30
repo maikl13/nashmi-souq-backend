@@ -3,7 +3,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content text-right">
 			<div class="modal-header">
-				<h5 class="modal-title"> اضافة قسم جديد </h5>
+				<h5 class="modal-title"> اضافة بانر جديد </h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -35,6 +35,14 @@
                     <div class="form-group">
 						<label for="period" class="form-control-label"> المدة (بالأيام) :</label>
 						<input type="number" class="form-control text-right" id="period" name="period" value="" required>
+					</div>
+                    <div class="form-group">
+						<label for="countries" class="form-control-label"> الدول :</label>
+						<select name="countries[]" id="countries" class="form-control select2" multiple dir="ltr">
+							@foreach (\App\Models\Country::get() as $country)
+								<option value="{{ $country->id }}">{{ $country->name }}</option>
+							@endforeach
+						</select>
 					</div>
                     <div class="form-group">
 						<label for="image" class="form-control-label"> الصورة :</label>

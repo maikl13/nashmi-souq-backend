@@ -11,7 +11,8 @@ class Banner extends Model
     use FileHandler;
 
     protected $dates = ['created_at', 'updated_at', 'expires_at'];
-     protected $appends=['imagespath'];
+    protected $appends = ['imagespath'];
+    protected $casts = ['countries' => 'array'];
 
     const TYPE_LARGE_RECTANGLE = 1;
     const TYPE_LEADERBOARD = 2;
@@ -21,6 +22,10 @@ class Banner extends Model
     public static function valid()
     {
         return Self::query()->where('expires_at', '>', Carbon::now());
+    }
+
+    public function scopeLocalized($query){
+        return $query->whereJsonContains('countries', (string) country()->id);
     }
 
     public function width()
@@ -58,18 +63,25 @@ class Banner extends Model
         return $this->expires_at->isPast();
     }
 
+    public function countries()
+    {
+        $ids = $this->countries ?? [];
+        return Country::whereIn('id', $ids)->get();
+    }
+
     public function banner_image( $options=[] ){
         $options = array_merge($options, ['default'=>'banner']);
         return $this->image($this->image, $options);
     }
+
     public function upload_banner_image($file, $w=256, $h=256){
         return $this->upload_file($file, 'image', ['ext'=>'jpg','w'=>$w, 'h'=>$h, 'allowed'=>['o', '']]);
     }
     
     public function getImagesPathAttribute(){
-        $images=[];
+        $images = [];
        
-            $images[]=$this->banner_image();
+        $images[] = $this->banner_image();
         
         return $images;
     }

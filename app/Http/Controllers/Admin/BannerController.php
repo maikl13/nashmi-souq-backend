@@ -32,7 +32,8 @@ class BannerController extends Controller
         $request->validate([
             'type' => 'required|in:'.Banner::TYPE_LARGE_RECTANGLE.','.Banner::TYPE_LEADERBOARD.','.Banner::TYPE_LARGE_LEADERBOARD.','.Banner::TYPE_MOBILE_BANNER,
             'url' => 'url',
-            'image' => 'required|image|max:8192'
+            'image' => 'required|image|max:8192',
+            'countries.*' => 'exists:countries,id'
         ]);
 
         $banner = new Banner;
@@ -40,6 +41,7 @@ class BannerController extends Controller
         $banner->url = $request->url;
         $banner->period = $request->period;
         $banner->expires_at = Carbon::now()->addDays( $request->period );
+        $banner->countries = $request->countries;
 
         if($banner->save()){
             $banner->image = $banner->upload_banner_image($request->image, $banner->width(), $banner->height());
@@ -74,6 +76,7 @@ class BannerController extends Controller
             'type' => 'required|in:'.Banner::TYPE_LARGE_RECTANGLE.','.Banner::TYPE_LEADERBOARD.','.Banner::TYPE_LARGE_LEADERBOARD.','.Banner::TYPE_MOBILE_BANNER,
             'url' => 'url',
             'image' => 'image|max:8192',
+            'countries.*' => 'exists:countries,id'
         ]);
 
         if($request->image){
@@ -83,6 +86,7 @@ class BannerController extends Controller
             return redirect()->back()->with('failure', 'لتغيير نوع البانر برجاء إختيار الصورة المطلوبة مره أخرى, لا يمكن استخدام نفس الصورة المرفوعة مسبقا');
         }
         $banner->url = $request->url;
+        $banner->countries = $request->countries;
         if($request->period != $banner->period){
             $banner->expires_at = $banner->expires_at->addDays( $request->period - $banner->period );
             $banner->period = $request->period;

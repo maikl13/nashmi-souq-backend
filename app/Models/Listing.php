@@ -14,7 +14,7 @@ class Listing extends Model
     use FileHandler, SearchableTrait, ExchangeCurrency;
 
     protected $casts = ['options'=> 'array'];
-    protected $appends=['imagespath'];
+    protected $appends = ['imagespath'];
 
     public function scopeLocalized($query){
         return $query->whereIn('state_id', country()->states()->pluck('id')->toArray());
@@ -243,9 +243,9 @@ class Listing extends Model
     }
     
     public function getImagesPathAttribute(){
-        $images=[];
+        $images = [];
         foreach($this->listing_images() as $i) {
-            $images[]=$i;
+            $images[] = $i;
         }
         return $images;
     }

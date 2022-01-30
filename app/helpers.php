@@ -107,7 +107,7 @@ function ad($type='leaderboard')
 		'mobile_banner' => Banner::TYPE_MOBILE_BANNER,
 	];
 
-	$banner = Banner::valid()->where('type', $types[$type])->inRandomOrder()->first();
+	$banner = Banner::valid()->localized()->where('type', $types[$type])->inRandomOrder()->first();
 
 	return ad_space($type, $banner);
 }
@@ -121,7 +121,7 @@ function ads($type='leaderboard', $limit=1, $strict=false)
 		'mobile_banner' => Banner::TYPE_MOBILE_BANNER,
 	];
 
-	$banners = Banner::valid()->where('type', $types[$type])->inRandomOrder()->limit($limit)->get();
+	$banners = Banner::valid()->localized()->where('type', $types[$type])->inRandomOrder()->limit($limit)->get();
 
 	$ads = [];
 

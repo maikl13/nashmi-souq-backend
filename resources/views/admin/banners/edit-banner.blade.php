@@ -47,6 +47,14 @@
 						<input type="number" class="form-control text-right" id="period" name="period" value="{{ old('period') ? old('period') : $banner->period }}" required>
 					</div>
                     <div class="form-group">
+						<label for="countries" class="form-control-label"> الدول :</label>
+						<select name="countries[]" id="countries" class="form-control select2" multiple dir="ltr">
+							@foreach (\App\Models\Country::get() as $country)
+								<option value="{{ $country->id }}" {{ in_array($country->id, $banner->countries) ? 'selected' : '' }}>{{ $country->name }}</option>
+							@endforeach
+						</select>
+					</div>
+                    <div class="form-group">
 						<label for="image" class="form-control-label"> الصورة :</label>
 						<input type="file" id="image" name="image" value="{{ old('image') }}">
 					</div>
