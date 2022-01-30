@@ -3,7 +3,6 @@
 @section('title', 'البانرات الإعلانية')
 
 @section('head')
-	<style></style>
 @endsection
 
 @section('breadcrumb')

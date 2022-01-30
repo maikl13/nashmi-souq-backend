@@ -1349,8 +1349,6 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:last-chil
 	flex: 1;
 	padding: 1rem;
 }
-.email-app .inbox .toolbar {
-}
 .mail_list .list-group-item:last-child {
 	 border-bottom: 0;
 	
@@ -2096,8 +2094,6 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:last-chil
 	background-color: #fe7100;
 	border-radius: 50%;
 }
-.navbar .nav-link.nav-link-lg {}
-.nav-link {}
 .navbar .nav-link.nav-link-lg div {
 	margin-top: 3px;
 }
@@ -2752,9 +2748,7 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:last-chil
 .card.card-sm-4 .card-header, .card.card-sm-4 .card-body {
 	text-align: right;
 }
-.card.card-sm-5 {
-	/* text-align: center; */
-}
+
 .card.card-sm-5 .card-body {
 	padding: 20px 20px 5px 20px;
 }
@@ -2819,7 +2813,6 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:last-chil
 	border-radius: 15px;
 	margin-top: 10px;
 }
-.card .box p {}
 .card .box .icons {
 	display: inline-flex;
 }
@@ -3492,7 +3485,6 @@ tr:first-child>td>.fc-day-grid-event {
 	-o-text-overflow: ellipsis;
 	text-overflow: ellipsis;
 }
-.user-item .user-details .user-job {}
 .user-item .user-details .user-cta {
 	margin-top: 10px;
 }
@@ -4482,7 +4474,6 @@ tr:first-child>td>.fc-day-grid-event {
 	font-family: 'weathericons';
 	font-size: 20px;
 }
-.icon-wrap .icon-name {}
 .icon-wrap .icon_unicode {
 	width: 100%;
 	padding-left: 45px;
@@ -4967,8 +4958,6 @@ tr:first-child>td>.fc-day-grid-event {
 }
 .pt-inner .pti-header .ptih-title {
     text-transform: uppercase;
-}
-.pt-inner .pti-body {
 }
 .pt-inner .pti-body .ptib-item:not(:last-child) {
     border-bottom: 1px solid #eee;
@@ -6124,17 +6113,11 @@ ul.time-line:after {
 	text-align: center;
 	position: static;
 }
-.horizontal li.nav-item:last-child {
-}
 @media (min-width: 992px) {
 	.horizontal .nav-item {
 		position: relative;
 	}
 	
-}
-@media (min-width: 1200px) {
-	.horizontal .nav-item {
-	}
 }
 .horizontal .nav-item.active .nav-link {
 	background-color: #fff;
@@ -6218,9 +6201,6 @@ ul.time-line:after {
     color: #111;
 	right: 20px;
 }
-.horizontal .sub-item ul li a{
-	
-} 
 .horizontal .sub-item ul a {
     display: block;
     padding: 0.5rem 1.5rem;
@@ -6805,3 +6785,8 @@ ul.label-inbox li a:hover, ul.label-inbox li.active a, ul.label-inbox li a:focus
 .select2-dropdown {
 	text-align: right;
 }
+
+.nws {white-space: normal;}
+.min-w-100 {min-width: 100px;}
+.min-w-150 {min-width: 150px;}
+.min-w-200 {min-width: 200px;}

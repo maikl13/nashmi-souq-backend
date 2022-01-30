@@ -8,7 +8,7 @@
 <!--Icons css-->
 <link rel="stylesheet" href="/admin-assets/css/icons.css">
 <!--Style css-->
-<link rel="stylesheet" href="/admin-assets/css/style.css">
+<link rel="stylesheet" href="/admin-assets/css/style.css?v=1.1">
 <!--mCustomScrollbar css-->
 <link rel="stylesheet" href="/admin-assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
 <!--Sidemenu css-->

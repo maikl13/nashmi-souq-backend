@@ -77,7 +77,7 @@ class BannersDataTable extends DataTable
             Column::make('url')->title('الرابط'),
             Column::make('period')->title('المدة'),
             Column::make('remainder')->title('سينتهي خلال'),
-            Column::make('countries')->title('الدول'),
+            Column::make('countries')->addClass('nws min-w-200')->title('الدول'),
             Column::make('created_at')->title('تاريخ الاضافة'),
             Column::computed('action')
                   ->width(60)

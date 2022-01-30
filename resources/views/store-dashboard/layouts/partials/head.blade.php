@@ -12,7 +12,7 @@
 <!-- FontAwesome CSS -->
 <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
 <!--Style css-->
-<link rel="stylesheet" href="/admin-assets/css/style.css">
+<link rel="stylesheet" href="/admin-assets/css/style.css?v=1.1">
 <!--mCustomScrollbar css-->
 <link rel="stylesheet" href="/admin-assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
 <!--Sidemenu css-->
