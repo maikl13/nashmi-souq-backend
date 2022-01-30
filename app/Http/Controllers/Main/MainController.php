@@ -26,7 +26,7 @@ class MainController extends Controller
             )
             ->orderByRaw('`featured` desc, `listed` asc, `id` desc')->paginate(8)->shuffle();
 
-        if (request()->ajax())
+        if (request()->ajax() && request()->json)
             return response()->json(view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);
 
         return view('main.home', ['listings' => $listings]);

@@ -121,7 +121,7 @@ class StoreController extends Controller
         return response()->json(['data' => 'حدث خطأ من فضلك حاول مجددا'], 500);
     }
 
-    public function list_stores () 
+    public function list_stores()
     {
         $stores = User::whereNotNull('store_name')->orderBy('store_logo', 'desc')->paginate(15);
         return response()->json(['data' => $stores], 200);

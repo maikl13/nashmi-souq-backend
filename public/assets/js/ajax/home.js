@@ -1,16 +1,20 @@
-var page = 2,
+var page = (new URL(window.location.href)).searchParams.get("page"),
     btn = $('.more-listings'),
     btnText = btn.text();
+
+page = page ? page++ : 2;
+
 $(document).on("click", '.more-listings', function(e){
     e.preventDefault();
     $.get({
-        url: '/?page='+page,
+        url: '/?json=1&page='+page,
         beforeSend: function(){
             btn.attr("disabled", true);
             btn.html('<i class="fa fa-spinner fa-spin" style="padding: 2px 0px;"></i> ' + btnText);
         },
         success: function(data){
-            console.log(data);
+            window.history.replaceState(null, '', '?page='+page);
+            // console.log(data);
             if(!data) btn.hide();
             $('.listings').append(data);
         },
