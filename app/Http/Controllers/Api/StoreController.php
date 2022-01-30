@@ -50,10 +50,12 @@ class StoreController extends Controller
             'social.*' => 'nullable|url',
             'store_banner' => 'nullable|image|max:8192',
             'store_logo' => 'nullable|image|max:8192',
-             'country' => 'exists:countries,id',
+            'country' => 'exists:countries,id',
             'subscription_type' => 'in:1,2,3',
             'categories' => 'min:1',
             'categories.*' => 'exists:categories,id',
+            'store_online_payments' => 'required_without:store_cod_payments',
+            'store_cod_payments' => 'required_without:store_online_payments',
         ]);
 
         if ($validator->fails()) {
