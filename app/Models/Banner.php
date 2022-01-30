@@ -28,6 +28,12 @@ class Banner extends Model
         return $query->whereJsonContains('countries', (string) country()->id);
     }
 
+    public function getCountriesAttribute()
+    {
+        
+        return json_decode($this->attributes['countries']) ?? [];
+    }
+
     public function width()
     {
     	switch ($this->type) {
