@@ -72,7 +72,6 @@ Route::namespace('\App\Http\Controllers')->group(function () {
 
 Route::get('/test', 'MainController@test');
 Route::get('/', 'MainController@index')->name('home');
-Route::get('/more', 'MainController@more_listings');
 
 Route::get('listings', 'ListingController@index')->name('listings');
 Route::get('listings/{listing}', 'ListingController@show')->name('listings.show');

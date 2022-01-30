@@ -26,34 +26,22 @@ class MainController extends Controller
             )
             ->orderByRaw('`featured` desc, `listed` asc, `id` desc');
         
-        $limit = (request()->page ?? 1) * 8;
-        
-        if($limit <= 40) {
-            $listings = $listings->limit($limit)->get()->shuffle();
-        } else {
+
+        if (request()->ajax() && request()->_ajax){                
             $listings = $listings->paginate(8)->shuffle();
+            return response()->json(view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);
+
+        } else {
+            $limit = (request()->page ?? 1) * 8;
+        
+            if($limit <= 40) {
+                $listings = $listings->limit($limit)->get()->shuffle();
+            } else {
+                $listings = $listings->paginate(8)->shuffle();
+            }
         }
 
         return view('main.home', ['listings' => $listings]);
-    }
-
-    public function more_listings()
-    {
-        if (!request()->ajax()){
-            return redirect()->route('home');
-        }
-
-        $listings = Listing::localized()->active()->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
-            ->select('listings.*', 
-                'featured_listings.listing_id', 
-                DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` >= 9, 1, 0) as `listed`"),
-                DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` < 9, 1, 0) as `featured`"),
-            )
-            ->orderByRaw('`featured` desc, `listed` asc, `id` desc');
-            
-        $listings = $listings->paginate(8)->shuffle();
-
-        return response()->json(view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);
     }
 
     public function test()

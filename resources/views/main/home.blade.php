@@ -176,5 +176,5 @@
 
 @section('scripts')
     @include('main.layouts.partials.search-box-scripts')
-    <script src="/assets/js/ajax/home.js?v=1.2"></script>
+    <script src="/assets/js/ajax/home.js?v=1.3"></script>
 @endsection

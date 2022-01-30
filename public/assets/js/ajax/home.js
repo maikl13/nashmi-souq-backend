@@ -1,19 +1,25 @@
 var page = (new URL(window.location.href)).searchParams.get("page"),
     btn = $('.more-listings'),
-    btnText = btn.text();
+    btnText = btn.text(),
+    appendedPageToHistory = false;
 
 page = page ? page++ : 2;
 
 $(document).on("click", '.more-listings', function(e){
     e.preventDefault();
     $.get({
-        url: '/more?page='+page,
+        url: '/?_ajax=1&page='+page,
         beforeSend: function(){
             btn.attr("disabled", true);
             btn.html('<i class="fa fa-spinner fa-spin" style="padding: 2px 0px;"></i> ' + btnText);
         },
         success: function(data){
-            window.history.replaceState({}, '', '?page='+page);
+            if(appendedPageToHistory){
+                window.history.replaceState({}, '', '?page='+page);
+            } else {
+                appendedPageToHistory = true;
+                window.history.pushState({}, '', '?page='+page);
+            }
             if(!data){
                 btn.hide();
             } else {
