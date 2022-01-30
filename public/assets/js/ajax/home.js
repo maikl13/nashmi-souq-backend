@@ -14,7 +14,6 @@ $(document).on("click", '.more-listings', function(e){
         },
         success: function(data){
             window.history.replaceState(null, '', '?page='+page);
-            // console.log(data);
             if(!data) btn.hide();
             $('.listings').append(data);
         },
