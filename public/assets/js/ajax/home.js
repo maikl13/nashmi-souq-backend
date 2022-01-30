@@ -7,15 +7,18 @@ page = page ? page++ : 2;
 $(document).on("click", '.more-listings', function(e){
     e.preventDefault();
     $.get({
-        url: '/?json=1&page='+page,
+        url: '/more?page='+page,
         beforeSend: function(){
             btn.attr("disabled", true);
             btn.html('<i class="fa fa-spinner fa-spin" style="padding: 2px 0px;"></i> ' + btnText);
         },
         success: function(data){
-            window.history.replaceState(null, '', '?page='+page);
-            if(!data) btn.hide();
-            $('.listings').append(data);
+            window.history.replaceState({}, '', '?page='+page);
+            if(!data){
+                btn.hide();
+            } else {
+                $('.listings').append(data);
+            }
         },
         error: function(data){
             var errMsg = get_error_msg(data);
