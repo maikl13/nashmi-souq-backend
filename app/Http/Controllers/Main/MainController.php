@@ -27,9 +27,9 @@ class MainController extends Controller
             ->orderByRaw('`featured` desc, `listed` asc, `id` desc');
         
 
-        if (request()->ajax() && request()->_ajax){                
+        if (request()->ajax() && request()->_ajax){
             $listings = $listings->paginate(8)->shuffle();
-            return response()->json(view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);
+            return response()->json(request()->_ajax.view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);
 
         } else {
             $limit = (request()->page ?? 1) * 8;
