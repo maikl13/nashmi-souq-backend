@@ -54,12 +54,13 @@ class SubscriptionController extends Controller
         if($last_subscription && $last_subscription->end->gt($start)){
             $start = $last_subscription->end->addSecond();
         }
-        $end = clone($start)->addDays($period);
+        $end = clone($start);
+        $end->addDays($period);
 
         $subscription = new Subscription;
         $subscription->user_id = auth()->user()->id;
-        $subscription->start = $last_subscription ? $last_subscription->end->addSecond() : now();
-        $subscription->end = $subscription->start->addDays($period);
+        $subscription->start = $start;
+        $subscription->end = $end;
         $subscription->type = $type;
 
         $currency = Currency::firstOrCreate(['code'=>'USD'],['slug'=>'usd','name'=>'الدولار الامريكي','symbol'=>'$']);
