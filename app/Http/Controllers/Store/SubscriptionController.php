@@ -49,9 +49,15 @@ class SubscriptionController extends Controller
                 break;
         }
 
+        $last_subscription = auth()->user()->subscriptions()->active()->orderBy('end', 'desc')->first();
+        $start = now();
+        if($last_subscription && $last_subscription->end->gt($start)){
+            $start = $last_subscription->end->addSecond();
+        }
+        $end = clone($start)->addDays($period);
+
         $subscription = new Subscription;
         $subscription->user_id = auth()->user()->id;
-        $last_subscription = auth()->user()->subscriptions()->active()->orderBy('end', 'desc')->first();
         $subscription->start = $last_subscription ? $last_subscription->end->addSecond() : now();
         $subscription->end = $subscription->start->addDays($period);
         $subscription->type = $type;
