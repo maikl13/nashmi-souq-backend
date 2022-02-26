@@ -4,9 +4,9 @@
     <div class="dropdown-menu p-0 cart-dropdown-menu rounded" style="overflow: hidden;" aria-labelledby="cartDropdownMenuButton" dir="rtl">
         <div style="width: 400px; max-width: 100%; max-height: 300px; overflow-y: auto; overflow-x: hidden;">
             @forelse( cart()->items() as $i => $item )
-                <div class="media p-3">
+                <div class="item media p-3">
                     <div class="">
-                        <span class="badge bg-primary text-white px-2 py-2 pull-right mt-2 ml-2" style="font-size: 11px; line-height: 11px; font-weight: normal;">{{ $item['quantity'] }}</span>
+                        <span class="qty badge bg-primary text-white px-2 py-2 pull-right mt-2 ml-2" style="font-size: 11px; line-height: 11px; font-weight: normal;">{{ $item['quantity'] }}</span>
                     </div>
                     <div class="media-body">
                         <a class="border-0 d-inline-block px-0 py-2 float-right" href="{{ $item['url'] }}" style="line-height: 24px; height: auto; font-size: 16px; color: #646464;">

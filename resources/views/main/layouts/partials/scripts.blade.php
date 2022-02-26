@@ -41,7 +41,7 @@
 	<script src="/assets/js/chat.js?v=1.1"></script>
 @endauth
 <script src="/assets/js/custom.js"></script>
-<script src="/assets/js/ajax/store.js" defer></script>
+<script src="/assets/js/ajax/store.js?v=1.1" defer></script>
 
 <script type="text/javascript">
     toastr.options.progressBar = true;

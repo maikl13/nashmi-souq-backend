@@ -55,8 +55,17 @@ function update_cart_dropdown(openDropdown=false){
             $('.cart-dropdown').html(data);
             if(openDropdown)
                 $('.cart-dropdown .dropdown-toggle').dropdown('toggle');
+            
+
+            var itemsCount = 0, qty;
+            $(data).find('.item .qty').each(function(){
+                qty = parseInt($(this).text());
+                if(!isNaN(qty)){ itemsCount += qty; }
+            });
+            $('.cartQty').text(itemsCount ? itemsCount : '');
         }
     });
+
 }
 
 function remove_from_cart(productId){
