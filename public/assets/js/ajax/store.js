@@ -1,3 +1,9 @@
+$(document).on('click', '.toggle-cart', function(e){
+    e.stopPropagation();
+    e.preventDefault();
+    $('#cartDropdownMenuButton').trigger('click.bs.dropdown');
+});
+
 $(document).on('click', '.add-to-cart', function(e){
     e.preventDefault();
     var productId = $(this).data('product-id');

@@ -17,6 +17,8 @@
                             <form action="/stores/new" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+                                <input type="hidden" name="store_online_payments" value="on">
+                                <input type="hidden" name="store_cod_payments" value="on">
                                 <div class="post-section store-information">
                                     <div class="row">
                                         <div class="col-sm-3">

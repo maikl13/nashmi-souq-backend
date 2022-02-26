@@ -52,6 +52,8 @@ class CreateUsersTable extends Migration
             $table->string('paypal')->nullable();
             $table->string('vodafone_cash')->nullable();
             $table->string('national_id')->nullable();
+            
+            $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,11 +1,8 @@
-<div class="dropdown ">
-    <a id="cartDropdownMenuButton" class="nav-link color-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre title="بيانات الحساب" style="font-size: 1.25rem">
-        {{-- <i class="fa fa-shopping-cart"></i> --}}
-        <img width="22" height="22" src="/assets/images/cart.svg" class="loaded">
-        <span style="font-size: 14px; position: absolute; top: -5px; text-shadow: 0 0 5px white; left: 25px; font-weight: bold;">{{ cart()->total_quantity() ? cart()->total_quantity() : '' }}</span>
-    </a>
-    <div class="dropdown-menu p-0 " aria-labelledby="cartDropdownMenuButton" dir="rtl">
-        <div style="width: 400px; min-width: 320px; max-height: 300px; overflow-y: auto; overflow-x: hidden;">
+<div class="dropdown">
+    <a id="cartDropdownMenuButton" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+        style="float: left; margin-top: -10px;"></a>
+    <div class="dropdown-menu p-0 cart-dropdown-menu rounded" style="overflow: hidden;" aria-labelledby="cartDropdownMenuButton" dir="rtl">
+        <div style="min-width: 400px; max-width: 100%; max-height: 300px; overflow-y: auto; overflow-x: hidden;">
             @forelse( cart()->items() as $i => $item )
                 <div class="media p-3">
                     <div class="">

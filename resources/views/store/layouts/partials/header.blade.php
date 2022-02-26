@@ -68,8 +68,11 @@
                                 @include('store.layouts.partials.user-dropdown')
                             @endguest
                             
-                            <li class="nav-item header-login-icon mr-0 cart-dropdown">
-                                @include('store.partials.cart-dropdown')
+                            <li class="nav-item header-login-icon mr-0">
+                                <a class="nav-link color-primary toggle-cart" href="#" title="بيانات الحساب" style="font-size: 1.25rem">
+                                    <img width="22" height="22" src="/assets/images/cart.svg" class="loaded">
+                                    <span style="font-size: 14px; position: absolute; top: -5px; text-shadow: 0 0 5px white; left: 25px; font-weight: bold;">{{ cart()->total_quantity() ? cart()->total_quantity() : '' }}</span>
+                                </a>
                             </li>
 
                         </ul>
@@ -79,8 +82,19 @@
         </div>
     </div>
 </header>
+
+<div class="container">
+    <div class="row d-block">
+        @include('store.partials.cart-dropdown')
+    </div>
+</div>
+
+<a class="d-lg-none mobile-nav-icon toggle-cart text-center px-1" style="font-size: 18px; left: 70px;">
+    <img width="20" height="20" src="/assets/images/cart.svg" class="loaded">
+</a>
+
 @guest
-    <a class="d-lg-none mobile-nav-icon toggle-guestnav text-center px-1" style="font-size: 18px;">
+    <a class="d-lg-none mobile-nav-icon toggle-store-guestnav text-center px-1" style="font-size: 18px;">
         <i class="fa fa-sign-in-alt" style="vertical-align: middle;"></i>
         <small>دخول</small>
     </a>
