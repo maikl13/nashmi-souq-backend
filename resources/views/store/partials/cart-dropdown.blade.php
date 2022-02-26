@@ -2,7 +2,7 @@
     <a id="cartDropdownMenuButton" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
         style="float: left; margin-top: -10px;"></a>
     <div class="dropdown-menu p-0 cart-dropdown-menu rounded" style="overflow: hidden;" aria-labelledby="cartDropdownMenuButton" dir="rtl">
-        <div style="min-width: 400px; max-width: 100%; max-height: 300px; overflow-y: auto; overflow-x: hidden;">
+        <div style="width: 400px; max-width: 100%; max-height: 300px; overflow-y: auto; overflow-x: hidden;">
             @forelse( cart()->items() as $i => $item )
                 <div class="media p-3">
                     <div class="">
