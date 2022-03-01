@@ -146,7 +146,7 @@
     .add-listing-btn {left: 30px;}
     .add-listing-btn a { font-size: 14px; padding: 12px 10px; border-radius: 14px; font-weight: bold; }
     .mobile-nav-icon.toggle-conversations, .toggle-guestnav { left: 150px; }
-    .mobile-nav-icon.toggle-conversations, .toggle-store-guestnav { left: 110px; }
+    .toggle-store-guestnav { left: 110px; }
 }
 @media (max-width: 319px){
     .logo-mobile { display: none; }
