@@ -28,7 +28,7 @@
             <div class="location-list">
                 <h4 class="item-title">القسم</h4>
                 <ul>
-                    @foreach(App\Models\Category::orderBy('name')->get() as $category)
+                    @foreach(App\Models\Category::whereNull('category_id')->orderBy('name')->get() as $category)
                         <li>
                             <a href="#" class="category-id" data-id="{{ $category->id }}"><span class="item-icon"><img src="{{ $category->category_image(['size'=>'xxs']) }}" alt="icon"></span>{{ $category->name }}</a>
                         </li>
