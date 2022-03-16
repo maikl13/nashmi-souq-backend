@@ -35,7 +35,8 @@ class ListingController extends Controller
 
         //search
         if($request->q && !empty($request->q)) 
-            $listings = $listings->search($request->q)->featuredOrFixedFirst();
+            $listings = $listings->search($request->q);
+
         // filter by type
         if($request->type && !empty($request->type)) 
             $listings = $listings->where('type', $request->type);
@@ -45,7 +46,7 @@ class ListingController extends Controller
             $listings = $listings->where(function($query) use ($categories, $sub_categories){
                 $query->whereIn('category_id', $categories)
                     ->orWhereIn('sub_category_id', $sub_categories);
-            })->featuredOrFixedFirst();
+            });
         }
 
         // filter by location
@@ -55,9 +56,10 @@ class ListingController extends Controller
                     ->orWhereIn('area_id', $areas);
             });
         }
+        
         $params = $request->all();
         if(isset($params['page'])) unset($params['page']);
-        $listings = $listings->latest()->paginate(24)->appends($params);
+        $listings = $listings->featuredOrFixedFirst()->latest()->paginate(24)->appends($params);
 
         return view('main.listings.listings')->with('listings', $listings);
     }
