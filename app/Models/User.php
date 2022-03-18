@@ -82,6 +82,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function subscriptions(){
         return $this->HasMany(Subscription::class);
     }
+
+    public function active_subscriptions(){
+        return $this->HasMany(Subscription::class)->where('start', '<=', now())->where('end', '>=', now()->subDays(setting('grace_period')))->active();
+    }
     
     public function url()
     {
