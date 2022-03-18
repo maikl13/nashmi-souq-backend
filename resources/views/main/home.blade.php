@@ -80,6 +80,33 @@
 
     @include('main.layouts.partials.open-store-promo')
 
+    @if (\App\Models\User::whereNotNull('store_name')->inRandomOrder()->count())
+        <section class="section-padding-top-heading">
+            <div class="container">
+                <div class="heading-layout1">
+                    <h2 class="heading-title">متاجر سوق نشمي</h2>
+                </div>
+                <div class="container" dir="ltr">
+                    <div class="rc-carousel" data-loop="true" data-items="10" data-margin="30" data-autoplay="true" data-autoplay-timeout="2000" data-smart-speed="1000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="2" data-r-x-small-nav="false" data-r-x-small-dots="false" data-r-x-medium="3" data-r-x-medium-nav="false" data-r-x-medium-dots="false" data-r-small="3" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="4" data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="4" data-r-large-nav="false" data-r-large-dots="false" data-r-extra-large="5" data-r-extra-large-nav="false" data-r-extra-large-dots="false">
+                        @foreach(\App\Models\User::whereNotNull('store_name')->inRandomOrder()->limit(8)->get() as $store)
+                            <div class="store-list-layout1">
+                                <a href="{{ $store->store_url() }}">
+                                    <div class="item-logo">
+                                        <img src="{{ $store->store_image(['size'=>'xs']) }}" style="width: 100%; height: 100px; object-fit: contain;" alt="store">
+                                    </div>
+                                    <div class="item-content">
+                                        <h3 class="item-title">{{ $store->store_name() }}</h3>
+                                        <div class="ad-count">{{ $store->products()->count() }} منتج</div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
     <section class="section-padding-top-heading py-3" style="background: rgb(248,92,112);background: linear-gradient(45deg, rgba(248,92,112,0.6) 0%, rgba(230,92,112,1) 80%);">
         <div class="container text-center">
             <div class="text-center d-inline-block text-lg-right">
