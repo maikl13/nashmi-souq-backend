@@ -81,7 +81,7 @@
     @include('main.layouts.partials.open-store-promo')
 
     @if (\App\Models\User::whereNotNull('store_name')->inRandomOrder()->count())
-        <section class="section-padding-top-heading">
+        <section class="section-padding-top-heading bg-accent">
             <div class="container">
                 <div class="heading-layout1">
                     <h2 class="heading-title">متاجر سوق نشمي</h2>
