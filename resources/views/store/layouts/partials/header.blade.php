@@ -36,7 +36,7 @@
                                         <a class="dropdown-item">{{ Auth::user()->name }}</a>
                                         <a class="dropdown-item" href="/my-orders">طلباتي</a>
                                         @if (auth()->check() && request()->store && request()->store->id == auth()->user()->id)
-                                            <a class="dropdown-item" href="/orders">إدارة المتجر</a>
+                                            <a class="dropdown-item" href="/dashboard">إدارة المتجر</a>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
