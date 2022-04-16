@@ -134,7 +134,7 @@
 @endguest
 
 @if (setting('notification'))
-    <div class="text-center text-white py-3 px-3" style="background: #f85c70;">
+    <div class="text-center text-white py-3 px-3 d-none d-lg-block" style="background: #f85c70;">
         <div class="container">{!! nl2br(e(setting('notification'))) !!}</div>
     </div>
 @endif
