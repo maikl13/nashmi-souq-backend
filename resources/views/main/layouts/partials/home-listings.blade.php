@@ -37,7 +37,7 @@
             @foreach (ads('leaderboard', 1, true) as $ad)
                 <div class="col-12 mb-3 text-center d-none d-sm-block d-lg-none">{!! $ad !!}</div>
             @endforeach
-            @foreach (ads('mobile_banner', 1, true) as $ad)
+            @foreach (ads(rand(0,1) ? 'mobile_banner' : 'large_rectangle', 1, true) as $ad)
                 <div class="col-12 mb-3 text-center d-block d-sm-none">{!! $ad !!}</div>
             @endforeach
         @endif
