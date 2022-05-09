@@ -10,12 +10,12 @@
 }
 
 #live-chat {
-    bottom: 0;
+    bottom: 70px;
     font-size: 13px;
-    right: 19px;
     position: fixed;
     z-index: 1000;
     box-shadow: 0 0 8px rgba(248, 92, 112, 0.35);
+    width: 100%;
 }
 
 #live-chat .chat-box-header {
@@ -38,9 +38,20 @@
 }
 
 #live-chat .chat {
-    width: 300px;
+    width: 100%;
 }
 
+@media (min-width: 768px){
+    #live-chat {
+        bottom: 0;
+        right: 19px;
+        width: auto;
+    }
+
+    #live-chat .chat {
+        width: 300px;
+    }
+}
 
 #live-chat h4:before {
     background: #1a8a34;
@@ -76,7 +87,8 @@
 }
 
 .chat-history {
-    height: 280px;
+    min-height: 300px;
+    max-height: calc(100vh - 250px);
     padding: 8px 24px;
     overflow-y: auto;
 }
@@ -113,26 +125,26 @@
 
 #chat-message {
     width: 100%;
-    box-shadow: 0 0 6px rgba(248, 92, 112, 0.4);
-    border: none;
     resize: none;
-    max-height: 70px !important;
+    max-height: 100px !important;
     outline: none;
-    padding: 15px 0;
+    padding: 20px 0;
     line-height: 1.3rem;
     font-size: 13px;
     color: #2a2a2a;
-    border-radius: 23px;
     overflow: hidden;
+    background: #fafafa;
+    border: none;
+    border-top: 1px solid #f7f7f7;
 }
 #chat-message:focus {
-    box-shadow: 0 0 2px rgba(0,0,0,0.4);
+    background: white;
+    border-top: 1px solid #f1f1f1;
 }
 
 #live-chat form {
     position: relative;
     line-height: normal;
-    padding: 0 5px 3px 5px;
 }
 #live-chat form button {
     position: absolute;
@@ -142,12 +154,12 @@
     font-size: 15px;
     background: #f85c70;
     color: white;
-    border-radius: 50%;
+    border-radius: 20%;
     padding: 11px;
     margin: 2px 8px;
     width: 42px;
     height: 42px;
-    top: 5%;
+    top: calc(50% - 21px);
 }
 
 
@@ -172,11 +184,14 @@
 .conversations-box {
     position: fixed;
     width: 100%;
-    z-index: 10;
+    z-index: 10000;
     box-shadow: 0 0 2px rgba(0,0,0,.3);
     background-color: #fff;
-    max-height: 450px;
     overflow-y: auto;
+    height: calc(100vh - 143px);
+    min-height: 400px;
+    max-height: 100%;
+    justify-content: center;
 }
 .conversations-box-container {
     max-width: 100% !important;
@@ -199,6 +214,10 @@
     .conversations-box-container .chat-message:hover { background-color: white;}
 }
 @media (min-width: 768px){
+    .conversations-box {
+        max-height: 450px;
+        height: auto;
+    }
     .conversations-box-container { max-width: 100% !important; }
 }
 @media (min-width: 992px){

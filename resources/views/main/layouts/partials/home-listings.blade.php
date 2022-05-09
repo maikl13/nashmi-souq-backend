@@ -1,19 +1,5 @@
 @foreach ($listings as $k => $listing)
-    {{-- @if($k%3)
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706"
-            crossorigin="anonymous"></script>
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-format="fluid"
-            data-ad-layout-key="-db+83+4m-f8+ef"
-            data-ad-client="ca-pub-1250310795030706"
-            data-ad-slot="7813512154"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    @endif --}}
-
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+    <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
         <div class="product-box-layout1 home-listing {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
             <div class="item-img">
                 <a href="{{ $listing->url() }}"><img src="{{ $listing->listing_image(['size'=>'xs']) }}" alt="Product"></a>
@@ -25,11 +11,6 @@
                     <li class="d-inline"><i class="fas fa-map-marker-alt"></i>{{ $listing->state ? $listing->state->name : '' }}{{ $listing->area ? ', '.$listing->area->name : '' }}</li>
                     <li class="d-inline"><i class="fas fa-tags"></i>{{ $listing->category ? $listing->category->name : '' }}</li>
                     @if ($listing->price)
-                        {{-- <li class="d-inline mr-2">
-                            <i class="fas fa-money-bill"></i>
-                            {{ $listing->local_price() }}
-                            <span class="currency-symbol" title="ب{{ country()->currency->name }}">{{ country()->currency->symbol }}</span>
-                        </li> --}}
                         <li class="d-inline mr-2">
                             <i class="fas fa-money-bill"></i>
                             {{ preg_replace('/(\.00$)/i', '', number_format($listing->price(), 2)) }}
@@ -42,4 +23,25 @@
             </div>
         </div>
     </div>
+
+    @if ((request()->page%3 != 0))
+        @if (($k+1)%12 == 0)
+            <div class="row d-none d-lg-block w-100 mt-3">
+                @foreach (ads(rand(0,1) ? 'large_leaderboard' : 'leaderboard', 1, true) as $ad)
+                    <div class="col-12 mb-3 text-center d-none d-md-block">{!! $ad !!}</div>
+                @endforeach
+            </div>
+        @endif
+
+        @if (($k+1)%6 == 0)
+            @foreach (ads('leaderboard', 1, true) as $ad)
+                <div class="col-12 mb-3 text-center d-none d-sm-block d-lg-none">{!! $ad !!}</div>
+            @endforeach
+            @foreach (ads('mobile_banner', 1, true) as $ad)
+                <div class="col-12 mb-3 text-center d-block d-sm-none">{!! $ad !!}</div>
+            @endforeach
+        @endif
+    @endif
 @endforeach
+
+@include('main.layouts.partials.categories-mobile')

@@ -29,7 +29,7 @@
     });
 
     $('.chat-box-header').on('click', function(e) {
-        $('.chat').slideToggle(300, 'swing');
+        $('.chat').removeClass('shown').slideToggle(300, 'swing');
     });
 
     var isMobile = false; //initiate as false
@@ -51,7 +51,7 @@
     function autosize(){
         var el = this;
         setTimeout(function(){
-            el.style.cssText = 'height:auto; padding:15px 0';
+            el.style.cssText = 'height:auto; padding:20px 0';
             el.style.cssText = 'height:' + el.scrollHeight + 'px';
         },0);
     }

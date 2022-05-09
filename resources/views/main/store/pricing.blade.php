@@ -46,7 +46,7 @@
                             <div class="pricing-box-layout1">
                                 <h3 class="item-title">{{ $subscription['name'] }}</h3>
                                 <div class="price-box py-5">
-                                    <span class="item-currency">{{ $subscription['price'] }} <small>{{ currency()->symbol }}</small></span>
+                                    <span class="h1">{{ $subscription['price'] }} <small>{{ currency()->symbol }}</small></span>
                                 </div>
                                 <div class="item-features">
                                     <ul>

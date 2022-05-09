@@ -49,13 +49,23 @@
 
             @yield('content')
             
-            @include('main.layouts.partials.footer')
+            <div class="d-block d-lg-none">
+                @include('main.layouts.partials.footer-mobile')
+            </div>
+
+            <div class="d-none d-lg-block">
+                @include('main.layouts.partials.footer')
+            </div>
 
             @auth
                 @include('main.layouts.partials.chat-box')
             @endauth
             
             @yield('modals')
+        </div>
+
+        <div class="d-block d-lg-none">
+            @include('main.layouts.partials.footer-nav')
         </div>
 
         @include('main.layouts.partials.scripts')

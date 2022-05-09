@@ -3920,9 +3920,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     width: 1.875rem;
     height: 1.875rem;
     border-radius: 50%;
-    border: 0.1875rem solid #ffffff;
-    background-color: #2f3432;
-    box-shadow: 0rem 0rem 0.375rem 0rem rgba(0, 0, 0, 0.75);
+    background-color: #F85C7C;
     font-size: 0.875rem;
     color: #ffffff;
     cursor: pointer;
@@ -4402,8 +4400,8 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .product-box-layout1 .item-content .item-title {
-    font-size: 1.125rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 500;
     margin-bottom: 0.625rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -6548,4 +6546,10 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 .form-control:focus {
     border-color: #f85c70;
     box-shadow: 0 0 0 0rem rgba(0, 123, 255, .25);
+}
+
+@media (max-width: 991px){
+    .modal {
+        padding-bottom: 70px;
+    }
 }

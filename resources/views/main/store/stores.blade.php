@@ -33,17 +33,17 @@
     <!--=====================================-->
     <section class="store-wrap-layout1 bg-accent">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col mb-5 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
                 <div class="col mb-5 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-            </div>
+            </div> --}}
             <div class="row">
                 @forelse($stores as $store)
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="store-list-layout1">
-                            <a href="{{ $store->url() }}">
+                            <a href="{{ $store->store_url() }}">
                                 <div class="item-logo">
-                                    <img src="{{ $store->store_image(['size'=>'xxs']) }}" width="100" alt="store">
+                                    <img src="{{ $store->store_image(['size'=>'xs']) }}" style="width: 100%; height: 100px; object-fit: contain;" alt="store">
                                 </div>
                                 <div class="item-content">
                                     <h3 class="item-title">{{ $store->store_name() }}</h3>
@@ -61,11 +61,13 @@
 
             {{ $stores->links() }}
 
-            <div class="row mt-5">
+            {{-- <div class="row mt-5">
                 @foreach (ads('large_rectangle', 4, true) as $ad)
                     <div class="col-lg-3 col-md-6 mb-3 text-center">{!! $ad !!}</div>
                 @endforeach
-            </div>
+            </div> --}}
         </div>
     </section>
+
+    @include('main.layouts.partials.open-store-promo')
 @endsection

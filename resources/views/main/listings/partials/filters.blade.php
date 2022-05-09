@@ -1,13 +1,13 @@
-<div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area" id="accordion">
+<div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area mt-1" id="accordion">
     <div class="widget-bottom-margin-md widget-accordian widget-filter">
         <h3 class="widget-bg-title">فلترة الإعلانات</h3>
         <form action="/listings">
             <div class="accordion-box">
                 <div class="card filter-type filter-item-list">
                     <div class="card-header">
-                        <a class="parent-list" role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true">النوع</a>
+                        <a class="parent-list collapsed" role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="false">النوع</a>
                     </div>
-                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                    <div id="collapseOne" class="collapse" data-parent="#accordion">
                         <div class="card-body">
                             <div class="filter-type-content">
                                 <?php 
@@ -32,7 +32,7 @@
                 </div>
                 <div class="card filter-category multi-accordion filter-item-list">
                     <div class="card-header">
-                        <a class="parent-list" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="false"> الأقسام </a>
+                        <a class="parent-list collapsed" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="false"> الأقسام </a>
                     </div>
                     <div id="collapseTwo" class="collapse" data-parent="#accordion">
                         <div class="card-body p-3">
@@ -72,7 +72,7 @@
                 </div>
                 <div class="card filter-location multi-accordion filter-item-list">
                     <div class="card-header">
-                        <a class="parent-list" role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="false"> الموقع </a>
+                        <a class="parent-list collapsed" role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="false"> الموقع </a>
                     </div>
                     <div id="collapseThree" class="collapse" data-parent="#accordion">
                         <div class="card-body">

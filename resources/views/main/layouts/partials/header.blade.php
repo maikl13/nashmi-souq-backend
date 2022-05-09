@@ -16,22 +16,25 @@
                             <img src="{{ setting('logo') }}" alt="logo" class="img-fluid" width="90">
                             <div style="font-size: 9px; color: #777; font-weight: bold; font-family: sans-serif;line-height: 25px;">إحدى شركات <span style="font-size: 10px;">حلول نعم</span></div>
                         </a>
-                        <div class="float-right mr-1" style="line-height: 48px;">
-                            {{-- <img src="https://www.countryflags.io/{{ country()->code }}/shiny/32.png"/> --}}
+                        <a class="float-right toggle-countries mr-1" style="line-height: 48px;">
                             <img src="https://flagcdn.com/w40/{{ country()->code }}.png" width="32"/>
-                        </div>
+                            <i class='fa fa-caret-down mr-2 h5'></i>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex justify-content-end" dir="ltr">
                     <nav id="dropdown" class="template-main-menu">
                         <ul dir="rtl">
-                            <li><a href="/">الرئيسية</a></li>
+                            {{-- <li><a href="/">الرئيسية</a></li> --}}
                             <li><a href="/listings">الإعلانات</a></li>
                             {{-- <li><a href="/stores">المتاجر</a></li> --}}
                             <li><a href="/about">من نحن</a></li>
+                            <li><a href="/terms-and-conditions">شروط الإستخدام</a></li>
+                            <li><a href="/safety-tips">قواعد السلامة</a></li>
+                            <li><a href="/privacy-policy">سياسة الخصوصية</a></li>
                             <li><a href="/contact-us">اتصل بنا</a></li>
 
-                            <li class="d-lg-none"><a href="/listings/add">نشر إعلان جديد</a></li>
+                            {{-- <li class="d-lg-none"><a href="/listings/add">نشر إعلان جديد</a></li> --}}
 
                             @guest
                                 <li class="d-lg-none"><a href="{{ route('login') }}">تسجيل الدخول</a></li>
@@ -39,22 +42,21 @@
                             @else
                                 <li class="nav-item dropdown d-lg-none">
                                     <a id="navbarDropdown" class="nav-link color-primary w-100" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre title="بيانات الحساب">
-                                         حسابي <span class="caret"></span>
+                                         حسابي  <small>( {{ Auth::user()->name }} )</small><span class="caret"></span>
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="navbarDropdown" dir="rtl">
-                                        <a class="dropdown-item">{{ Auth::user()->name }}</a>
                                         @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
-                                            <a class="dropdown-item" href="/admin">
+                                            <a class="dropdown-item py-1" href="/admin">
                                                 {{ __('Admin Panel') }}
                                             </a>
                                         @endif
-                                        <a class="dropdown-item" href="/account">إعدادات الحساب</a>
-                                        <a class="dropdown-item" href="/account/my-listing">إعلاناتي</a>
+                                        <a class="dropdown-item py-1" href="/account">إعدادات الحساب</a>
+                                        <a class="dropdown-item py-1" href="/account/my-listing">إعلاناتي</a>
                                         @if (auth()->check() && auth()->user()->is_store())
-                                            <a class="dropdown-item" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">إدارة المتجر</a>
+                                            <a class="dropdown-item py-1" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">إدارة المتجر</a>
                                         @endif
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <a class="dropdown-item py-1" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
@@ -104,40 +106,18 @@
 </header>
 
 
-<span class="d-lg-none mobile-nav-icon add-listing-btn px-3"> 
-    <a href="/listings/add" class="item-btn"><i class="fas fa-plus"></i> أضف إعلانك</a>
-</span>
-
 @auth
-    <a class="d-lg-none mobile-nav-icon toggle-conversations">
-        <span class="unread" {!! Auth::user()->recieved_messages()->unseen()->count() ? '' : 'style="display: none;"' !!}>{{ Auth::user()->recieved_messages()->unseen()->count() }}</span>
-        <i class="far fa-envelope"></i>
-    </a>
-
     @include('main.layouts.partials.conversations-dropdown')
 @endauth
-@guest
-    <a class="d-lg-none mobile-nav-icon toggle-guestnav text-center px-1" style="font-size: 18px;">
-        <i class="fa fa-sign-in-alt" style="vertical-align: middle;"></i>
-        <small>دخول</small>
-    </a>
-    <section style="display: none;" class="guestnav-dropdown">
-        <div class="container" dir="ltr">
-            <div class="row">
-                <div class="col-12">
-                    <a class="dropdown-item p-3" href="/login">تسجيل الدخول</a>
-                    <a class="dropdown-item p-3" href="/register">حساب جديد</a>
-                </div>
-            </div>
-        </div>
-    </section>
-@endguest
+    
+@include('main.layouts.partials.countries-modal')
 
 @if (setting('notification'))
     <div class="text-center text-white py-3 px-3 d-none d-lg-block" style="background: #f85c70;">
         <div class="container">{!! nl2br(e(setting('notification'))) !!}</div>
     </div>
 @endif
+
 @if (setting('notification2'))
     <div class="text-center py-3 px-3" style="background: #efeef1; color: #555;">
         <div class="container">{!! nl2br(e(setting('notification2'))) !!}</div>

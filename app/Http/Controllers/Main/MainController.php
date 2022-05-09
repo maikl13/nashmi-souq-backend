@@ -28,16 +28,16 @@ class MainController extends Controller
         
 
         if (request()->ajax() && request()->_ajax){
-            $listings = $listings->paginate(8)->shuffle();
+            $listings = $listings->paginate(12);
             return response()->json(view('main.layouts.partials.home-listings', ['listings' => $listings])->render(), 200);
 
         } else {
-            $limit = (request()->page ?? 1) * 8;
+            $limit = (request()->page ?? 1) * 12;
         
             if($limit <= 40) {
-                $listings = $listings->limit($limit)->get()->shuffle();
+                $listings = $listings->limit($limit)->get();
             } else {
-                $listings = $listings->paginate(8)->shuffle();
+                $listings = $listings->paginate(12);
             }
         }
 

@@ -50,7 +50,6 @@ function get_error_msg(data){
     return errMsg;
 }
 
-
 $(document).ready(function () {
     $(document).click(function (e) {
         var clickover = $(e.target);
@@ -65,3 +64,10 @@ $(document).ready(function () {
         }
     });
 });
+
+(function() {
+    $(document).on('click', '.toggle-countries', function(e) {
+        e.preventDefault();
+        $('#modal-country').modal('show');
+    });
+}) ();

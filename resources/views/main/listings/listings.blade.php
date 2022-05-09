@@ -83,24 +83,17 @@
 
 @section('scripts')
     <script src="/assets/plugins/labelauty/source/jquery-labelauty.js"></script>
+    
     <script>
         $(document).ready(function(){
             $("input[type=checkbox]").labelauty({ label: false });
             $("input[type=radio]").labelauty({ label: false });
-        });
-    </script>
-    <script>
-        $(document).on('click', '[data-toggle=collapse]', function(){
-            $(this).parent().toggleClass('collapsed');
-        });
-        $(document).on('hide.bs.collapse', ".multi-accordion-content", function(){
-            $(this).find('[aria-expanded=true]').parent().addClass('collapsed')
-        });
-    </script>
-    <script>
-        $(document).ready(function(){
-            $('input:checked').parents('.collapse').removeClass('collapse');
-            $('input:checked').closest('.card').find('.collapsed').removeClass('collapsed');
+
+            $('.card.filter-item-list').each(function (index, element) {
+                if($(element).find('input:checked').length){
+                    $(element).find('.parent-list[data-toggle=collapse]').click();
+                }
+            });
         });
     </script>
     

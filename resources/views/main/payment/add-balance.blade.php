@@ -44,7 +44,7 @@
                                 <small>شحن رصيد المحفظة</small>
                             </h3>
                             
-                            <div class="post-ad-box-layout1 p-4">
+                            <div class="post-ad-box-layout1">
                                 <div class="post-ad-form light-box-content">
                                     <div class="alert alert-info">
                                         قم بتحديد المبلغ الذي ترغب بشحن رصيد محفظتك به و سيتم تحويلك لصفحة الدفع.

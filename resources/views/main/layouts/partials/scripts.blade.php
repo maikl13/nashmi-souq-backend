@@ -63,7 +63,7 @@
 </script>
 
 <!-- GetButton.io widget -->
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     (function () {
         var options = {
             facebook: "108589284172449", // Facebook page ID
@@ -78,5 +78,5 @@
         s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
         var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
     })();
-</script>
+</script> --}}
 <!-- /GetButton.io widget -->
