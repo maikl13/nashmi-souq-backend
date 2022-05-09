@@ -16,8 +16,7 @@ $(window).scroll(function() {
         wH = $(window).height(),
         wS = $(this).scrollTop();
 
-
-    if (wS > (hT + hH - wH)) {
+    if (wS+300 > (hT + hH - wH)) {
         if(!loading && $(window).width() < 992){
             loading = true;
             loadMoreListings();

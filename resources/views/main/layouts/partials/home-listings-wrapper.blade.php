@@ -16,7 +16,7 @@
                     </a>
                 </div>
                 <div class="d-block d-lg-none">
-                    <a class="more-listings h2 p-3 d-block" style="color: #F85C7C;"></a>
+                    <a class="more-listings h2 mt-1 d-block mb-5" style="color: #F85C7C;"></a>
                 </div>
             </div>
         </div>

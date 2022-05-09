@@ -279,3 +279,7 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
 .swal2-actions {
     font-size: 15px;
 }
+
+.text-red {
+    color: #f85c7c!important;
+}

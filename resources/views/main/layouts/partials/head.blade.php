@@ -38,7 +38,7 @@
 @auth
 	<link rel="stylesheet" href="/assets/css/chat.css?v=1.1">
 @endauth
-<link rel="stylesheet" href="/assets/css/style.css?v=1.6">
+<link rel="stylesheet" href="/assets/css/style.css?v=1.7">
 
 <!-- Google Web Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
