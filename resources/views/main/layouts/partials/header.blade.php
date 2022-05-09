@@ -10,7 +10,7 @@
     <div id="header-menu" class="header-menu menu-layout2">
         <div class="container">
             <div class="row d-flex align-items-center">
-                <div class="col-lg-2">
+                <div class="col-lg-3 col-xl-2">
                     <div class="logo-area">
                         <a href="/" class="temp-logo float-right">
                             <img src="{{ setting('logo') }}" alt="logo" class="img-fluid" width="90">
@@ -22,16 +22,16 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex justify-content-end" dir="ltr">
+                <div class="col-lg-5 col-xl-6 d-flex justify-content-end" dir="ltr">
                     <nav id="dropdown" class="template-main-menu">
                         <ul dir="rtl">
                             {{-- <li><a href="/">الرئيسية</a></li> --}}
                             <li><a href="/listings">الإعلانات</a></li>
                             {{-- <li><a href="/stores">المتاجر</a></li> --}}
                             <li><a href="/about">من نحن</a></li>
-                            <li><a href="/terms-and-conditions">شروط الإستخدام</a></li>
-                            <li><a href="/safety-tips">قواعد السلامة</a></li>
-                            <li><a href="/privacy-policy">سياسة الخصوصية</a></li>
+                            <li class="d-lg-none"><a href="/terms-and-conditions">شروط الإستخدام</a></li>
+                            <li class="d-lg-none"><a href="/safety-tips">قواعد السلامة</a></li>
+                            <li class="d-lg-none"><a href="/privacy-policy">سياسة الخصوصية</a></li>
                             <li><a href="/contact-us">اتصل بنا</a></li>
 
                             {{-- <li class="d-lg-none"><a href="/listings/add">نشر إعلان جديد</a></li> --}}
