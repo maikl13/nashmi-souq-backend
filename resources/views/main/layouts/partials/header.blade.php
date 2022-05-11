@@ -41,9 +41,12 @@
                                 <li class="d-lg-none"><a href="{{ route('register') }}">تسجيل حساب جديد</a></li>
                             @else
                                 <li class="d-lg-none">
-                                    <a>حسابي  <small>( {{ Auth::user()->name }} )</small></a>
+                                    <a>حسابي</a>
 
                                     <ul>
+                                        <li>
+                                            <a href="/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a>
+                                        </li>
                                         <li>
                                             @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
                                                 <a class="dropdown-item py-2" href="/admin">

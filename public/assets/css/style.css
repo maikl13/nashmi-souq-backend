@@ -287,7 +287,7 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
     background-color: #f85c7c!important;
 }
 
-@media (max-width: 767px){
+@media (max-width: 991px){
     .search-box-wrapper {
         position: fixed!important;
     } 

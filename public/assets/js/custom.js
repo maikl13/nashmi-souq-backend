@@ -97,7 +97,7 @@ if (isMobile) {
 
     $(document).click(function (e) {
         var clickover = $(e.target);
-        if ($('.search-box-wrapper').is(":visible") && 
+        if ($('.search-box-wrapper').is(":visible") && $('.search-toggle').is(":visible") && 
             !clickover.is(".search-box-wrapper>section *") && !clickover.is(".search-box-wrapper>section") &&
             !clickover.is(".toggle-search") && !clickover.is(".toggle-search *") &&
             !clickover.is(".modal") && !clickover.is(".modal *"))
