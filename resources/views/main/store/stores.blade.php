@@ -33,20 +33,16 @@
     <!--=====================================-->
     <section class="store-wrap-layout1 bg-accent">
         <div class="container">
-            {{-- <div class="row">
-                <div class="col mb-5 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
-                <div class="col mb-5 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
-            </div> --}}
-            <div class="row">
+            <div class="d-flex flex-wrap" style="gap: 12px;">
                 @forelse($stores as $store)
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="store-list-layout1">
+                    <div class="ms-2 me-4" style="max-width: 100%; width: 110px; flex-grow: 1;">
+                        <div class="store-list-layout1 mb-0">
                             <a href="{{ $store->store_url() }}">
-                                <div class="item-logo">
+                                <div class="item-logo bg-light">
                                     <img src="{{ $store->store_image(['size'=>'xs']) }}" style="width: 100%; height: 100px; object-fit: contain;" alt="store">
                                 </div>
-                                <div class="item-content">
-                                    <h3 class="item-title">{{ $store->store_name() }}</h3>
+                                <div class="item-content" dir="auto" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                    <span class="item-title">{{ $store->store_name() }}</span>
                                     <div class="ad-count">{{ $store->listings()->count() }} إعلان</div>
                                 </div>
                             </a>
@@ -56,16 +52,14 @@
                     <?php $msg = 'لا يوجد متاجر حتى الآن'; ?>
                     @include('main.layouts.partials.empty')
                 @endforelse
-
             </div>
 
             {{ $stores->links() }}
 
-            {{-- <div class="row mt-5">
-                @foreach (ads('large_rectangle', 4, true) as $ad)
-                    <div class="col-lg-3 col-md-6 mb-3 text-center">{!! $ad !!}</div>
-                @endforeach
-            </div> --}}
+            <div class="row mt-5">
+                <div class="col text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
+                <div class="col text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+            </div>
         </div>
     </section>
 
