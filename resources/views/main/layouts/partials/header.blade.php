@@ -40,34 +40,75 @@
                                 <li class="d-lg-none"><a href="{{ route('login') }}">تسجيل الدخول</a></li>
                                 <li class="d-lg-none"><a href="{{ route('register') }}">تسجيل حساب جديد</a></li>
                             @else
-                                <li class="nav-item dropdown d-lg-none">
-                                    <a id="navbarDropdown" class="nav-link color-primary w-100" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre title="بيانات الحساب">
-                                         حسابي  <small>( {{ Auth::user()->name }} )</small><span class="caret"></span>
-                                    </a>
+                                <li class="d-lg-none">
+                                    <a>حسابي  <small>( {{ Auth::user()->name }} )</small></a>
 
-                                    <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="navbarDropdown" dir="rtl">
-                                        @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
-                                            <a class="dropdown-item py-1" href="/admin">
-                                                {{ __('Admin Panel') }}
+                                    <ul>
+                                        <li>
+                                            @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
+                                                <a class="dropdown-item py-2" href="/admin">
+                                                    {{ __('Admin Panel') }}
+                                                </a>
+                                            @endif
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item py-2" href="/account">إعدادات الحساب</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item py-2" href="/account/my-listing">إعلاناتي</a>
+                                        </li>
+                                        <li>
+                                            @if (auth()->check() && auth()->user()->is_store())
+                                                <a class="dropdown-item py-2" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">إدارة المتجر</a>
+                                            @endif
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item py-2" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
                                             </a>
-                                        @endif
-                                        <a class="dropdown-item py-1" href="/account">إعدادات الحساب</a>
-                                        <a class="dropdown-item py-1" href="/account/my-listing">إعلاناتي</a>
-                                        @if (auth()->check() && auth()->user()->is_store())
-                                            <a class="dropdown-item py-1" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">إدارة المتجر</a>
-                                        @endif
-                                        <a class="dropdown-item py-1" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
                                 </li>
                             @endguest
+
+                            <li class="d-lg-none flex-grow-1"></li>
+
+                            <li class="d-lg-none text-center py-4 header-social border-0" style="background-color: #fdfdfd;">
+                                <h3 class="text-muted">تواصل معنا</h3>
+                                
+                                <div class="d-flex flex-wrap justify-content-center" style="gap: 10px;">
+                                    @if( setting('facebook') )
+                                        <a href="{{ setting('facebook') }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                    @endif
+                                    @if( setting('twitter') )
+                                        <a href="{{ setting('twitter') }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                    @endif
+                                    @if( setting('instagram') )
+                                        <a href="{{ setting('instagram') }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    @endif
+                                    @if( setting('linkedin') )
+                                        <a href="{{ setting('linkedin') }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                    @endif
+                                    @if( setting('youtube') )
+                                        <a href="{{ setting('youtube') }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                                    @endif
+                                    @if( setting('whatsapp') )
+                                        <a href="https://wa.me/{{ str_replace('+', '', setting('whatsapp') ) }}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                    @endif
+                                </div>
+                            </li>
+                            <li class="d-lg-none py-3 border-0">
+                                <div class="text-center" style="font-size: .85rem;">
+                                    جميع الحقوق محفوظة © 
+                                    <span style="text-transform: uppercase;">{{ setting('website_name') }} {{ date('Y') }}</span>
+                                    , تطوير <a class="d-inline w-auto float-none p-0 m-0" href="https://brmjyat.com" target="_blank">برمجيات</a>
+                                </div>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -105,6 +146,7 @@
     </div>
 </header>
 
+@include('main.layouts.partials.header-nav-mobile')
 
 @auth
     @include('main.layouts.partials.conversations-dropdown')

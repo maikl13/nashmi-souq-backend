@@ -1,4 +1,4 @@
-<div class="search-box-layout1">
+<div class="search-box-layout1 shadow">
     <form action="/listings">
         <input type="hidden" value="" name="states[]">
         <input type="hidden" value="" name="categories[]">

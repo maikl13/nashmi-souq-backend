@@ -6,7 +6,8 @@
     <section class="section-padding-top-heading bg-white">
         <div class="container">
             <div class="heading-layout1">
-                <h2 class="heading-title">الإعلانات المثبتة</h2>
+                <i class="fa fa-gem h5 text-red ml-2 mb-0"></i>
+                <h2 class="heading-title h4 font-weight-normal d-inline">الإعلانات المثبتة</h2>
             </div>
             <div class="">
                 <div class="item-related-product">

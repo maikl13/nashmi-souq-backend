@@ -42,14 +42,14 @@
                                     <img src="{{ $store->store_image(['size'=>'xs']) }}" style="width: 100%; height: 100px; object-fit: contain;" alt="store">
                                 </div>
                                 <div class="item-content" dir="auto" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
-                                    <span class="item-title">{{ $store->store_name() }}</span>
-                                    <div class="ad-count">{{ $store->listings()->count() }} إعلان</div>
+                                    <h2 class="item-title d-inline font-weight-normal">{{ $store->store_name() }}</h2>
+                                    <div class="ad-count">{{ $store->products()->count() }} منتج</div>
                                 </div>
                             </a>
                         </div>
                     </div>
                 @empty
-                    <?php $msg = 'لا يوجد متاجر حتى الآن'; ?>
+                    <?php $msg = '-'; ?>
                     @include('main.layouts.partials.empty')
                 @endforelse
             </div>

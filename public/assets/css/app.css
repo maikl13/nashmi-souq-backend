@@ -1294,6 +1294,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     position: fixed !important;
     top: 0;
     z-index: 20;
+    box-shadow: 0 0 5px rgba(0,0,0,0.17);
 }
 
 .mean-container .mean-bar:after {
@@ -1344,8 +1345,9 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 .mean-container .mean-nav>ul {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: calc(100vh - 75px);
-    /*height: auto;*/
+    height: calc(100vh - 145px);
+    display: flex;
+    flex-direction: column;
 }
 
 .mean-container .mean-nav>ul:after {
@@ -1354,12 +1356,19 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     clear: both;
 }
 
+.mean-container .mean-nav>ul>li {
+    border-color: #efefef;
+}
+.mean-container .mean-nav ul li {
+    background-color: #f8f9fa;
+}
+
 .mean-container .mean-nav>ul>li>a {
     font-size: 0.875rem;
     color: #2a2a2a;
     font-weight: 500;
-    padding: 6px 5%;
-    background-color: #ebebeb;
+    padding: 13px 5%;
+    background-color: #fafafa;
     -webkit-transition: all 0.5s ease-out;
     transition: all 0.5s ease-out;
 }
@@ -1369,8 +1378,8 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .mean-container .mean-nav>ul>li:hover>a {
-    color: #f85c70;
-    background-color: #ffffff;
+    color: #222;
+    background-color: #eee;
 }
 
 .mean-container .mean-nav>ul>li li a {
@@ -1388,13 +1397,13 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 .mean-container .mean-nav>ul>li a.mean-expand {
     background-color: transparent;
     margin-top: 0;
-    height: 1.25rem;
+    height: auto;
     line-height: 1.6875rem;
     width: 100%;
     text-align: right;
     font-size: 0.875rem;
     padding: 0.75rem 1.25rem 0.75rem 0.75rem !important;
-    top: -0.25rem;
+    top: 0;
 }
 
 .mean-container .mean-nav>ul>li a.mean-expand:hover {
@@ -1419,14 +1428,14 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     padding: 1.7rem 1.5rem;
 }
 
-@media (max-width: 399px){
+/* @media (max-width: 399px){
     .mean-container a.meanmenu-reveal {
         padding: 1.7rem 0.8rem;
     }
-}
+} */
 
 .mean-container #wrapper {
-    padding-top: 4.6rem;
+    padding-top: 4.7rem;
 }
 
 

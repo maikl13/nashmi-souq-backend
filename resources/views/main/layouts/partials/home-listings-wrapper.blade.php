@@ -1,7 +1,8 @@
 <section class="section-padding-top-heading bg-accent">
     <div class="container home-listings-wrapper">
         <div class="heading-layout1">
-            <h2 class="heading-title">أحدث الإعلانات</h2>
+            <i class="fa fa-bookmark h5 text-red ml-2 mb-0"></i>
+            <h2 class="heading-title h4 font-weight-normal d-inline">أحدث الإعلانات</h2>
         </div>
 
         <div class="row listings">
