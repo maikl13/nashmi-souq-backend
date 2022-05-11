@@ -6,12 +6,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-center w-100">
-                    <div class="footer-box-layout1">
+                    <div class="footer-box-layout1 mb-0">
                         <div class="footer-logo mb-3">
                             <img src="{{ request()->store->store_logo() }}" alt="logo" width="130" style="filter: contrast(0.4);"> <br>
                         </div>
                         <div class="clearfix"></div>
-                        <p class="text-justify" style="text-align-last: center;">{{ request()->store->store_description }}</p>
+                        <p class="text-justify p-4 p-sm-0" style="text-align-last: center;">{{ request()->store->store_description }}</p>
                         <ul class="footer-social">
                             
                             @if(request()->store->store_social_accounts && is_array( json_decode(request()->store->store_social_accounts) ))
