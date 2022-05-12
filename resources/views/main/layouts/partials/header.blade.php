@@ -1,10 +1,6 @@
 <!--=====================================-->
 <!--=            Header Start           =-->
 <!--=====================================-->
-<style>
-    .mean-container .mean-nav ul li a {font-weight: normal;}
-</style>
- 
 <header class="header">
     <div id="rt-sticky-placeholder"></div>
     <div id="header-menu" class="header-menu menu-layout2">
@@ -45,30 +41,44 @@
 
                                     <ul>
                                         <li>
-                                            <a href="/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a>
+                                            <a href="/users/{{ Auth::user()->id }}">
+                                                <i class="fa fa-user ml-2 text-muted"></i>
+                                                <span>{{ Auth::user()->name }}</span>
+                                            </a>
                                         </li>
                                         <li>
                                             @if(Auth::user()->is_admin() || Auth::user()->is_superadmin())
                                                 <a class="dropdown-item py-2" href="/admin">
-                                                    {{ __('Admin Panel') }}
+                                                    <i class="fa fa-user-shield ml-2 text-muted"></i>
+                                                    <span>{{ __('Admin Panel') }}</span>
+                                                </a>
+                                                @endif
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item py-2" href="/account">
+                                                    <i class="fa fa-cog ml-2 text-muted"></i>
+                                                    <span>إعدادات الحساب</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item py-2" href="/account/my-listing">
+                                                <i class="fa fa-tags ml-2 text-muted"></i>
+                                                <span>إعلاناتي</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            @if (auth()->check() && auth()->user()->is_store())
+                                                <a class="dropdown-item py-2" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">
+                                                    <i class="fa fa-shopping-cart ml-2 text-muted"></i>
+                                                    <span>إدارة المتجر</span>
                                                 </a>
                                             @endif
                                         </li>
                                         <li>
-                                            <a class="dropdown-item py-2" href="/account">إعدادات الحساب</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item py-2" href="/account/my-listing">إعلاناتي</a>
-                                        </li>
-                                        <li>
-                                            @if (auth()->check() && auth()->user()->is_store())
-                                                <a class="dropdown-item py-2" href="{{ route('store-dashboard', auth()->user()->store_slug) }}">إدارة المتجر</a>
-                                            @endif
-                                        </li>
-                                        <li>
                                             <a class="dropdown-item py-2" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                <i class="fa fa-sign-out-alt ml-2 text-muted"></i>
+                                                <span>{{ __('Logout') }}</span>
                                             </a>
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
