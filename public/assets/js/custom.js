@@ -97,14 +97,12 @@ if (isMobile) {
 
     $(document).click(function (e) {
         var clickover = $(e.target);
-        if ($('.search-box-wrapper').is(":visible") && $('.search-toggle').is(":visible") && 
+        if ($('.search-box-wrapper').is(":visible") && $('.toggle-search').is(":visible") && 
             !clickover.is(".search-box-wrapper>section *") && !clickover.is(".search-box-wrapper>section") &&
             !clickover.is(".toggle-search") && !clickover.is(".toggle-search *") &&
             !clickover.is(".modal") && !clickover.is(".modal *"))
         {
-            if (!clickover.is(".footer-nav") && !clickover.is(".footer-nav *")) {
-                e.preventDefault();
-            }
+            e.preventDefault();
             $('.search-box-wrapper').fadeOut();
         }
     });
