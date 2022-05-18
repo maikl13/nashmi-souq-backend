@@ -4,12 +4,6 @@
 
 @section('head')
     <style>
-        @media (max-width: 575px){
-            .home-listing { 
-                max-height: 110px;
-                overflow: hidden;
-            }
-        }
         @media (max-width: 991px){
             footer { display: none; }
             .home-listings-wrapper { max-width: 100% !important; }
