@@ -1343,11 +1343,13 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .mean-container .mean-nav>ul {
-    overflow-y: scroll;
     overflow-x: hidden;
     height: calc(100vh - 145px);
     display: flex;
     flex-direction: column;
+}
+.store-layout.mean-container .mean-nav>ul {
+    height: calc(100vh - 70px);
 }
 
 .mean-container .mean-nav>ul:after {

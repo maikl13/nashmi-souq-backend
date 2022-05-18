@@ -5,9 +5,9 @@
                 <div class="item-img">
                     <img src="{{ Auth::user()->profile_picture() }}" width="90" height="90" alt="avatar">
                 </div>
-                <div class="item-content">
-                    <h3 class="item-title">{{ Auth::user()->name }}</h3>
-                    <div class="item-email text-muted"><span>البريد الاإلكتروني: </span>{{ Auth::user()->email }}</div>
+                <div class="item-content text-center text-lg-right">
+                    <h3 class="item-title">أهلا، {{ Auth::user()->name }}</h3>
+                    <div class="item-email text-muted"><span></span>{{ Auth::user()->email }}</div>
                 </div>
             </div>
             <div class="static-report">

@@ -82,7 +82,7 @@
                                             <a class="btn btn-success btn-block text-white py-3" href="{{ route('checkout', request()->store->store_slug) }}">إستكمال الطلب</a>
                                         </div> 
                                         <div class="col-sm-12"> 
-                                            <a class="btn btn-info btn-block text-white py-3" href="/listings" >متابعة التسوق</a>
+                                            <a class="btn btn-info btn-block text-white py-3" href="/products" >متابعة التسوق</a>
                                         </div>
                                     </div>
                                 </div>

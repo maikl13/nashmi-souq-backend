@@ -111,11 +111,11 @@
     if ($.fn.meanmenu) {
         var logo = "<div class='mobile-menu-nav-back float-right px-2'><a class='logo-mobile' href='/'>"+
             "<img src='"+mobileLogo+"' alt='logo' width='85' class='img-fluid'/>";
+
         logo += countryCode ? 
         "<br><span style='font-size: 9px;font-family: sans-serif;color: #555;display: block;line-height: 1.5;font-weight: bold'>إحدى شركات حلول نعم</span></a>"+
-        // "</div><div class='float-right' style='line-height: 75px;'><img src='https://www.countryflags.io/"+countryCode+"/shiny/32.png'/></div>",
-        "</div><a class='float-right toggle-countries' style='line-height: 75px;'><img src='https://flagcdn.com/w40/"+countryCode+".png' width='32'/> <i class='fa fa-caret-down mr-2 h5'></i>" : '';
-        logo += "</a>";
+        "</div><a class='float-right toggle-countries' style='line-height: 75px;'><img src='https://flagcdn.com/w40/"+countryCode+".png' width='32'/> <i class='fa fa-caret-down mr-2 h5'></i></a>" : '</a></div>';
+
 
         $('nav#dropdown').meanmenu({
             siteLogo: logo,

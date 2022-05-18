@@ -30,21 +30,22 @@
         @yield('head')
     </head>
 
-    <body class="sticky-header">
+    <body class="sticky-header store-layout">
         <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
-        <!-- ScrollUp Start Here -->
+
         <a href="#wrapper" data-type="section-switch" class="scrollup">
             <i class="fas fa-angle-double-up"></i>
         </a>
-        <!-- ScrollUp End Here -->
-        <!-- Preloader Start Here -->
+
         <div id="preloader"></div>
-        <!-- Preloader End Here -->
+
         <div id="wrapper" class="wrapper">
 
             @include('store.layouts.partials.header')
+            
+            @include('main.layouts.partials.download-app')
 
             @yield('content')
             

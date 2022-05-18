@@ -1,10 +1,6 @@
 <!--=====================================-->
 <!--=            Header Start           =-->
 <!--=====================================-->
-<style>
-    .mean-container .mean-nav ul li a {font-weight: normal;}
-</style>
- 
 <header class="header">
     <div id="rt-sticky-placeholder"></div>
     <div id="header-menu" class="header-menu menu-layout2">
@@ -83,16 +79,13 @@
     </div>
 </header>
 
+@include('store.layouts.partials.header-nav-mobile')
+
 <div class="container">
     <div class="row d-block cart-dropdown">
         @include('store.partials.cart-dropdown')
     </div>
 </div>
-
-<a class="d-lg-none mobile-nav-icon toggle-cart text-center px-1" style="font-size: 18px; left: 70px;">
-    <img width="20" height="20" src="/assets/images/cart.svg" class="loaded">
-    <span class="cartQty" style="font-size: 14px; position: absolute; top: 6px; text-shadow: 0 0 5px white; left: 25px; font-weight: bold;">{{ cart()->total_quantity() ? cart()->total_quantity() : '' }}</span>
-</a>
 
 @guest
     <a class="d-lg-none mobile-nav-icon toggle-store-guestnav text-center px-1" style="font-size: 18px;">
