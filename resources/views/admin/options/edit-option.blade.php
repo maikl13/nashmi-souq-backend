@@ -7,8 +7,8 @@
 @endsection
 
 @section('breadcrumb')
-	<li class="breadcrumb-item"><a href="/admin/options">الدول</a></li>
-	<li class="breadcrumb-item active">تعديل دولة</li>
+	<li class="breadcrumb-item"><a href="/admin/options">صفات المنتجات</a></li>
+	<li class="breadcrumb-item active">تعديل صفة</li>
 @endsection
 
 @section('content')
@@ -42,6 +42,42 @@
 								@endforeach
 							@endforeach
 						</select>
+					</div>
+					<div class="form-group">
+						<label for="preview_config" class="form-control-label"> طريقة العرض :</label>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">عرض</span>
+							</div>
+
+							@php($selected = old('preview_config', $option->preview_config))
+							<select name="preview_config" id="preview_config" class="form-control">
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_NAME }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>الاسم</option>
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_NONE }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>لا شيء</option>
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_HTML }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>Html</option>
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_PRODUCT_IMAGE }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>صورة المنتج</option>
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_FIXED_IMAGE }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>صورة ثابتة</option>
+							</select>
+						</div>
+
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">اللون </span>
+							</div>
+
+							@php($selected = old('color_config', $option->color_config))
+							<select name="color_config" id="color_config" class="form-control">
+								<option value="{{ $color_config = \App\Models\Option::COLOR_DEFAULT }}" 
+									{{ $selected == $color_config ? 'selected' : '' }}>الإفتراضي</option>
+								<option value="{{ $color_config = \App\Models\Option::COLOR_CUSTOM }}" 
+									{{ $selected == $color_config ? 'selected' : '' }}>مخصص</option>
+							</select>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer"> 

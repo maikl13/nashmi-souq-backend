@@ -18,6 +18,8 @@ class CreateOptionsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->json('categories')->nullable();
+            $table->tinyInteger('preview_config')->default(1);
+            $table->tinyInteger('color_config')->default(1);
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@
             @method('put')
             <div class="form-group">
                 <label for="product_title" class="form-control-label"> الاسم :</label>
-                <input type="text" class="form-control text-right" id="product_title" name="product_title" value="{{ old('product_title') ?? $product->title }}" required>
+                <input type="text" class="form-control text-right" id="product_title" name="product_title" value="{{ old('product_title') ?? $product->getAttributes()['title'] }}" required>
             </div>
             <div class="form-group">
                 <label for="initial_price" class="form-control-label"> السعر :</label>
@@ -180,6 +180,32 @@
             $('.sub-categories-select2').select2(subCategoriesSelect2Options);
             var cascadLoadingSubCategories = new Select2Cascade($('.category-select'), $('.sub-category-select'), subCategoriesApiUrl, CategoriesSelect2Options, subCategoriesSelect2Options);
         });
+
+		$(document).ready(function(){
+			load_options();
+		});
+
+		$(document).on('change', '.category-select, .sub-category-select', function(){
+			load_options();
+		});
+
+		function load_options() {
+			var subCategorySlug = $('.sub-category-select').val();
+			var categorySlug = $('.category-select').val();
+			var categorySlug = subCategorySlug ? subCategorySlug : categorySlug;
+
+			$.get({
+				url: '/api/categories/'+categorySlug+'/options',
+				success: function(data) {
+					if (data) {
+						$('.options-container').show();
+						$('.option.d-none select.option-name').html(data);
+					} else {
+						$('.options-container').hide();
+					}
+				}
+			})
+		}
         
 		$(document).on('click', '.add-option', function(e){
 			e.preventDefault();

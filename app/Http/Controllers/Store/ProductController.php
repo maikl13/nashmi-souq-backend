@@ -183,8 +183,8 @@ class ProductController extends Controller
         $product->initial_price = $request->initial_price;
         $product->price = isset($request->price) && $request->price != null ? $request->price : $product->initial_price;
         $product->currency_id = $request->currency;
-        $slug = Str::slug($request->product_title);
-        $product->slug = optional(Product::where('slug', $slug)->first())->id != $product->id ? $slug.'-'.uniqid() : $slug;
+        // $slug = Str::slug($request->product_title);
+        // $product->slug = optional(Product::where('slug', $slug)->first())->id != $product->id ? $slug.'-'.uniqid() : $slug;
         $product->description = $request->description;
         $product->user_id = Auth::user()->id;
         $category = Category::where('slug', $request->category)->first();

@@ -18,6 +18,7 @@
                             $value = [];
                             $value['value'] = $v;
                             $value['url'] = $p->url();
+                            $value['image'] = $p->product_image(['size' => 'xxxs']);
                             $options[$option][] = $value;
                             $added_values[] = $v->id;
                             $used_ps[] = $p->id;
@@ -95,42 +96,41 @@
                                         {{-- <li><i class="far fa-eye"></i>{{ $product->views }} مشاهدة</li> --}}
                                     </ul>
                                 </div>
+                                
                                 <div class="item-details text-break">
                                     <div class="tab-content pt-0">
                                         <div class="tab-pane fade show active" id="details" role="tabpanel">
-
-
-
-
-
-
-
-
-
                                             {{-- Options --}}
                                             @foreach ($options as $option => $values)
                                                 @if ($option = App\Models\Option::find($option))
-                                                    <div class="mb-2">
-                                                        <strong class="mb-1 ml-2">{{ $option->name }} :</strong>
-                                                        @foreach ($values as $value)
-                                                            @php
-                                                                $option_value = $value['value']
-                                                            @endphp
-                                                            @if (sizeof($values) == 1)
-                                                                <span>{{ $option_value->name }}</span>
-                                                            @elseif (in_array($option_value->id, $product->options['values']))
-                                                                <span class="btn btn-sm btn-secondary">{{ $option_value->name }}</span>
-                                                            @else
-                                                                <a href="{{ $value['url'] }}" class="btn btn-sm btn-default">{{ $option_value->name }}</a>
-                                                            @endif
-                                                        @endforeach
+                                                    <div class="mb-4 d-flex align-items-center">
+                                                        <strong class="ml-2">{{ $option->name }} :</strong>
+                                                        <div class="d-inline-flex" style="position: relative; top: 5px; gap: 7px;">
+                                                            @foreach ($values as $value)
+                                                                @php
+                                                                    $option_value = $value['value'];
+                                                                    $id = $option_value->id;
+                                                                @endphp
+                                                                <div class="d-inline-flex" title="{{ $option_value->name }}">
+                                                                    <?php $option_value_product_image = $value['image']; ?>
+                                                                    @if (in_array($option_value->id, $product->options['values']))
+                                                                        <span class="text-center d-inline-flex flex-column">
+                                                                            @include('admin.option_values.partials.preview')
+                                                                            <div class="px-1" style="margin-top: 2px;">
+                                                                                <div class="rounded-lg mx-auto" style="background: #888; padding: 2px; max-width: 15px;"></div>
+                                                                            </div>
+                                                                        </span>
+                                                                    @else
+                                                                        <a href="{{ $value['url'] }}">
+                                                                            @include('admin.option_values.partials.preview')
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
                                                 @endif
                                             @endforeach
-
-
-
-
 
                                             <p style="white-space: pre-line;">{{ $product->description }}</p>
                                             @php

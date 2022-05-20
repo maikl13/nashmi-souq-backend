@@ -32,6 +32,8 @@ class OptionValueController extends Controller
     {
         $request->validate([
             'name' => 'required|min:1|max:255',
+            'preview_config' => 'required|in:'.implode(',', [Option::PREVIEW_NAME, Option::PREVIEW_NONE, Option::PREVIEW_HTML, Option::PREVIEW_FIXED_IMAGE, Option::PREVIEW_PRODUCT_IMAGE]),
+            'color_config' => 'required|in:'.implode(',', [Option::COLOR_DEFAULT, Option::COLOR_CUSTOM]),
         ]);
 
         $option_value = new OptionValue;
@@ -39,8 +41,16 @@ class OptionValueController extends Controller
         $slug = Str::slug($request->name);
         $option_value->slug = OptionValue::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
         $option_value->option_id = $request->option_id;
+        $option_value->preview_config = $request->preview_config;
+        $option_value->color_config = $request->color_config;
+        $option_value->color = $request->color;
+        $option_value->html = $request->html;
 
         if($option_value->save()){
+            if ($option_value->preview_config == Option::PREVIEW_FIXED_IMAGE) {
+                $option_value->upload_option_value_image($request->file('image'));
+            }
+
             return response()->json('تم الحفظ بنجاح!', 200);
         }
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
@@ -71,13 +81,23 @@ class OptionValueController extends Controller
     {
         $request->validate([
             'name' => 'required|min:1|max:255',
+            'preview_config' => 'required|in:'.implode(',', [Option::PREVIEW_NAME, Option::PREVIEW_NONE, Option::PREVIEW_HTML, Option::PREVIEW_FIXED_IMAGE, Option::PREVIEW_PRODUCT_IMAGE]),
+            'color_config' => 'required|in:'.implode(',', [Option::COLOR_DEFAULT, Option::COLOR_CUSTOM]),
         ]);
 
         $option_value->name = $request->name;
         $slug = Str::slug($request->name);
         $option_value->slug = OptionValue::where('slug', $slug)->where('id', '!=', $option_value->id)->count() ? $slug.'-'.uniqid() : $slug;
+        $option_value->preview_config = $request->preview_config;
+        $option_value->color_config = $request->color_config;
+        $option_value->color = $request->color;
+        $option_value->html = $request->html;
 
         if($option_value->save()){
+            if ($option_value->preview_config == Option::PREVIEW_FIXED_IMAGE) {
+                $option_value->upload_option_value_image($request->file('image'));
+            }
+            
             return redirect()->route('option_values', $option_value->option)->with('success', 'تم تعديل البيانات بنجاح.');
         }
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');

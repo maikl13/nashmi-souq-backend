@@ -88,6 +88,7 @@ class Category extends Model
         $options = array_merge($options);
         return $this->image($this->image, $options);
     }
+    
     public function upload_category_image($file){
         return $this->upload_file($file, 'image', ['ext'=>'jpg','w'=>256, 'h'=>256, 'allowed'=>['o', '', 's', 'xs', 'xxs', 'l']]);
     }

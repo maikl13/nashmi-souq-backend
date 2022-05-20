@@ -24,7 +24,9 @@ class OptionValuesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('option', function($record){ return $record->option->name; })
-            ->addColumn('action', 'admin.option_values.partials.action');
+            ->addColumn('preview', 'admin.option_values.partials.preview')
+            ->addColumn('action', 'admin.option_values.partials.action')
+            ->rawColumns(['preview', 'action']);
     }
 
     /**
@@ -59,10 +61,8 @@ class OptionValuesDataTable extends DataTable
             Column::make('id'),
             Column::make('name')->title('الاسم'),
             Column::make('slug')->title('المعرف'),
-            Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+            Column::computed('preview')->width(100)->addClass('text-center')->searchable(false)->title('معاينة'),
+            Column::computed('action')->width(60)->addClass('text-center')->searchable(false)->title('⚙'),
         ];
     }
 

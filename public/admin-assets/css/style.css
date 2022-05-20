@@ -6790,3 +6790,7 @@ ul.label-inbox li a:hover, ul.label-inbox li.active a, ul.label-inbox li a:focus
 .min-w-100 {min-width: 100px;}
 .min-w-150 {min-width: 150px;}
 .min-w-200 {min-width: 200px;}
+
+.input-group-text {
+    border-color: #f0f0f2;
+}

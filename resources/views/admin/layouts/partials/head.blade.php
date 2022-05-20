@@ -8,7 +8,7 @@
 <!--Icons css-->
 <link rel="stylesheet" href="/admin-assets/css/icons.css">
 <!--Style css-->
-<link rel="stylesheet" href="/admin-assets/css/style.css?v=1.1">
+<link rel="stylesheet" href="/admin-assets/css/style.css?v=1.2">
 <!--mCustomScrollbar css-->
 <link rel="stylesheet" href="/admin-assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
 <!--Sidemenu css-->
@@ -26,5 +26,5 @@
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=El+Messiri&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/admin-assets/css/rtl.css" >
+	<link rel="stylesheet" href="/admin-assets/css/rtl.css?v=1.1" >
 @endif

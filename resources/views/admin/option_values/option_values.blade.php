@@ -27,11 +27,13 @@
 
 @section('modals')
 	@include('admin.option_values.partials.add-modal')
-@endsection
-
-@section('scripts')
+	@endsection
+	
+	@section('scripts')
 	<script> $("[type=file]").fileinput(fileInputOptions); </script>
 	{!! $dataTable->scripts() !!}
 	<script> var records = 'option_values'; </script>
 	<script src="/admin-assets/js/ajax/crud.js"></script>
+	
+	@include('admin.option_values.partials.update-fields')
 @endsection

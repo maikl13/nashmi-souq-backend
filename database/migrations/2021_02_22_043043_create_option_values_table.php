@@ -19,6 +19,11 @@ class CreateOptionValuesTable extends Migration
             $table->string('slug')->unique();
             $table->bigInteger('option_id')->unsigned();
             $table->foreign('option_id')->references('id')->on('options')->onDelete('cascade');
+            $table->tinyInteger('preview_config')->default(1);
+            $table->tinyInteger('color_config')->default(1);
+            $table->string('color')->nullable();
+            $table->longText('html')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

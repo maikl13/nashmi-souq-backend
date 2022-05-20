@@ -18,7 +18,7 @@
 					</div>
 					<div class="form-group">
 						<label for="name" class="form-control-label"> الأقسام :</label>
-						<select name="categories[]" id="categories" class=" select2" style="width: 100%;" required multiple>
+						<select name="categories[]" id="categories" class="select2" style="width: 100%;" required multiple>
 							<option value=""> - </option>
 							@foreach (App\Models\Category::whereNull('category_id')->get() as $category)
 								<option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -31,6 +31,42 @@
 								@endforeach
 							@endforeach
 						</select>
+					</div>
+					<div class="form-group">
+						<label for="preview_config" class="form-control-label"> طريقة العرض :</label>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">عرض</span>
+							</div>
+
+							@php($selected = old('preview_config'))
+							<select name="preview_config" id="preview_config" class="form-control">
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_NAME }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>الاسم</option>
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_NONE }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>لا شيء</option>
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_HTML }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>Html</option>
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_PRODUCT_IMAGE }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>صورة المنتج</option>
+								<option value="{{ $preview_config = \App\Models\Option::PREVIEW_FIXED_IMAGE }}" 
+									{{ $selected == $preview_config ? 'selected' : '' }}>صورة ثابتة</option>
+							</select>
+						</div>
+
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">اللون </span>
+							</div>
+
+							@php($selected = old('color_config'))
+							<select name="color_config" id="color_config" class="form-control">
+								<option value="{{ $color_config = \App\Models\Option::COLOR_DEFAULT }}" 
+									{{ $selected == $color_config ? 'selected' : '' }}>الإفتراضي</option>
+								<option value="{{ $color_config = \App\Models\Option::COLOR_CUSTOM }}" 
+									{{ $selected == $color_config ? 'selected' : '' }}>مخصص</option>
+							</select>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">

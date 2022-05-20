@@ -32,6 +32,8 @@ class OptionController extends Controller
             'name' => 'required|min:1|max:255',
             'categories' => 'required|min:1',
             'categories.*' => 'exists:categories,id',
+            'preview_config' => 'required|in:'.implode(',', [Option::PREVIEW_NAME, Option::PREVIEW_NONE, Option::PREVIEW_HTML, Option::PREVIEW_FIXED_IMAGE, Option::PREVIEW_PRODUCT_IMAGE]),
+            'color_config' => 'required|in:'.implode(',', [Option::COLOR_DEFAULT, Option::COLOR_CUSTOM]),
         ]);
 
         $option = new Option;
@@ -39,6 +41,8 @@ class OptionController extends Controller
         $slug = Str::slug($request->name);
         $option->slug = Option::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
         $option->categories = $request->categories;
+        $option->preview_config = $request->preview_config;
+        $option->color_config = $request->color_config;
 
         if($option->save()){
             return response()->json('تم الحفظ بنجاح!', 200);
@@ -71,12 +75,16 @@ class OptionController extends Controller
             'name' => 'required|min:1|max:255',
             'categories' => 'required|min:1',
             'categories.*' => 'exists:categories,id',
+            'preview_config' => 'required|in:'.implode(',', [Option::PREVIEW_NAME, Option::PREVIEW_NONE, Option::PREVIEW_HTML, Option::PREVIEW_FIXED_IMAGE, Option::PREVIEW_PRODUCT_IMAGE]),
+            'color_config' => 'required|in:'.implode(',', [Option::COLOR_DEFAULT, Option::COLOR_CUSTOM]),
         ]);
 
         $option->name = $request->name;
         $slug = Str::slug($request->name);
         $option->slug = Option::where('slug', $slug)->where('id', '!=', $option->id)->count() ? $slug.'-'.uniqid() : $slug;
         $option->categories = $request->categories;
+        $option->preview_config = $request->preview_config;
+        $option->color_config = $request->color_config;
 
         if($option->save()){
             return redirect()->route('options')->with('success', 'تم تعديل البيانات بنجاح.');

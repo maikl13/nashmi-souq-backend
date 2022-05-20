@@ -63,14 +63,16 @@ trait FileHandler {
                 }
 
                 if($prefix != 'o')
-                    if(isset($options['watermark']) && $options['watermark']){
-                        $watermark = Image::make(public_path(setting('footer_logo')));
-                        $height = round(($image->height() + $image->width()) / 25);
-                        $width = null;
-                        $padding = $image->height() < $image->width() ? round($image->height()/30) : round($image->width()/30);
-                        $watermark = $watermark->resize($width, $height, function ($c) { $c->aspectRatio();})->opacity(55);
-                        $image->insert($watermark, 'bottom-right', $padding, $padding);
-                    }
+                    try {
+                        if(isset($options['watermark']) && $options['watermark']){
+                            $watermark = Image::make(public_path(setting('footer_logo')));
+                            $height = round(($image->height() + $image->width()) / 25);
+                            $width = null;
+                            $padding = $image->height() < $image->width() ? round($image->height()/30) : round($image->width()/30);
+                            $watermark = $watermark->resize($width, $height, function ($c) { $c->aspectRatio();})->opacity(55);
+                            $image->insert($watermark, 'bottom-right', $padding, $padding);
+                        }
+                    } catch (\Throwable $th) {/*_*/}
                 
                 foreach(['webp', $ext] as $extension){
                     $filename = $prefix.$uid.".".$extension;
