@@ -37,10 +37,10 @@ class OrderRecieved extends Notification implements ShouldQueue
         return [
             'مرحبا بك!', 
             'لديك طلب جديد بقيمة '. $this->order->price . ' '. $this->order->currency->symbol . ' من المشتري "'. $this->order->buyer_name. '"',
-            '',
+            ' ',
             'معاينة الطلبات',
             route('orders', $this->order->store->store_slug),
-            '',
+            ' ',
             'مع التحية,',
             setting('website_name')
         ];

@@ -37,11 +37,11 @@ class AdminNotificationSubmitted extends Notification implements ShouldQueue
     {
         $msg = [];
         $msg[] = 'مرحبا بك!';
-        $msg[] = '';
+        $msg[] = ' ';
         foreach (explode(PHP_EOL, $this->message) as $line) {
             $msg[] = $line;
         }
-        $msg[] = '';
+        $msg[] = ' ';
         $msg[] = 'مع التحية,';
         $msg[] = setting('website_name');
 

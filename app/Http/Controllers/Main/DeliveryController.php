@@ -31,21 +31,23 @@ class DeliveryController extends Controller
 
         $phone = auth()->user()->country->delivery_phone ? auth()->user()->country->delivery_phone : setting('delivery_phone');
         if(!$phone) return redirect()->back()->with(['failure' => 'حدث خطأ ما من فضلك قم بالمحاولة في وقت لاحق']);
-        $br = "
-";
-        $msg = 'طلب شحن جديد من سوق نشمي'.$br.$br;
 
-        $msg .= 'البائع: '. auth()->user()->name.$br;
-        $msg .= 'رقم هاتف البائع: '. $request->seller_phone.$br;
-        $msg .= 'عنوان الاستلام: '. $request->seller_address.$br.$br;
+        $msg = 'طلب شحن جديد من سوق نشمي'.PHP_EOL;
+        $msg .= ' '.PHP_EOL;
 
-        $msg .= 'اسم العميل: '. $request->buyer_name.$br;
-        $msg .= 'رقم هاتف العميل: '. $request->buyer_phone.$br;
-        $msg .= 'عنوان التسليم: '. $request->buyer_address.$br.$br;
+        $msg .= 'البائع: '. auth()->user()->name.PHP_EOL;
+        $msg .= 'رقم هاتف البائع: '. $request->seller_phone.PHP_EOL;
+        $msg .= 'عنوان الاستلام: '. $request->seller_address.PHP_EOL;
+        $msg .= ' '.PHP_EOL;
 
-        $msg .= 'نوع الشحنة: '. $request->package.$br;
-        $msg .= 'الكمية: '. $request->amount.$br;
-        $msg .= 'سعر الطلب: '. $request->price.$br;
+        $msg .= 'اسم العميل: '. $request->buyer_name.PHP_EOL;
+        $msg .= 'رقم هاتف العميل: '. $request->buyer_phone.PHP_EOL;
+        $msg .= 'عنوان التسليم: '. $request->buyer_address.PHP_EOL;
+        $msg .= ' '.PHP_EOL;
+
+        $msg .= 'نوع الشحنة: '. $request->package.PHP_EOL;
+        $msg .= 'الكمية: '. $request->amount.PHP_EOL;
+        $msg .= 'سعر الطلب: '. $request->price.PHP_EOL;
         $msg .= 'بيانات إضافية: '. $request->details;
 
         $this->send_whatsapp_message($phone, $msg);

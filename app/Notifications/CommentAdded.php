@@ -41,10 +41,10 @@ class CommentAdded extends Notification implements ShouldQueue
     {
         return [
             'مرحبا بك!', 
-            '',
+            ' ',
             ($this->comment->reply_on ? 'رد' : 'تعليق') . ' جديد' . ' على الاعلان "' . $this->comment->commentable->title . '"',
             url($this->comment->commentable->url()),
-            '',
+            ' ',
             'مع التحية,',
             setting('website_name')
         ];
