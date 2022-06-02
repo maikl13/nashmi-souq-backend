@@ -21,7 +21,7 @@ class WhatsAppChatApiChannel
         foreach ($notification->toWhatsApp($notifiable) as $line)
             $message .= $line . PHP_EOL;
 
-        Http::post(env('CHAT_API_URL'), [
+        Http::post(env('CHAT_API_MESSAGE_URL'), [
             'body' => $message,
             'phone' => $notifiable->phone,
         ]);

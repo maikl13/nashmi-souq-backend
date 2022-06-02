@@ -29,28 +29,29 @@ class DeliveryController extends Controller
             'details' => 'max:1500',
         ]);
 
-        $phone = auth()->user()->country->delivery_phone ? auth()->user()->country->delivery_phone : setting('delivery_phone');
-        if(!$phone) return redirect()->back()->with(['failure' => 'حدث خطأ ما من فضلك قم بالمحاولة في وقت لاحق']);
+        $country = auth()->user()->country;
+        $phone = optional($country)->delivery_phone ? $country->delivery_phone : setting('delivery_phone');
 
-        $msg = 'طلب شحن جديد من سوق نشمي'.PHP_EOL;
-        $msg .= ' '.PHP_EOL;
+        if(!$phone) 
+            return redirect()->back()->with([
+                'failure' => 'حدث خطأ ما من فضلك قم بالمحاولة في وقت لاحق'
+            ]);
 
-        $msg .= 'البائع: '. auth()->user()->name.PHP_EOL;
-        $msg .= 'رقم هاتف البائع: '. $request->seller_phone.PHP_EOL;
-        $msg .= 'عنوان الاستلام: '. $request->seller_address.PHP_EOL;
-        $msg .= ' '.PHP_EOL;
-
-        $msg .= 'اسم العميل: '. $request->buyer_name.PHP_EOL;
-        $msg .= 'رقم هاتف العميل: '. $request->buyer_phone.PHP_EOL;
-        $msg .= 'عنوان التسليم: '. $request->buyer_address.PHP_EOL;
-        $msg .= ' '.PHP_EOL;
-
-        $msg .= 'نوع الشحنة: '. $request->package.PHP_EOL;
-        $msg .= 'الكمية: '. $request->amount.PHP_EOL;
-        $msg .= 'سعر الطلب: '. $request->price.PHP_EOL;
-        $msg .= 'بيانات إضافية: '. $request->details;
-
-        $this->send_whatsapp_message($phone, $msg);
+        $this->send_whatsapp_template($phone, 'shipping', [[
+            "type" => "body", 
+            "parameters" => [
+                ["type" => "text", "text" => auth()->user()->name],
+                ["type" => "text", "text" => $request->seller_phone],
+                ["type" => "text", "text" => $request->seller_address],
+                ["type" => "text", "text" => $request->buyer_name],
+                ["type" => "text", "text" => $request->buyer_phone],
+                ["type" => "text", "text" => $request->buyer_address],
+                ["type" => "text", "text" => $request->package],
+                ["type" => "text", "text" => $request->amount],
+                ["type" => "text", "text" => $request->price],
+                ["type" => "text", "text" => $request->details],
+            ] 
+        ]]);
 
         return redirect()->back()->with(['success' => 'تم ارسال الطلب بنجاح']);
     }
