@@ -62,7 +62,7 @@ class ListingsDataTable extends DataTable
         }
 
         if(isset(request()->columns[6]['search']['value']) && is_integer((int)request()->columns[6]['search']['value'])){
-            $country = Country::where('id', request()->columns[5]['search']['value'])->first();
+            $country = Country::where('id', request()->columns[6]['search']['value'])->first();
             $query = $country ? $query->whereIn('state_id', $country->states()->pluck('id')->toArray()) : $query;
         }
 
