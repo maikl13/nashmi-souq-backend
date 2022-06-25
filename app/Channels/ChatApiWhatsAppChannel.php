@@ -5,7 +5,7 @@ namespace App\Channels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Notifications\Notification;
 
-class WhatsAppChatApiChannel
+class ChatApiWhatsAppChannel
 {
     /**
      * Send the given notification.
@@ -18,7 +18,7 @@ class WhatsAppChatApiChannel
     {
         $message = '';
 
-        foreach ($notification->toWhatsApp($notifiable) as $line)
+        foreach ($notification->toChatApiWhatsApp($notifiable) as $line)
             $message .= $line . PHP_EOL;
 
         Http::post(env('CHAT_API_MESSAGE_URL'), [

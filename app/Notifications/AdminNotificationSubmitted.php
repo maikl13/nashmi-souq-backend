@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use App\Channels\WhatsAppChatApiChannel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -33,7 +32,7 @@ class AdminNotificationSubmitted extends Notification implements ShouldQueue
         return $msg;
     }
 
-    public function toWhatsApp($notifiable)
+    public function toMessage($notifiable)
     {
         $msg = [];
         $msg[] = 'مرحبا بك!';
@@ -46,5 +45,15 @@ class AdminNotificationSubmitted extends Notification implements ShouldQueue
         $msg[] = setting('website_name');
 
         return $msg;
+    }
+
+    public function toTwilioSMS($notifiable)
+    {
+        return $this->toMessage($notifiable);
+    }
+
+    public function toChatApiWhatsApp($notifiable)
+    {
+        return $this->toMessage($notifiable);
     }
 }

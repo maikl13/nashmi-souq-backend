@@ -24,6 +24,7 @@
         "pusher/pusher-php-server": "^4.1",
         "srmklive/paypal": "~1.0",
         "stevebauman/location": "^5.0",
+        "twilio/sdk": "^6.37",
         "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Models\Listing;
-use Illuminate\Http\Request;
+use Twilio\Rest\Client;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -46,11 +46,15 @@ class MainController extends Controller
 
     public function test()
     {
-        $base = 'USD';
-        $currency1 = 'EGP';
-        $currency2 = 'USD';
-        return cache()->get($currency1.'/'.$currency2);
-        die();
+        // $sid    = "AC4d054e9be947b96f2078aa6c9666fb19"; 
+        // $token  = "cd5cbf750833ef37b38f0eb62e50ccd5"; 
+        // $twilio = new Client($sid, $token); 
+        // $message = $twilio->messages->create("+201114587245", [
+        //     "messagingServiceSid" => "MGfd46f7144ec5e71cad3ab9e2a8f24e68",      
+        //     "body" => "test" 
+        // ]); 
+
+        // print($message->sid);
     }
 
 

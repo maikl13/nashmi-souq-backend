@@ -4,21 +4,20 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Traits\SendWhatsappMessage;
 
 class DeliveryController extends Controller
 {
-    use SendWhatsappMessage;
-
     // Show Delivery request Form for the seller
     public function show()
     {
+        abort(403, 'خدمة الشحن متوقفة في الوقت الحالي');
         return view('main.store.deliver');
     }
 
     // Send Delivery Request To Delivery Company (Nashmi) Via Whatsapp
     public function send(Request $request)
     {
+        abort(403, 'خدمة الشحن متوقفة في الوقت الحالي');
         $request->validate([
             'seller_phone' => 'required|max:20',
             'seller_address' => 'required|max:300',
@@ -36,7 +35,7 @@ class DeliveryController extends Controller
             return redirect()->back()->with([
                 'failure' => 'حدث خطأ ما من فضلك قم بالمحاولة في وقت لاحق'
             ]);
-
+        
         $this->send_whatsapp_template($phone, 'shipping', [[
             "type" => "body", 
             "parameters" => [

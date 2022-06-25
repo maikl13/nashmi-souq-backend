@@ -15,8 +15,8 @@
                                 <i class="fa fa-check-circle" style="font-size: 30px; opacity: .6;"></i>
                             </div>
                             <div class="media-body">
-                                لقد قمت بالتسجيل بنجاح من فضلك تفقد حسابك على واتساب, <br>
-                                لقد قمنا بإرسال رسالة تحتوي على كلمة مرور مؤقتة ستتمكن من خلالها الدخول لحسابك.
+                                لقد قمت بالتسجيل بنجاح, <br>
+                                لقد قمنا بإرسال رسالة لرقم هاتفك تحتوي على كلمة مرور مؤقتة ستتمكن من خلالها الدخول لحسابك.
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
             </div>
         @endif
 
-        @if (session('reset'))
+        @if (session('resetbyotp'))
             <div class="form-group row">
                 <div class="col">
                     <div class="alert alert-warning">
@@ -33,20 +33,19 @@
                                 <i class="fa fa-info-circle" style="font-size: 30px; opacity: .6;"></i>
                             </div>
                             <div class="media-body">
-                                من فضلك قم بتفقد حسابك على واتساب, <br>
-                                لقد قمنا بإرسال رسالة تحتوي على كلمة مرور مؤقتة ستتمكن من خلالها الدخول لحسابك.
+                                لقد قمنا بإرسال رسالة لرقم هاتفك تحتوي على كلمة مرور مؤقتة ستتمكن من خلالها الدخول لحسابك.
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         @endif
-        
+
         <div class="form-group row">
             <label for="phoneoremail" class="col-md-4 col-form-label text-md-right">الهاتف أو البريد الالكتروني</label>
 
             <div class="col-md-8">
-                <input id="phoneoremail" type="text" class="form-control @error('phoneoremail') is-invalid @enderror" name="phoneoremail" value="{{ old('phoneoremail') }}" required autocomplete="phoneoremail" autofocus dir="ltr">
+                <input id="phoneoremail" type="text" class="form-control @error('phoneoremail') is-invalid @enderror" name="phoneoremail" value="{{ old('phoneoremail', request()->phoneoremail) }}" required autocomplete="phoneoremail" autofocus dir="ltr">
 
                 @error('phoneoremail')
                     <span class="invalid-feedback" role="alert">

@@ -61,10 +61,9 @@ class ForgotPasswordController extends Controller
 
 
         if($user){
-            $user->generate_otp();
             $user->send_otp(true);
 
-            return redirect()->route('login')->withInput(['phoneoremail' => $user->phoneoremail])->with('resetbyotp', true);
+            return redirect()->route('login')->withInput(['phoneoremail' => $request->phoneoremail])->with('resetbyotp', true);
         } else {
             return redirect()->back()->with('failure', 'بيانات الاعتماد غير مسجلة لدينا!');
         }

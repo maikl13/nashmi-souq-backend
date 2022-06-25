@@ -44,5 +44,12 @@ return [
         'entity_id' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_ENTITY_ID') :  env('HYPERPAY_LIVE_ENTITY_ID'),
         'mada_entity_id' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_MADA_ENTITY_ID') :  env('HYPERPAY_LIVE_MADA_ENTITY_ID'),
         'ssl' => env('HYPERPAY_MODE') == 'test' ? env('HYPERPAY_TEST_SSL') :  env('HYPERPAY_LIVE_SSL'),
-    ]
+    ],
+    
+    'twilio' => [
+        'sid' => env('TWILIO_AUTH_SID'),
+        'token' => env('TWILIO_AUTH_TOKEN'),
+        'messaging_service_sid' => env('TWILIO_MESSAGING_SERVICE_SID'),
+        'whatsapp_from' => env('TWILIO_WHATSAPP_FROM'),
+    ],
 ];

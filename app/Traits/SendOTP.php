@@ -2,24 +2,16 @@
 
 namespace App\Traits;
 
-use Illuminate\Http\Request;
+use App\Notifications\OTPGenerated;
 
 trait SendOTP {
-    public function generate_otp()
+
+    public function send_otp($reset)
     {
         $this->otp = $this->otp ?? rand(100100, 999000);
         $this->save();
-    }
+        
 
-    public function send_otp($reset=false)
-    {
-        $this->send_whatsapp_template($this->phone, 'otp', [
-            [
-                "type" => "body", 
-                "parameters" => [
-                    ["type" => "text", "text" => $this->otp]
-                ] 
-            ]
-        ]);
+        $this->notify(new OTPGenerated($reset));
     }
 }

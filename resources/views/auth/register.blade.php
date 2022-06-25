@@ -52,7 +52,7 @@
         <div class="row mb-4">
             @php($active = old('registration_method', 'phone'))
             <button class="registeration-method col btn btn-{{ $active == 'phone' ? 'danger' : 'default' }} btn-block m-0 rounded-0 p-3" data-method="phone">
-                التسجيل بحساب الواتساب
+                التسجيل برقم الهاتف المحمول
             </button>
             <button class="registeration-method col btn btn-{{ $active == 'email' ? 'danger' : 'default' }} btn-block m-0 rounded-0 p-3" data-method="email">
                 التسجيل بالبريد الالكتروني
@@ -149,7 +149,7 @@
                             <i class="fa fa-info-circle" style="font-size: 30px; opacity: .6;"></i>
                         </div>
                         <div class="media-body">
-                            بمجرد التسجيل سيتم إرسال رسالة على حساب الواتساب الخاص بك تحتوي على كلمة سر مؤقتة ستتمكن من خلالها الولوج لحسابك, و بعدها ستتمكن من تغيير كلمة السر إن رغبت في ذلك.
+                            بمجرد التسجيل سيتم إرسال رسالة لرقم هاتفك المحمول بك تحتوي على كلمة سر مؤقتة ستتمكن من خلالها الولوج لحسابك, و بعدها ستتمكن من تغيير كلمة السر إن رغبت في ذلك.
                         </div>
                     </div>
                 </div>

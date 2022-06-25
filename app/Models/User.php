@@ -10,13 +10,12 @@ use App\Traits\StoreInfo;
 use App\Traits\FileHandler;
 use App\Traits\ChatHandler;
 use App\Traits\ManageTransactions;
-use App\Traits\SendWhatsappMessage;
 use App\Traits\SendOTP;
 use App\Traits\ExchangeCurrency;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendWhatsappMessage, SendOTP, ExchangeCurrency;
+    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendOTP, ExchangeCurrency;
 
     const ROLE_USER = 1;
     const ROLE_SUPERADMIN = 2;

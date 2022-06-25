@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use App\Channels\WhatsAppChatApiChannel;
+use App\Channels\TwilioSMSChannel;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -21,7 +21,7 @@ class OrderRecieved extends Notification implements ShouldQueue
 
     public function via($notifiable)
     {
-        return ['mail', WhatsAppChatApiChannel::class];
+        return ['mail', TwilioSMSChannel::class];
     }
 
     public function toMail($notifiable)
@@ -32,7 +32,7 @@ class OrderRecieved extends Notification implements ShouldQueue
                     ->action('معاينة الطلبات', route('orders', $this->order->store->store_slug));
     }
 
-    public function toWhatsApp($notifiable)
+    public function toMessage($notifiable)
     {
         return [
             'مرحبا بك!', 
@@ -44,5 +44,15 @@ class OrderRecieved extends Notification implements ShouldQueue
             'مع التحية,',
             setting('website_name')
         ];
+    }
+
+    public function toTwilioSMS($notifiable)
+    {
+        return $this->toMessage($notifiable);
+    }
+
+    public function toChatApiWhatsApp($notifiable)
+    {
+        return $this->toMessage($notifiable);
     }
 }
