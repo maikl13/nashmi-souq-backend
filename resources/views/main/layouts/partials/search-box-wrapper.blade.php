@@ -1,4 +1,4 @@
-<div class="search-box-wrapper d-lg-block w-100" style="display: none; z-index: 20; height: 100%; background: rgba(0,0,0,0.3);">
+<div class="search-box-wrapper {{ request()->routeIs('home') ? 'd-lg-block' : 'd-lg-none' }} w-100" style="display: none; z-index: 20; height: 100%; background: rgba(0,0,0,0.3);">
     <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common py-3 py-lg-5" 
         data-bg-image="/assets/images/banner/banner1.jpg">
         <div class="container py-lg-5">
