@@ -34,17 +34,19 @@
                                     </a>
                                 @endif
                                 @if (request()->store->store_email)
-                                    <a href="mailto:{{ request()->store->store_email }}" class="d-inline-block mx-2" style="color: #a4a4a4;">
+                                    <a href="mailto:{{ request()->store->store_email }}" class="d-inline-block mx-2" 
+                                        style="color: #a4a4a4;">
                                         <i class="fas fa-envelope mx-1"></i> {{ request()->store->store_email }}
                                     </a>
                                 @endif
                                 @if (request()->store->store_phone)
-                                    <a href="tel:{{ request()->store->store_phone }}" class="d-inline-block mx-2" style="color: #a4a4a4;">
+                                    <a href="tel:{{ str_replace([' ', '(', ')'], '', request()->store->store_phone) }}" 
+                                        class="d-inline-block mx-2" style="color: #a4a4a4;">
                                         <i class="fas fa-phone mx-1"></i> <span dir="ltr">{{ request()->store->store_phone }}</span>
                                     </a>
                                 @endif
                                 @if (request()->store->store_whatsapp)
-                                    <a href="https://wa.me/{{ str_replace(['+', ' '], ['', ''], request()->store->store_whatsapp) }}" class="d-inline-block mx-2" style="color: #a4a4a4;">
+                                    <a href="https://wa.me/{{ str_replace(['+', ' ', '(', ')'], '', request()->store->store_whatsapp) }}" class="d-inline-block mx-2" style="color: #a4a4a4;">
                                         <i class="fab fa-whatsapp mx-1"></i> <span dir="ltr">{{ request()->store->store_whatsapp }}</span>
                                     </a>
                                 @endif
