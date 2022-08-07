@@ -12,8 +12,8 @@
                         </div>
                         <div class="clearfix"></div>
                         <p class="text-justify p-4 p-sm-0" style="text-align-last: center;">{{ request()->store->store_description }}</p>
+
                         <ul class="footer-social">
-                            
                             @if(request()->store->store_social_accounts && is_array( json_decode(request()->store->store_social_accounts) ))
                                 <div class="mt-3 text-center">
                                     @foreach (json_decode(request()->store->store_social_accounts) as $social_account)
@@ -27,16 +27,28 @@
                                 @endforeach
                                 </div>
                             @endif
-                            @if(request()->store->store_website)
-                                <a href="{{ request()->store->store_website }}" class="d-block" style="color: #eee;">
-                                    <i class="fas fa-globe-asia"></i> {{ request()->store->store_website }}
-                                </a>
-                            @endif
-                            @if (request()->store->store_email)
-                                <a href="mailto:{{ request()->store->store_email }}" class="d-block" style="color: #a4a4a4;">
-                                    <i class="fas fa-envelope"></i> {{ request()->store->store_email }}
-                                </a>
-                            @endif
+                            <div class="mt-4 d-block">
+                                @if(request()->store->store_website)
+                                    <a href="{{ request()->store->store_website }}" class="d-block my-2" style="color: #eee;">
+                                        <i class="fas fa-globe-asia mx-1"></i> {{ request()->store->store_website }}
+                                    </a>
+                                @endif
+                                @if (request()->store->store_email)
+                                    <a href="mailto:{{ request()->store->store_email }}" class="d-inline-block mx-2" style="color: #a4a4a4;">
+                                        <i class="fas fa-envelope mx-1"></i> {{ request()->store->store_email }}
+                                    </a>
+                                @endif
+                                @if (request()->store->store_phone)
+                                    <a href="tel:{{ request()->store->store_phone }}" class="d-inline-block mx-2" style="color: #a4a4a4;">
+                                        <i class="fas fa-phone mx-1"></i> <span dir="ltr">{{ request()->store->store_phone }}</span>
+                                    </a>
+                                @endif
+                                @if (request()->store->store_whatsapp)
+                                    <a href="https://wa.me/{{ str_replace(['+', ' '], ['', ''], request()->store->store_whatsapp) }}" class="d-inline-block mx-2" style="color: #a4a4a4;">
+                                        <i class="fab fa-whatsapp mx-1"></i> <span dir="ltr">{{ request()->store->store_whatsapp }}</span>
+                                    </a>
+                                @endif
+                            </div>
                         </ul>
                     </div>
                 </div>

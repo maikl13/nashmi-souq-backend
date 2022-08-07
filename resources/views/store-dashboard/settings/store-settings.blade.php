@@ -6,14 +6,30 @@
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-header text-right" dir="rtl">
-            <h4> تعديل بيانات المتجر </h4>
+    <form class="row" action="/dashboard/store-settings" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="col-12 col-xl-6">
+            <div class="card">
+                <div class="card-header text-right" dir="rtl">
+                    <h4> الاعدادات العامة </h4>
+                </div>
+                <div class="card-body text-right" dir="rtl" style="margin: -30px;">
+                    @include('store-dashboard.settings.partials.store-details-general')
+                </div>
+            </div>
         </div>
-        <div class="card-body text-right" dir="rtl">
-            @include('store-dashboard.settings.partials.store-details')
+        <div class="col-12 col-xl-6">
+            <div class="card">
+                <div class="card-header text-right" dir="rtl">
+                    <h4> بيانات التواصل </h4>
+                </div>
+                <div class="card-body text-right" dir="rtl" style="margin: -30px;">
+                    @include('store-dashboard.settings.partials.store-details-contact')
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 @endsection
 
 @section('scripts')

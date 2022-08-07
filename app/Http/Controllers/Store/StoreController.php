@@ -73,6 +73,8 @@ class StoreController extends Controller
             'store_slogan' => 'nullable|min:20|max:255',
             'store_website' => 'nullable|url|max:255',
             'store_email' => 'nullable|email|max:255',
+            'store_phone' => 'nullable|phone:AUTO|max:255',
+            'store_whatsapp' => 'nullable|phone:AUTO|max:255',
             'store_address' => 'nullable|max:1000',
             'store_description' => 'nullable|max:3000',
             'social.*' => 'nullable|url',
@@ -91,6 +93,8 @@ class StoreController extends Controller
         $user->store_slogan = $request->store_slogan;
         $user->store_website = $request->store_website;
         $user->store_email = $request->store_email;
+        $user->store_phone = $request->store_phone;
+        $user->store_whatsapp = $request->store_whatsapp;
         $user->store_address = $request->store_address;
         $user->store_description = $request->store_description;
         // $user->country_id = $request->country;
