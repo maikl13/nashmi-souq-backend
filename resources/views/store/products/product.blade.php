@@ -104,8 +104,8 @@
                                             @foreach ($options as $option => $values)
                                                 @if ($option = App\Models\Option::find($option))
                                                     <div class="mb-4 d-flex align-items-center">
-                                                        <strong class="ml-2">{{ $option->name }} :</strong>
-                                                        <div class="d-inline-flex" style="position: relative; top: 5px; gap: 7px;">
+                                                        <strong class="ml-2 flex-shrink-0">{{ $option->name }} :</strong>
+                                                        <div class="d-inline-flex flex-wrap" style="position: relative; top: 5px; gap: 7px;">
                                                             @foreach ($values as $value)
                                                                 @php
                                                                     $option_value = $value['value'];
