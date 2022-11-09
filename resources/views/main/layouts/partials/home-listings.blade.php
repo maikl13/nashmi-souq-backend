@@ -25,6 +25,20 @@
     </div>
 
     @if ((request()->page%3 != 0))
+        @if (($k+1)%9 == 0)
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706"
+            crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-db+83+4m-f8+ef"
+                data-ad-client="ca-pub-1250310795030706"
+                data-ad-slot="7813512154"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        @endif
+        
         @if (($k+1)%12 == 0)
             <div class="row d-none d-lg-block w-100 mt-3">
                 @foreach (ads(rand(0,1) ? 'large_leaderboard' : 'leaderboard', 1, true) as $ad)
