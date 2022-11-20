@@ -11,6 +11,8 @@
     <style>
         .cart-form button { border-radius: 0; padding: 20px; }
     </style>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706" crossorigin="anonymous"></script>
 @endsection
 
 @section('content')
@@ -40,10 +42,25 @@
     <!--=====================================-->
     <section class="single-product-wrap-layout1 section-padding-equal-70 bg-accent">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col mb-4 text-center d-none d-md-block">{!! ad('large_leaderboard') !!}</div>
                 <div class="col mb-4 text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
+            </div> --}}
+
+            <div class="row">
+                <div class="col-12 text-center mb-3">
+                    <ins class="adsbygoogle"
+                        style="display:block; text-align:center;"
+                        data-ad-layout="in-article"
+                        data-ad-format="fluid"
+                        data-ad-client="ca-pub-1250310795030706"
+                        data-ad-slot="4404138738"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
             </div>
+
             <div class="row">
                 <div class="col-xl-9 col-lg-8">
                     <div class="single-product-box-layout1">
@@ -76,6 +93,21 @@
                                         <li><i class="far fa-eye"></i>{{ $listing->views + 46 }} مشاهدة</li>
                                     </ul>
                                 </div>
+                                
+                                <div class="row">
+                                    <div class="col-12 text-center mb-3">
+                                        <ins class="adsbygoogle"
+                                            style="display:block; text-align:center;"
+                                            data-ad-layout="in-article"
+                                            data-ad-format="fluid"
+                                            data-ad-client="ca-pub-1250310795030706"
+                                            data-ad-slot="4404138738"></ins>
+                                        <script>
+                                            (adsbygoogle = window.adsbygoogle || []).push({});
+                                        </script>
+                                    </div>
+                                </div>
+
                                 <div class="item-details text-break">
                                     <div class="tab-content pt-0">
                                         <div>
@@ -125,6 +157,20 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-12 text-center mb-3">
+                                        <ins class="adsbygoogle"
+                                            style="display:block"
+                                            data-ad-client="ca-pub-1250310795030706"
+                                            data-ad-slot="1187204680"
+                                            data-ad-format="auto"
+                                            data-full-width-responsive="true"></ins>
+                                        <script>
+                                            (adsbygoogle = window.adsbygoogle || []).push({});
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col text-center d-none d-md-block">{!! ad('leaderboard') !!}</div>
                                     <div class="col text-center d-block d-md-none">{!! ad('mobile_banner') !!}</div>
                                 </div>
@@ -163,6 +209,22 @@
                     <div class="d-none d-sm-none d-md-none d-lg-block mb-3">
                         @include('main.listings.partials.price')
                         @include('main.listings.partials.publisher-details')
+                    </div>
+                    
+                    <div class="widget widget-banner">
+                        <div class="row">
+                            <div class="col text-center">
+                                <ins class="adsbygoogle"
+                                    style="display:block"
+                                    data-ad-client="ca-pub-1250310795030706"
+                                    data-ad-slot="1187204680"
+                                    data-ad-format="auto"
+                                    data-full-width-responsive="true"></ins>
+                                <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="widget-lg widget-safty-tip widget-light-bg">

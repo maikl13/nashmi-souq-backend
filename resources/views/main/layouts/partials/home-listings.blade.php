@@ -1,5 +1,5 @@
 @foreach ($listings as $k => $listing)
-    <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
         <div class="product-box-layout1 home-listing {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
             <div class="item-img">
                 <a href="{{ $listing->url() }}"><img src="{{ $listing->listing_image(['size'=>'xs']) }}" alt="Product"></a>
@@ -25,7 +25,7 @@
     </div>
 
     @if (($k+1)%4 == 0 && ($k+1)%16 != 0)
-        <div class="col-12 text-center">
+        <div class="col-12 text-center mb-3">
             @if (rand(0,1))
                 <ins class="adsbygoogle"
                     style="display:block; text-align:center;"
@@ -49,7 +49,7 @@
     @endif
     
     @if (($k+1)%16 == 0)
-        <div class="col-12 text-center">
+        <div class="col-12 text-center mb-3">
             <ins class="adsbygoogle"
                 style="display:block"
                 data-ad-format="autorelaxed"

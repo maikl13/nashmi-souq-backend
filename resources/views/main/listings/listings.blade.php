@@ -20,6 +20,8 @@
             display: inline-block; padding: 5px; margin: 0; 
         }
     </style>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706" crossorigin="anonymous"></script>
 @endsection
 
 @section('content')

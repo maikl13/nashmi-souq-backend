@@ -37,7 +37,7 @@
 
 <div id="product-view" class="product-box-grid">
     <div class="row">
-        @forelse($listings as $listing)
+        @forelse($listings as $k => $listing)
             <div class="col-xl-4 col-md-6">
                 <div class="product-grid-view">
                     <div class="grid-view-layout2">
@@ -149,6 +149,19 @@
                     </div>
                 </div>
             </div>
+
+            @if (($k+1)%6 == 0)
+                <div class="col-12 text-center mb-3">
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-format="autorelaxed"
+                        data-ad-client="ca-pub-1250310795030706"
+                        data-ad-slot="4359411868"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            @endif
         @empty
             <?php $msg = 'لم يتم نشر أي إعلانات حتى الآن !'; ?>
             <?php 
