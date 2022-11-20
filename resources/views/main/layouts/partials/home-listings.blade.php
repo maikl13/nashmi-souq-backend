@@ -1,5 +1,3 @@
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706" crossorigin="anonymous"></script>
-
 @foreach ($listings as $k => $listing)
     <div class="col-lg-3 col-md-4 col-sm-12 mb-3">
         <div class="product-box-layout1 home-listing {{ $listing->is_featured() ? 'item-trending' : '' }} {{ $listing->is_fixed() ? 'item-fixed' : '' }}">
@@ -26,20 +24,44 @@
         </div>
     </div>
 
+    @if (($k+1)%4 == 0 && ($k+1)%16 != 0)
+        <div class="col-12 text-center">
+            @if (rand(0,1))
+                <ins class="adsbygoogle"
+                    style="display:block; text-align:center;"
+                    data-ad-layout="in-article"
+                    data-ad-format="fluid"
+                    data-ad-client="ca-pub-1250310795030706"
+                    data-ad-slot="4404138738"></ins>
+            @else
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-format="fluid"
+                    data-ad-layout-key="-db+83+4m-f8+ef"
+                    data-ad-client="ca-pub-1250310795030706"
+                    data-ad-slot="7813512154"></ins>
+            @endif
+
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    @endif
+    
+    @if (($k+1)%16 == 0)
+        <div class="col-12 text-center">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="autorelaxed"
+                data-ad-client="ca-pub-1250310795030706"
+                data-ad-slot="4359411868"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    @endif
+
     @if ((request()->page%3 != 0))
-        @if (($k+1)%9 == 0)
-            <div class="row d-block mt-3">
-                <div class="col-12 mb-3 d-block">{!! $ad !!}</div>
-                    <ins class="adsbygoogle"
-                        style="display:block"
-                        data-ad-format="fluid"
-                        data-ad-layout-key="-db+83+4m-f8+ef"
-                        data-ad-client="ca-pub-1250310795030706"
-                        data-ad-slot="7813512154"></ins>
-                </div>
-            </div>
-        @endif
-        
         @if (($k+1)%12 == 0)
             <div class="row d-none d-lg-block w-100 mt-3">
                 @foreach (ads(rand(0,1) ? 'large_leaderboard' : 'leaderboard', 1, true) as $ad)
@@ -58,9 +80,5 @@
         @endif
     @endif
 @endforeach
-
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 @include('main.layouts.partials.categories-mobile')

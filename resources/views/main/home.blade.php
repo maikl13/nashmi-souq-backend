@@ -9,6 +9,8 @@
             .home-listings-wrapper { max-width: 100% !important; }
         }
     </style>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1250310795030706" crossorigin="anonymous"></script>
 @endsection
 
 @section('content')
