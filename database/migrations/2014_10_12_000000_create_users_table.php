@@ -48,13 +48,13 @@ class CreateUsersTable extends Migration
             $table->timestamp('trial_started_at')->nullable();
             $table->boolean('store_online_payments')->default(true);
             $table->boolean('store_cod_payments')->default(true);
-            
+
             // payout_methods
             $table->string('bank_account')->nullable();
             $table->string('paypal')->nullable();
             $table->string('vodafone_cash')->nullable();
             $table->string('national_id')->nullable();
-            
+
             $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();

@@ -8,23 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Promotion extends Model
 {
     use FileHandler;
-    protected $appends=['imagepath'];
+
+    protected $appends = ['imagepath'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    
-    public function promotion_image( $options=[] ){
-        $options = array_merge($options, ['default'=>'promotion']);
+
+    public function promotion_image($options = [])
+    {
+        $options = array_merge($options, ['default' => 'promotion']);
+
         return $this->image($this->image, $options);
     }
-    public function upload_promotion_image($file, $w=1280, $h=375){
-        return $this->upload_file($file, 'image', ['ext'=>'jpg','w'=>$w, 'h'=>$h, 'allowed'=>['o', '']]);
+
+    public function upload_promotion_image($file, $w = 1280, $h = 375)
+    {
+        return $this->upload_file($file, 'image', ['ext' => 'jpg', 'w' => $w, 'h' => $h, 'allowed' => ['o', '']]);
     }
-    
-     public function getImagePathAttribute(){
-       
-        return $this->promotion_image();
-    }
+
+     public function getImagePathAttribute()
+     {
+         return $this->promotion_image();
+     }
 }

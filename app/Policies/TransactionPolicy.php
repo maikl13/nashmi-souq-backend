@@ -15,7 +15,6 @@ class TransactionPolicy
         return $user->is_superadmin() ? true : false;
     }
 
-
     public function delete(User $user, Transaction $transaction)
     {
         return $user->is_superadmin() ? true : false;

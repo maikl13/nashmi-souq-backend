@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\TransactionsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-use App\DataTables\TransactionsDataTable;
-use Str;
 
 class TransactionController extends Controller
 {
@@ -46,9 +45,10 @@ class TransactionController extends Controller
         $transaction->currency_id = $request->currency;
         $transaction->payment_method = $request->payment_method;
 
-        if($transaction->save()){
+        if ($transaction->save()) {
             return response()->json('تم الحفظ بنجاح!', 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
@@ -61,7 +61,7 @@ class TransactionController extends Controller
     public function edit(Transaction $transaction)
     {
         $this->authorize('edit', $transaction);
-        
+
         return view('admin.transactions.edit-transaction')->with('transaction', $transaction);
     }
 
@@ -90,9 +90,10 @@ class TransactionController extends Controller
         $transaction->payment_method = $request->payment_method;
         $transaction->currency_id = $request->currency;
 
-        if($transaction->save()){
+        if ($transaction->save()) {
             return redirect()->route('transactions')->with('success', 'تم تعديل البيانات بنجاح.');
         }
+
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
@@ -106,8 +107,10 @@ class TransactionController extends Controller
     {
         $this->authorize('delete', $transaction);
 
-        if( $transaction->delete() )
+        if ($transaction->delete()) {
             return response()->json('تم الحذف بنجاح.', 200);
+        }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
     }
 }

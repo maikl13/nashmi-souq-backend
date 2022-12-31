@@ -2,16 +2,16 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use App\Channels\TwilioSMSChannel;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class CommentAdded extends Notification implements ShouldQueue
 {
     use Queueable;
-    
+
     protected $comment;
 
     public function __construct($comment)
@@ -27,12 +27,12 @@ class CommentAdded extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject(setting('website_name').' | '.($this->comment->reply_on ? 'رد' : 'تعليق') .' جديد')
+                    ->subject(setting('website_name').' | '.($this->comment->reply_on ? 'رد' : 'تعليق').' جديد')
                     ->line(
-                        ($this->comment->reply_on ? 'رد' : 'تعليق') . 
-                        ' جديد' . 
-                        ' على الاعلان "' . 
-                        $this->comment->commentable->title . '"'
+                        ($this->comment->reply_on ? 'رد' : 'تعليق').
+                        ' جديد'.
+                        ' على الاعلان "'.
+                        $this->comment->commentable->title.'"'
                     )
                     ->action('فتح الاعلان', route('listings.show', $this->comment->commentable->slug));
     }
@@ -40,13 +40,13 @@ class CommentAdded extends Notification implements ShouldQueue
     public function toMessage($notifiable)
     {
         return [
-            'مرحبا بك!', 
+            'مرحبا بك!',
             ' ',
-            ($this->comment->reply_on ? 'رد' : 'تعليق') . ' جديد' . ' على الاعلان "' . $this->comment->commentable->title . '"',
+            ($this->comment->reply_on ? 'رد' : 'تعليق').' جديد'.' على الاعلان "'.$this->comment->commentable->title.'"',
             url($this->comment->commentable->url()),
             ' ',
             'مع التحية,',
-            setting('website_name')
+            setting('website_name'),
         ];
     }
 

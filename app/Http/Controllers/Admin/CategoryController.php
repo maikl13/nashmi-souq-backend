@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Str;
-use App\Models\Brand;
-use App\Models\Option;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\DataTables\CategoriesDataTable;
+use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Option;
+use Illuminate\Http\Request;
+use Str;
 
 class CategoryController extends Controller
 {
@@ -21,7 +21,6 @@ class CategoryController extends Controller
     {
         return $dataTable->render('admin.categories.categories');
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -45,14 +44,15 @@ class CategoryController extends Controller
         $category->icon = $request->icon;
         $category->category_id = $request->category ? $request->category : null;
 
-        if($category->save()){
+        if ($category->save()) {
             $category->upload_category_image($request->file('image'));
             $category->update_tree();
+
             return response()->json('تم الحفظ بنجاح!', 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -64,7 +64,6 @@ class CategoryController extends Controller
     {
         return view('admin.categories.edit-category')->with('category', $category);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -88,14 +87,15 @@ class CategoryController extends Controller
         $category->icon = $request->icon;
         $category->category_id = $request->category != $category->id ? $request->category : null;
 
-        if($category->save()){
+        if ($category->save()) {
             $category->upload_category_image($request->file('image'));
             $category->update_tree();
+
             return redirect()->route('categories')->with('success', 'تم تعديل البيانات بنجاح.');
         }
+
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -105,25 +105,32 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if( $category->delete() )
+        if ($category->delete()) {
             return response()->json('تم الحذف بنجاح.', 200);
+        }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
     }
 
-    public function delete_category_image(Category $category){
+    public function delete_category_image(Category $category)
+    {
         return $category->delete_file('image');
     }
 
-    public function sub_categories(Category $category){
-        $sub_categories = array();
+    public function sub_categories(Category $category)
+    {
+        $sub_categories = [];
         foreach ($category->all_children() as $child) {
             $prefix = '';
-            for ($i=2; $i < $child->level(); $i++) { $prefix .= '___'; }
-            $sub_categories[$child->slug] = $prefix .' '. $child->name;
+            for ($i = 2; $i < $child->level(); $i++) {
+                $prefix .= '___';
+            }
+            $sub_categories[$child->slug] = $prefix.' '.$child->name;
         }
+
         return json_encode($sub_categories);
     }
-    
+
     public function category_options(Category $category)
     {
         $options = Option::whereJsonContains('categories', "{$category->id}");
@@ -134,13 +141,14 @@ class CategoryController extends Controller
         }
 
         $options = $options->get();
-        
-        if(count($options))
+
+        if (count($options)) {
             return view('store-dashboard.products.partials.options-select', ['options' => $options]);
+        }
 
         return false;
     }
-    
+
     public function category_options_list(Category $category)
     {
         $options = Option::whereJsonContains('categories', "{$category->id}");
@@ -151,9 +159,10 @@ class CategoryController extends Controller
         }
 
         $options = $options->get();
-        
-        if(count($options))
+
+        if (count($options)) {
             return response()->json($options, 200);
+        }
 
         return false;
     }
@@ -168,9 +177,10 @@ class CategoryController extends Controller
         }
 
         $brands = $brands->get();
-        
-        if(count($brands))
+
+        if (count($brands)) {
             return view('main.listings.partials.brands-select', ['brands' => $brands]);
+        }
 
         return false;
     }

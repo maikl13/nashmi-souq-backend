@@ -29,6 +29,7 @@ class AdminNotificationSubmitted extends Notification implements ShouldQueue
         foreach (explode(PHP_EOL, $this->message) as $line) {
             $msg = $msg->line($line);
         }
+
         return $msg;
     }
 

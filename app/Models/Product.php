@@ -2,24 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\ExchangeCurrency;
 use App\Traits\FileHandler;
 use App\Traits\SearchableTrait;
-use App\Traits\ExchangeCurrency;
-use Carbon\Carbon;
-use DB;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     use FileHandler, SearchableTrait, ExchangeCurrency, SoftDeletes;
 
-    protected $casts = ['options'=> 'array', 'shown' => 'boolean'];
-    
+    protected $casts = ['options' => 'array', 'shown' => 'boolean'];
+
     public function newQuery()
     {
-        if(request()->store)
+        if (request()->store) {
             return parent::newQuery()->where('user_id', request()->store->id);
+        }
+
         return parent::newQuery();
     }
 
@@ -33,24 +33,29 @@ class Product extends Model
         $title = $this->getAttributes()['title'];
         foreach (optional($this->options)['values'] ?? [] as $option_value) {
             $option_value = \App\Models\OptionValue::find($option_value);
-            if($option_value)
+            if ($option_value) {
                 $title .= ' - '.$option_value->name;
+            }
         }
+
         return $title;
     }
+
     public function getOptionsAttribute()
     {
         $options = $this->getAttributes()['options'];
-        if($options && $options != "[]")
+        if ($options && $options != '[]') {
             return json_decode($options, true);
-        return ['options'=>[],'values'=>[]];
+        }
+
+        return ['options' => [], 'values' => []];
     }
 
-	public function getRouteKeyName($value='')
-	{
-		return 'slug';
+    public function getRouteKeyName($value = '')
+    {
+        return 'slug';
     }
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -80,45 +85,50 @@ class Product extends Model
     {
         return $this->belongsTo(State::class);
     }
-    
+
     public function area()
     {
         return $this->belongsTo(Area::class);
     }
-    
+
     public function url()
     {
-    	return $this->user->store_url().'/products/'. $this->slug;
+        return $this->user->store_url().'/products/'.$this->slug;
     }
 
     public function initial_price()
     {
-        return $this->initial_price+0;
+        return $this->initial_price + 0;
     }
+
     public function price()
     {
-        return $this->price+0;
+        return $this->price + 0;
     }
 
     public function local_initial_price()
     {
         // the price in local currency
-        if(
+        if (
             optional(country()->currency)->id == optional($this->currency)->id ||
-            !$this->currency
-        ) return $this->initial_price();
-        
+            ! $this->currency
+        ) {
+            return $this->initial_price();
+        }
+
         return ceil(exchange($this->initial_price, $this->currency->code, country()->currency->code));
     }
 
     public function local_price()
     {
         // the price in local currency
-        if(
+        if (
             optional(country()->currency)->id == optional($this->currency)->id ||
-            !$this->currency
-        ) return $this->price();
-        
+            ! $this->currency
+        ) {
+            return $this->price();
+        }
+
         return ceil(exchange($this->price, $this->currency->code, country()->currency->code));
     }
 
@@ -146,22 +156,30 @@ class Product extends Model
     }
 
     public static $product_image_sizes = [
-        'o' => ['w'=>null, 'h'=>null, 'quality'=>100],
-        '' => ['w'=>null, 'h'=>null, 'quality'=>80],
-        'xxs' => ['w'=>128, 'h'=>null, 'quality'=>70],
-        'xs' => ['w'=>256, 'h'=>null, 'quality'=>70],
+        'o' => ['w' => null, 'h' => null, 'quality' => 100],
+        '' => ['w' => null, 'h' => null, 'quality' => 80],
+        'xxs' => ['w' => 128, 'h' => null, 'quality' => 70],
+        'xs' => ['w' => 256, 'h' => null, 'quality' => 70],
     ];
-    
-    public function product_images( $options=[] ){
+
+    public function product_images($options = [])
+    {
         $options = array_merge($options);
+
         return $this->images($this->images, $options);
     }
-    public function product_image($options=[]){
+
+    public function product_image($options = [])
+    {
         $images = $this->product_images($options);
+
         return array_shift($images);
     }
-    public function upload_product_images($files, $options=[]){
-        $options = array_merge($options, ['ext'=>'jpg','sizes'=>Self::$product_image_sizes, 'watermark'=>true]);
+
+    public function upload_product_images($files, $options = [])
+    {
+        $options = array_merge($options, ['ext' => 'jpg', 'sizes' => self::$product_image_sizes, 'watermark' => true]);
+
         return $this->upload_files($files, 'images', $options);
     }
 
@@ -172,15 +190,16 @@ class Product extends Model
             'products.description' => 1,
         ],
     ];
-    
+
     // this is a recommended way to declare event handlers
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleted(function(Product $product) {
-            if($product->shown){
+        static::deleted(function (Product $product) {
+            if ($product->shown) {
                 $next_product_in_group = Product::whereGroup($product->group)->first();
-                if($next_product_in_group){
+                if ($next_product_in_group) {
                     $next_product_in_group->shown = true;
                     $next_product_in_group->save();
                 }

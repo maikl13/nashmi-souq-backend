@@ -15,9 +15,10 @@ class CheckUserRole
      */
     public function handle($request, Closure $next, $roles)
     {
-        foreach(explode("-", $roles) as $role){
-            if($request->user()->role() == $role)
+        foreach (explode('-', $roles) as $role) {
+            if ($request->user()->role() == $role) {
                 return $next($request);
+            }
         }
 
         abort(404);

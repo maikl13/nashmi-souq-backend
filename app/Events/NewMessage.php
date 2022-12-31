@@ -2,14 +2,12 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
+use App\Models\Message;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Message;
 
 class NewMessage implements ShouldBroadcast
 {
@@ -37,13 +35,11 @@ class NewMessage implements ShouldBroadcast
         return new PrivateChannel('messages.'.$this->message->recipient->username);
     }
 
-
     public function broadcastWith()
     {
         return [
             'message_id' => $this->message->id,
-            'sender_username' => $this->message->sender->username
+            'sender_username' => $this->message->sender->username,
         ];
     }
-
 }

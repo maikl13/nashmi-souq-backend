@@ -2,11 +2,11 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use App\Channels\TwilioSMSChannel;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class OrderRecieved extends Notification implements ShouldQueue
 {
@@ -27,22 +27,22 @@ class OrderRecieved extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject($this->order->store->store_name . ' | لديك طلب جديد')
-                    ->line('لديك طلب جديد بقيمة '. $this->order->price . ' '. $this->order->currency->symbol . ' من المشتري "'. $this->order->buyer_name. '"')
+                    ->subject($this->order->store->store_name.' | لديك طلب جديد')
+                    ->line('لديك طلب جديد بقيمة '.$this->order->price.' '.$this->order->currency->symbol.' من المشتري "'.$this->order->buyer_name.'"')
                     ->action('معاينة الطلبات', route('orders', $this->order->store->store_slug));
     }
 
     public function toMessage($notifiable)
     {
         return [
-            'مرحبا بك!', 
-            'لديك طلب جديد بقيمة '. $this->order->price . ' '. $this->order->currency->symbol . ' من المشتري "'. $this->order->buyer_name. '"',
+            'مرحبا بك!',
+            'لديك طلب جديد بقيمة '.$this->order->price.' '.$this->order->currency->symbol.' من المشتري "'.$this->order->buyer_name.'"',
             ' ',
             'معاينة الطلبات',
             route('orders', $this->order->store->store_slug),
             ' ',
             'مع التحية,',
-            setting('website_name')
+            setting('website_name'),
         ];
     }
 

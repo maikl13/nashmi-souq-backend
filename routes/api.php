@@ -49,7 +49,7 @@ Route::get('list_store_products/{id}', 'StoreController@list_store_products');
 Route::post('search_store_products/{id}', 'StoreController@search_store_products');
 Route::get('show_product/{id}', 'StoreController@show_product');
 
-Route::group(['middleware'=>'auth:api'],function(){
+Route::group(['middleware' => 'auth:api'], function () {
     Route::get('my_listings', 'UserController@my_listings');
     Route::post('update_account', 'UserController@update');
     Route::post('change_password', 'UserController@change_password');
@@ -60,13 +60,13 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('update_payout_methods', 'UserController@update_payout_methods');
     Route::post('add_comment', 'UserController@add_comment');
     Route::post('edit_comment/{id}', 'UserController@edit_comment');
-	Route::post('delete_comment/{id}', 'UserController@destroy_comment');
+    Route::post('delete_comment/{id}', 'UserController@destroy_comment');
     Route::post('send_message', 'UserController@send_message');
     Route::get('get_conversation/{user}', 'UserController@get_conversation');
     Route::get('get_conversations', 'UserController@get_conversations');
     Route::get('get_unseen_messages_count', 'UserController@get_unseen_messages_count');
     Route::get('my-orders', 'UserController@my_orders');
-   
+
     Route::post('create_store', 'StoreController@create_update_store');
     Route::post('store_categories', 'StoreController@store_categories')->middleware('store_api');
     Route::post('update_store', 'StoreController@create_update_store');
@@ -94,11 +94,10 @@ Route::get('categories/{category}/options', 'CategoryController@category_options
 Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_category_options');
 */
 
-
 Route::namespace('\App\Http\Controllers\Admin')->group(function () {
-	Route::get('categories/{category}/sub-categories', '\App\Http\Controllers\Admin\CategoryController@sub_categories');
-	Route::get('states/{state}/areas', '\App\Http\Controllers\Admin\StateController@areas');
+    Route::get('categories/{category}/sub-categories', '\App\Http\Controllers\Admin\CategoryController@sub_categories');
+    Route::get('states/{state}/areas', '\App\Http\Controllers\Admin\StateController@areas');
 
-	Route::get('categories/{category}/options', '\App\Http\Controllers\Admin\CategoryController@category_options');
-	Route::get('sub-categories/{sub_category}/options', '\App\Http\Controllers\Admin\CategoryController@sub_category_options');
+    Route::get('categories/{category}/options', '\App\Http\Controllers\Admin\CategoryController@category_options');
+    Route::get('sub-categories/{sub_category}/options', '\App\Http\Controllers\Admin\CategoryController@sub_category_options');
 });

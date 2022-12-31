@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Package;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PackagePolicy
@@ -12,8 +12,10 @@ class PackagePolicy
 
     public function cancel(User $user, Package $package)
     {
-        if( $package->is_pending() )
+        if ($package->is_pending()) {
             return $user->id === $package->order->user_id;
+        }
+
         return false;
     }
 
@@ -24,7 +26,10 @@ class PackagePolicy
 
     public function change_status(User $user, Package $package)
     {
-        if($package->is_cancelled_by_buyer()) return $user->id === $package->user_id;
+        if ($package->is_cancelled_by_buyer()) {
+            return $user->id === $package->user_id;
+        }
+
         return $user->id === $package->store_id;
     }
 }

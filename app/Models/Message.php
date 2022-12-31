@@ -8,18 +8,21 @@ class Message extends Model
 {
     public function scopeUnseen($query)
     {
-    	return $query->whereNull('seen');
+        return $query->whereNull('seen');
     }
 
-    public function sender() {
+    public function sender()
+    {
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-    public function recipient() {
+    public function recipient()
+    {
         return $this->belongsTo(User::class, 'recipient_id');
     }
-    
-    public function conversation() {
+
+    public function conversation()
+    {
         return $this->belongsTo(Conversation::class);
     }
 }

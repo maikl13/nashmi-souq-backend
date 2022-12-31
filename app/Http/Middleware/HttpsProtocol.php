@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+
 // use App;
 
 class HttpsProtocol
@@ -19,7 +20,7 @@ class HttpsProtocol
         // redirect to https
         // if (!$request->secure())
         //     return redirect()->secure($request->getRequestUri());
-            
+
         return $next($request);
     }
 }

@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Brand;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class BrandsDataTable extends DataTable
@@ -14,7 +11,7 @@ class BrandsDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -22,7 +19,7 @@ class BrandsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('categories', 'admin.brands.partials.categories')
-            ->addColumn('action', 'admin.brands.partials.action')->setRowId(function ($record){
+            ->addColumn('action', 'admin.brands.partials.action')->setRowId(function ($record) {
                 return $record->id;
             })
             ->rawColumns(['action', 'categories']);
@@ -31,13 +28,15 @@ class BrandsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Brand $model
+     * @param  \App\Models\Brand  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Brand $model)
     {
-        if($this->brand)
+        if ($this->brand) {
             return $this->brand->children();
+        }
+
         return $model->newQuery()->whereNull('brand_id');
     }
 
@@ -48,7 +47,7 @@ class BrandsDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -62,9 +61,11 @@ class BrandsDataTable extends DataTable
         $columns[] = Column::make('id')->orderable(false);
         $columns[] = Column::make('name')->title('الاسم');
         $columns[] = Column::make('slug')->title('المعرف');
-        if(!$this->brand)
+        if (! $this->brand) {
             $columns[] = Column::computed('categories')->width(200)->addClass('text-center')->searchable(false)->title('الأقسام');
+        }
         $columns[] = Column::computed('action')->width(60)->addClass('text-center')->searchable(false)->title('⚙');
+
         return $columns;
     }
 
@@ -75,6 +76,6 @@ class BrandsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Brands_' . date('YmdHis');
+        return 'Brands_'.date('YmdHis');
     }
 }

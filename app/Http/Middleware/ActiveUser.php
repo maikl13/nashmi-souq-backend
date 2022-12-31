@@ -15,7 +15,7 @@ class ActiveUser
      */
     public function handle($request, Closure $next)
     {
-        if(!$request->user()->is_active()){
+        if (! $request->user()->is_active()) {
             return redirect()->route('deactivated');
         }
 

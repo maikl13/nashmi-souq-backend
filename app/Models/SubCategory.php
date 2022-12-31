@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\FileHandler;
+use Illuminate\Database\Eloquent\Model;
 
 class SubCategory extends Model
 {
     use FileHandler;
 
-    public $images_path = "/assets/images/sub-category/";
-    
-    public function getRouteKeyName() {
+    public $images_path = '/assets/images/sub-category/';
+
+    public function getRouteKeyName()
+    {
         return 'slug';
     }
 
@@ -29,12 +30,13 @@ class SubCategory extends Model
     {
         return '/listings?sub_categories[]='.$this->id;
     }
-    
+
     // this is a recommended way to declare event handlers
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function(SubCategory $sub_category) {
+        static::deleting(function (SubCategory $sub_category) {
             // before delete() method call this
             $sub_category->delete_category_image();
         });

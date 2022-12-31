@@ -2,14 +2,12 @@
 
 namespace App\Traits;
 
-use App\Models\Currency;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
-trait PaymentTrait {
-
-    public static function payment_init($amount, $currency=false, $options=[])
+trait PaymentTrait
+{
+    public static function payment_init($amount, $currency = false, $options = [])
     {
         $currency = $currency ? $currency : currency();
         $type = $options['type'] ?? Transaction::TYPE_PAYMENT;
@@ -20,54 +18,59 @@ trait PaymentTrait {
         $transaction->uid = unique_id();
         $transaction->amount = $amount;
         $transaction->currency_id = $currency->id;
-        
+
         session()->put('payment_method', $payment_method);
 
-        if($save){
-            if(auth()->user()){
+        if ($save) {
+            if (auth()->user()) {
                 $transaction->user_id = auth()->user()->id;
                 $transaction->type = $type;
                 $transaction->status = Transaction::STATUS_PENDING;
                 $transaction->payment_method = $payment_method;
-                if($transaction->save())
+                if ($transaction->save()) {
                     return $transaction;
+                }
+
                 return false;
             } else {
                 dd('Payment Failed, Please Sign in first');
             }
         }
+
         return $transaction;
     }
 
-    public function direct_payment($options=[]){
-        if(
-            (auth()->check() && optional(auth()->user()->country)->code == 'sa') || 
+    public function direct_payment($options = [])
+    {
+        if (
+            (auth()->check() && optional(auth()->user()->country)->code == 'sa') ||
             (auth()->guest() && optional(country())->code == 'sa') ||
             session('payment_method') == Transaction::PAYMENT_MADA
-        )
+        ) {
             return $this->hyperpay_payment($options);
+        }
+
         return $this->nbe_direct_payment($options);
     }
 
-    public function nbe_direct_payment($options=[])
+    public function nbe_direct_payment($options = [])
     {
         $address1 = $options['address1'] ?? 'NOT REQUIRED';
         $address2 = $options['address2'] ?? 'NOT REQUIRED';
         $description = $options['description'] ?? 'Ordered goods';
         $amount = exchange($this->amount, $this->currency->code, 'EGP');
-        if(env('NBE_MPGS_MODE') == 'test'){
+        if (env('NBE_MPGS_MODE') == 'test') {
             $amount = ceil($amount);
         } else {
             $amount = round($amount, 2);
         }
         $params = $this->nbe_request_hosted_checkout_interaction($amount, $options);
         // $params = ['result' => 'SUCCESS','successIndicator' => 'abc','session.id' => '123'];
-        if($params['result'] == 'SUCCESS'){
-            if(!empty($params['session.id']) && !empty($params['successIndicator'])){
-
+        if ($params['result'] == 'SUCCESS') {
+            if (! empty($params['session.id']) && ! empty($params['successIndicator'])) {
                 session()->put('success_indicator', $params['successIndicator']);
 
-                if($this->id){
+                if ($this->id) {
                     $this->success_indicator = $params['successIndicator'];
                     $this->save();
                 }
@@ -78,7 +81,7 @@ trait PaymentTrait {
                     'address1' => $address1,
                     'address2' => $address2,
                     'uid' => $this->uid,
-                    'currency' => "EGP",
+                    'currency' => 'EGP',
                     'description' => $description,
                 ]);
             }
@@ -88,7 +91,7 @@ trait PaymentTrait {
 
     public function nbe_request_hosted_checkout_interaction($amount, $options)
     {
-        $return_url = $options['return_url'] ?? url('/')."/payment-result?uid=".$this->uid;
+        $return_url = $options['return_url'] ?? url('/').'/payment-result?uid='.$this->uid;
 
         $api_url = config('services.nbe_mpgs.api_url').'/api/nvp/version/57';
         $api_password = config('services.nbe_mpgs.api_password');
@@ -112,30 +115,33 @@ trait PaymentTrait {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $headers = array();
+        $headers = [];
         $headers[] = 'Content-Type: application/x-www-form-urlencoded';
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $result = curl_exec($ch);
-        if (curl_errno($ch))
-            echo 'Error:' . curl_error($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:'.curl_error($ch);
+        }
         curl_close($ch);
         // $result = "merchant=EGPTEST1&result=SUCCESS&session.id=SESSION0002546338248G4885481I10&session.updateStatus=SUCCESS&session.version=ab91e73001&successIndicator=a1b488a6898c458d";
         $result_params = explode('&', $result);
         $params = [];
-        foreach($result_params as $param) {
+        foreach ($result_params as $param) {
             $param_name = explode('=', $param)[0] ?? false;
             $param_value = explode('=', $param)[1] ?? false;
-            if($param_name && $param_value) $params[$param_name] = $param_value;
+            if ($param_name && $param_value) {
+                $params[$param_name] = $param_value;
+            }
         }
 
         return $params;
     }
 
-    public function hyperpay_payment($options=[])
+    public function hyperpay_payment($options = [])
     {
         $return_url = $options['return_url'] ?? url('/')."/hyperpay-payment-result?uid=$this->uid";
         $amount = exchange($this->amount, $this->currency->code, 'SAR');
-        if(env('HYPERPAY_MODE') == 'test'){
+        if (env('HYPERPAY_MODE') == 'test') {
             $amount = ceil($amount);
         } else {
             $amount = round($amount, 2);
@@ -144,15 +150,15 @@ trait PaymentTrait {
         $params = $this->hyperpay_prepare_checkout($amount, $options, $return_url);
         $params = json_decode($params, true);
 
-        if($params['result']['code'] == '000.200.100'){
-            if( !empty($params['id']) ){
-                
+        if ($params['result']['code'] == '000.200.100') {
+            if (! empty($params['id'])) {
                 session()->put('success_indicator', $params['id']);
 
-                if($this->id){
+                if ($this->id) {
                     $this->success_indicator = $params['id'];
                     $this->save();
                 }
+
                 return view('main.payment.hyperpay-checkout')->with([
                     'return_url' => $return_url,
                     'checkout_id' => $params['id'],
@@ -170,7 +176,7 @@ trait PaymentTrait {
         $address2 = $options['address2'] ?? 'NOT REQUIRED';
         $description = $options['description'] ?? 'Ordered goods';
 
-        $api_url = config('services.hyperpay.api_url')."/v1/checkouts";
+        $api_url = config('services.hyperpay.api_url').'/v1/checkouts';
         $access_token = config('services.hyperpay.access_token');
         $entity_id = (session('payment_method') == Transaction::PAYMENT_MADA) ? config('services.hyperpay.mada_entity_id') : config('services.hyperpay.entity_id');
         $ssl = config('services.hyperpay.ssl');
@@ -192,19 +198,20 @@ trait PaymentTrait {
             'customer.surname' => optional(auth()->user())->username ?: 'User',
             'customer.mobile' => optional(auth()->user())->phone ?: '',
         ]);
-    
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $api_url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization:Bearer '.$access_token));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization:Bearer '.$access_token]);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $ssl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $responseData = curl_exec($ch);
-        if(curl_errno($ch)) {
+        if (curl_errno($ch)) {
             return curl_error($ch);
         }
         curl_close($ch);
+
         return $responseData;
     }
 
@@ -212,14 +219,16 @@ trait PaymentTrait {
     {
         $transaction->type = Transaction::TYPE_EXPENSE;
         $transaction->payment_method = Transaction::PAYMENT_WALLET;
-        if($transaction->user->payout_balance() >= exchange($transaction->amount, $transaction->currency->code, currency()->code, true)){
+        if ($transaction->user->payout_balance() >= exchange($transaction->amount, $transaction->currency->code, currency()->code, true)) {
             $transaction->status = Transaction::STATUS_PROCESSED;
+
             return $transaction->save() ? $transaction : false;
         }
+
         return false;
     }
 
-    public function paypal_payment($options=[])
+    public function paypal_payment($options = [])
     {
         // prepare paypal payment
         $provider = new ExpressCheckout;
@@ -228,7 +237,7 @@ trait PaymentTrait {
         $options = [
             'BRANDNAME' => config('app.name'),
             'LOGOIMG' => config('url').'/'.$logo,
-            'CHANNELTYPE' => 'Merchant'
+            'CHANNELTYPE' => 'Merchant',
         ];
         $provider->addOptions($options);
 
@@ -244,13 +253,13 @@ trait PaymentTrait {
         $data['items'] = $this->items;
 
         $data['invoice_id'] = $this->uid;
-        $data['invoice_description'] = $options['desc'] ?? "مدفوعات لسوق نشمي عبر باي بال";
-        $data['return_url'] = url('/')."/paypal-payment-result";
+        $data['invoice_description'] = $options['desc'] ?? 'مدفوعات لسوق نشمي عبر باي بال';
+        $data['return_url'] = url('/').'/paypal-payment-result';
         $data['cancel_url'] = url()->previous();
 
         $total = 0;
-        foreach($data['items'] as $item) {
-            $total += $item['price']*$item['qty'];
+        foreach ($data['items'] as $item) {
+            $total += $item['price'] * $item['qty'];
         }
         $data['total'] = $total;
 

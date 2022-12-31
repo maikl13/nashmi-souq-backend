@@ -2,94 +2,107 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\ExchangeCurrency;
 use App\Traits\FileHandler;
 use App\Traits\SearchableTrait;
-use App\Traits\ExchangeCurrency;
-use Carbon\Carbon;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 class Listing extends Model
 {
     use FileHandler, SearchableTrait, ExchangeCurrency;
 
-    protected $casts = ['options'=> 'array'];
+    protected $casts = ['options' => 'array'];
+
     protected $appends = ['imagespath'];
 
-    public function scopeLocalized($query){
+    public function scopeLocalized($query)
+    {
         return $query->whereIn('state_id', country()->states()->pluck('id')->toArray());
     }
-    
-    public function scopeApiLocalized($query){
+
+    public function scopeApiLocalized($query)
+    {
         return $query->whereIn('state_id', country_api()->states()->pluck('id')->toArray());
     }
 
-    public function scopeActive($query){
+    public function scopeActive($query)
+    {
         return $query->where('status', 1);
     }
 
-    public function scopeFeaturedOrFixed($query){
+    public function scopeFeaturedOrFixed($query)
+    {
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
             ->select('listings.*', 'featured_listings.listing_id')
             ->whereRaw(DB::raw("IF('".now()."' < `featured_listings`.`expired_at`, 1, Null)"));
     }
 
-    public function scopeFeaturedOrFixedFirst($query){
+    public function scopeFeaturedOrFixedFirst($query)
+    {
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
-            ->select('listings.*', 
-                'featured_listings.listing_id', 
+            ->select('listings.*',
+                'featured_listings.listing_id',
                 DB::raw("IF('".now()."' < `featured_listings`.`expired_at`, 1, Null) as `featured`"),
                 DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` >= 9, 2, 1) as `featuring_level`"),
             )
             ->orderByRaw('`featuring_level` desc, `featured` desc, `id` desc');
     }
 
-    public function scopeFeatured($query){
+    public function scopeFeatured($query)
+    {
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
             ->select('listings.*', 'featured_listings.listing_id')
             ->whereRaw(DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` <= 8, 1, Null)"));
     }
 
-    public function scopeFeaturedFirst($query){
+    public function scopeFeaturedFirst($query)
+    {
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
-            ->select('listings.*', 
-                'featured_listings.listing_id', 
+            ->select('listings.*',
+                'featured_listings.listing_id',
                 DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` <= 8, 1, Null) as `featuring_level`"),
             )
             ->orderByRaw('`featuring_level` desc, `id` desc');
     }
 
-    public function scopeFixed($query){
+    public function scopeFixed($query)
+    {
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
             ->select('listings.*', 'featured_listings.listing_id')
             ->whereRaw(DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` > 8, 1, Null)"));
     }
 
-    public function scopeFixedFirst($query){
+    public function scopeFixedFirst($query)
+    {
         return $query->leftJoin('featured_listings', 'listings.id', '=', 'featured_listings.listing_id')
-            ->select('listings.*', 
-                'featured_listings.listing_id', 
+            ->select('listings.*',
+                'featured_listings.listing_id',
                 DB::raw("IF('".now()."' < `featured_listings`.`expired_at` and `featured_listings`.`tier` > 8, 1, Null) as `featuring_level`"),
             )
             ->orderByRaw('`featuring_level` desc, `id` desc');
     }
 
-
     const TYPE_SELL = 1;
+
     const TYPE_BUY = 2;
+
     const TYPE_EXCHANGE = 3;
+
     const TYPE_JOB = 4;
+
     const TYPE_RENT = 5;
+
     const TYPE_JOB_REQUEST = 6; // Added later after TYPE_JOB which represents job vacancy now
 
     const STATUS_ACTIVE = 1;
-    const STATUS_INACTIVE = 0;
-    
 
-	public function getRouteKeyName($value='')
-	{
-		return 'slug';
-	}
+    const STATUS_INACTIVE = 0;
+
+    public function getRouteKeyName($value = '')
+    {
+        return 'slug';
+    }
 
     public function user()
     {
@@ -125,17 +138,17 @@ class Listing extends Model
     {
         return $this->belongsTo(State::class);
     }
-    
+
     public function area()
     {
         return $this->belongsTo(Area::class);
     }
-    
+
     public function featured_listings()
     {
         return $this->hasMany(FeaturedListing::class);
     }
-    
+
     public function comments()
     {
         return $this->morphMany('App\Models\Comment', 'commentable')->with('user');
@@ -143,59 +156,68 @@ class Listing extends Model
 
     public function url()
     {
-    	return '/listings/'. $this->slug;
+        return '/listings/'.$this->slug;
     }
 
     public function type()
     {
         switch ($this->type) {
-            case Self::TYPE_SELL: return 'بيع'; break;
-            case Self::TYPE_BUY: return 'شراء'; break;
-            case Self::TYPE_EXCHANGE: return 'إستبدال'; break;
-            case Self::TYPE_JOB: return 'عرض وظيفة'; break;
-            case Self::TYPE_RENT: return 'إيجار'; break;
-            case Self::TYPE_JOB_REQUEST: return 'طلب وظيفة'; break;
+            case self::TYPE_SELL: return 'بيع';
+            break;
+            case self::TYPE_BUY: return 'شراء';
+            break;
+            case self::TYPE_EXCHANGE: return 'إستبدال';
+            break;
+            case self::TYPE_JOB: return 'عرض وظيفة';
+            break;
+            case self::TYPE_RENT: return 'إيجار';
+            break;
+            case self::TYPE_JOB_REQUEST: return 'طلب وظيفة';
+            break;
         }
     }
 
     public function status()
     {
         switch ($this->status) {
-            case Self::STATUS_ACTIVE: return 'فعال'; break;
-            case Self::STATUS_INACTIVE: return 'غير فعال'; break;
+            case self::STATUS_ACTIVE: return 'فعال';
+            break;
+            case self::STATUS_INACTIVE: return 'غير فعال';
+            break;
         }
     }
 
     public function is_active()
     {
-        return $this->status == Self::STATUS_ACTIVE;
+        return $this->status == self::STATUS_ACTIVE;
     }
 
     public function is_featured()
-    {        
-        return $this->featured_listings()->whereIn('tier', [1,2,3,4,5,6,7,8])->whereRaw(DB::raw("IF('".now()."' < `expired_at`, 1, Null)"))->first() ? true : false;
+    {
+        return $this->featured_listings()->whereIn('tier', [1, 2, 3, 4, 5, 6, 7, 8])->whereRaw(DB::raw("IF('".now()."' < `expired_at`, 1, Null)"))->first() ? true : false;
     }
 
     public function is_fixed()
     {
         // the function name is wrong, i know but i culdn't find a better name :D
-        return $this->featured_listings()->whereIn('tier', [9,10,11,12,13,14,15,16,17,18,19,20])->whereRaw(DB::raw("IF('".now()."' < `expired_at`, 1, Null)"))->first() ? true : false;
+        return $this->featured_listings()->whereIn('tier', [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])->whereRaw(DB::raw("IF('".now()."' < `expired_at`, 1, Null)"))->first() ? true : false;
     }
-
 
     public function price()
     {
-        return $this->price+0;
+        return $this->price + 0;
     }
 
     public function local_price()
     {
         // the price in local currency
-        if(
+        if (
             optional(country()->currency)->id == optional($this->currency)->id ||
-            !$this->currency
-        ) return $this->price();
-        
+            ! $this->currency
+        ) {
+            return $this->price();
+        }
+
         return ceil(exchange($this->price, $this->currency->code, country()->currency->code));
     }
 
@@ -209,44 +231,64 @@ class Listing extends Model
     {
         // To be able to add the listing to the cart
         // must be added by a store
-        if(!$this->user->is_store()) return false;
+        if (! $this->user->is_store()) {
+            return false;
+        }
         // store can't buy his own products
-        if(auth()->user() && $this->user->id == auth()->user()->id) return false;
+        if (auth()->user() && $this->user->id == auth()->user()->id) {
+            return false;
+        }
         // must be of type 'sell'
-        if($this->type != Self::TYPE_SELL) return false;
+        if ($this->type != self::TYPE_SELL) {
+            return false;
+        }
         // the have a price
-        if(!$this->price || $this->price <= 0) return false;
+        if (! $this->price || $this->price <= 0) {
+            return false;
+        }
         // the price can't exceed 3000 usd to avoid adding cars and building
-        if(exchange($this->price, $this->country->currency->code, 'USD') > 3000) return false;
+        if (exchange($this->price, $this->country->currency->code, 'USD') > 3000) {
+            return false;
+        }
 
         return true;
     }
 
     public static $listing_image_sizes = [
-        'o' => ['w'=>null, 'h'=>null, 'quality'=>100],
-        '' => ['w'=>null, 'h'=>null, 'quality'=>80],
-        'xxs' => ['w'=>128, 'h'=>null, 'quality'=>70],
-        'xs' => ['w'=>256, 'h'=>null, 'quality'=>70],
+        'o' => ['w' => null, 'h' => null, 'quality' => 100],
+        '' => ['w' => null, 'h' => null, 'quality' => 80],
+        'xxs' => ['w' => 128, 'h' => null, 'quality' => 70],
+        'xs' => ['w' => 256, 'h' => null, 'quality' => 70],
     ];
-    
-    public function listing_images( $options=[] ){
+
+    public function listing_images($options = [])
+    {
         $options = array_merge($options);
+
         return $this->images($this->images, $options);
     }
-    public function listing_image($options=[]){
+
+    public function listing_image($options = [])
+    {
         $images = $this->listing_images($options);
+
         return array_shift($images);
     }
-    public function upload_listing_images($files, $options=[]){
-        $options = array_merge($options, ['ext'=>'jpg','sizes'=>Self::$listing_image_sizes, 'watermark'=>true]);
+
+    public function upload_listing_images($files, $options = [])
+    {
+        $options = array_merge($options, ['ext' => 'jpg', 'sizes' => self::$listing_image_sizes, 'watermark' => true]);
+
         return $this->upload_files($files, 'images', $options);
     }
-    
-    public function getImagesPathAttribute(){
+
+    public function getImagesPathAttribute()
+    {
         $images = [];
-        foreach($this->listing_images() as $i) {
+        foreach ($this->listing_images() as $i) {
             $images[] = $i;
         }
+
         return $images;
     }
 

@@ -2,12 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\Order;
 use App\Models\Package;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class PackagesDataTable extends DataTable
@@ -15,24 +11,27 @@ class PackagesDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
     {
-        if(isset(request()->columns[7]['search']['value']) && $status = request()->columns[7]['search']['value']){
+        if (isset(request()->columns[7]['search']['value']) && $status = request()->columns[7]['search']['value']) {
             $query = $query->where('packages.status', $status);
         }
+
         return datatables()
             ->eloquent($query)
-            ->addColumn('package_data', 'store.partials.package-row')->setRowId(function ($package) {return $package->id;})
+            ->addColumn('package_data', 'store.partials.package-row')->setRowId(function ($package) {
+            return $package->id;
+            })
             ->rawColumns(['package_data']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\package $model
+     * @param  \App\package  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(package $model)
@@ -41,9 +40,8 @@ class PackagesDataTable extends DataTable
             ->leftJoin('orders', 'orders.id', '=', 'packages.order_id')
             ->leftJoin('users', 'orders.user_id', '=', 'users.id')
             ->leftJoin('package_items', 'package_items.package_id', '=', 'packages.id')
-            ->selectRaw("`packages`.*, `users`.`name` as `users.name`, `orders`.`buyer_name` as `orders.buyer_name`, GROUP_CONCAT(`package_items`.`title`) as `package_items.title`")
+            ->selectRaw('`packages`.*, `users`.`name` as `users.name`, `orders`.`buyer_name` as `orders.buyer_name`, GROUP_CONCAT(`package_items`.`title`) as `package_items.title`')
             ->groupBy('packages.id');
-
     }
 
     /**
@@ -53,7 +51,7 @@ class PackagesDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -83,6 +81,6 @@ class PackagesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'packages_' . date('YmdHis');
+        return 'packages_'.date('YmdHis');
     }
 }

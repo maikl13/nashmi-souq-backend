@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\User;
 
 class SetStoreCategories
 {
@@ -16,9 +15,10 @@ class SetStoreCategories
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check() && $request->store && auth()->user()->id == $request->store->id){
-            if(!$request->store->store_categories && !in_array($request->route()->getName(), ['store-categories', 'store-categories.store']))
+        if (auth()->check() && $request->store && auth()->user()->id == $request->store->id) {
+            if (! $request->store->store_categories && ! in_array($request->route()->getName(), ['store-categories', 'store-categories.store'])) {
                 return redirect()->route('store-categories');
+            }
         }
 
         return $next($request);

@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Promotion;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class PromotionsDataTable extends DataTable
@@ -14,7 +11,7 @@ class PromotionsDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -23,16 +20,20 @@ class PromotionsDataTable extends DataTable
             ->addColumn('image', function ($record) {
                 return '<a href="'.$record->promotion_image().'" data-fancybox="promotions"><img src="'.$record->promotion_image().'" border="0" width="160" class="img-rounded" align="center"/></a>';
             })
-            ->addColumn('url', function($record){ return $record->url; })
-            ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
+            ->addColumn('url', function ($record) {
+            return $record->url;
+            })
+            ->addColumn('created_at', function ($record) {
+            return $record->created_at->diffForHumans();
+            })
             ->addColumn('action', 'store-dashboard.promotions.partials.action')
-            ->rawColumns(['image','action']);
+            ->rawColumns(['image', 'action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Promotion $model
+     * @param  \App\Models\Promotion  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Promotion $model)
@@ -47,7 +48,7 @@ class PromotionsDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table') ->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -76,6 +77,6 @@ class PromotionsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Promotions_' . date('YmdHis');
+        return 'Promotions_'.date('YmdHis');
     }
 }

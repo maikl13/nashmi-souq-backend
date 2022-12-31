@@ -3,11 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Subscription;
-use App\Models\Country;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class SubscriptionsDataTable extends DataTable
@@ -15,23 +11,23 @@ class SubscriptionsDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('period', function($record){
+            ->addColumn('period', function ($record) {
                 return $record->period;
             })
-            ->addColumn('start', function($record){
+            ->addColumn('start', function ($record) {
                 return $record->start->format('Y-m-d');
             })
-            ->addColumn('end', function($record){
+            ->addColumn('end', function ($record) {
                 return $record->end->format('Y-m-d');
             })
-            ->addColumn('type', function($record){
+            ->addColumn('type', function ($record) {
                 return $record->type;
             });
     }
@@ -39,7 +35,7 @@ class SubscriptionsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Subscription $model
+     * @param  \App\Subscription  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Subscription $model)
@@ -54,7 +50,7 @@ class SubscriptionsDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -80,6 +76,6 @@ class SubscriptionsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Subscriptions_' . date('YmdHis');
+        return 'Subscriptions_'.date('YmdHis');
     }
 }

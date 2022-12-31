@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\User;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class StoresDataTable extends DataTable
@@ -14,21 +11,25 @@ class StoresDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('remaining', function($user){ return $user->remaining_days(); })
-            ->addColumn('action', 'admin.users.stores-action')->setRowId(function ($user) { return $user->id; });
+            ->addColumn('remaining', function ($user) {
+            return $user->remaining_days();
+            })
+            ->addColumn('action', 'admin.users.stores-action')->setRowId(function ($user) {
+            return $user->id;
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\User $model
+     * @param  \App\User  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(User $model)
@@ -43,7 +44,7 @@ class StoresDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -69,6 +70,6 @@ class StoresDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Users_' . date('YmdHis');
+        return 'Users_'.date('YmdHis');
     }
 }

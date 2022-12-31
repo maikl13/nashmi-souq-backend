@@ -15,9 +15,10 @@ class CheckIfStoreApi
      */
     public function handle($request, Closure $next)
     {
-        if(!auth()->user()->is_store()){
-           abort(403);
+        if (! auth()->user()->is_store()) {
+            abort(403);
         }
+
         return $next($request);
     }
 }

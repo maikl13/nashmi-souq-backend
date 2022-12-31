@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Category;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class CategoriesDataTable extends DataTable
@@ -14,7 +11,7 @@ class CategoriesDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -24,18 +21,26 @@ class CategoriesDataTable extends DataTable
             // ->addColumn('image', function ($record) {
             //     return '<a href="'.$record->category_image().'" data-fancybox="categories"><img src="'.$record->category_image().'" border="0" width="40" class="img-rounded" align="center"/></a>';
             // })
-            ->addColumn('icon', function ($record) { return '<i class="'. $record->icon .'"></i>'; })
-            ->addColumn('created_at', function($record){ return $record->created_at->diffForHumans(); })
-            ->addColumn('listings', function($record){ return $record->listings()->count(); })
-            ->addColumn('action', 'admin.categories.partials.action')->setRowId(function ($record){return $record->id;})
-            ->rawColumns(['image','icon','action'])
+            ->addColumn('icon', function ($record) {
+            return '<i class="'.$record->icon.'"></i>';
+            })
+            ->addColumn('created_at', function ($record) {
+            return $record->created_at->diffForHumans();
+            })
+            ->addColumn('listings', function ($record) {
+            return $record->listings()->count();
+            })
+            ->addColumn('action', 'admin.categories.partials.action')->setRowId(function ($record) {
+            return $record->id;
+            })
+            ->rawColumns(['image', 'icon', 'action'])
             ->setRowClass(function ($record) {
-                return $record->category_id ? 'child': '';
+                return $record->category_id ? 'child' : '';
             })->setRowAttr([
-                'data-parent' => function($record) {
+                'data-parent' => function ($record) {
                     return $record->category_id ? $record->parent->id : '';
                 },
-                'data-level' => function($record) {
+                'data-level' => function ($record) {
                     return $record->level();
                 },
             ]);
@@ -44,7 +49,7 @@ class CategoriesDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Category $model
+     * @param  \App\Category  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Category $model)
@@ -59,7 +64,7 @@ class CategoriesDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -90,6 +95,6 @@ class CategoriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Categories_' . date('YmdHis');
+        return 'Categories_'.date('YmdHis');
     }
 }

@@ -2,13 +2,11 @@
 
 namespace App\Traits;
 
-use App\Models\Order;
-use App\Models\Subscription;
 use App\Models\Promotion;
-use Illuminate\Http\Request;
+use App\Models\Subscription;
 
-trait StoreInfo {
-
+trait StoreInfo
+{
     public function promotions()
     {
         return $this->hasMany(Promotion::class);
@@ -21,8 +19,11 @@ trait StoreInfo {
 
     public function is_active_store()
     {
-        if(!$this->is_store()) return false;
+        if (! $this->is_store()) {
+            return false;
+        }
         $subscription = $this->subscriptions()->active()->where('start', '<=', now())->where('end', '>=', now()->subDays(setting('grace_period')))->first();
+
         return $subscription ? true : false;
     }
 
@@ -39,21 +40,25 @@ trait StoreInfo {
     public function start_trial()
     {
         $subscription = $this->subscriptions()->first();
-        if(!$subscription && setting('trial_period'))
+        if (! $subscription && setting('trial_period')) {
             $subscription = $this->subscriptions()->create([
                 'start' => now(),
                 'end' => now()->addDays(setting('trial_period')),
                 'type' => Subscription::TYPE_TRIAL,
                 'status' => Subscription::STATUS_ACTIVE,
             ]);
+        }
+
         return $subscription;
     }
 
     public function store_url()
     {
         $protocol = env('APP_PROTOCOL') ?? 'http';
-        if($this->is_store())
+        if ($this->is_store()) {
             return $protocol.'://'.$this->store_slug.'.'.str_replace('http://', '', str_replace('https://', '', config('app.url')));
+        }
+
         return config('app.url');
     }
 
@@ -64,8 +69,13 @@ trait StoreInfo {
 
     public function store_image()
     {
-        if($this->store_logo) return $this->store_logo();
-        if($this->profile_picture) return $this->profile_picture();
+        if ($this->store_logo) {
+            return $this->store_logo();
+        }
+        if ($this->profile_picture) {
+            return $this->profile_picture();
+        }
+
         return $this->store_name ? $this->store_logo() : $this->profile_picture();
     }
 
@@ -77,18 +87,21 @@ trait StoreInfo {
     public function is_about_to_end()
     {
         $subscription = $this->subscriptions()->active()->orderBy('end', 'desc')->first();
+
         return $subscription->end >= now() && $subscription->end < now()->addDays(3) ? true : false;
     }
 
     public function in_grace_period()
     {
         $subscription = $this->subscriptions()->active()->orderBy('end', 'desc')->first();
+
         return $subscription->end < now() && $subscription->end >= now()->subDays(setting('grace_period')) ? true : false;
     }
 
     public function remaining_days()
     {
         $subscription = $this->subscriptions()->active()->orderBy('end', 'desc')->first();
+
         return $subscription && $subscription->end->isFuture() ? $subscription->end->diffInDays() : 0;
     }
 }

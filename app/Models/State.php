@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
-    public function getRouteKeyName() {
+    public function getRouteKeyName()
+    {
         return 'slug';
     }
-    
+
     public function areas()
     {
         return $this->hasMany(Area::class);

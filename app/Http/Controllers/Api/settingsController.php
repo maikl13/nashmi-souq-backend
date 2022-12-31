@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use Str;
-use Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Setting;
-use Validator;
+use Illuminate\Http\Request;
 
 class settingsController extends Controller
 {

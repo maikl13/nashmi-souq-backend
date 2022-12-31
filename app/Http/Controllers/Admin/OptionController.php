@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\OptionsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Option;
 use Illuminate\Http\Request;
-use App\DataTables\OptionsDataTable;
 use Str;
 
 class OptionController extends Controller
@@ -44,12 +44,12 @@ class OptionController extends Controller
         $option->preview_config = $request->preview_config;
         $option->color_config = $request->color_config;
 
-        if($option->save()){
+        if ($option->save()) {
             return response()->json('تم الحفظ بنجاح!', 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -86,9 +86,10 @@ class OptionController extends Controller
         $option->preview_config = $request->preview_config;
         $option->color_config = $request->color_config;
 
-        if($option->save()){
+        if ($option->save()) {
             return redirect()->route('options')->with('success', 'تم تعديل البيانات بنجاح.');
         }
+
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
@@ -100,8 +101,10 @@ class OptionController extends Controller
      */
     public function destroy(Option $option)
     {
-        if( $option->delete() )
+        if ($option->delete()) {
             return response()->json('تم الحذف بنجاح.', 200);
+        }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
     }
 }

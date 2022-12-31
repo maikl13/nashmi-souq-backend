@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Setting;
-use Image;
 use File;
+use Illuminate\Http\Request;
+use Image;
 
 class SettingController extends Controller
 {
-
     public function index()
     {
         return view('admin.settings.site-settings');
@@ -20,7 +19,6 @@ class SettingController extends Controller
     {
         return view('admin.settings.site-sections');
     }
-
 
     public function save(Request $request)
     {
@@ -81,17 +79,19 @@ class SettingController extends Controller
         $images = ['logo', 'footer_logo'];
         $html = [];
 
-        foreach($request->all() as $name => $value){
-            if(in_array($name, $allowed_settings)){
+        foreach ($request->all() as $name => $value) {
+            if (in_array($name, $allowed_settings)) {
                 $setting = Setting::where('name', $name)->first();
                 $setting = $setting ? $setting : new Setting;
                 $setting->name = $name;
-                if(in_array($name, $images)){
-                    $w = false; $h = false;
-                    if(in_array($name, ['about_image', 'story_image', 'message_image', 'vision_image'])){
-                        $w = 1080; $h = 720;
+                if (in_array($name, $images)) {
+                    $w = false;
+                    $h = false;
+                    if (in_array($name, ['about_image', 'story_image', 'message_image', 'vision_image'])) {
+                        $w = 1080;
+                        $h = 720;
                     }
-                    if($filename = $this->upload_image($request->file($name), $w, $h)){
+                    if ($filename = $this->upload_image($request->file($name), $w, $h)) {
                         $this->delete_image($name);
                         $setting->value = $filename;
                     } else {
@@ -103,6 +103,7 @@ class SettingController extends Controller
                 $setting->save();
             }
         }
+
         return response()->json('تم تحديث الاعدادات بنجاح', 200);
     }
 
@@ -111,30 +112,39 @@ class SettingController extends Controller
         $extention = $file->getClientOriginalExtension();
         $name = uniqid();
         $file = Image::make($file)->encode('png', 75);
-        if($w && $h) $file->resize($w, $h);
-        if($file){
-            $img_dir = "assets/images/" ;
+        if ($w && $h) {
+            $file->resize($w, $h);
+        }
+        if ($file) {
+            $img_dir = 'assets/images/';
             File::exists($img_dir) or File::makeDirectory($img_dir);
 
-            $path = $img_dir . 'settings' . "/";
+            $path = $img_dir.'settings'.'/';
             File::exists($path) or File::makeDirectory($path);
-            
-            if(File::exists($path."/{$name}.png")) File::delete($path . "/{$name}.png");
 
-            $file->save($path . "/{$name}.png");
-            return "/".$path.$name.".png";
+            if (File::exists($path."/{$name}.png")) {
+                File::delete($path."/{$name}.png");
+            }
+
+            $file->save($path."/{$name}.png");
+
+            return '/'.$path.$name.'.png';
         }
+
         return false;
     }
-    
+
     public function delete_image($image)
     {
         $setting = Setting::where('name', $image)->first();
-        if($setting){
-            if(File::exists("assets/images/settings/{$setting->value}.png")) File::delete("assets/images/settings/{$setting->value}.png");
+        if ($setting) {
+            if (File::exists("assets/images/settings/{$setting->value}.png")) {
+                File::delete("assets/images/settings/{$setting->value}.png");
+            }
             $setting->value = null;
             $setting->save();
         }
+
         return response()->json('تم الحذف بنجاح', 200);
     }
 }

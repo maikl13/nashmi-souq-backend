@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Validation\ValidationException;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use App\DataTables\UsersDataTable;
 use App\DataTables\StoresDataTable;
 use App\DataTables\SubscriptionsDataTable;
+use App\DataTables\UsersDataTable;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Auth;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -21,10 +18,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('admin.index');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -33,19 +30,23 @@ class UserController extends Controller
      */
     public function index(UsersDataTable $dataTable)
     {
-        if(request()->encode){
+        if (request()->encode) {
             ini_set('memory_limit', '4576M');
             ini_set('max_execution_time', 3000);
             foreach (User::get() as $user) {
-                if($user->profile_picture)
-                    $user->encode($user->profile_picture, ['ext'=>'jpg','sizes'=>User::$profile_picture_sizes]);
-                if($user->store_logo)
-                    $user->encode($user->store_logo, ['ext'=>'jpg','sizes'=>User::$profile_picture_sizes]);
-                if($user->store_banner)
-                    $user->encode($user->store_banner, ['ext'=>'jpg','w'=>1180, 'h'=>300, 'allowed'=>['o', '', 's']]);
+                if ($user->profile_picture) {
+                    $user->encode($user->profile_picture, ['ext' => 'jpg', 'sizes' => User::$profile_picture_sizes]);
+                }
+                if ($user->store_logo) {
+                    $user->encode($user->store_logo, ['ext' => 'jpg', 'sizes' => User::$profile_picture_sizes]);
+                }
+                if ($user->store_banner) {
+                    $user->encode($user->store_banner, ['ext' => 'jpg', 'w' => 1180, 'h' => 300, 'allowed' => ['o', '', 's']]);
+                }
             }
             dd('done');
         }
+
         return $dataTable->render('admin.users.users');
     }
 
@@ -53,7 +54,6 @@ class UserController extends Controller
     {
         return $dataTable->render('admin.users.stores');
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -64,7 +64,6 @@ class UserController extends Controller
     {
         return view('admin.users.add-admin');
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -88,15 +87,15 @@ class UserController extends Controller
         $admin->role_id = User::ROLE_ADMIN;
         $admin->email_verified_at = now();
 
-        if($admin->save()){
+        if ($admin->save()) {
             $admin->profile_picture = null;
             $admin->upload_profile_picture($request->file('profile_picture'));
+
             return redirect()->back()->with(['success' => 'Admin was added successfully.']);
         } else {
             return redirect()->back()->with(['failure' => 'Error! Something went wrong, please try again.']);
         }
     }
-
 
     /**
      * Display the specified resource.
@@ -104,14 +103,13 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(SubscriptionsDataTable $dataTable, User $user=null)
+    public function show(SubscriptionsDataTable $dataTable, User $user = null)
     {
         $user = $user ? $user : Auth::user();
         // return view('admin.users.user')->with('user', $user);
         return $dataTable->with(['query' => $user->subscriptions()->active()])
             ->render('admin.users.user', ['user' => $user]);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -133,8 +131,9 @@ class UserController extends Controller
     {
         $admin = Auth::user();
 
-        if(!isset($request->password) || !Hash::check($request->password, $admin->password))
+        if (! isset($request->password) || ! Hash::check($request->password, $admin->password)) {
             return response()->json(__('Wrong Password'), 500);
+        }
 
         $request->validate([
             'name' => 'required|min:2|max:255',
@@ -146,14 +145,13 @@ class UserController extends Controller
         $admin->email = $request->email;
 
         $admin->upload_profile_picture($request->file('profile_picture'));
-        
-        if($admin->save()){
+
+        if ($admin->save()) {
             return response()->json(__('Saved Successfully'), 200);
         } else {
             return response()->json(__('An Error Occured, Please try again.'), 500);
         }
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -170,10 +168,10 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        if(Hash::check($request->password, $admin->password)){
+        if (Hash::check($request->password, $admin->password)) {
             $admin->password = Hash::make($request->new_password);
-        
-            if($admin->save()){
+
+            if ($admin->save()) {
                 return response()->json(__('Saved Successfully'), 200);
             } else {
                 return response()->json(__('An Error Occured, Please try again.'), 500);
@@ -182,7 +180,6 @@ class UserController extends Controller
             return response()->json(__('Wrong Password'), 500);
         }
     }
-
 
     /**
      * Toggle user's state.
@@ -193,15 +190,15 @@ class UserController extends Controller
     public function toggle_active_state($user)
     {
         $user = User::find($user);
-        if($user && !$user->is_superadmin()) {
-            $user->active = !$user->active;
-            if( $user->save() ){
+        if ($user && ! $user->is_superadmin()) {
+            $user->active = ! $user->active;
+            if ($user->save()) {
                 return response()->json(__('Saved Successfully'), 200);
             }
         }
+
         return response()->json(__('An Error Occured, Please try again.'), 500);
     }
-
 
     /**
      * Change user role.
@@ -214,15 +211,16 @@ class UserController extends Controller
     {
         $user = User::findOrFail($user);
         $request->validate([
-            'role' => 'required|in:'. User::ROLE_ADMIN .','. USER::ROLE_USER
+            'role' => 'required|in:'.User::ROLE_ADMIN.','.USER::ROLE_USER,
         ]);
 
-        if(!$user->is_superadmin()) {
+        if (! $user->is_superadmin()) {
             $user->role_id = $request->role;
-            if( $user->save() ){
-                return response()->json( $user->role() , 200);
+            if ($user->save()) {
+                return response()->json($user->role(), 200);
             }
         }
+
         return response()->json(__('An Error Occured, Please try again.'), 500);
     }
 }

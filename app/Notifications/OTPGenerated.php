@@ -2,10 +2,10 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use App\Channels\TwilioSMSChannel;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class OTPGenerated extends Notification implements ShouldQueue
 {
@@ -13,10 +13,11 @@ class OTPGenerated extends Notification implements ShouldQueue
 
     private $reset;
 
-    public function __construct($reset) {
+    public function __construct($reset)
+    {
         $this->reset = $reset;
     }
-    
+
     public function via($notifiable)
     {
         return [TwilioSMSChannel::class];
@@ -26,13 +27,13 @@ class OTPGenerated extends Notification implements ShouldQueue
     {
         $msg[] = 'مرحبا بك!';
         $msg[] = ' ';
-        
-        if($this->reset){
-            $msg[] = 'كلمة المرور المؤقتة لحسابك هي '. $notifiable->otp;
+
+        if ($this->reset) {
+            $msg[] = 'كلمة المرور المؤقتة لحسابك هي '.$notifiable->otp;
             $msg[] = 'إذا لم تقم بطلب إعادة تعيين كلمة المرور، فلا يلزم إتخاذ أي إجراء';
         } else {
             $msg[] = 'يسعدنا إنضمامك لموقعنا';
-            $msg[] = 'كلمة المرور المؤقتة لحسابك هي '. $notifiable->otp;
+            $msg[] = 'كلمة المرور المؤقتة لحسابك هي '.$notifiable->otp;
             $msg[] = 'إذا لم تقم بإنشاء حساب ، فلا يلزم اتخاذ أي إجراء';
         }
 

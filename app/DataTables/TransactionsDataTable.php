@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Transaction;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class TransactionsDataTable extends DataTable
@@ -14,39 +11,51 @@ class TransactionsDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
     {
-        if(isset(request()->columns[6]['search']['value']) && is_integer((int)request()->columns[6]['search']['value'])){
+        if (isset(request()->columns[6]['search']['value']) && is_int((int) request()->columns[6]['search']['value'])) {
             $status = request()->columns[6]['search']['value'];
             $query = $status == Transaction::STATUS_PROCESSED ? $query->where('status', Transaction::STATUS_PROCESSED) : $query->where('status', Transaction::STATUS_PENDING);
         }
 
-        if(isset(request()->columns[3]['search']['value']) && $type = request()->columns[3]['search']['value']){
+        if (isset(request()->columns[3]['search']['value']) && $type = request()->columns[3]['search']['value']) {
             $query = $query->where('type', $type);
         }
 
-        if(isset(request()->columns[5]['search']['value']) && $payment_method = request()->columns[5]['search']['value']){
+        if (isset(request()->columns[5]['search']['value']) && $payment_method = request()->columns[5]['search']['value']) {
             $query = $query->where('payment_method', $payment_method);
         }
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('user', function($record){ return $record->user->name; })
-            ->addColumn('type', function($record){ return $record->type(); })
-            ->addColumn('currency', function($record){ return $record->currency->name; })
-            ->addColumn('payment_method', function($record){ return $record->get_payment_method(); })
-            ->addColumn('status', function($record){ return $record->status(); })
-            ->addColumn('created_at', function($record){ return $record->created_at->format('d-m-Y h:i:s'); })
+            ->addColumn('user', function ($record) {
+            return $record->user->name;
+            })
+            ->addColumn('type', function ($record) {
+            return $record->type();
+            })
+            ->addColumn('currency', function ($record) {
+            return $record->currency->name;
+            })
+            ->addColumn('payment_method', function ($record) {
+            return $record->get_payment_method();
+            })
+            ->addColumn('status', function ($record) {
+            return $record->status();
+            })
+            ->addColumn('created_at', function ($record) {
+            return $record->created_at->format('d-m-Y h:i:s');
+            })
             ->addColumn('action', 'admin.transactions.partials.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Transaction $model
+     * @param  \App\Transaction  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Transaction $model)
@@ -61,7 +70,7 @@ class TransactionsDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -95,6 +104,6 @@ class TransactionsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Transactions_' . date('YmdHis');
+        return 'Transactions_'.date('YmdHis');
     }
 }

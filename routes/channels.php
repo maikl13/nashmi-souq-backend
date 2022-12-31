@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Broadcast;
 use App\Models\User;
+use Illuminate\Support\Facades\Broadcast;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,6 @@ use App\Models\User;
 //     return (int) $user->id === (int) $id;
 // });
 
-
 Broadcast::channel('messages.{username}', function ($user, $username) {
-	return (int) $user->username === (int) $username;
+    return (int) $user->username === (int) $username;
 });

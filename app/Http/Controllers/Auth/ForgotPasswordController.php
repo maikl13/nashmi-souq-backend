@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-use Propaganistas\LaravelPhone\PhoneNumber;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
 {
@@ -25,42 +24,44 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-
     public function sendResetLinkEmail(Request $request)
     {
         // $request->validate([
         //     'phone' => 'phone:AUTO,EG'
         // ]);
-        
+
         $user = User::where('email', $request->phoneoremail)->first();
-        if($user) {
+        if ($user) {
             $response = $this->broker()->sendResetLink(['email' => $request->phoneoremail]);
-    
+
             return $response == Password::RESET_LINK_SENT
                         ? $this->sendResetLinkResponse($request, $response)
                         : $this->sendResetLinkFailedResponse($request, $response);
         }
 
-        if(!$user)
+        if (! $user) {
             $user = User::where('phone', $request->phoneoremail)->first();
+        }
 
-        if(!$user)
+        if (! $user) {
             $user = User::where('phone_national', $request->phoneoremail)->first();
+        }
 
-        if(!$user){
-            $validator = Validator::make($request->all(), ['phone' => ['phone:'.strtoupper(location()->code)] ]);
-            if(!$validator->fails())
+        if (! $user) {
+            $validator = Validator::make($request->all(), ['phone' => ['phone:'.strtoupper(location()->code)]]);
+            if (! $validator->fails()) {
                 $user = User::where('phone', phone($request->phoneoremail, location()->code)->formatE164())->first();
+            }
         }
 
-        if(!$user){
-            $validator = Validator::make($request->all(), ['phone' => ['phone:'.strtoupper(country()->code)] ]);
-            if(!$validator->fails())
+        if (! $user) {
+            $validator = Validator::make($request->all(), ['phone' => ['phone:'.strtoupper(country()->code)]]);
+            if (! $validator->fails()) {
                 $user = User::where('phone', phone($request->phoneoremail, country()->code)->formatE164())->first();
+            }
         }
 
-
-        if($user){
+        if ($user) {
             $user->send_otp(true);
 
             return redirect()->route('login')->withInput(['phoneoremail' => $request->phoneoremail])->with('resetbyotp', true);

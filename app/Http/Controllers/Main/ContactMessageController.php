@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Main;
 
+use App\Http\Controllers\Controller;
+use App\Mail\ContactMessageRecieved;
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 use Mail;
-use App\Mail\ContactMessageRecieved;
-use App\Http\Controllers\Controller;
 
 class ContactMessageController extends Controller
 {
@@ -44,15 +44,15 @@ class ContactMessageController extends Controller
         $contact_message->message = $request->message;
         $contact_message->save();
 
-         //SendMail
-        if( setting('email') ){
-            Mail::to( setting('email') )
+        //SendMail
+        if (setting('email')) {
+            Mail::to(setting('email'))
             ->send(new ContactMessageRecieved($contact_message->name, $contact_message->email, $contact_message->phone, $contact_message->subject, $contact_message->message));
         }
 
         return response()->json([
             'success' => 1,
-            'message' => 'تم الإرسال بنجاح, سنقوم بالرد في أقرب وقت ممكن'
+            'message' => 'تم الإرسال بنجاح, سنقوم بالرد في أقرب وقت ممكن',
         ], 200);
     }
 }

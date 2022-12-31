@@ -11,6 +11,7 @@ class DeliveryController extends Controller
     public function show()
     {
         abort(403, 'خدمة الشحن متوقفة في الوقت الحالي');
+
         return view('main.store.deliver');
     }
 
@@ -31,25 +32,26 @@ class DeliveryController extends Controller
         $country = auth()->user()->country;
         $phone = optional($country)->delivery_phone ? $country->delivery_phone : setting('delivery_phone');
 
-        if(!$phone) 
+        if (! $phone) {
             return redirect()->back()->with([
-                'failure' => 'حدث خطأ ما من فضلك قم بالمحاولة في وقت لاحق'
+                'failure' => 'حدث خطأ ما من فضلك قم بالمحاولة في وقت لاحق',
             ]);
-        
+        }
+
         $this->send_whatsapp_template($phone, 'shipping', [[
-            "type" => "body", 
-            "parameters" => [
-                ["type" => "text", "text" => auth()->user()->name],
-                ["type" => "text", "text" => $request->seller_phone],
-                ["type" => "text", "text" => $request->seller_address],
-                ["type" => "text", "text" => $request->buyer_name],
-                ["type" => "text", "text" => $request->buyer_phone],
-                ["type" => "text", "text" => $request->buyer_address],
-                ["type" => "text", "text" => $request->package],
-                ["type" => "text", "text" => $request->amount],
-                ["type" => "text", "text" => $request->price],
-                ["type" => "text", "text" => $request->details],
-            ] 
+            'type' => 'body',
+            'parameters' => [
+                ['type' => 'text', 'text' => auth()->user()->name],
+                ['type' => 'text', 'text' => $request->seller_phone],
+                ['type' => 'text', 'text' => $request->seller_address],
+                ['type' => 'text', 'text' => $request->buyer_name],
+                ['type' => 'text', 'text' => $request->buyer_phone],
+                ['type' => 'text', 'text' => $request->buyer_address],
+                ['type' => 'text', 'text' => $request->package],
+                ['type' => 'text', 'text' => $request->amount],
+                ['type' => 'text', 'text' => $request->price],
+                ['type' => 'text', 'text' => $request->details],
+            ],
         ]]);
 
         return redirect()->back()->with(['success' => 'تم ارسال الطلب بنجاح']);

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Store;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\DataTables\SubscriptionsDataTable;
+use App\Http\Controllers\Controller;
+use App\Models\Currency;
 use App\Models\Subscription;
 use App\Models\Transaction;
-use App\Models\Currency;
+use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
@@ -51,10 +51,10 @@ class SubscriptionController extends Controller
 
         $last_subscription = auth()->user()->subscriptions()->active()->orderBy('end', 'desc')->first();
         $start = now();
-        if($last_subscription && $last_subscription->end->gt($start)){
+        if ($last_subscription && $last_subscription->end->gt($start)) {
             $start = $last_subscription->end->addSecond();
         }
-        $end = clone($start);
+        $end = clone $start;
         $end->addDays($period);
 
         $subscription = new Subscription;
@@ -63,26 +63,28 @@ class SubscriptionController extends Controller
         $subscription->end = $end;
         $subscription->type = $type;
 
-        $currency = Currency::firstOrCreate(['code'=>'USD'],['slug'=>'usd','name'=>'الدولار الامريكي','symbol'=>'$']);
+        $currency = Currency::firstOrCreate(['code' => 'USD'], ['slug' => 'usd', 'name' => 'الدولار الامريكي', 'symbol' => '$']);
 
-        if($subscription->save()){
+        if ($subscription->save()) {
             $transaction = Transaction::payment_init($price, $currency, [
-                'payment_method' => $request->payment_method
+                'payment_method' => $request->payment_method,
             ]);
 
             $subscription->transaction_id = $transaction->id;
             $subscription->save();
 
-            if($request->payment_method == Transaction::PAYMENT_PAYPAL){
+            if ($request->payment_method == Transaction::PAYMENT_PAYPAL) {
                 $transaction->items = [[
                     'name' => $subscription_name,
                     'price' => ceil($transaction->amount_usd),
                     'desc' => $subscription_name,
-                    'qty' => 1
+                    'qty' => 1,
                 ]];
                 $transaction->save();
+
                 return $transaction->paypal_payment();
             }
+
             return $transaction->direct_payment();
         }
     }

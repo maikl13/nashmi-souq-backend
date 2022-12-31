@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Main;
 
-use Str;
-use Auth;
+use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Brand;
-use App\Models\State;
-use App\Models\Listing;
 use App\Models\Category;
-use App\Models\OptionValue;
-use Illuminate\Http\Request;
 use App\Models\FeaturedListing;
-use App\Http\Controllers\Controller;
+use App\Models\Listing;
+use App\Models\OptionValue;
+use App\Models\State;
+use Auth;
+use Illuminate\Http\Request;
+use Str;
 
 class ListingController extends Controller
 {
@@ -34,31 +34,35 @@ class ListingController extends Controller
         $areas = empty($request->areas) || $request->areas == [null] ? [] : $request->areas;
 
         //search
-        if($request->q && !empty($request->q)) 
+        if ($request->q && ! empty($request->q)) {
             $listings = $listings->search($request->q);
+        }
 
         // filter by type
-        if($request->type && !empty($request->type)) 
+        if ($request->type && ! empty($request->type)) {
             $listings = $listings->where('type', $request->type);
+        }
 
         // filter by category
-        if( !empty($categories) || !empty($sub_categories) ){
-            $listings = $listings->where(function($query) use ($categories, $sub_categories){
+        if (! empty($categories) || ! empty($sub_categories)) {
+            $listings = $listings->where(function ($query) use ($categories, $sub_categories) {
                 $query->whereIn('category_id', $categories)
                     ->orWhereIn('sub_category_id', $sub_categories);
             });
         }
 
         // filter by location
-        if( !empty($states) || !empty($areas) ){
-            $listings = $listings->Where(function($query) use ($states, $areas){
+        if (! empty($states) || ! empty($areas)) {
+            $listings = $listings->Where(function ($query) use ($states, $areas) {
                 $query->whereIn('state_id', $states)
                     ->orWhereIn('area_id', $areas);
             });
         }
-        
+
         $params = $request->all();
-        if(isset($params['page'])) unset($params['page']);
+        if (isset($params['page'])) {
+            unset($params['page']);
+        }
         $listings = $listings->featuredOrFixedFirst()->latest()->paginate(24)->appends($params);
 
         return view('main.listings.listings')->with('listings', $listings);
@@ -66,25 +70,28 @@ class ListingController extends Controller
 
     public function show(Listing $listing)
     {
-        if(!$listing->is_active()) return view('main.listings.inactive');
-        $listing->views = $listing->views+1;
+        if (! $listing->is_active()) {
+            return view('main.listings.inactive');
+        }
+        $listing->views = $listing->views + 1;
         $listing->save();
+
         return view('main.listings.listing')->with('listing', $listing);
     }
 
     public function create()
     {
-    	return view('main.listings.add-listing');
+        return view('main.listings.add-listing');
     }
 
     public function store(Request $request)
     {
-    	$request->validate([
+        $request->validate([
             'listing_title' => 'required|min:10|max:255',
-    		'type' => 'required|in:1,2,3,4,5,6',
+            'type' => 'required|in:1,2,3,4,5,6',
             'description' => 'required|min:10|max:10000',
             'category' => 'required|exists:categories,slug',
-    		'sub_category' => 'nullable|exists:categories,slug',
+            'sub_category' => 'nullable|exists:categories,slug',
             'state' => 'required|exists:states,slug',
             'area' => 'nullable|exists:areas,slug',
             'address' => 'nullable|min:10|max:1000',
@@ -92,13 +99,13 @@ class ListingController extends Controller
             'price' => 'nullable|numeric',
             'currency' => 'nullable|exists:currencies,id',
             'brand.*' => 'nullable|exists:brands,slug',
-    	]);
+        ]);
 
-    	$listing = new Listing;
+        $listing = new Listing;
         $listing->title = $request->listing_title;
         $listing->type = $request->type;
-        
-        if(in_array($request->type, [Listing::TYPE_SELL, Listing::TYPE_BUY, Listing::TYPE_RENT])){
+
+        if (in_array($request->type, [Listing::TYPE_SELL, Listing::TYPE_BUY, Listing::TYPE_RENT])) {
             $listing->price = $request->price;
             $listing->currency_id = $request->currency;
         }
@@ -107,7 +114,7 @@ class ListingController extends Controller
         $count = Listing::where('slug', $slug)->count();
         $listing->slug = $count ? $slug.'-'.uniqid() : $slug;
 
-    	$listing->description = $request->description;
+        $listing->description = $request->description;
         $listing->user_id = Auth::user()->id;
 
         $category = Category::where('slug', $request->category)->first();
@@ -121,37 +128,49 @@ class ListingController extends Controller
         $listing->state_id = $state->id;
         $listing->area_id = $area ? $area->id : null;
 
-        if(in_array($request->type, [Listing::TYPE_JOB, Listing::TYPE_JOB_REQUEST])){
+        if (in_array($request->type, [Listing::TYPE_JOB, Listing::TYPE_JOB_REQUEST])) {
             $data = [];
-            if($request->age) $data['age'] = $request->age;
-            if($request->gender) $data['gender'] = $request->gender;
-            if($request->qualification) $data['qualification'] = $request->qualification;
-            if($request->skills) $data['skills'] = $request->skills;
+            if ($request->age) {
+                $data['age'] = $request->age;
+            }
+            if ($request->gender) {
+                $data['gender'] = $request->gender;
+            }
+            if ($request->qualification) {
+                $data['qualification'] = $request->qualification;
+            }
+            if ($request->skills) {
+                $data['skills'] = $request->skills;
+            }
             $listing->data = json_encode($data);
         }
 
         $option_values = $request->option_values;
-        if($option_values){
+        if ($option_values) {
             array_unique($option_values);
-            if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+            if (($key = array_search(null, $option_values)) !== false) {
+                unset($option_values[$key]);
+            }
             $options = [];
-            foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+            foreach (OptionValue::whereIn('id', $option_values)->get() as $option_value) {
                 $options['options'][] = $option_value->option_id;
                 $options['values'][] = $option_value->id;
             }
             $listing->options = $options;
         }
 
-        if(is_array($request->brand) && sizeof($request->brand)) {
+        if (is_array($request->brand) && count($request->brand)) {
             $brand = isset($request->brand[1]) && $request->brand[1] ? $request->brand[1] : $request->brand[0];
             $brand = Brand::where('slug', $brand)->first();
             $listing->brand_id = optional($brand)->id;
         }
 
-        if($listing->save()){
+        if ($listing->save()) {
             $listing->upload_listing_images($request->images);
-            return response()->json(['redirect' => route('account').'#my-listing'] , 200);
+
+            return response()->json(['redirect' => route('account').'#my-listing'], 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
@@ -165,7 +184,7 @@ class ListingController extends Controller
     public function update(Listing $listing, Request $request)
     {
         $this->authorize('delete', $listing);
-        
+
         $request->validate([
             'listing_title' => 'required|min:10|max:255',
             'type' => 'required|in:1,2,3,4,5,6',
@@ -185,7 +204,7 @@ class ListingController extends Controller
         $listing->type = $request->type;
 
         $listing->price = null;
-        if(in_array($request->type, [Listing::TYPE_SELL, Listing::TYPE_BUY, Listing::TYPE_RENT])){
+        if (in_array($request->type, [Listing::TYPE_SELL, Listing::TYPE_BUY, Listing::TYPE_RENT])) {
             $listing->price = $request->price;
             $listing->currency_id = $request->currency;
         }
@@ -207,22 +226,32 @@ class ListingController extends Controller
         $listing->area_id = $area ? $area->id : null;
         $listing->address = $request->address;
 
-        if(in_array($request->type, [Listing::TYPE_JOB, Listing::TYPE_JOB_REQUEST])){
+        if (in_array($request->type, [Listing::TYPE_JOB, Listing::TYPE_JOB_REQUEST])) {
             $data = [];
-            if($request->age) $data['age'] = $request->age;
-            if($request->gender) $data['gender'] = $request->gender;
-            if($request->qualification) $data['qualification'] = $request->qualification;
-            if($request->skills) $data['skills'] = $request->skills;
+            if ($request->age) {
+                $data['age'] = $request->age;
+            }
+            if ($request->gender) {
+                $data['gender'] = $request->gender;
+            }
+            if ($request->qualification) {
+                $data['qualification'] = $request->qualification;
+            }
+            if ($request->skills) {
+                $data['skills'] = $request->skills;
+            }
             $listing->data = json_encode($data);
         }
-        
+
         $listing->options = [];
         $option_values = $request->option_values;
-        if($option_values){
+        if ($option_values) {
             array_unique($option_values);
-            if (($key = array_search(null, $option_values)) !== false) unset($option_values[$key]);
+            if (($key = array_search(null, $option_values)) !== false) {
+                unset($option_values[$key]);
+            }
             $options = [];
-            foreach(OptionValue::whereIn('id', $option_values)->get() as $option_value){
+            foreach (OptionValue::whereIn('id', $option_values)->get() as $option_value) {
                 $options['options'][] = $option_value->option_id;
                 $options['values'][] = $option_value->id;
             }
@@ -230,16 +259,18 @@ class ListingController extends Controller
         }
 
         $listing->brand_id = null;
-        if(is_array($request->brand) && sizeof($request->brand)) {
+        if (is_array($request->brand) && count($request->brand)) {
             $brand = isset($request->brand[1]) && $request->brand[1] ? $request->brand[1] : $request->brand[0];
             $brand = Brand::where('slug', $brand)->first();
             $listing->brand_id = optional($brand)->id;
         }
 
-        if($listing->save()){
+        if ($listing->save()) {
             $listing->upload_listing_images($request->images);
-            return response()->json(['redirect' => route('account').'#my-listing'] , 200);
+
+            return response()->json(['redirect' => route('account').'#my-listing'], 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
@@ -247,14 +278,17 @@ class ListingController extends Controller
     {
         $this->authorize('delete', $listing);
 
-        if($listing->delete()){
-            return response()->json('تم حذف الإعلان بنجاح' , 200);
+        if ($listing->delete()) {
+            return response()->json('تم حذف الإعلان بنجاح', 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
-    public function delete_listing_image(Request $request, Listing $listing){
+    public function delete_listing_image(Request $request, Listing $listing)
+    {
         $this->authorize('delete', $listing);
+
         return $listing->delete_file('images', $request->key);
     }
 
@@ -263,23 +297,27 @@ class ListingController extends Controller
         // dd($request->request);
         $request->validate([
             'listing_id' => 'required|exists:listings,id',
-            'tier' => 'required|between:1,20'
+            'tier' => 'required|between:1,20',
         ]);
         $listing = Listing::where('id', $request->listing_id)->first();
         $price = round(exchange(setting('tier'.$request->tier), 'USD', currency()->code), 1);
 
         $this->authorize('edit', $listing);
-        if($listing->is_featured() && $request->tier <= 8)
+        if ($listing->is_featured() && $request->tier <= 8) {
             return response()->json('تم ترقية الإعلان بالفعل للعضوية المميزة من قبل', 500);
+        }
 
-        if($listing->is_fixed() && $request->tier >= 9)
+        if ($listing->is_fixed() && $request->tier >= 9) {
             return response()->json('الاعلان مثبت بالفعل', 500);
+        }
 
-        if(empty( setting('tier'.$request->tier) ))
+        if (empty(setting('tier'.$request->tier))) {
             return response()->json('حدث خطأ ما! قم بتحديث الصفحة و حاول مجددا.', 500);
+        }
 
-        if(Auth::user()->payout_balance() < $price)
+        if (Auth::user()->payout_balance() < $price) {
             return response()->json('عفوا رصيدك الحالي لا يكفي لإتمام العملية.', 500);
+        }
 
         $featured_listing = new FeaturedListing;
         $featured_listing->listing_id = $listing->id;
@@ -291,17 +329,18 @@ class ListingController extends Controller
 
         $transaction = $featured_listing->payment_init($price, currency());
 
-        if($successfull_transaction = $featured_listing->pay_from_wallet($transaction)){
+        if ($successfull_transaction = $featured_listing->pay_from_wallet($transaction)) {
             $featured_listing->transaction_id = $transaction->id;
-            if($featured_listing->save()){
-                if($request->tier <= 8)
+            if ($featured_listing->save()) {
+                if ($request->tier <= 8) {
                     return response()->json('تم ترقية إعلانك لإعلان مميز بنجاح.', 200);
+                }
+
                 return response()->json('تم تثبيت إعلانك بنجاح.', 200);
             }
         } else {
             return response()->json('حدث خطأ ما! من فضلك تأكد من وجود رصيد كاف و حاول مجددا.', 500);
         }
-
 
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }

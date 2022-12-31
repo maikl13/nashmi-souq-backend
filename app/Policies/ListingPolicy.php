@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Listing;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ListingPolicy
@@ -12,10 +12,12 @@ class ListingPolicy
 
     public function edit(User $user, Listing $listing)
     {
-    	if(!$listing->is_active()) return false;
+        if (! $listing->is_active()) {
+            return false;
+        }
+
         return $listing->user_id === $user->id;
     }
-
 
     public function delete(User $user, Listing $listing)
     {

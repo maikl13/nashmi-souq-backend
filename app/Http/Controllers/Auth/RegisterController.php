@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use App\Models\Country;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Propaganistas\LaravelPhone\PhoneNumber;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -53,21 +50,23 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        if($data['registration_method'] == 'email'){
+        if ($data['registration_method'] == 'email') {
             return Validator::make($data, [
                 'email' => ['required', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]);
         } else {
-            $validator = Validator::make($data, [ 'phone' => ['phone:AUTO,'.$data['phone_phoneCode']] ]);
+            $validator = Validator::make($data, ['phone' => ['phone:AUTO,'.$data['phone_phoneCode']]]);
 
-            if($validator->fails()) return $validator;
+            if ($validator->fails()) {
+                return $validator;
+            }
 
             $data['phone'] = phone($data['phone'], $data['phone_phoneCode'])->formatE164();
 
             return Validator::make($data, [
                 'phone' => ['required', 'string', 'max:255', 'unique:users', 'phone:AUTO,'.$data['phone_phoneCode']],
-            ],['phone' => 'من فضلك قم بإدخال رقم هاتف صحيح']);
+            ], ['phone' => 'من فضلك قم بإدخال رقم هاتف صحيح']);
         }
     }
 
@@ -84,8 +83,8 @@ class RegisterController extends Controller
         $user_data = [];
         $user_data['name'] = 'User_'.$uid;
         $user_data['username'] = $uid;
-        
-        if($data['registration_method'] == 'email'){
+
+        if ($data['registration_method'] == 'email') {
             $user_data['email'] = $data['email'];
             $user_data['password'] = Hash::make($data['password']);
         } else {
@@ -96,9 +95,10 @@ class RegisterController extends Controller
         }
 
         $user = User::create($user_data);
-        
-        if($user && $data['registration_method'] != 'email') 
+
+        if ($user && $data['registration_method'] != 'email') {
             $user->send_otp();
+        }
 
         return $user;
     }
@@ -110,8 +110,9 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         // prevent after registeration login
-        if($user->email)
+        if ($user->email) {
             $this->guard()->login($user);
+        }
 
         if ($response = $this->registered($request, $user)) {
             return $response;

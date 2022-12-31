@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\StatesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\State;
 use Illuminate\Http\Request;
-use App\DataTables\StatesDataTable;
 use Str;
 
 class StateController extends Controller
@@ -40,9 +40,10 @@ class StateController extends Controller
         $state->slug = State::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
         $state->country_id = $request->country_id;
 
-        if($state->save()){
+        if ($state->save()) {
             return response()->json('تم الحفظ بنجاح!', 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
@@ -56,7 +57,7 @@ class StateController extends Controller
     {
         return view('admin.states.edit-state')->with([
             'country' => $state->country,
-            'state' => $state
+            'state' => $state,
         ]);
     }
 
@@ -77,9 +78,10 @@ class StateController extends Controller
         $slug = Str::slug($request->name);
         $state->slug = State::where('slug', $slug)->where('id', '!=', $state->id)->count() ? $slug.'-'.uniqid() : $slug;
 
-        if($state->save()){
+        if ($state->save()) {
             return redirect()->route('states', $state->country)->with('success', 'تم تعديل البيانات بنجاح.');
         }
+
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
@@ -91,16 +93,20 @@ class StateController extends Controller
      */
     public function destroy(State $state)
     {
-        if( $state->delete() )
+        if ($state->delete()) {
             return response()->json('تم الحذف بنجاح.', 200);
+        }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
     }
 
-    public function areas(State $state){
-        $areas = array();
-        foreach($state->areas as $area){
+    public function areas(State $state)
+    {
+        $areas = [];
+        foreach ($state->areas as $area) {
             $areas[$area->slug] = $area->name;
         }
+
         return json_encode($areas);
     }
 }

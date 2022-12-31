@@ -3,11 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Product;
-use App\Models\Country;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class ProductsDataTable extends DataTable
@@ -15,7 +11,7 @@ class ProductsDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -23,12 +19,13 @@ class ProductsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('image', function ($record) {
-                return '<a href="'.$record->product_image().'?v='.uid().'" data-fancybox="categories"><img src="'.$record->product_image(['size'=>'xs']).'?v='.uid().'" border="0" width="200" class="img-rounded" align="center"/></a>';
+                return '<a href="'.$record->product_image().'?v='.uid().'" data-fancybox="categories"><img src="'.$record->product_image(['size' => 'xs']).'?v='.uid().'" border="0" width="200" class="img-rounded" align="center"/></a>';
             })
-            ->addColumn('category', function($record){ 
+            ->addColumn('category', function ($record) {
                 $c = $record->category->name;
-                $c .= $record->sub_category ? '<br>'. $record->sub_category->name : '';
-                return $c; 
+                $c .= $record->sub_category ? '<br>'.$record->sub_category->name : '';
+
+                return $c;
             })
             ->addColumn('options', 'store-dashboard.products.partials.options')
             ->addColumn('action', 'store-dashboard.products.partials.action')
@@ -38,7 +35,7 @@ class ProductsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Product $model
+     * @param  \App\Product  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Product $model)
@@ -53,7 +50,7 @@ class ProductsDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -85,6 +82,6 @@ class ProductsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Products_' . date('YmdHis');
+        return 'Products_'.date('YmdHis');
     }
 }

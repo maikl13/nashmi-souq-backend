@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CountriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use Illuminate\Http\Request;
-use App\DataTables\CountriesDataTable;
 use Str;
 
 class CountryController extends Controller
@@ -43,12 +43,12 @@ class CountryController extends Controller
         $slug = Str::slug($request->name);
         $country->slug = Country::where('slug', $slug)->count() ? $slug.'-'.uniqid() : $slug;
 
-        if($country->save()){
+        if ($country->save()) {
             return response()->json('تم الحفظ بنجاح!', 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -84,9 +84,10 @@ class CountryController extends Controller
         $slug = Str::slug($request->name);
         $country->slug = Country::where('slug', $slug)->where('id', '!=', $country->id)->count() ? $slug.'-'.uniqid() : $slug;
 
-        if($country->save()){
+        if ($country->save()) {
             return redirect()->route('countries')->with('success', 'تم تعديل البيانات بنجاح.');
         }
+
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
@@ -98,8 +99,10 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        if( $country->delete() )
+        if ($country->delete()) {
             return response()->json('تم الحذف بنجاح.', 200);
+        }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
     }
 }

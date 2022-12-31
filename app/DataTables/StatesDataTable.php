@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\State;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class StatesDataTable extends DataTable
@@ -14,7 +11,7 @@ class StatesDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -23,15 +20,19 @@ class StatesDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('country', function($record){ return $record->country->name; })
-            ->addColumn('listings', function($record){ return $record->listings()->count(); })
+            ->addColumn('country', function ($record) {
+            return $record->country->name;
+            })
+            ->addColumn('listings', function ($record) {
+            return $record->listings()->count();
+            })
             ->addColumn('action', 'admin.states.partials.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\State $model
+     * @param  \App\State  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(State $model)
@@ -46,7 +47,7 @@ class StatesDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -76,6 +77,6 @@ class StatesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'States_' . date('YmdHis');
+        return 'States_'.date('YmdHis');
     }
 }

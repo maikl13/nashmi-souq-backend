@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\OptionValue;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class OptionValuesDataTable extends DataTable
@@ -14,7 +11,7 @@ class OptionValuesDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -23,7 +20,9 @@ class OptionValuesDataTable extends DataTable
 
         return datatables()
             ->eloquent($query)
-            ->addColumn('option', function($record){ return $record->option->name; })
+            ->addColumn('option', function ($record) {
+            return $record->option->name;
+            })
             ->addColumn('preview', 'admin.option_values.partials.preview')
             ->addColumn('action', 'admin.option_values.partials.action')
             ->rawColumns(['preview', 'action']);
@@ -32,7 +31,7 @@ class OptionValuesDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\OptionValue $model
+     * @param  \App\Models\OptionValue  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(OptionValue $model)
@@ -47,7 +46,7 @@ class OptionValuesDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -73,6 +72,6 @@ class OptionValuesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'OptionValues_' . date('YmdHis');
+        return 'OptionValues_'.date('YmdHis');
     }
 }

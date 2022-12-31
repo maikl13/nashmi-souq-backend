@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\OptionValuesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Option;
 use App\Models\OptionValue;
 use Illuminate\Http\Request;
-use App\DataTables\OptionValuesDataTable;
 use Str;
 
 class OptionValueController extends Controller
@@ -46,13 +46,14 @@ class OptionValueController extends Controller
         $option_value->color = $request->color;
         $option_value->html = $request->html;
 
-        if($option_value->save()){
+        if ($option_value->save()) {
             if ($option_value->preview_config == Option::PREVIEW_FIXED_IMAGE) {
                 $option_value->upload_option_value_image($request->file('image'));
             }
 
             return response()->json('تم الحفظ بنجاح!', 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
@@ -66,7 +67,7 @@ class OptionValueController extends Controller
     {
         return view('admin.option_values.edit-option_value')->with([
             'option' => $option_value->option,
-            'option_value' => $option_value
+            'option_value' => $option_value,
         ]);
     }
 
@@ -93,13 +94,14 @@ class OptionValueController extends Controller
         $option_value->color = $request->color;
         $option_value->html = $request->html;
 
-        if($option_value->save()){
+        if ($option_value->save()) {
             if ($option_value->preview_config == Option::PREVIEW_FIXED_IMAGE) {
                 $option_value->upload_option_value_image($request->file('image'));
             }
-            
+
             return redirect()->route('option_values', $option_value->option)->with('success', 'تم تعديل البيانات بنجاح.');
         }
+
         return redirect()->back()->with('failure', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
@@ -111,16 +113,20 @@ class OptionValueController extends Controller
      */
     public function destroy(OptionValue $option_value)
     {
-        if( $option_value->delete() )
+        if ($option_value->delete()) {
             return response()->json('تم الحذف بنجاح.', 200);
+        }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا!', 500);
     }
 
-    public function areas(OptionValue $option_value){
-        $areas = array();
-        foreach($option_value->areas as $area){
+    public function areas(OptionValue $option_value)
+    {
+        $areas = [];
+        foreach ($option_value->areas as $area) {
             $areas[$area->slug] = $area->name;
         }
+
         return json_encode($areas);
     }
 }

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Store;
 
-use Auth;
-use App\Models\User;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\User;
+use Auth;
+use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
@@ -16,6 +15,7 @@ class StoreController extends Controller
         // $stores = User::whereNotNull('store_name')->orderBy('store_logo', 'desc')->paginate(18);
         $stores = User::whereNotNull('store_name')->whereHas('products')
                     ->whereHas('active_subscriptions')->inRandomOrder()->paginate(12);
+
         return view('main.store.stores')->with('stores', $stores);
     }
 
@@ -36,9 +36,10 @@ class StoreController extends Controller
 
     public function create()
     {
-        if(auth()->user()->is_store())
+        if (auth()->user()->is_store()) {
             return redirect()->to(auth()->user()->store_url().'/dashboard');
-        
+        }
+
         return view('main.store.new');
     }
 
@@ -56,7 +57,6 @@ class StoreController extends Controller
     {
         return Auth::user()->delete_file('store_logo');
     }
-
 
     public function edit()
     {
@@ -103,22 +103,30 @@ class StoreController extends Controller
         $user->store_cod_payments = $request->store_cod_payments == 'on';
 
         $social_links = [];
-        if(is_array($request->social))
-            foreach ($request->social as $social_link)
-                if($social_link) $social_links[] = $social_link;
+        if (is_array($request->social)) {
+            foreach ($request->social as $social_link) {
+                if ($social_link) {
+                    $social_links[] = $social_link;
+                }
+            }
+        }
         $user->store_social_accounts = json_encode($social_links);
-        
+
         $user->store_categories = $request->categories;
 
         $user->upload_store_banner($request->file('store_banner'));
         $user->upload_store_logo($request->file('store_logo'));
 
-        if($user->save()){
-            if(!auth()->user()->started_trial())
+        if ($user->save()) {
+            if (! auth()->user()->started_trial()) {
                 auth()->user()->start_trial();
-            return redirect()->to($user->store_url().'/dashboard/store-settings')->with('success', "تم الحفظ بنجاح");
-            return back()->with('success', "تم الحفظ بنجاح");
+            }
+
+            return redirect()->to($user->store_url().'/dashboard/store-settings')->with('success', 'تم الحفظ بنجاح');
+
+            return back()->with('success', 'تم الحفظ بنجاح');
         }
+
         return back()->with('error', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 
@@ -132,22 +140,24 @@ class StoreController extends Controller
             'national_id' => 'nullable|min:14|max:14',
             'vodafone_cash' => 'nullable|phone:EG|max:255',
         ]);
-        
+
         $user->bank_account = $request->bank_account;
         $user->paypal = $request->paypal;
         $user->national_id = $request->national_id;
         $user->vodafone_cash = $request->vodafone_cash;
-        
-        if($user->save()){
+
+        if ($user->save()) {
             return response()->json('تم تحديث وسائل سحب الأرباح بنجاح!', 200);
         }
+
         return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
     public function categories()
     {
-        if(auth()->user()->is_store())
+        if (auth()->user()->is_store()) {
             return view('main.store.categories')->with('categories', Category::whereNull('category_id')->get());
+        }
     }
 
     public function store_categories(Request $request)
@@ -158,13 +168,14 @@ class StoreController extends Controller
             'categories' => 'min:1',
             'categories.*' => 'exists:categories,id',
         ]);
-        
-        if($user->is_store()){
+
+        if ($user->is_store()) {
             $user->store_categories = $request->categories;
-            if($user->save()){
+            if ($user->save()) {
                 return redirect()->to($user->store_url().'/dashboard');
             }
         }
+
         return back()->with('error', 'حدث خطأ ما! من فضلك حاول مجددا.');
     }
 }

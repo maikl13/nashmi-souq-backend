@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Cookie;
 
 class ForgetOldCookies
 {
@@ -16,11 +15,12 @@ class ForgetOldCookies
      */
     public function handle($request, Closure $next)
     {
-        if($version = \Cookie::get('version') && request()->path() != 'clear-cookies'){
+        if ($version = \Cookie::get('version') && request()->path() != 'clear-cookies') {
             $current_version = env('APP_VERSION');
 
-            if($version != $current_version)
+            if ($version != $current_version) {
                 return redirect()->to('/clear-cookies');
+            }
         }
 
         return $next($request);

@@ -15,8 +15,11 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers\Main';
+
     protected $store_namespace = 'App\Http\Controllers\Store';
+
     protected $admin_namespace = 'App\Http\Controllers\Admin';
+
     protected $api_namespace = 'App\Http\Controllers\Api';
 
     /**
@@ -35,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::bind('store', function ($store) {        
+        Route::bind('store', function ($store) {
             return \App\Models\User::where('store_slug', $store)->firstOrFail();
         });
     }

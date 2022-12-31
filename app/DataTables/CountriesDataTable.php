@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Country;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class CountriesDataTable extends DataTable
@@ -14,27 +11,31 @@ class CountriesDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('code', function($record){ 
-                return '<img src="https://flagcdn.com/w40/'.$record->code.'.png"  width="24"/> <span class="text-uppercase">'.$record->code.'</span>'; 
-                // return '<img src="https://www.countryflags.io/'.$record->code.'/flat/24.png" /> <span class="text-uppercase">'.$record->code.'</span>'; 
+            ->addColumn('code', function ($record) {
+                return '<img src="https://flagcdn.com/w40/'.$record->code.'.png"  width="24"/> <span class="text-uppercase">'.$record->code.'</span>';
+                // return '<img src="https://www.countryflags.io/'.$record->code.'/flat/24.png" /> <span class="text-uppercase">'.$record->code.'</span>';
             })
-            ->addColumn('currency', function($record){ return $record->currency->name; })
-            ->addColumn('listings', function($record){ return $record->listings()->count(); })
+            ->addColumn('currency', function ($record) {
+            return $record->currency->name;
+            })
+            ->addColumn('listings', function ($record) {
+            return $record->listings()->count();
+            })
             ->addColumn('action', 'admin.countries.partials.action')
-            ->rawColumns(['code','action']);
+            ->rawColumns(['code', 'action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Country $model
+     * @param  \App\Country  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Country $model)
@@ -49,7 +50,7 @@ class CountriesDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -80,6 +81,6 @@ class CountriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Countries_' . date('YmdHis');
+        return 'Countries_'.date('YmdHis');
     }
 }

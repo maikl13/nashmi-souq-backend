@@ -3,10 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Option;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class OptionsDataTable extends DataTable
@@ -14,7 +11,7 @@ class OptionsDataTable extends DataTable
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.
+     * @param  mixed  $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -29,7 +26,7 @@ class OptionsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Option $model
+     * @param  \App\Models\Option  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Option $model)
@@ -44,7 +41,7 @@ class OptionsDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()->parameters([ 'responsive' => true, 'autoWidth' => false, "bLengthChange" => false, 'pageLength' => 25 ])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
+        return $this->builder()->parameters(['responsive' => true, 'autoWidth' => false, 'bLengthChange' => false, 'pageLength' => 25])->setTableId('data-table')->columns($this->getColumns())->minifiedAjax()->dom('lfrtip')->orderBy(0, 'desc');
     }
 
     /**
@@ -70,6 +67,6 @@ class OptionsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Options_' . date('YmdHis');
+        return 'Options_'.date('YmdHis');
     }
 }
