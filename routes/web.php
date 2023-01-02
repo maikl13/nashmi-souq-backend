@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 // * Authenticated Users Routes
 // ====================================================================
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/deactivated', 'MainController@deactivated')->name('deactivated');
+    Route::get('deactivated', 'MainController@deactivated')->name('deactivated');
 });
 
 Route::group(['middleware' => ['auth', 'active']], function () {
@@ -60,16 +61,12 @@ Route::group(['middleware' => ['auth', 'active']], function () {
     });
 });
 
-// ====================================================================
-// * Guests Routes
-// ====================================================================
-
 Route::namespace('\App\Http\Controllers')->group(function () {
     Auth::routes(['verify' => true]);
 });
 
-Route::get('/test', 'MainController@test');
 Route::get('/', 'MainController@index')->name('home');
+Route::get('test', 'MainController@test');
 
 Route::get('listings', 'ListingController@index')->name('listings');
 Route::get('listings/{listing}', 'ListingController@show')->name('listings.show');
@@ -90,21 +87,6 @@ Route::get('direct-payment', 'TransactionController@direct_payment');
 Route::post('direct-payment', 'TransactionController@make_direct_payment');
 Route::get('payment-result', 'TransactionController@payment_result');
 Route::get('hyperpay-payment-result', 'TransactionController@hyperpay_payment_result');
-
-Route::get('clear-cookies', function () {
-    $current_version = env('APP_VERSION');
-    $version = \Cookie::get('version', '1.0');
-
-    if ($version != $current_version) {
-        $fields = ['country', 'country_code', 'nashmi_souq_session', 'XSRF-TOKEN', 'session_locale', 'version'];
-        foreach ($fields as $key) {
-            \Cookie::queue(Cookie::forget($key));
-        }
-        \Cookie::queue(\Cookie::make('version', $current_version, 5 * 12 * 30 * 24 * 60));
-    }
-
-    return redirect()->route('home');
-});
 
 Route::namespace('\App\Http\Controllers\Admin')->prefix('api')->group(function () {
     Route::get('categories/{category}/sub-categories', 'CategoryController@sub_categories');
