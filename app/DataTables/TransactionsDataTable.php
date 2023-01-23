@@ -32,22 +32,22 @@ class TransactionsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('user', function ($record) {
-            return $record->user->name;
+                return $record->user->name;
             })
             ->addColumn('type', function ($record) {
-            return $record->type();
+                return $record->type();
             })
             ->addColumn('currency', function ($record) {
-            return $record->currency->name;
+                return $record->currency->name;
             })
             ->addColumn('payment_method', function ($record) {
-            return $record->get_payment_method();
+                return $record->get_payment_method();
             })
             ->addColumn('status', function ($record) {
-            return $record->status();
+                return $record->status();
             })
             ->addColumn('created_at', function ($record) {
-            return $record->created_at->format('d-m-Y h:i:s');
+                return $record->created_at->format('d-m-Y h:i:s');
             })
             ->addColumn('action', 'admin.transactions.partials.action');
     }

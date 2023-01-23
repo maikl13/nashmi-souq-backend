@@ -109,17 +109,17 @@ function ad_space($type = '', $banner = false)
     switch ($type) {
         // case 'large_rectangle': $width = 336; $height = 280; break;
         case 'large_rectangle': $width = 280;
-        $height = 232;
-        break;
+            $height = 232;
+            break;
         case 'leaderboard': $width = 728;
-        $height = 90;
-        break;
+            $height = 90;
+            break;
         case 'large_leaderboard': $width = 970;
-        $height = 90;
-        break;
+            $height = 90;
+            break;
         case 'mobile_banner': $width = 320;
-        $height = 50;
-        break;
+            $height = 50;
+            break;
     }
 
     $src = $banner ? $banner->banner_image() : '/assets/images/bs/'.$type.'.png';

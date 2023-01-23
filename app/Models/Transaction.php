@@ -83,13 +83,13 @@ class Transaction extends Model
     {
         switch ($this->type) {
             case $this::TYPE_DEPOSIT: return 'إيداع';
-            break;
+                break;
             case $this::TYPE_WITHDRAWAL: return 'سحب';
-            break;
+                break;
             case $this::TYPE_PAYMENT: return 'دفع مباشر';
-            break;
+                break;
             case $this::TYPE_EXPENSE: return 'مصروفات';
-            break;
+                break;
         }
     }
 
@@ -107,11 +107,11 @@ class Transaction extends Model
     {
         switch ($this->status) {
             case $this::STATUS_PENDING: return 'قيد الانتظار';
-            break;
+                break;
             case $this::STATUS_PROCESSED: return 'مكتملة';
-            break;
+                break;
             case $this::STATUS_CANCELLED: return 'ملغية';
-            break;
+                break;
         }
     }
 
@@ -128,23 +128,23 @@ class Transaction extends Model
     {
         switch ($this->payment_method) {
             case $this::PAYMENT_DIRECT_PAYMENT: return 'دفع مباشر';
-            break;
+                break;
             case $this::PAYMENT_MADA: return 'مدى';
-            break;
+                break;
             case $this::PAYMENT_BANK_DEPOSIT: return 'إيداع بنكي';
-            break;
+                break;
             case $this::PAYMENT_FAWRY: return 'فوري';
-            break;
+                break;
             case $this::PAYMENT_VODAFONE_CASH: return 'فودافون كاش';
-            break;
+                break;
             case $this::PAYMENT_POSTAL_OFFICE: return 'حوالة البريد المصري';
-            break;
+                break;
             case $this::PAYMENT_PAYPAL: return 'باي بال';
-            break;
+                break;
             case $this::PAYMENT_WALLET: return 'خصم من المحفظة';
-            break;
+                break;
             case $this::PAYMENT_OTHER: return 'أخرى';
-            break;
+                break;
         }
     }
 

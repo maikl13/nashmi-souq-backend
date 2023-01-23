@@ -50,17 +50,17 @@ class Package extends Model
         }
         switch ($this->status) {
             case self::STATUS_PENDING: return App::getLocale() == 'ar' ? 'قيد المراجعة' : 'pending';
-            break;
+                break;
             case self::STATUS_APPROVED: return App::getLocale() == 'ar' ? 'مقبول' : 'Approved';
-            break;
+                break;
             case self::STATUS_SOFT_REJECTED: return App::getLocale() == 'ar' ? 'مرفوض' : 'Rejected';
-            break;
+                break;
             case self::STATUS_HARD_REJECTED: return App::getLocale() == 'ar' ? 'مرفوض' : 'Rejected';
-            break;
+                break;
             case self::STATUS_DELIVERABLE: return App::getLocale() == 'ar' ? 'مرحلة التجهيز' : 'Under Preparation';
-            break;
+                break;
             case self::STATUS_PREPARED: return App::getLocale() == 'ar' ? 'مرحلة التسليم' : 'Out For Delivery';
-            break;
+                break;
             case self::STATUS_CANCELLED:
                 if ($this->is_cancelled_by_buyer()) {
                     return App::getLocale() == 'ar' ? 'ملغي من قبل المشتري' : 'Cancelled';
@@ -69,7 +69,7 @@ class Package extends Model
                 return App::getLocale() == 'ar' ? 'ملغي' : 'Cancelled';
                 break;
             case self::STATUS_DELIVERED: return App::getLocale() == 'ar' ? 'تم التسليم' : 'Delivered';
-            break;
+                break;
         }
     }
 

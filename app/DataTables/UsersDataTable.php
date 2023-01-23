@@ -26,10 +26,10 @@ class UsersDataTable extends DataTable
                 return $user->id;
             })
             ->addColumn('type', function ($user) {
-            return $user->role();
+                return $user->role();
             })
             ->addColumn('created_at', function ($user) {
-            return $user->created_at->format('d, M Y');
+                return $user->created_at->format('d, M Y');
             });
     }
 

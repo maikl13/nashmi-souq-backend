@@ -79,7 +79,7 @@ trait FileHandler
                             $width = null;
                             $padding = $image->height() < $image->width() ? round($image->height() / 30) : round($image->width() / 30);
                             $watermark = $watermark->resize($width, $height, function ($c) {
-                            $c->aspectRatio();
+                                $c->aspectRatio();
                             })->opacity(55);
                             $image->insert($watermark, 'bottom-right', $padding, $padding);
                         }
@@ -145,7 +145,7 @@ trait FileHandler
                     $width = null;
                     $padding = $image->height() < $image->width() ? round($image->height() / 30) : round($image->width() / 30);
                     $watermark = $watermark->resize($width, $height, function ($c) {
-                    $c->aspectRatio();
+                        $c->aspectRatio();
                     })->opacity(55);
                     $image->insert($watermark, 'bottom-right', $padding, $padding);
                 }

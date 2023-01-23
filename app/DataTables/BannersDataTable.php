@@ -19,16 +19,16 @@ class BannersDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('type', function ($record) {
-            return $record->type();
+                return $record->type();
             })
             ->addColumn('image', function ($record) {
                 return '<a href="'.$record->banner_image().'" data-fancybox="bs"><img src="'.$record->banner_image().'" border="0" width="160" class="img-rounded" align="center"/></a>';
             })
             ->addColumn('url', function ($record) {
-            return $record->url;
+                return $record->url;
             })
             ->addColumn('period', function ($record) {
-            return $record->period;
+                return $record->period;
             })
             ->addColumn('remainder', function ($record) {
                 $h = $record->expires_at->diffInHours();
@@ -43,7 +43,7 @@ class BannersDataTable extends DataTable
                 return implode(', ', $countries);
             })
             ->addColumn('created_at', function ($record) {
-            return $record->created_at->diffForHumans();
+                return $record->created_at->diffForHumans();
             })
             ->addColumn('action', 'admin.banners.partials.action')
             ->rawColumns(['image', 'remainder', 'action']);

@@ -43,13 +43,13 @@ class Banner extends Model
     {
         switch ($this->type) {
             case self::TYPE_LARGE_RECTANGLE: return 336;
-            break;
+                break;
             case self::TYPE_LEADERBOARD: return 728;
-            break;
+                break;
             case self::TYPE_LARGE_LEADERBOARD: return 970;
-            break;
+                break;
             case self::TYPE_MOBILE_BANNER: return 320;
-            break;
+                break;
         }
     }
 
@@ -57,13 +57,13 @@ class Banner extends Model
     {
         switch ($this->type) {
             case self::TYPE_LARGE_RECTANGLE: return 280;
-            break;
+                break;
             case self::TYPE_LEADERBOARD: return 90;
-            break;
+                break;
             case self::TYPE_LARGE_LEADERBOARD: return 90;
-            break;
+                break;
             case self::TYPE_MOBILE_BANNER: return 50;
-            break;
+                break;
         }
     }
 
@@ -71,13 +71,13 @@ class Banner extends Model
     {
         switch ($this->type) {
             case self::TYPE_LARGE_RECTANGLE: return 'Large Rectangle - 336x280';
-            break;
+                break;
             case self::TYPE_LEADERBOARD: return 'Leaderboard - 728x90';
-            break;
+                break;
             case self::TYPE_LARGE_LEADERBOARD: return 'Large Leaderboard - 970x90';
-            break;
+                break;
             case self::TYPE_MOBILE_BANNER: return 'Mobile Banner - 320x50';
-            break;
+                break;
         }
     }
 

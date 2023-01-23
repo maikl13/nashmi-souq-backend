@@ -21,10 +21,10 @@ class AreasDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('state', function ($record) {
-            return $record->state->name;
+                return $record->state->name;
             })
             ->addColumn('listings', function ($record) {
-            return $record->listings()->count();
+                return $record->listings()->count();
             })
             ->addColumn('action', 'admin.areas.partials.action');
     }

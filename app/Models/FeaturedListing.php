@@ -29,46 +29,46 @@ class FeaturedListing extends Model
     {
         switch ($this->tier) {
             case 1: return 1;
-            break;
+                break;
             case 2: return 3;
-            break;
+                break;
             case 3: return 7;
-            break;
+                break;
             case 4: return 15;
-            break;
+                break;
             case 5: return 30;
-            break;
+                break;
             case 6: return 90;
-            break;
+                break;
             case 7: return 180;
-            break;
+                break;
             case 8: return 365;
-            break;
+                break;
 
             case 9: return 30;
-            break;
+                break;
             case 10: return 60;
-            break;
+                break;
             case 11: return 90;
-            break;
+                break;
             case 12: return 120;
-            break;
+                break;
             case 13: return 150;
-            break;
+                break;
             case 14: return 180;
-            break;
+                break;
             case 15: return 210;
-            break;
+                break;
             case 16: return 240;
-            break;
+                break;
             case 17: return 270;
-            break;
+                break;
             case 18: return 300;
-            break;
+                break;
             case 19: return 330;
-            break;
+                break;
             case 20: return 360;
-            break;
+                break;
         }
     }
 }

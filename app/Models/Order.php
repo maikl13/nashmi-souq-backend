@@ -70,13 +70,13 @@ class Order extends Model
     {
         switch ($this->payment_method) {
             case self::CREDIT_PAYMENT: return 'بطاقة الائتمان';
-            break;
+                break;
             case self::ON_DELIVERY_PAYMENT: return 'الدفع عند الاستلام';
-            break;
+                break;
             case self::PAYPAL_PAYMENT: return 'باي بال';
-            break;
+                break;
             case self::MADA_PAYMENT: return 'مدى';
-            break;
+                break;
         }
     }
 
@@ -102,11 +102,11 @@ class Order extends Model
     {
         switch ($this->status) {
             case self::STATUS_UNPAID: return App::getLocale() == 'ar' ? 'غير مدفوع' : 'unpaid';
-            break;
+                break;
             case self::STATUS_PROCESSING: return App::getLocale() == 'ar' ? 'قيد المعالجة' : 'processing';
-            break;
+                break;
             case self::STATUS_DELIVERED: return App::getLocale() == 'ar' ? 'تم التسليم' : 'Delivered';
-            break;
+                break;
         }
     }
 

@@ -23,7 +23,7 @@ class PackagesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('package_data', 'store.partials.package-row')->setRowId(function ($package) {
-            return $package->id;
+                return $package->id;
             })
             ->rawColumns(['package_data']);
     }

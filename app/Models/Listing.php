@@ -163,17 +163,17 @@ class Listing extends Model
     {
         switch ($this->type) {
             case self::TYPE_SELL: return 'بيع';
-            break;
+                break;
             case self::TYPE_BUY: return 'شراء';
-            break;
+                break;
             case self::TYPE_EXCHANGE: return 'إستبدال';
-            break;
+                break;
             case self::TYPE_JOB: return 'عرض وظيفة';
-            break;
+                break;
             case self::TYPE_RENT: return 'إيجار';
-            break;
+                break;
             case self::TYPE_JOB_REQUEST: return 'طلب وظيفة';
-            break;
+                break;
         }
     }
 
@@ -181,9 +181,9 @@ class Listing extends Model
     {
         switch ($this->status) {
             case self::STATUS_ACTIVE: return 'فعال';
-            break;
+                break;
             case self::STATUS_INACTIVE: return 'غير فعال';
-            break;
+                break;
         }
     }
 

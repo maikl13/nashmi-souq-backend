@@ -36,13 +36,13 @@ class Subscription extends Model
     {
         switch ($this->attributes['type']) {
             case self::TYPE_TRIAL: return 'فترة تجريبية';
-            break;
+                break;
             case self::TYPE_MONTHLY: return 'اشتراك شهري';
-            break;
+                break;
             case self::TYPE_HALF_YEAR: return 'اشتراك نصف سنوي';
-            break;
+                break;
             case self::TYPE_YEARLY: return 'اشتراك سنوي';
-            break;
+                break;
         }
     }
 

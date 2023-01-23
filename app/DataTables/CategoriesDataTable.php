@@ -22,16 +22,16 @@ class CategoriesDataTable extends DataTable
             //     return '<a href="'.$record->category_image().'" data-fancybox="categories"><img src="'.$record->category_image().'" border="0" width="40" class="img-rounded" align="center"/></a>';
             // })
             ->addColumn('icon', function ($record) {
-            return '<i class="'.$record->icon.'"></i>';
+                return '<i class="'.$record->icon.'"></i>';
             })
             ->addColumn('created_at', function ($record) {
-            return $record->created_at->diffForHumans();
+                return $record->created_at->diffForHumans();
             })
             ->addColumn('listings', function ($record) {
-            return $record->listings()->count();
+                return $record->listings()->count();
             })
             ->addColumn('action', 'admin.categories.partials.action')->setRowId(function ($record) {
-            return $record->id;
+                return $record->id;
             })
             ->rawColumns(['image', 'icon', 'action'])
             ->setRowClass(function ($record) {

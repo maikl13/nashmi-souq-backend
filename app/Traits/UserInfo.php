@@ -9,11 +9,11 @@ trait UserInfo
     {
         switch ($this->role_id) {
             case self::ROLE_USER: return 'user';
-            break;
+                break;
             case self::ROLE_SUPERADMIN: return 'superadmin';
-            break;
+                break;
             case self::ROLE_ADMIN: return 'admin';
-            break;
+                break;
         }
 
         return false;

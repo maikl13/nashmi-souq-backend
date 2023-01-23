@@ -21,10 +21,10 @@ class StatesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('country', function ($record) {
-            return $record->country->name;
+                return $record->country->name;
             })
             ->addColumn('listings', function ($record) {
-            return $record->listings()->count();
+                return $record->listings()->count();
             })
             ->addColumn('action', 'admin.states.partials.action');
     }

@@ -23,7 +23,7 @@ class ListingsDataTable extends DataTable
                 return '<a href="'.$record->listing_image().'?v='.uid().'" data-fancybox="categories"><img src="'.$record->listing_image(['size' => 'xs']).'?v='.uid().'" border="0" width="200" class="img-rounded" align="center"/></a>';
             })
             ->addColumn('type', function ($record) {
-            return $record->type();
+                return $record->type();
             })
             ->addColumn('category', function ($record) {
                 $c = $record->category->name;

@@ -21,10 +21,10 @@ class PromotionsDataTable extends DataTable
                 return '<a href="'.$record->promotion_image().'" data-fancybox="promotions"><img src="'.$record->promotion_image().'" border="0" width="160" class="img-rounded" align="center"/></a>';
             })
             ->addColumn('url', function ($record) {
-            return $record->url;
+                return $record->url;
             })
             ->addColumn('created_at', function ($record) {
-            return $record->created_at->diffForHumans();
+                return $record->created_at->diffForHumans();
             })
             ->addColumn('action', 'store-dashboard.promotions.partials.action')
             ->rawColumns(['image', 'action']);

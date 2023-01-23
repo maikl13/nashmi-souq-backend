@@ -21,7 +21,7 @@ class OptionValuesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('option', function ($record) {
-            return $record->option->name;
+                return $record->option->name;
             })
             ->addColumn('preview', 'admin.option_values.partials.preview')
             ->addColumn('action', 'admin.option_values.partials.action')

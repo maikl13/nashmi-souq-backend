@@ -23,10 +23,10 @@ class CountriesDataTable extends DataTable
                 // return '<img src="https://www.countryflags.io/'.$record->code.'/flat/24.png" /> <span class="text-uppercase">'.$record->code.'</span>';
             })
             ->addColumn('currency', function ($record) {
-            return $record->currency->name;
+                return $record->currency->name;
             })
             ->addColumn('listings', function ($record) {
-            return $record->listings()->count();
+                return $record->listings()->count();
             })
             ->addColumn('action', 'admin.countries.partials.action')
             ->rawColumns(['code', 'action']);

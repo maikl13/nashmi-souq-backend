@@ -19,10 +19,10 @@ class StoresDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('remaining', function ($user) {
-            return $user->remaining_days();
+                return $user->remaining_days();
             })
             ->addColumn('action', 'admin.users.stores-action')->setRowId(function ($user) {
-            return $user->id;
+                return $user->id;
             });
     }
 
