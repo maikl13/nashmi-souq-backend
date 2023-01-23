@@ -153,7 +153,6 @@ class Transaction extends Model
         $query->where('status', Transaction::STATUS_PROCESSED);
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

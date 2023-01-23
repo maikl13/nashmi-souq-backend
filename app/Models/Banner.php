@@ -114,7 +114,6 @@ class Banner extends Model
         return $images;
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

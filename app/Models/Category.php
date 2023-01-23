@@ -99,7 +99,6 @@ class Category extends Model
         return $this->upload_file($file, 'image', ['ext' => 'jpg', 'w' => 256, 'h' => 256, 'allowed' => ['o', '', 's', 'xs', 'xxs', 'l']]);
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

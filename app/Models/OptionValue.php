@@ -40,7 +40,6 @@ class OptionValue extends Model
         return $this->upload_file($file, 'image', $options);
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

@@ -147,7 +147,6 @@ class Package extends Model
         return $price;
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

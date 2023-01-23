@@ -24,7 +24,6 @@ class SubTransaction extends Model
         return $this->belongsTo(Currency::class, 'original_currency_id');
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

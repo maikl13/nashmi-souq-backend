@@ -171,7 +171,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return ! $this->email || ! is_null($this->email_verified_at);
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

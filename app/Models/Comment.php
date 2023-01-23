@@ -32,7 +32,6 @@ class Comment extends Model
         return self::where('reply_on', $this->id);
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

@@ -31,7 +31,6 @@ class SubCategory extends Model
         return '/listings?sub_categories[]='.$this->id;
     }
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();

@@ -191,7 +191,6 @@ class Product extends Model
         ],
     ];
 
-    // this is a recommended way to declare event handlers
     protected static function boot()
     {
         parent::boot();
