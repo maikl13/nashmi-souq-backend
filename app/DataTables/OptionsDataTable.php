@@ -26,7 +26,6 @@ class OptionsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param  \App\Models\Option  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Option $model)

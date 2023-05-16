@@ -33,7 +33,6 @@ class PromotionsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param  \App\Models\Promotion  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Promotion $model)

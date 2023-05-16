@@ -25,7 +25,6 @@ class OptionValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -74,7 +73,6 @@ class OptionValueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\OptionValue  $option_value
      * @return \Illuminate\Http\Response
      */

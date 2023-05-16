@@ -23,7 +23,6 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -54,7 +53,6 @@ class BannerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function edit(banner $banner)
@@ -65,8 +63,6 @@ class BannerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, banner $banner)
@@ -103,7 +99,6 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function destroy(banner $banner)

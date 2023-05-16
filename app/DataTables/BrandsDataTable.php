@@ -28,7 +28,6 @@ class BrandsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param  \App\Models\Brand  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Brand $model)
