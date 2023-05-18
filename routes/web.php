@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 // ====================================================================
 // * Authenticated Users Routes
 // ====================================================================
@@ -22,47 +22,47 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => ['auth', 'active']], function () {
-	Route::post('profile-picture/delete', 'UserController@delete_profile_picture');
-	Route::post('store-banner/delete', 'UserController@delete_store_banner');
-	Route::post('store-logo/delete', 'UserController@delete_store_logo');
+    Route::post('profile-picture/delete', 'UserController@delete_profile_picture');
+    Route::post('store-banner/delete', 'UserController@delete_store_banner');
+    Route::post('store-logo/delete', 'UserController@delete_store_logo');
 
-	Route::get('account', 'UserController@edit')->name('account');
-	Route::redirect('/account/my-listing', '/account#my-listing');
-	Route::put('account/edit', 'UserController@update');
-	Route::put('account/change-password', 'UserController@update_password');
-	Route::put('account/update-payout-methods', 'UserController@update_payout_methods');
+    Route::get('account', 'UserController@edit')->name('account');
+    Route::redirect('/account/my-listing', '/account#my-listing');
+    Route::put('account/edit', 'UserController@update');
+    Route::put('account/change-password', 'UserController@update_password');
+    Route::put('account/update-payout-methods', 'UserController@update_payout_methods');
 
-	Route::group(['middleware' => ['verified']], function () {
-		Route::get('listings', 'ListingController@index');
-		Route::get('listings/add', 'ListingController@create');
-		Route::post('listings', 'ListingController@store');
-		Route::post('listings/promote', 'ListingController@promote');
-		Route::delete('listings/{listing}', 'ListingController@destroy');
-		Route::get('listings/{listing}/edit', 'ListingController@edit');
-		Route::put('listings/{listing}', 'ListingController@update');
-		Route::post('listings/{listing}/delete-image', 'ListingController@delete_listing_image');
+    Route::group(['middleware' => ['verified']], function () {
+        Route::get('listings', 'ListingController@index');
+        Route::get('listings/add', 'ListingController@create');
+        Route::post('listings', 'ListingController@store');
+        Route::post('listings/promote', 'ListingController@promote');
+        Route::delete('listings/{listing}', 'ListingController@destroy');
+        Route::get('listings/{listing}/edit', 'ListingController@edit');
+        Route::put('listings/{listing}', 'ListingController@update');
+        Route::post('listings/{listing}/delete-image', 'ListingController@delete_listing_image');
 
-		Route::post('messages/add', 'MessageController@store');
-		Route::get('conversation/{user}', 'MessageController@get_conversation');
-		Route::get('conversations', 'MessageController@get_conversations');
-		Route::get('messages/unseen', 'MessageController@get_unseen_messages_count');
+        Route::post('messages/add', 'MessageController@store');
+        Route::get('conversation/{user}', 'MessageController@get_conversation');
+        Route::get('conversations', 'MessageController@get_conversations');
+        Route::get('messages/unseen', 'MessageController@get_unseen_messages_count');
 
-		Route::get('deliver', 'DeliveryController@show')->name('deliver');
-		Route::post('deliver', 'DeliveryController@send');
-		
-		Route::post('withdraw', 'TransactionController@withdraw');
-		
-		Route::get('balance', 'TransactionController@add_balance_page');
-		Route::post('balance', 'TransactionController@add_balance');
+        Route::get('deliver', 'DeliveryController@show')->name('deliver');
+        Route::post('deliver', 'DeliveryController@send');
 
-		Route::post('/comments', 'CommentController@store');
-		Route::post('comments/edit', 'CommentController@update');
-		Route::delete('/comments/{comment}/delete', 'CommentController@destroy');
-	});
+        Route::post('withdraw', 'TransactionController@withdraw');
+
+        Route::get('balance', 'TransactionController@add_balance_page');
+        Route::post('balance', 'TransactionController@add_balance');
+
+        Route::post('/comments', 'CommentController@store');
+        Route::post('comments/edit', 'CommentController@update');
+        Route::delete('/comments/{comment}/delete', 'CommentController@destroy');
+    });
 });
 
 Route::namespace('\App\Http\Controllers')->group(function () {
-	Auth::routes(['verify' => true]);
+    Auth::routes(['verify' => true]);
 });
 
 Route::get('/', 'MainController@index')->name('home');
@@ -89,14 +89,14 @@ Route::get('payment-result', 'TransactionController@payment_result');
 Route::get('hyperpay-payment-result', 'TransactionController@hyperpay_payment_result');
 
 Route::namespace('\App\Http\Controllers\Admin')->prefix('api')->group(function () {
-	Route::get('categories/{category}/sub-categories', 'CategoryController@sub_categories');
-	Route::get('states/{state}/areas', 'StateController@areas');
+    Route::get('categories/{category}/sub-categories', 'CategoryController@sub_categories');
+    Route::get('states/{state}/areas', 'StateController@areas');
 
-	Route::get('categories/{category}/options', 'CategoryController@category_options');
-	Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_category_options');
+    Route::get('categories/{category}/options', 'CategoryController@category_options');
+    Route::get('sub-categories/{sub_category}/options', 'CategoryController@sub_category_options');
 
-	Route::get('categories/{category}/options-list', 'CategoryController@category_options_list');
+    Route::get('categories/{category}/options-list', 'CategoryController@category_options_list');
 
-	Route::get('categories/{category}/brands', 'CategoryController@brands');
-	Route::get('brands/{brand}/models', 'BrandController@models');
+    Route::get('categories/{category}/brands', 'CategoryController@brands');
+    Route::get('brands/{brand}/models', 'BrandController@models');
 });
