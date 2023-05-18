@@ -2,9 +2,7 @@
 
 namespace App\Traits;
 
-use App\Models\Currency;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
 trait PaymentTrait
@@ -20,7 +18,7 @@ trait PaymentTrait
         $transaction->uid = unique_id();
         $transaction->amount = $amount;
         $transaction->currency_id = $currency->id;
-        
+
         session()->put('payment_method', $payment_method);
 
         if ($save) {
@@ -45,7 +43,7 @@ trait PaymentTrait
     public function direct_payment($options = [])
     {
         if (
-            (auth()->check() && optional(auth()->user()->country)->code == 'sa') || 
+            (auth()->check() && optional(auth()->user()->country)->code == 'sa') ||
             (auth()->guest() && optional(country())->code == 'sa') ||
             session('payment_method') == Transaction::PAYMENT_MADA
         ) {
@@ -200,7 +198,7 @@ trait PaymentTrait
             'customer.surname' => optional(auth()->user())->username ?: 'User',
             'customer.mobile' => optional(auth()->user())->phone ?: '',
         ]);
-    
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $api_url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization:Bearer '.$access_token]);
@@ -248,25 +246,25 @@ trait PaymentTrait
 
         return redirect($response['paypal_link']);
     }
-    
-      public function paypal_payment_api($options=[])
-    {
-        // prepare paypal payment
-        $provider = new ExpressCheckout;
 
-        $logo = setting('logo') ? setting('logo') : 'logo';
-        $options = [
-            'BRANDNAME' => config('app.name'),
-            'LOGOIMG' => config('url').'/'.$logo,
-            'CHANNELTYPE' => 'Merchant'
-        ];
-        $provider->addOptions($options);
+      public function paypal_payment_api($options = [])
+      {
+          // prepare paypal payment
+          $provider = new ExpressCheckout;
 
-        $data = $this->paypal_invoice_data();
-        $response = $provider->setExpressCheckout($data);
-        return response()->json(['link' => $response['paypal_link'],'data'=>$data]);
+          $logo = setting('logo') ? setting('logo') : 'logo';
+          $options = [
+              'BRANDNAME' => config('app.name'),
+              'LOGOIMG' => config('url').'/'.$logo,
+              'CHANNELTYPE' => 'Merchant',
+          ];
+          $provider->addOptions($options);
 
-    }
+          $data = $this->paypal_invoice_data();
+          $response = $provider->setExpressCheckout($data);
+
+          return response()->json(['link' => $response['paypal_link'], 'data' => $data]);
+      }
 
     public function paypal_invoice_data()
     {
