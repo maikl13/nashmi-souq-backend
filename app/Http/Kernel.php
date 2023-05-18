@@ -72,6 +72,6 @@ class Kernel extends HttpKernel
         'store' => \App\Http\Middleware\CheckIfStore::class,
         'active-store' => \App\Http\Middleware\CheckIfStoreActive::class,
         'mystore' => \App\Http\Middleware\CheckIfMyStore::class,
-        'store_api' => \App\Http\Middleware\CheckIfStoreApi::class,
+        'store_api'=>\App\Http\Middleware\CheckIfStoreApi::class
     ];
 }
