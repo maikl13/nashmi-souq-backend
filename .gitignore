@@ -20,3 +20,4 @@ yarn-error.log
 /public/assets/images/banner
 /public/.htaccess
 .DS_Store
+php.ini
