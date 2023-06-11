@@ -107,7 +107,6 @@ $(document).on("click", '.delete',function(e){
                     } else {
                         Swal.fire('تم الحذف!', data, 'success');
                     }
-                    
                 },
                 error: function(data){
                     var errMsg = get_error_msg(data);

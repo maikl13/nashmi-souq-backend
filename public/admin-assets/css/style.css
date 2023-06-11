@@ -6740,6 +6740,7 @@ ul.label-inbox li a:hover, ul.label-inbox li.active a, ul.label-inbox li a:focus
 .toast-message {direction: rtl}
 #toast-container>.toast:before {top: 17px !important;}
 .swal2-container { direction: rtl; }
+.swal2-content {line-height: 1.6rem;}
 
 .select2-container,
 .select2-container--default .select2-search--inline .select2-search__field {

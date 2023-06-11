@@ -104,7 +104,7 @@
 
 @section('scripts')
     <script src="/assets/js/ajax/ajax.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="/admin-assets/plugins/sweetalert/sweetalert.js"></script>
     <script>
         $(document).on('click', '.cancel-package', function(e){
             e.preventDefault();

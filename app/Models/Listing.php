@@ -299,4 +299,17 @@ class Listing extends Model
             'listings.description' => 1,
         ],
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($listing) {
+            if (auth()->user()->has_reached_listings_limit()) {
+                abort(403, __('عفوا لقد تخطيت الحد الأقصى لعدد الاعلانات المسموح بنشرها، برجاء الانتظار :remaining لتتمكن من نشر إعلان جديد', [
+                    'remaining' => auth()->user()->remaining_time_to_be_able_to_post_listings(),
+                ]));
+            }
+        });
+    }
 }

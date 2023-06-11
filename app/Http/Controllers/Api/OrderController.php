@@ -129,11 +129,11 @@ class OrderController extends Controller
                 $price = $order->price();
                 switch ($request->payment_method) {
                     case Order::PAYPAL_PAYMENT: $payment_method = Transaction::PAYMENT_PAYPAL;
-                    break;
+                        break;
                     case Order::MADA_PAYMENT: $payment_method = Transaction::PAYMENT_MADA;
-                    break;
+                        break;
                     default: $payment_method = Transaction::PAYMENT_DIRECT_PAYMENT;
-                    break;
+                        break;
                 }
                 $transaction = Transaction::payment_init($price, $order->currency, ['payment_method' => $payment_method]);
                 if ($transaction) {
@@ -264,13 +264,13 @@ class OrderController extends Controller
                     $package->status = $status_before_cancelling ? $status_before_cancelling->status : Package::STATUS_PENDING;
                     switch ($package->status) {
                         case Package::STATUS_PENDING: $package->status = Package::STATUS_APPROVED;
-                        break;
+                            break;
                         case Package::STATUS_APPROVED: $package->status = Package::STATUS_DELIVERABLE;
-                        break;
+                            break;
                         case Package::STATUS_DELIVERABLE: $package->status = Package::STATUS_PREPARED;
-                        break;
+                            break;
                         default: $package->status = Package::STATUS_APPROVED;
-                        break;
+                            break;
                     }
                 }
             }

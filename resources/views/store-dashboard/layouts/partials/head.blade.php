@@ -12,7 +12,7 @@
 <!-- FontAwesome CSS -->
 <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
 <!--Style css-->
-<link rel="stylesheet" href="/admin-assets/css/style.css?v=1.1">
+<link rel="stylesheet" href="/admin-assets/css/style.css?v=1.2">
 <!--mCustomScrollbar css-->
 <link rel="stylesheet" href="/admin-assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
 <!--Sidemenu css-->
@@ -20,7 +20,7 @@
 <!-- Toastr Plugin -->
 <link rel="stylesheet" href="/admin-assets/plugins/toastr/build/toastr.css">
 <!-- fancybox -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<link rel="stylesheet" href="/admin-assets/plugins/fancybox/fancybox.css" />
 <!-- select2 -->
 <link rel="stylesheet" href="/admin-assets/plugins/select2/select2.css">
 <!--bootstrap fileinput-->

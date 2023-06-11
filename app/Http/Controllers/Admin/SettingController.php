@@ -57,6 +57,9 @@ class SettingController extends Controller
             'monthly_subscription' => 'nullable|numeric',
             'half_year_subscription' => 'nullable|numeric',
             'yearly_subscription' => 'nullable|numeric',
+
+            'listings_limit' => 'nullable|integer|min:1',
+            'listings_limit_timespan' => 'nullable|integer|min:1',
         ]);
 
         $allowed_settings = [
@@ -75,6 +78,8 @@ class SettingController extends Controller
             'featured_ads_benefits2', 'tier9', 'tier10', 'tier11', 'tier12', 'tier13', 'tier14', 'tier15', 'tier16', 'tier17', 'tier18', 'tier19', 'tier20',
             // stores
             'grace_period', 'trial_period', 'monthly_subscription', 'half_year_subscription', 'yearly_subscription',
+            // listings
+            'listings_limit', 'listings_limit_timespan',
         ];
         $images = ['logo', 'footer_logo'];
         $html = [];

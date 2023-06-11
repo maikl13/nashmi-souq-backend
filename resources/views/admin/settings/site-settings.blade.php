@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-    
     <div class="row">
         <div class="col-12">
             <div class="card  text-right" style="direction:rtl">
@@ -34,7 +33,7 @@
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">{{ __('Social Accounts') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="promoted-listing-tab" data-toggle="tab" href="#promoted-listing" role="tab" aria-controls="promoted-listing" aria-selected="false">إعدادات الإعلانات المميزة</a>
+                                    <a class="nav-link" id="listing-tab" data-toggle="tab" href="#listing" role="tab" aria-controls="listing" aria-selected="false">إعدادات الإعلانات</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="stores-tab" data-toggle="tab" href="#stores" role="tab" aria-controls="stores" aria-selected="false">إعدادات المتاجر</a>
@@ -302,7 +301,43 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade p-0" id="promoted-listing" role="tabpanel" aria-labelledby="promoted-listing-tab">
+                                <div class="tab-pane fade p-0" id="listing" role="tabpanel" aria-labelledby="listing-tab">
+                                    <div class="card">
+                                        <div class="card-header text-right">
+                                            <h4>إعدادات الاعلانات</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <form class="update-site-settings form-horizontal text-right" style="direction:rtl;" action="/admin/site-settings/update" method="POST" enctype="multipart/form-data">
+                                                @csrf
+
+                                                    <div class="form-group row">
+                                                        <label for="listings_limit" class="col-md-3 col-form-label">عدد الاعلانات المسموح بنشرها</label>
+                                                        <div class="col-md-9 input-group" dir="ltr">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><small>إعلان</small></span>
+                                                            </div>
+                                                            <input type="number" class="form-control" id="listings_limit" name="listings_limit" value="{{ setting('listings_limit') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="listings_limit_timespan" class="col-md-3 col-form-label">خلال فترة زمنية</label>
+                                                        <div class="col-md-9 input-group" dir="ltr">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><small>ساعة</small></span>
+                                                            </div>
+                                                            <input type="number" class="form-control" id="listings_limit_timespan" name="listings_limit_timespan" value="{{ setting('listings_limit_timespan') ?: 24 }}">
+                                                        </div>
+                                                    </div>
+
+                                                <div class="form-group mb-0 mt-2 row justify-content-end">
+                                                    <div class="col-md-9">
+                                                        <button type="submit" class="btn btn-primary float-left">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
                                     <div class="card">
                                         <div class="card-header text-right">
                                             <h4>مزايا الإعلانات المميزة</h4>

@@ -9,6 +9,7 @@ use App\Traits\ManageTransactions;
 use App\Traits\SendOTP;
 use App\Traits\StoreInfo;
 use App\Traits\UserInfo;
+use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -158,6 +159,27 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getStoreLogoPathAttribute()
     {
         return $this->store_logo_get();
+    }
+
+    public function has_reached_listings_limit()
+    {
+        $limit = setting('listings_limit');
+        $timespan_in_hours = setting('listings_limit_timespan') ?: 24;
+
+        if (! $limit || ! is_numeric($limit)) {
+            return false;
+        }
+
+        return $this->listings()->whereBetween('created_at', [now()->subHours($timespan_in_hours), now()])->count() >= $limit;
+    }
+
+    public function remaining_time_to_be_able_to_post_listings()
+    {
+        $timespan_in_hours = setting('listings_limit_timespan') ?: 24;
+
+        $latest_listing = auth()->user()->listings()->latest()->first();
+
+        return now()->diffForHumans($latest_listing->created_at->addHours($timespan_in_hours), CarbonInterface::DIFF_ABSOLUTE, false, 2);
     }
 
     /**

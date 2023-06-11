@@ -32,7 +32,7 @@
 <!-- Toast Plugin -->
 <script src="/admin-assets/plugins/toastr/build/toastr.min.js"></script>
 <!--Sweetalert-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="/admin-assets/plugins/sweetalert/sweetalert.js"></script>
 <!-- Site Scripts -->
 <script>var mobileLogo = '{{ setting('logo') }}', countryCode = '{{ country()->code }}';</script>
 <script src="/assets/js/app.js?v=1.3"></script>

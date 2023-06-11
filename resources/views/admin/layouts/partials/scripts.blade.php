@@ -31,9 +31,9 @@
 <!-- Toast Plugin -->
 <script src="/admin-assets/plugins/toastr/build/toastr.min.js"></script>
 <!--Sweetalert-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="/admin-assets/plugins/sweetalert/sweetalert.js"></script>
 <!--fancybox-->
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/admin-assets/plugins/fancybox/fancybox.js"></script>
 <!--bootstrap fileinput-->
 <script src="/admin-assets/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
 <script src="/admin-assets/plugins/bootstrap-fileinput/js/locales/ar.js" type="text/javascript"></script>

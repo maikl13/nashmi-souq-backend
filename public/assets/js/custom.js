@@ -43,7 +43,7 @@ function get_error_msg(data){
             errMsg += value[0] + '</br>';
         });
     } else if(errors.message) {
-        errMsg += "Error: " + errors.message;
+        errMsg += errors.message;
     } else {
         errMsg += errors;
     }

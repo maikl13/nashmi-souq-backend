@@ -339,6 +339,7 @@
             });
         });
     </script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             var CategoriesSelect2Options = { placeholder: "القسم الرئيسي ... *", allowClear: true };
@@ -356,7 +357,6 @@
         });
     </script>
 
-
     <script src="/assets/js/ajax/ajax.js"></script>
 
     <script>
@@ -371,6 +371,7 @@
             } else {
                 $('#price').parents('.row').hide()
             }
+            
             if(type == {{ App\Models\Listing::TYPE_JOB }} || type == {{ App\Models\Listing::TYPE_JOB_REQUEST }} ){
                 $('#age').parents('.row').show();
                 $('#gender').parents('.row').show();

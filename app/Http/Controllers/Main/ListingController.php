@@ -81,6 +81,10 @@ class ListingController extends Controller
 
     public function create()
     {
+        if (auth()->user()->has_reached_listings_limit()) {
+            return view('main.listings.listing-limit');
+        }
+
         return view('main.listings.add-listing');
     }
 

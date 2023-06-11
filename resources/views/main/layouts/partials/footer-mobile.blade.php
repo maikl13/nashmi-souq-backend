@@ -5,8 +5,10 @@
     <div class="bg-light py-3" style="filter: brightness(1.01)">
         <div class="container">
             <div class="footer-box-layout1 mb-0">
-                <div class="text-center" style="height: 114px;width: 206px;margin: 0 auto;overflow: hidden;">
-                    <iframe src="//maroof.sa/Business/GetStamp?bid=152665" style="width: auto;height: 250px;overflow-y:hidden;left: 91px;position: relative;" frameborder="0" seamless="seamless" scrollable="no"></iframe>
+                <div class="text-center">
+                    <a href="https://maroof.sa/businesses/details/152665" target="_blank" style="display: block; width: 150px; margin: 15px auto;">
+                        @include('main.layouts.partials.maroof-logo')
+                    </a>
                 </div>
 
                 <ul class="footer-social text-center mt-2" style="filter: brightness(0.8);">
