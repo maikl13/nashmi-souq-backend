@@ -38,9 +38,9 @@
                         </div>
                     </div>
 
-                    <div class="text-center" style="height: 114px; width: 206px; overflow: hidden;">
+                    <div class="text-center">
                         <a href="https://maroof.sa/businesses/details/152665" target="_blank" style="display: block; width: 150px;">
-                            @include('main.layouts.partials.maroof-logo')
+                            <img src="{{ asset('assets/images/maroof.svg') }}" alt="Maroof Logo">
                         </a>
                     </div>
                 </div>

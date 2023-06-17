@@ -7,7 +7,7 @@
             <div class="footer-box-layout1 mb-0">
                 <div class="text-center">
                     <a href="https://maroof.sa/businesses/details/152665" target="_blank" style="display: block; width: 150px; margin: 15px auto;">
-                        @include('main.layouts.partials.maroof-logo')
+                        <img src="{{ asset('assets/images/maroof.svg') }}" alt="Maroof Logo">
                     </a>
                 </div>
 
