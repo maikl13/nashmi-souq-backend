@@ -40,7 +40,7 @@ class PackagesDataTable extends DataTable
             ->leftJoin('orders', 'orders.id', '=', 'packages.order_id')
             ->leftJoin('users', 'orders.user_id', '=', 'users.id')
             ->leftJoin('package_items', 'package_items.package_id', '=', 'packages.id')
-            ->selectRaw('`packages`.*, `users`.`name` as `users.name`, `orders`.`buyer_name` as `orders.buyer_name`, GROUP_CONCAT(`package_items`.`title`) as `package_items.title`')
+            ->selectRaw('`packages`.*, `users`.`name` as `users.name`, `orders`.`buyer_name` as `orders.buyer_name`, GROUP_CONCAT(COALESCE(`package_items`.`title`, " ")) as `package_items.title`')
             ->groupBy('packages.id');
     }
 
@@ -65,7 +65,6 @@ class PackagesDataTable extends DataTable
             Column::make('id')->hidden('true'),
             Column::make('uid')->hidden('true'),
             Column::make('users.name')->hidden('true'),
-            Column::make('package_items.title')->hidden('true'),
             Column::make('package_items.title')->hidden('true'),
             Column::make('orders.buyer_name')->title('اسم المشتري')->hidden('true'),
             Column::make('package_data')->title('الطلب'),
