@@ -99,13 +99,15 @@
                                         @endif
                                     </ul>
                                     
-                                    <form method="post" class="cart-form mt-3">
-                                        <input type="hidden" value="1" class="quantity" name="demo_vertical2"/>
-                                        <input type="hidden" value="{{ $product->id }}" class="product-id">
-                                        <button class="btn btn-info btn-block text-center py-2" type="submit">
-                                            <i class="fa fa-cart-plus ml-1"></i> إضافة لعربة التسوق
-                                        </button>
-                                    </form>
+                                    @if ($product->is_eligible_for_cart())
+                                        <form method="post" class="cart-form mt-3">
+                                            <input type="hidden" value="1" class="quantity" name="demo_vertical2"/>
+                                            <input type="hidden" value="{{ $product->id }}" class="product-id">
+                                            <button class="btn btn-info btn-block text-center py-2" type="submit">
+                                                <i class="fa fa-cart-plus ml-1"></i> إضافة لعربة التسوق
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>

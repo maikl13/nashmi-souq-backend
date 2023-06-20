@@ -65,8 +65,9 @@ trait PaymentTrait
             $amount = round($amount, 2);
         }
         $params = $this->nbe_request_hosted_checkout_interaction($amount, $options);
+
         // $params = ['result' => 'SUCCESS','successIndicator' => 'abc','session.id' => '123'];
-        if ($params['result'] == 'SUCCESS') {
+        if (optional($params)['result'] == 'SUCCESS') {
             if (! empty($params['session.id']) && ! empty($params['successIndicator'])) {
                 session()->put('success_indicator', $params['successIndicator']);
 
@@ -86,7 +87,8 @@ trait PaymentTrait
                 ]);
             }
         }
-        dd('An Error Occured');
+
+        abort(500, 'حدث خطأ ما من فضلك حاول مجددا');
     }
 
     public function nbe_request_hosted_checkout_interaction($amount, $options)

@@ -138,18 +138,22 @@ class Product extends Model
         return true;
     }
 
-    public function is_eligible_for_cart(Type $var = null)
+    public function is_eligible_for_cart()
     {
-        // // To be able to add the product to the cart
-        // // must be added by a store
-        // if(!$this->user->is_store()) return false;
-        // // store can't buy his own products
-        // if(auth()->user() && $this->user->id == auth()->user()->id) return false;
-        // // must be of type 'sell'
-        // if($this->type != Self::TYPE_SELL) return false;
-        // // the have a price
-        // if(!$this->price || $this->price <= 0) return false;
-        // // the price can't exceed 3000 usd to avoid adding cars and building
+        // To be able to add the product to the cart
+        // must be added by a store
+        if (! $this->user->is_store()) {
+            return false;
+        }
+        // store can't buy his own products
+        if (auth()->user() && $this->user->id == auth()->user()->id) {
+            return false;
+        }
+        // must have a price
+        if (! $this->price || $this->price <= 0) {
+            return false;
+        }
+        // the price can't exceed 3000 usd to avoid adding cars and building
         // if(exchange($this->price, $this->country->currency->code, 'USD') > 3000) return false;
 
         return true;

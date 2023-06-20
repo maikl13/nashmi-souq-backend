@@ -73,7 +73,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'product_title' => 'required|min:2|max:255',
             'description' => 'required|min:2|max:10000',
@@ -81,8 +80,6 @@ class ProductController extends Controller
             'sub_category' => 'nullable|exists:categories,slug',
             'images' => 'nullable',
             'images.*' => 'image|max:8192',
-            'price' => 'nullable|numeric',
-            'currency' => 'nullable|exists:currencies,id',
         ]);
 
         $title = $request->product_title;
@@ -95,6 +92,14 @@ class ProductController extends Controller
         $group = ($latest = Product::withTrashed()->orderBy('group', 'desc')->first()) ? $latest->group + 1 : 1;
 
         if ($request->units) {
+            if (! $request->initial_price) {
+                $request->validate(['units.*.initial_price' => 'required|numeric']);
+            }
+
+            if (! $request->currency) {
+                $request->validate(['units.*.currency' => 'required|exists:currencies,id']);
+            }
+
             foreach ($request->units as $unit) {
                 $shown = isset($shown) ? false : true;
                 $product = new Product;
@@ -103,7 +108,7 @@ class ProductController extends Controller
                 $product->description = $description;
                 $product->initial_price = $unit['initial_price'] ?? $request->price;
                 $product->price = isset($unit['price']) && $unit['price'] != null ? $unit['price'] : $product->initial_price;
-                $product->currency_id = $request->currency;
+                $product->currency_id = $unit['currency'] ?: $request->currency;
                 $product->user_id = Auth::user()->id;
                 $product->category_id = $category->id;
                 $product->sub_category_id = $sub_category ? $sub_category->id : null;
@@ -128,6 +133,12 @@ class ProductController extends Controller
                 $product->upload_product_images(array_merge($unit['images'] ?? [], $request->images ?? []));
             }
         } else {
+            $request->validate([
+                'initial_price' => 'required|numeric',
+                'price' => 'nullable|numeric',
+                'currency' => 'required|exists:currencies,id',
+            ]);
+
             $product = new Product;
             $product->title = $request->product_title;
             $product->slug = $slug.'-'.uniqid();
@@ -160,7 +171,6 @@ class ProductController extends Controller
         }
 
         return response()->json('تم الحفظ بنجاح', 200);
-        // return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
     }
 
     public function edit($store, Product $product)
@@ -181,8 +191,9 @@ class ProductController extends Controller
             'sub_category' => 'nullable|exists:categories,slug',
             'address' => 'nullable|min:10|max:1000',
             'images.*' => 'image|max:8192',
+            'initial_price' => 'required|numeric',
             'price' => 'nullable|numeric',
-            'currency' => 'nullable|exists:currencies,id',
+            'currency' => 'required|exists:currencies,id',
         ]);
 
         $product->title = $request->product_title;
