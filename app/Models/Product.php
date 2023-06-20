@@ -149,8 +149,8 @@ class Product extends Model
         if (auth()->user() && $this->user->id == auth()->user()->id) {
             return false;
         }
-        // must have a price
-        if (! $this->price || $this->price <= 0) {
+        // must have a price and currency
+        if (! $this->price || $this->price <= 0 || ! $this->currency) {
             return false;
         }
         // the price can't exceed 3000 usd to avoid adding cars and building
