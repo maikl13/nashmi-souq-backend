@@ -29,6 +29,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    
+    'mailjet' => [
+        'key' => env('MAILJET_APIKEY'),
+        'secret' => env('MAILJET_APISECRET'),
+    ],
 
     'nbe_mpgs' => [
         'api_url' => env('NBE_MPGS_MODE') == 'test' ? env('NBE_MPGS_TEST_API_URL') : env('NBE_MPGS_LIVE_API_URL'),

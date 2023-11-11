@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url)
     {
+        Paginator::useBootstrap();
+        
         // \Config::set('session.domain', null);
         // \Cookie::queue(\Cookie::make('version', '3.26', 5*12*30*24*60));
 
