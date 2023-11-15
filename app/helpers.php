@@ -94,7 +94,7 @@ function location()
                         cookie()->queue('country_code', $country_code, 24 * 60);
                     } // 24 hours
                     $country = Country::whereRaw('LOWER(`code`) = ?', strtolower($country_code))
-                                    ->first() ?? Country::first();
+                        ->first() ?? Country::first();
                 }
             } catch (\Throwable $th) { /*_*/
             }

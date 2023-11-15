@@ -21,6 +21,7 @@ class OrderController extends Controller
     public function index($store)
     {
         $orders = auth()->user()->orders()->latest()->paginate(12);
+
         // Order::with('user','state','transaction','packages')->latest()->paginate(12);
         return response()->json($orders->load('transaction', 'state', 'packages'));
     }
@@ -57,15 +58,15 @@ class OrderController extends Controller
         ]);
 
         $items = Cart::where('store_id', $store->id)
-        ->where('user_id', $user->id)
-        ->get();
+            ->where('user_id', $user->id)
+            ->get();
 
         $total_price = DB::table('carts')
-          ->where('carts.store_id', $store->id)
-          ->where('carts.user_id', $user->id)
-          ->join('products', 'products.id', '=', 'carts.product_id')
-          ->select(DB::raw('SUM(carts.quantity * products.price) as total_price'))
-          ->get();
+            ->where('carts.store_id', $store->id)
+            ->where('carts.user_id', $user->id)
+            ->join('products', 'products.id', '=', 'carts.product_id')
+            ->select(DB::raw('SUM(carts.quantity * products.price) as total_price'))
+            ->get();
 
         if (! count($items)) {
             return response()->json(['failure', 'من فضلك قم بإضافة منتجات لعربة التسوق أولا !']);
@@ -298,6 +299,7 @@ class OrderController extends Controller
     {
         $package = Package::findOrFail($request->package_id);
         $this->authorize('show_for_store', $package);
+
         // return $package->shipping ?? '-';
         return '-';
     }

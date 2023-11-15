@@ -28,8 +28,8 @@ class Promotion extends Model
         return $this->upload_file($file, 'image', ['ext' => 'jpg', 'w' => $w, 'h' => $h, 'allowed' => ['o', '']]);
     }
 
-     public function getImagePathAttribute()
-     {
-         return $this->promotion_image();
-     }
+    public function getImagePathAttribute()
+    {
+        return $this->promotion_image();
+    }
 }

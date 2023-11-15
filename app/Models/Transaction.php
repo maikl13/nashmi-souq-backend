@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    use PaymentTrait, ExchangeCurrency;
+    use ExchangeCurrency, PaymentTrait;
 
     const TYPE_DEPOSIT = 1;
 

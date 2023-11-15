@@ -269,6 +269,7 @@ class OrderController extends Controller
     {
         $package = Package::findOrFail($request->package_id);
         $this->authorize('show_for_store', $package);
+
         // return $package->shipping ?? '-';
         return '-';
     }

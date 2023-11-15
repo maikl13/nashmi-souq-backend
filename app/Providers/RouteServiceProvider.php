@@ -69,23 +69,23 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')->domain(config('app.domain'))
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     protected function mapStoreRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->store_namespace)
-             ->group(base_path('routes/store.php'));
+            ->namespace($this->store_namespace)
+            ->group(base_path('routes/store.php'));
     }
 
     protected function mapAdminRoutes()
     {
         Route::middleware('web')->domain(config('app.domain'))
-             ->prefix('admin')
-             ->namespace($this->admin_namespace)
-             ->group(base_path('routes/admin.php'));
+            ->prefix('admin')
+            ->namespace($this->admin_namespace)
+            ->group(base_path('routes/admin.php'));
     }
 
     /**
@@ -98,8 +98,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->api_namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->api_namespace)
+            ->group(base_path('routes/api.php'));
     }
 }

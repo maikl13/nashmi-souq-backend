@@ -64,9 +64,9 @@ class StatesDataTable extends DataTable
             Column::make('country')->title('الدولة'),
             Column::make('listings')->title('عدد الاعلانات'),
             Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

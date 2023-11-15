@@ -318,6 +318,7 @@ trait SearchableTrait
         if ($this->relevanceField ?? false) {
             return $this->relevanceField;
         }
+
         // If property $this->relevanceField is not setted, return the default
         return 'relevance';
     }

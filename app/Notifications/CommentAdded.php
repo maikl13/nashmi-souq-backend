@@ -27,14 +27,14 @@ class CommentAdded extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject(setting('website_name').' | '.($this->comment->reply_on ? 'رد' : 'تعليق').' جديد')
-                    ->line(
-                        ($this->comment->reply_on ? 'رد' : 'تعليق').
-                        ' جديد'.
-                        ' على الاعلان "'.
-                        $this->comment->commentable->title.'"'
-                    )
-                    ->action('فتح الاعلان', route('listings.show', $this->comment->commentable->slug));
+            ->subject(setting('website_name').' | '.($this->comment->reply_on ? 'رد' : 'تعليق').' جديد')
+            ->line(
+                ($this->comment->reply_on ? 'رد' : 'تعليق').
+                ' جديد'.
+                ' على الاعلان "'.
+                $this->comment->commentable->title.'"'
+            )
+            ->action('فتح الاعلان', route('listings.show', $this->comment->commentable->slug));
     }
 
     public function toMessage($notifiable)

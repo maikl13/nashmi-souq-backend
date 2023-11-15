@@ -19,7 +19,7 @@ class AreaController extends Controller
     public function index(State $state, AreasDataTable $dataTable)
     {
         return $dataTable
-                ->render('admin.areas.areas', ['state' => $state]);
+            ->render('admin.areas.areas', ['state' => $state]);
     }
 
     /**

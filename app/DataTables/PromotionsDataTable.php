@@ -63,9 +63,9 @@ class PromotionsDataTable extends DataTable
             Column::make('url')->title('الرابط'),
             Column::make('created_at')->title('تاريخ الاضافة'),
             Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Listing extends Model
 {
-    use FileHandler, SearchableTrait, ExchangeCurrency;
+    use ExchangeCurrency, FileHandler, SearchableTrait;
 
     protected $casts = ['options' => 'array'];
 

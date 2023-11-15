@@ -19,7 +19,7 @@ class StateController extends Controller
     public function index(Country $country, StatesDataTable $dataTable)
     {
         return $dataTable
-                ->render('admin.states.states', ['country' => $country]);
+            ->render('admin.states.states', ['country' => $country]);
     }
 
     /**

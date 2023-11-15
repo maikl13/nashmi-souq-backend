@@ -87,9 +87,9 @@ class BannersDataTable extends DataTable
             Column::make('countries')->addClass('nws min-w-200')->title('الدول'),
             Column::make('created_at')->title('تاريخ الاضافة'),
             Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

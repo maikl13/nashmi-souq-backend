@@ -91,9 +91,9 @@ class TransactionsDataTable extends DataTable
             Column::make('status')->title('الحالة'),
             Column::make('created_at')->title('تاريخ العملية'),
             Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

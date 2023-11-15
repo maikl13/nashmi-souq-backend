@@ -41,6 +41,6 @@ class ContactMessageRecieved extends Mailable
      */
     public function build()
     {
-        return $this->from($this->email, $this->name)->markdown('emails.contact-message-recieved');
+        return $this->markdown('emails.contact-message-recieved');
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use FileHandler, SearchableTrait, ExchangeCurrency, SoftDeletes;
+    use ExchangeCurrency, FileHandler, SearchableTrait, SoftDeletes;
 
     protected $casts = ['options' => 'array', 'shown' => 'boolean'];
 

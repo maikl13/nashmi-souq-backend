@@ -14,6 +14,7 @@ class AccountsController extends Controller
     {
         $country = Country::where('code', $code)->first();
         $user = Auth::user();
+
         //return $user;
         return response()->json([
             'name' => $user->name,
@@ -52,31 +53,31 @@ class AccountsController extends Controller
         }
     }
 
- public function payout(Request $request)
- {
-     // Validate the form data
-     $request->validate([
-         'bank_account' => 'nullable|string',
-         'paypal' => 'nullable|email',
-         'vodafone_cash' => 'nullable|string',
-         'national_id' => 'nullable|string',
-         'national_id_card' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
-     ]);
+    public function payout(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'bank_account' => 'nullable|string',
+            'paypal' => 'nullable|email',
+            'vodafone_cash' => 'nullable|string',
+            'national_id' => 'nullable|string',
+            'national_id_card' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-     // Update the user's payout methods
-     $user = auth()->user();
-     $user->bank_account = $request->input('bank_account');
-     $user->paypal = $request->input('paypal');
-     $user->vodafone_cash = $request->input('vodafone_cash');
-     $user->national_id = $request->input('national_id');
-     if ($request->hasFile('national_id_card')) {
-         $user->national_id_card = $request->file('national_id_card')->store('national_id_cards');
-     }
-     $user->save();
+        // Update the user's payout methods
+        $user = auth()->user();
+        $user->bank_account = $request->input('bank_account');
+        $user->paypal = $request->input('paypal');
+        $user->vodafone_cash = $request->input('vodafone_cash');
+        $user->national_id = $request->input('national_id');
+        if ($request->hasFile('national_id_card')) {
+            $user->national_id_card = $request->file('national_id_card')->store('national_id_cards');
+        }
+        $user->save();
 
-     return response()->json([
-         'success' => true,
-         'message' => 'Payout methods updated successfully',
-     ]);
- }
+        return response()->json([
+            'success' => true,
+            'message' => 'Payout methods updated successfully',
+        ]);
+    }
 }

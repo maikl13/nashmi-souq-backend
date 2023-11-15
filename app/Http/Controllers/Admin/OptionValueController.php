@@ -19,7 +19,7 @@ class OptionValueController extends Controller
     public function index(Option $option, OptionValuesDataTable $dataTable)
     {
         return $dataTable
-                ->render('admin.option_values.option_values', ['option' => $option]);
+            ->render('admin.option_values.option_values', ['option' => $option]);
     }
 
     /**

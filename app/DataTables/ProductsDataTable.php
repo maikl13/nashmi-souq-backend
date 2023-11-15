@@ -69,9 +69,9 @@ class ProductsDataTable extends DataTable
             Column::make('options')->title('صفات المنتج'),
             Column::make('views')->title('👁️'),
             Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

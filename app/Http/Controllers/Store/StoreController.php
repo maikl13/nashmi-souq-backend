@@ -14,7 +14,7 @@ class StoreController extends Controller
     {
         // $stores = User::whereNotNull('store_name')->orderBy('store_logo', 'desc')->paginate(18);
         $stores = User::whereNotNull('store_name')->whereHas('products')
-                    ->whereHas('active_subscriptions')->inRandomOrder()->paginate(12);
+            ->whereHas('active_subscriptions')->inRandomOrder()->paginate(12);
 
         return view('main.store.stores')->with('stores', $stores);
     }

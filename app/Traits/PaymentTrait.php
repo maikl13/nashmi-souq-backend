@@ -249,24 +249,24 @@ trait PaymentTrait
         return redirect($response['paypal_link']);
     }
 
-      public function paypal_payment_api($options = [])
-      {
-          // prepare paypal payment
-          $provider = new ExpressCheckout;
+    public function paypal_payment_api($options = [])
+    {
+        // prepare paypal payment
+        $provider = new ExpressCheckout;
 
-          $logo = setting('logo') ? setting('logo') : 'logo';
-          $options = [
-              'BRANDNAME' => config('app.name'),
-              'LOGOIMG' => config('url').'/'.$logo,
-              'CHANNELTYPE' => 'Merchant',
-          ];
-          $provider->addOptions($options);
+        $logo = setting('logo') ? setting('logo') : 'logo';
+        $options = [
+            'BRANDNAME' => config('app.name'),
+            'LOGOIMG' => config('url').'/'.$logo,
+            'CHANNELTYPE' => 'Merchant',
+        ];
+        $provider->addOptions($options);
 
-          $data = $this->paypal_invoice_data();
-          $response = $provider->setExpressCheckout($data);
+        $data = $this->paypal_invoice_data();
+        $response = $provider->setExpressCheckout($data);
 
-          return response()->json(['link' => $response['paypal_link'], 'data' => $data]);
-      }
+        return response()->json(['link' => $response['paypal_link'], 'data' => $data]);
+    }
 
     public function paypal_invoice_data()
     {

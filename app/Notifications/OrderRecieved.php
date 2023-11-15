@@ -27,9 +27,9 @@ class OrderRecieved extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject($this->order->store->store_name.' | لديك طلب جديد')
-                    ->line('لديك طلب جديد بقيمة '.$this->order->price.' '.$this->order->currency->symbol.' من المشتري "'.$this->order->buyer_name.'"')
-                    ->action('معاينة الطلبات', route('orders', $this->order->store->store_slug));
+            ->subject($this->order->store->store_name.' | لديك طلب جديد')
+            ->line('لديك طلب جديد بقيمة '.$this->order->price.' '.$this->order->currency->symbol.' من المشتري "'.$this->order->buyer_name.'"')
+            ->action('معاينة الطلبات', route('orders', $this->order->store->store_slug));
     }
 
     public function toMessage($notifiable)

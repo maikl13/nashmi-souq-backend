@@ -99,12 +99,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(SubscriptionsDataTable $dataTable, User $user = null)
     {
         $user = $user ? $user : Auth::user();
+
         // return view('admin.users.user')->with('user', $user);
         return $dataTable->with(['query' => $user->subscriptions()->active()])
             ->render('admin.users.user', ['user' => $user]);

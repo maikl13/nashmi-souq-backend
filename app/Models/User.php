@@ -16,7 +16,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, UserInfo, FileHandler, StoreInfo, ChatHandler, ManageTransactions, SendOTP, ExchangeCurrency;
+    use ChatHandler, ExchangeCurrency, FileHandler, ManageTransactions, Notifiable, SendOTP, StoreInfo, UserInfo;
 
     const ROLE_USER = 1;
 

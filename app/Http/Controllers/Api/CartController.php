@@ -111,21 +111,21 @@ class CartController extends Controller
     {
         $user = Auth::user();
         //  $cart = Cart::join('products','products.id','carts.product_id')
-    //      ->where('carts.store_id',$store->id)
-    //      ->where('carts.user_id',$user->id)
-    //      ->select(['products.price * carts.quantity as total_price','carts.*'])->get();
+        //      ->where('carts.store_id',$store->id)
+        //      ->where('carts.user_id',$user->id)
+        //      ->select(['products.price * carts.quantity as total_price','carts.*'])->get();
         $cart = DB::table('carts')
-        ->where('carts.store_id', $store->id)
-        ->where('carts.user_id', $user->id)
-        ->join('products', 'products.id', '=', 'carts.product_id')
-        ->select(['products.title', 'products.price', 'carts.quantity', 'products.images', DB::raw('(carts.quantity * products.price) as total_price')])
-        ->get();
+            ->where('carts.store_id', $store->id)
+            ->where('carts.user_id', $user->id)
+            ->join('products', 'products.id', '=', 'carts.product_id')
+            ->select(['products.title', 'products.price', 'carts.quantity', 'products.images', DB::raw('(carts.quantity * products.price) as total_price')])
+            ->get();
         $sum_total = DB::table('carts')
-        ->where('carts.store_id', $store->id)
-        ->where('carts.user_id', $user->id)
-        ->join('products', 'products.id', '=', 'carts.product_id')
-        ->select(DB::raw('SUM(carts.quantity * products.price) as sum_total'))
-        ->get();
+            ->where('carts.store_id', $store->id)
+            ->where('carts.user_id', $user->id)
+            ->join('products', 'products.id', '=', 'carts.product_id')
+            ->select(DB::raw('SUM(carts.quantity * products.price) as sum_total'))
+            ->get();
 
         return new JsonResponse([
             'cart' => $cart,

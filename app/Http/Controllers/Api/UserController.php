@@ -119,26 +119,26 @@ class UserController extends Controller
         //
     }
 
-   public function listuser($id)
-   {
-       $userlist = User::where('active', 1)->findOrFail($id);
-       $orderCount = $userlist->orders()->count();
-       $productCount = $userlist->products()->count();
-       $activeSubscriptions = $userlist->subscriptions()->active()->orderBy('created_at', 'desc')->first();
-       if ($activeSubscriptions) {
-           $status = 'Available';
-       } else {
-           $status = 'Unavailable';
-       }
+    public function listuser($id)
+    {
+        $userlist = User::where('active', 1)->findOrFail($id);
+        $orderCount = $userlist->orders()->count();
+        $productCount = $userlist->products()->count();
+        $activeSubscriptions = $userlist->subscriptions()->active()->orderBy('created_at', 'desc')->first();
+        if ($activeSubscriptions) {
+            $status = 'Available';
+        } else {
+            $status = 'Unavailable';
+        }
 
-       return response()->json([
-           'List_User' => $userlist,
-           'ordercount' => $orderCount,
-           'productCount' => $productCount,
-           'status_subscriptions' => $status,
-           'latest_subscription' => $activeSubscriptions,
-       ], 200);
-   }
+        return response()->json([
+            'List_User' => $userlist,
+            'ordercount' => $orderCount,
+            'productCount' => $productCount,
+            'status_subscriptions' => $status,
+            'latest_subscription' => $activeSubscriptions,
+        ], 200);
+    }
 
     public function my_listings()
     {
@@ -498,7 +498,7 @@ class UserController extends Controller
                 'api_token' => $user->api_token,
 
             ], 200);
-        } catch(\Throwable $th) {
+        } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage(),
@@ -506,97 +506,97 @@ class UserController extends Controller
         }
     }
 
-     public function register_by_whatsapp(Request $request)
-     {
-         try {
-             $validator = Validator::make($request->all(), ['phone' => ['phone:AUTO,'.$request->get('phone_phoneCode')]]);
+    public function register_by_whatsapp(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), ['phone' => ['phone:AUTO,'.$request->get('phone_phoneCode')]]);
 
-             if ($validator->fails()) {
-                 return response()->json([
-                     'status' => false,
-                     'message' => 'validation error',
-                     'errors' => $validator->errors(),
-                 ], 401);
-             }
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validator->errors(),
+                ], 401);
+            }
 
-             $data['phone'] = phone($request->get('phone'), $request->get('phone_phoneCode'))->formatE164();
+            $data['phone'] = phone($request->get('phone'), $request->get('phone_phoneCode'))->formatE164();
 
-             $validatorx = Validator::make($data, [
-                 'phone' => ['required', 'string', 'max:255', 'unique:users', 'phone:AUTO,'.$request->get('phone_phoneCode')],
-             ], ['phone' => 'من فضلك قم بإدخال رقم هاتف صحيح']);
+            $validatorx = Validator::make($data, [
+                'phone' => ['required', 'string', 'max:255', 'unique:users', 'phone:AUTO,'.$request->get('phone_phoneCode')],
+            ], ['phone' => 'من فضلك قم بإدخال رقم هاتف صحيح']);
 
-             if ($validatorx->fails()) {
-                 return response()->json([
-                     'status' => false,
-                     'message' => 'validation error',
-                     'errors' => $validatorx->errors(),
-                 ], 401);
-             }
+            if ($validatorx->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validatorx->errors(),
+                ], 401);
+            }
 
-             $uid = uniqid();
-             $user_data = [];
-             $user_data['name'] = 'User_'.$uid;
-             $user_data['username'] = $uid;
-             $user_data['phone'] = phone($request['phone'], $request['phone_phoneCode'])->formatE164();
-             $user_data['phone_national'] = phone($request['phone'], $request['phone_phoneCode'])->formatForMobileDialingInCountry($request['phone_phoneCode']);
-             $user_data['phone_country_code'] = $request['phone_phoneCode'];
-             $user_data['otp'] = rand(100100, 999000);
-             $user_data['api_token'] = Str::random(60);
+            $uid = uniqid();
+            $user_data = [];
+            $user_data['name'] = 'User_'.$uid;
+            $user_data['username'] = $uid;
+            $user_data['phone'] = phone($request['phone'], $request['phone_phoneCode'])->formatE164();
+            $user_data['phone_national'] = phone($request['phone'], $request['phone_phoneCode'])->formatForMobileDialingInCountry($request['phone_phoneCode']);
+            $user_data['phone_country_code'] = $request['phone_phoneCode'];
+            $user_data['otp'] = rand(100100, 999000);
+            $user_data['api_token'] = Str::random(60);
 
-             $user = User::create($user_data);
+            $user = User::create($user_data);
 
-             // $user->send_otp(true);
-             event(new Registered($user));
+            // $user->send_otp(true);
+            event(new Registered($user));
 
-             $code = strtolower($request['phone_phoneCode']);
-             $country = Country::where('code', $code)->first();
-             if ($country) {
-                 $user->country_id = $country->id;
-                 $user->save();
-             }
+            $code = strtolower($request['phone_phoneCode']);
+            $country = Country::where('code', $code)->first();
+            if ($country) {
+                $user->country_id = $country->id;
+                $user->save();
+            }
 
-             return response()->json([
-                 'status' => true,
-                 'message' => 'user created successfully',
-                 'otp_code' => $user->otp,
-                 //'token'=>$user->createToken("Api Token")->plainTextToken
-                 // 'otp_code'=> $user->otp,
-                 'api_token' => $user->api_token,
-             ], 200);
-         } catch(\Throwable $th) {
-             return response()->json([
-                 'status' => false,
-                 'message' => $th->getMessage(),
-             ], 500);
-         }
+            return response()->json([
+                'status' => true,
+                'message' => 'user created successfully',
+                'otp_code' => $user->otp,
+                //'token'=>$user->createToken("Api Token")->plainTextToken
+                // 'otp_code'=> $user->otp,
+                'api_token' => $user->api_token,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
 
-         //  $validator = Validator::make($request->all(), [
+        //  $validator = Validator::make($request->all(), [
         //     'phone' => 'required|string|max:255|unique:users|phone:AUTO,'.$request['phone_phoneCode'],
         //     'phone_phoneCode' => 'required'
-         // ],['phone' => 'من فضلك قم بادخال رقم هاتف صحيح']);
+        // ],['phone' => 'من فضلك قم بادخال رقم هاتف صحيح']);
 
-         // if ($validator->fails()) {
+        // if ($validator->fails()) {
         //     return response()->json(['errors' => $validator->errors(), 'success' => false], 401);
-         // }
+        // }
 
-         // $uid = uniqid();
-         // $user_data = [];
+        // $uid = uniqid();
+        // $user_data = [];
 
-         // $user_data['name'] = 'User_'.$uid;
-         // $user_data['username'] = $uid;
-         // $user_data['phone'] = phone($request['phone'], $request['phone_phoneCode'])->formatE164();
-         // $user_data['phone_national'] = phone($request['phone'], $request['phone_phoneCode'])->formatForMobileDialingInCountry($request['phone_phoneCode']);
-         // $user_data['phone_country_code'] = $request['phone_phoneCode'];
-         // $user_data['otp'] = rand(100100, 999000);
+        // $user_data['name'] = 'User_'.$uid;
+        // $user_data['username'] = $uid;
+        // $user_data['phone'] = phone($request['phone'], $request['phone_phoneCode'])->formatE164();
+        // $user_data['phone_national'] = phone($request['phone'], $request['phone_phoneCode'])->formatForMobileDialingInCountry($request['phone_phoneCode']);
+        // $user_data['phone_country_code'] = $request['phone_phoneCode'];
+        // $user_data['otp'] = rand(100100, 999000);
 
-         // $user = User::create($user_data);
+        // $user = User::create($user_data);
 
-         // $user->send_otp();
+        // $user->send_otp();
 
-         // event(new Registered($user));
+        // event(new Registered($user));
 
-         // return response()->json(['status' => 'success', 'data' => $user, 'message' => 'تم التسجيل بنجاح'], 200) ;
-     }
+        // return response()->json(['status' => 'success', 'data' => $user, 'message' => 'تم التسجيل بنجاح'], 200) ;
+    }
 
     public function add_comment(Request $request)
     {
@@ -722,28 +722,28 @@ class UserController extends Controller
         }
     }
 
-public function get_conversation($user, Request $request)
-{
-    $recipient = User::where('username', $user)->first();
-    $conversations = Auth::user()->conversations_with($recipient)->with('messages', 'sender', 'recipient')->get();
+    public function get_conversation($user, Request $request)
+    {
+        $recipient = User::where('username', $user)->first();
+        $conversations = Auth::user()->conversations_with($recipient)->with('messages', 'sender', 'recipient')->get();
 
-    if ($conversations) {
-        // Update seen status for messages addressed to the authenticated user
-        foreach ($conversations as $conversation) {
-            foreach ($conversation->messages()->where('recipient_id', auth()->user()->id)->unseen()->get() as $message) {
-                $message->seen = now(); // date("Y-m-d H:i:s")
-                $message->save();
+        if ($conversations) {
+            // Update seen status for messages addressed to the authenticated user
+            foreach ($conversations as $conversation) {
+                foreach ($conversation->messages()->where('recipient_id', auth()->user()->id)->unseen()->get() as $message) {
+                    $message->seen = now(); // date("Y-m-d H:i:s")
+                    $message->save();
+                }
             }
+
+            // Return the first conversation as a single object
+            $first_conversation = $conversations[0];
+
+            return response()->json($first_conversation, 200);
         }
 
-        // Return the first conversation as a single object
-        $first_conversation = $conversations[0];
-
-        return response()->json($first_conversation, 200);
+        return response()->json(200);
     }
-
-    return response()->json(200);
-}
 
     public function get_conversations()
     {
@@ -855,27 +855,27 @@ public function get_conversation($user, Request $request)
         }
     }
 
-     public function reset(Request $request)
-     {
-         $credentials = $request->validate([
-             'email' => 'required|email',
-             'password' => 'required|string|max:25|confirmed',
-             'token' => 'required|string',
-         ]);
+    public function reset(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|max:25|confirmed',
+            'token' => 'required|string',
+        ]);
 
-         $reset_password_status = Password::reset($credentials, function ($user, $password) {
-             $user->password = $password;
-             $user->save();
-         });
+        $reset_password_status = Password::reset($credentials, function ($user, $password) {
+            $user->password = $password;
+            $user->save();
+        });
 
-         if ($reset_password_status == Password::INVALID_TOKEN) {
-             return response()->json([
-                 'message' => 'error:expire token.',
-             ], 403);
-         }
+        if ($reset_password_status == Password::INVALID_TOKEN) {
+            return response()->json([
+                'message' => 'error:expire token.',
+            ], 403);
+        }
 
-         return response()->json([
-             'message' => 'Password has been successfully changed.',
-         ], 200);
-     }
+        return response()->json([
+            'message' => 'Password has been successfully changed.',
+        ], 200);
+    }
 }

@@ -156,39 +156,39 @@ class TransactionController extends Controller
         return view('main.payment.add-balance');
     }
 
-  public function add_balance($code, Request $request)
-  {
-      $request->validate([
-          'amount' => 'numeric|min:1|max:1000000',
-          'payment_method' => 'in:'.Transaction::PAYMENT_DIRECT_PAYMENT.','.Transaction::PAYMENT_PAYPAL.','.Transaction::PAYMENT_MADA,
-      ]);
-      $country = Country::where('code', $code)->first();
-      if ($country) {
-          $codecurrency = Currency::where('id', $country->currency_id)->first();
-      }
-      $amount = $request->amount;
-      $transaction = Transaction::payment_init($amount, $codecurrency, [
-          'type' => Transaction::TYPE_DEPOSIT,
-          'payment_method' => $request->payment_method,
-      ]);
-      if ($request->payment_method == Transaction::PAYMENT_PAYPAL) {
-          $transaction_items = [[
-              'name' => 'مدفوعات لسوق نشمي لشحن رصيد المحفظة',
-              'price' => ceil($transaction->amount_usd),
-              'desc' => 'مدفوعات لسوق نشمي لشحن رصيد المحفظة',
-              'qty' => 1,
-          ]];
-          $transaction->items = $transaction_items;
-          $transaction->save();
+    public function add_balance($code, Request $request)
+    {
+        $request->validate([
+            'amount' => 'numeric|min:1|max:1000000',
+            'payment_method' => 'in:'.Transaction::PAYMENT_DIRECT_PAYMENT.','.Transaction::PAYMENT_PAYPAL.','.Transaction::PAYMENT_MADA,
+        ]);
+        $country = Country::where('code', $code)->first();
+        if ($country) {
+            $codecurrency = Currency::where('id', $country->currency_id)->first();
+        }
+        $amount = $request->amount;
+        $transaction = Transaction::payment_init($amount, $codecurrency, [
+            'type' => Transaction::TYPE_DEPOSIT,
+            'payment_method' => $request->payment_method,
+        ]);
+        if ($request->payment_method == Transaction::PAYMENT_PAYPAL) {
+            $transaction_items = [[
+                'name' => 'مدفوعات لسوق نشمي لشحن رصيد المحفظة',
+                'price' => ceil($transaction->amount_usd),
+                'desc' => 'مدفوعات لسوق نشمي لشحن رصيد المحفظة',
+                'qty' => 1,
+            ]];
+            $transaction->items = $transaction_items;
+            $transaction->save();
 
-          return $transaction->paypal_payment_api();
-      }
-      if ($request->payment_method == Transaction::PAYMENT_MADA) {
-          return $transaction->hyperpay_payment();
-      }
+            return $transaction->paypal_payment_api();
+        }
+        if ($request->payment_method == Transaction::PAYMENT_MADA) {
+            return $transaction->hyperpay_payment();
+        }
 
-      return $transaction->nbe_direct_payment();
-  }
+        return $transaction->nbe_direct_payment();
+    }
 
     public function make_direct_payment(Request $request)
     {

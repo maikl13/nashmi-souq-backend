@@ -56,9 +56,9 @@ class CurrenciesDataTable extends DataTable
             Column::make('code')->title('كود العملة'),
             Column::make('symbol')->title('رمز العملة'),
             Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

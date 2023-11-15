@@ -46,7 +46,7 @@ class ContactMessageController extends Controller
         //SendMail
         if (setting('email')) {
             Mail::to(setting('email'))
-            ->send(new ContactMessageRecieved($contact_message->name, $contact_message->email, $contact_message->phone, $contact_message->subject, $contact_message->message));
+                ->send(new ContactMessageRecieved($contact_message->name, $contact_message->email, $contact_message->phone, $contact_message->subject, $contact_message->message));
         }
 
         return response()->json([

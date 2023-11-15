@@ -102,8 +102,8 @@ class ListingsController extends Controller
             }
 
             $listings = $query->whereIn('state_id', $country->states()->pluck('id')->toArray())
-            ->with(['user', 'currency:id,name,code', 'state:id,name', 'area:id,name', 'category:id,name', 'sub_category'])
-             ->latest()->paginate(15);
+                ->with(['user', 'currency:id,name,code', 'state:id,name', 'area:id,name', 'category:id,name', 'sub_category'])
+                ->latest()->paginate(15);
 
             return response()->json(['data' => $listings]);
         } else {
@@ -191,8 +191,8 @@ class ListingsController extends Controller
     public function user_listings($id)
     {
         $listings = Listing::where('user_id', $id)->active()->featuredFirst()
-   ->with(['user', 'currency:id,name,code', 'comments', 'state', 'area', 'category:id,name', 'sub_category'])
-    ->latest()->paginate(15);
+            ->with(['user', 'currency:id,name,code', 'comments', 'state', 'area', 'category:id,name', 'sub_category'])
+            ->latest()->paginate(15);
 
         $response = [];
         foreach ($listings as $listing) {
@@ -249,76 +249,76 @@ class ListingsController extends Controller
         }
     }
 
-     public function pinned_ads($code)
-     {
-         $country = Country::where('code', $code)->first();
-         if ($country) {
-             $fixed_listings = Listing::where('state_id', $country->states()->pluck('id')->toArray())->with('user', 'comments', 'state', 'area', 'sub_category', 'currency:id,name,code', 'category:id,name')->fixed()->active()->inRandomOrder()->get(); //->localized()
+    public function pinned_ads($code)
+    {
+        $country = Country::where('code', $code)->first();
+        if ($country) {
+            $fixed_listings = Listing::where('state_id', $country->states()->pluck('id')->toArray())->with('user', 'comments', 'state', 'area', 'sub_category', 'currency:id,name,code', 'category:id,name')->fixed()->active()->inRandomOrder()->get(); //->localized()
 
-             if (count($fixed_listings)) {
-                 return response()->json(['data' => $fixed_listings]);
-             } else {
-                 return response()->json(['data' => 'لا توجد بيانات']);
-             }
-         } else {
-             return response()->json(['data' => 'لا يوجد بلد بهذا الكود']);
-         }
-     }
+            if (count($fixed_listings)) {
+                return response()->json(['data' => $fixed_listings]);
+            } else {
+                return response()->json(['data' => 'لا توجد بيانات']);
+            }
+        } else {
+            return response()->json(['data' => 'لا يوجد بلد بهذا الكود']);
+        }
+    }
 
-      public function featurepromote($id, Request $request)
-      {
-          $listingId = $id;
-          $r = $request->code;
-          //  return $r;
-          $countrycode = Country::where('code', $r)->first();
-          // return $countrycode->currency_id;
-          $currencycode = Currency::where('id', $countrycode->currency_id)->first();
-          $listings = Listing::with('currency')->findOrFail($id);
-          $user = Auth::user();
-          $currentBalance = $user->payout_balance();
+    public function featurepromote($id, Request $request)
+    {
+        $listingId = $id;
+        $r = $request->code;
+        //  return $r;
+        $countrycode = Country::where('code', $r)->first();
+        // return $countrycode->currency_id;
+        $currencycode = Currency::where('id', $countrycode->currency_id)->first();
+        $listings = Listing::with('currency')->findOrFail($id);
+        $user = Auth::user();
+        $currentBalance = $user->payout_balance();
 
-          $currencyCode = $currencycode->code;
+        $currencyCode = $currencycode->code;
 
-          $message = '';
-          if ($currentBalance) {
-              $message = "رصيدك المتاح حاليا <strong><span class='current-balance'>".$currentBalance.'</span> '.$currencyCode.'</strong>, هل أنت بحاجة للمزيد لترقية إعلانك بالشكل المطلوب';
-          } else {
-              $message = 'ليس لديك رصيد بالمحفظة';
-          }
+        $message = '';
+        if ($currentBalance) {
+            $message = "رصيدك المتاح حاليا <strong><span class='current-balance'>".$currentBalance.'</span> '.$currencyCode.'</strong>, هل أنت بحاجة للمزيد لترقية إعلانك بالشكل المطلوب';
+        } else {
+            $message = 'ليس لديك رصيد بالمحفظة';
+        }
 
-          $benefits = setting('featured_ads_benefits');
-          // $currentBalance = Auth::user()->payout_balance();
-          //  $currencyCode = currency_api()->code;
-          $tiersTitles = ['يوم', '3 أيام', 'أسبوع', '15 يوم', 'شهر', '3 شهور', '6 شهور', 'سنة'];
+        $benefits = setting('featured_ads_benefits');
+        // $currentBalance = Auth::user()->payout_balance();
+        //  $currencyCode = currency_api()->code;
+        $tiersTitles = ['يوم', '3 أيام', 'أسبوع', '15 يوم', 'شهر', '3 شهور', '6 شهور', 'سنة'];
 
-          $tiers = [];
-          for ($i = 1; $i <= 8; $i++) {
-              if (! empty(setting('tier'.$i))) {
-                  $tier = [];
-                  $tier['index'] = $i;
-                  $tier['title'] = $tiersTitles[$i - 1];
-                  $tier['value'] = setting('tier'.$i) + 0;
-                  $tier['price'] = round(exchange($tier['value'], 'USD', $currencyCode), 1);
-                  $tier['currency'] = $currencycode->code;
-                  $tiers[] = $tier;
-              }
-          }
-          if ($listings->currency) {
-              $pricecode = $listings->price.$listings->currency->code;
-          } else {
-              $pricecode = $listings->price;
-          }
+        $tiers = [];
+        for ($i = 1; $i <= 8; $i++) {
+            if (! empty(setting('tier'.$i))) {
+                $tier = [];
+                $tier['index'] = $i;
+                $tier['title'] = $tiersTitles[$i - 1];
+                $tier['value'] = setting('tier'.$i) + 0;
+                $tier['price'] = round(exchange($tier['value'], 'USD', $currencyCode), 1);
+                $tier['currency'] = $currencycode->code;
+                $tiers[] = $tier;
+            }
+        }
+        if ($listings->currency) {
+            $pricecode = $listings->price.$listings->currency->code;
+        } else {
+            $pricecode = $listings->price;
+        }
 
-          return response()->json([
-              'benefits' => $benefits,
-              'message' => strip_tags($message),
-              'current_balance' => $currentBalance,
-              'currency_code' => $currencyCode,
-              'tiers' => $tiers,
-              // 'listing_id' => $listingId,
-              // 'price'=>$pricecode,
-          ]);
-      }
+        return response()->json([
+            'benefits' => $benefits,
+            'message' => strip_tags($message),
+            'current_balance' => $currentBalance,
+            'currency_code' => $currencyCode,
+            'tiers' => $tiers,
+            // 'listing_id' => $listingId,
+            // 'price'=>$pricecode,
+        ]);
+    }
 
     public function pinads($id, Request $request)
     {
@@ -364,56 +364,56 @@ class ListingsController extends Controller
         ]);
     }
 
-      public function promote(Request $request)
-      {
-          // dd($request->request);
-          $request->validate([
-              'listing_id' => 'required|exists:listings,id',
-              'tier' => 'required|between:1,20',
-          ]);
-          $listing = Listing::where('id', $request->listing_id)->first();
-          $price = round(exchange(setting('tier'.$request->tier), 'USD', currency()->code), 1);
+    public function promote(Request $request)
+    {
+        // dd($request->request);
+        $request->validate([
+            'listing_id' => 'required|exists:listings,id',
+            'tier' => 'required|between:1,20',
+        ]);
+        $listing = Listing::where('id', $request->listing_id)->first();
+        $price = round(exchange(setting('tier'.$request->tier), 'USD', currency()->code), 1);
 
-          $this->authorize('edit', $listing);
-          if ($listing->is_featured() && $request->tier <= 8) {
-              return response()->json('تم ترقية الإعلان بالفعل للعضوية المميزة من قبل', 200);
-          }
+        $this->authorize('edit', $listing);
+        if ($listing->is_featured() && $request->tier <= 8) {
+            return response()->json('تم ترقية الإعلان بالفعل للعضوية المميزة من قبل', 200);
+        }
 
-          if ($listing->is_fixed() && $request->tier >= 9) {
-              return response()->json('الاعلان مثبت بالفعل', 403);
-          }
+        if ($listing->is_fixed() && $request->tier >= 9) {
+            return response()->json('الاعلان مثبت بالفعل', 403);
+        }
 
-          if (empty(setting('tier'.$request->tier))) {
-              return response()->json('حدث خطأ ما! قم بتحديث الصفحة و حاول مجددا.', 500);
-          }
+        if (empty(setting('tier'.$request->tier))) {
+            return response()->json('حدث خطأ ما! قم بتحديث الصفحة و حاول مجددا.', 500);
+        }
 
-          if (Auth::user()->payout_balance() < $price) {
-              return response()->json('عفوا رصيدك الحالي لا يكفي لإتمام العملية.', 403);
-          }
+        if (Auth::user()->payout_balance() < $price) {
+            return response()->json('عفوا رصيدك الحالي لا يكفي لإتمام العملية.', 403);
+        }
 
-          $featured_listing = new FeaturedListing;
-          $featured_listing->listing_id = $listing->id;
-          $featured_listing->tier = $request->tier;
-          $featured_listing->expired_at = \Carbon\Carbon::now()->addDays($featured_listing->period());
+        $featured_listing = new FeaturedListing;
+        $featured_listing->listing_id = $listing->id;
+        $featured_listing->tier = $request->tier;
+        $featured_listing->expired_at = \Carbon\Carbon::now()->addDays($featured_listing->period());
 
-          $featured_listing->price = $price;
-          $featured_listing->currency_id = currency()->id;
+        $featured_listing->price = $price;
+        $featured_listing->currency_id = currency()->id;
 
-          $transaction = $featured_listing->payment_init($price, currency());
+        $transaction = $featured_listing->payment_init($price, currency());
 
-          if ($successfull_transaction = $featured_listing->pay_from_wallet($transaction)) {
-              $featured_listing->transaction_id = $transaction->id;
-              if ($featured_listing->save()) {
-                  if ($request->tier <= 8) {
-                      return response()->json('تم ترقية إعلانك لإعلان مميز بنجاح.', 200);
-                  }
+        if ($successfull_transaction = $featured_listing->pay_from_wallet($transaction)) {
+            $featured_listing->transaction_id = $transaction->id;
+            if ($featured_listing->save()) {
+                if ($request->tier <= 8) {
+                    return response()->json('تم ترقية إعلانك لإعلان مميز بنجاح.', 200);
+                }
 
-                  return response()->json('تم تثبيت إعلانك بنجاح.', 200);
-              }
-          } else {
-              return response()->json('حدث خطأ ما! من فضلك تأكد من وجود رصيد كاف و حاول مجددا.', 500);
-          }
+                return response()->json('تم تثبيت إعلانك بنجاح.', 200);
+            }
+        } else {
+            return response()->json('حدث خطأ ما! من فضلك تأكد من وجود رصيد كاف و حاول مجددا.', 500);
+        }
 
-          return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
-      }
+        return response()->json('حدث خطأ ما! من فضلك حاول مجددا.', 500);
+    }
 }

@@ -103,9 +103,9 @@ class ListingsDataTable extends DataTable
             Column::make('views')->title('👁️'),
             Column::make('status')->title('✓'),
             Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

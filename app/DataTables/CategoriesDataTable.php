@@ -82,9 +82,9 @@ class CategoriesDataTable extends DataTable
             Column::make('created_at')->title('تاريخ الاضافة')->orderable(false),
             Column::make('listings')->title('عدد الاعلانات')->orderable(false),
             Column::computed('action')->orderable(false)
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

@@ -64,9 +64,9 @@ class AreasDataTable extends DataTable
             Column::make('state')->title('المدينة'),
             Column::make('listings')->title('عدد الاعلانات'),
             Column::computed('action')
-                  ->width(60)
-                  ->addClass('text-center')
-                  ->searchable(false)->title('⚙'),
+                ->width(60)
+                ->addClass('text-center')
+                ->searchable(false)->title('⚙'),
         ];
     }
 

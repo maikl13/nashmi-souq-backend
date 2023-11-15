@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FeaturedListing extends Model
 {
-    use PaymentTrait, ExchangeCurrency;
+    use ExchangeCurrency, PaymentTrait;
 
     public function listing()
     {

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use PaymentTrait, ExchangeCurrency;
+    use ExchangeCurrency, PaymentTrait;
 
     const CREDIT_PAYMENT = 1;
 

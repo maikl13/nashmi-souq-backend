@@ -129,12 +129,12 @@ class StoreController extends Controller
     public function list_stores()
     {
         $stores = User::join('products', 'products.user_id', '=', 'users.id')
-             ->where('shown', 1)
-             ->whereNotNull('users.store_name')
-             ->where('products.deleted_at', '=', null)
-             ->whereHas('active_subscriptions')
-             ->distinct('products.user_id')
-             ->withCount(['products'])->orderBy('store_logo', 'desc')->paginate(15);
+            ->where('shown', 1)
+            ->whereNotNull('users.store_name')
+            ->where('products.deleted_at', '=', null)
+            ->whereHas('active_subscriptions')
+            ->distinct('products.user_id')
+            ->withCount(['products'])->orderBy('store_logo', 'desc')->paginate(15);
 
         return response()->json(['data' => $stores], 200);
     }
