@@ -161,12 +161,11 @@ function ads($type = 'leaderboard', $limit = 1, $strict = false)
         return Banner::get();
     });
 
-    // $banners = Banner::valid()->localized()->where('type', $types[$type])->inRandomOrder()->limit($limit)->get();
+    $banners = Banner::valid()->localized()->where('type', $types[$type])->inRandomOrder()->limit($limit)->get();
 
-    $banners->where('type', $types[$type])->where('expires_at', '>', now())->filter(function($banner) {
-        return in_array((string) country()->id, $banner->countries);
-    })->shuffle()->take($limit);
-
+    // $banners->where('type', $types[$type])->where('expires_at', '>', now())->filter(function($banner) {
+    //     return in_array((string) country()->id, $banner->countries);
+    // })->shuffle()->take($limit);
 
     $ads = [];
 
