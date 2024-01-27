@@ -13,8 +13,6 @@ class Listing extends Model
     use ExchangeCurrency, FileHandler, SearchableTrait;
 
     protected $casts = ['options' => 'array'];
-
-    protected $withCount = ['featured_listings'];
     
     protected $with = ['featured_listings'];
 
@@ -198,10 +196,8 @@ class Listing extends Model
 
     public function is_featured()
     {
-        if(! $this->featured_listings_count) return false;
-
         if ($this->relationLoaded('featured_listings')) {
-            return $this->featured_listings->whereIn('tier', [1, 2, 3, 4, 5, 6, 7, 8])->where('expired_at', '>', 'now')->first() ? true : false;
+            return $this->featured_listings->whereIn('tier', [1, 2, 3, 4, 5, 6, 7, 8])->where('expired_at', '>', now())->first() ? true : false;
         }
         
         return $this->featured_listings()->whereIn('tier', [1, 2, 3, 4, 5, 6, 7, 8])->whereRaw(DB::raw("IF('".now()."' < `expired_at`, 1, Null)"))->first() ? true : false;
@@ -209,10 +205,8 @@ class Listing extends Model
     
     public function is_fixed()
     {
-        if(! $this->featured_listings_count) return false;
-
         if ($this->relationLoaded('featured_listings')) {
-            return $this->featured_listings->whereIn('tier', [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])->where('expired_at', '>', 'now')->first() ? true : false;
+            return $this->featured_listings->whereIn('tier', [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])->where('expired_at', '>', now())->first() ? true : false;
         }
 
         return $this->featured_listings()->whereIn('tier', [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])->whereRaw(DB::raw("IF('".now()."' < `expired_at`, 1, Null)"))->first() ? true : false;
