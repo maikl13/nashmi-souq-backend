@@ -26,26 +26,32 @@ trait ExchangeCurrency
         }
 
         try {
-            $rate = cache()->store('database')->remember("{$base}/{$currency}", 432000, function () use ($currency, $base) {
-                $rate = Swap::latest("{$base}/{$currency}")->getValue();
-
-                // Store rate in settings
-                $setting = Setting::where('name', 'exchange_rates')->firstOrCreate([
-                    'name' => 'exchange_rates',
-                ]);
-
-                $exchange_rates = json_decode($setting->value, true) ?? [];
-                $exchange_rates["{$base}/{$currency}"] = $rate;
-                $setting->value = $exchange_rates;
-                $setting->save();
-
-                return $rate;
-            });
+            if($GLOBALS['excange_rate'] != 'settings') {
+                $rate = cache()->remember("{$base}/{$currency}", 432000, function () use ($currency, $base) {
+                    $rate = Swap::latest("{$base}/{$currency}")->getValue();
+    
+                    // Store rate in settings
+                    $setting = Setting::where('name', 'exchange_rates')->firstOrCreate([
+                        'name' => 'exchange_rates',
+                    ]);
+    
+                    $exchange_rates = json_decode($setting->value, true) ?? [];
+                    $exchange_rates["{$base}/{$currency}"] = $rate;
+                    $setting->value = $exchange_rates;
+                    $setting->save();
+    
+                    return $rate;
+                });
+            }
         } catch (\Throwable $th) {
+            $GLOBALS['excange_rate'] = 'settings';
+        }
+
+        if($GLOBALS['excange_rate'] == 'settings') {
             try {
                 $rate = json_decode(setting('exchange_rates'), true)["{$base}/{$currency}"];
             } catch (\Throwable $th) {
-                abort(500);
+                //
             }
         }
 

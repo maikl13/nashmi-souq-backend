@@ -2,11 +2,12 @@
 
 namespace App\Traits;
 
-use App\Models\Currency;
-use App\Models\Listing;
 use App\Models\Order;
+use App\Models\Listing;
 use App\Models\Package;
+use App\Models\Currency;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Cache;
 
 trait ManageTransactions
 {
@@ -23,7 +24,12 @@ trait ManageTransactions
     {
         // (deposits + earned_revenues) - (withdrawals + expenses)
         $payout_balance = [];
-        foreach (Currency::get() as $currency) {
+
+        $currencies = Cache::remember('currencies', 60 * 60, function () {
+            return Currency::get();
+        });
+
+        foreach ($currencies as $currency) {
             $payout_balance[$currency->code] = 0;
         }
 
@@ -74,7 +80,7 @@ trait ManageTransactions
         }
 
         // Total store revenues in local currency for non delivered packages
-        foreach ($this->store_packages()->where('status', '!=', Package::STATUS_DELIVERED)->get() as $package) {
+        foreach ($this->store_packages()->where('status', '!=', Package::STATUS_DELIVERED)->with('order.transaction', 'package_items')->get() as $package) {
             if (! $package->is_rejected() && ! $package->is_cancelled()) {
                 $order = $package->order;
                 if ($order->payment_method != Order::ON_DELIVERY_PAYMENT && $order->status != Order::STATUS_UNPAID && $order->transaction && $order->transaction->is_processed()) {
@@ -97,14 +103,16 @@ trait ManageTransactions
 
         // foreach($this->featured_listings()->get() as $featured_listing)
         //     $expensed_balance[$featured_listing->currency->code] += $featured_listing->price;
-        $expenses_transactions = $this->transactions()->where('type', Transaction::TYPE_EXPENSE)->get();
+        $expenses_transactions = $this->transactions()->with('sub_transactions', 'sub_transactions.original_currency')->where('type', Transaction::TYPE_EXPENSE)->get();
         foreach ($expenses_transactions as $transaction) {
             foreach ($transaction->sub_transactions as $sub_transaction) {
                 $expensed_balance[$sub_transaction->original_currency->code] += $sub_transaction->original_amount;
             }
         }
 
-        foreach ($this->orders()->where('payment_method', Order::CREDIT_PAYMENT)->where('status', '!=', Order::STATUS_UNPAID)->get() as $order) {
+        foreach ($this->orders()->where('payment_method', Order::CREDIT_PAYMENT)
+            ->where('status', '!=', Order::STATUS_UNPAID)
+            ->with('transaction', 'packages')->get() as $order) {
             if ($order->transaction && $order->transaction->is_processed()) {
                 foreach ($order->packages as $package) {
                     if (! $package->is_rejected() && ! $package->is_cancelled()) {
@@ -114,7 +122,7 @@ trait ManageTransactions
             }
         }
 
-        foreach ($this->subscriptions()->active()->get() as $supscription) {
+        foreach ($this->subscriptions()->active()->with('transaction', 'transaction.currency')->get() as $supscription) {
             if ($transaction = $supscription->transaction) {
                 $expensed_balance[$transaction->currency->code] += $transaction->amount;
             }

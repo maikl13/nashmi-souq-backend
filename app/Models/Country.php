@@ -25,4 +25,13 @@ class Country extends Model
     {
         return $this->hasManyThrough(Listing::class, State::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saved(fn () => Cache::forget('default_country'));
+
+        static::deleted(fn () => Cache::forget('default_country'));
+    }
 }

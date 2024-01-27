@@ -1,14 +1,19 @@
 <?php
 
-use App\Models\Banner;
 use App\Models\Cart;
+use App\Models\User;
+use App\Models\Banner;
 use App\Models\Country;
 use App\Models\Setting;
-use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 function setting($name, $return_defaults_if_setting_does_not_exist = true)
 {
-    $setting = Setting::where('name', $name)->first();
+    $settings = Cache::remember('settings', 60 * 60, function () {
+        return Setting::get();
+    });
+
+    $setting = $settings->where('name', $name)->first();
 
     if ($setting && ! empty(trim($setting->value))) {
         return $setting->value;
@@ -54,29 +59,25 @@ function getUserIP()
 
 function country()
 {
-    $country = location();
-
-    if (Auth::check() && Auth::user()->country) {
-        $country = Auth::user()->country;
-    }
-
     if (request()->cookie('country')) {
-        $country = Country::where('code', request()->cookie('country'))->first() ?? $country;
+        $country = Country::with('currency')->where('code', request()->cookie('country'))->first() ?? $country;
+    } elseif (Auth::check() && Auth::user()->country_id) {
+        $country = Auth::user()->country()->with('currency')->first();
+    } else {
+        $country = location();
     }
-
+    
     return $country;
 }
 
 function country_api()
 {
-    $country = location();
-
-    if (Auth::check() && Auth::user()->country) {
-        $country = Auth::user()->country;
+    if (Auth::check() && Auth::user()->country_id) {
+        $country = Auth::user()->country()->with('currency')->first();
+    } else {
+        $country = location();
     }
 
-    /*if( request()->cookie('country'))
-        $country = Country::where('code', request()->cookie('country'))->first() ?? $country;*/
     return $country;
 }
 
@@ -84,7 +85,7 @@ function location()
 {
     if (config('app.env') != 'local') {
         if (request()->cookie('country_code')) {
-            $country = Country::where('code', request()->cookie('country_code'))->first() ?? Country::first();
+            $country = Country::with('currency')->where('code', request()->cookie('country_code'))->first();
         } else {
             try {
                 $location = Location::get(getUserIP());
@@ -93,18 +94,23 @@ function location()
                     if ($country_code && ! empty($country_code)) {
                         cookie()->queue('country_code', $country_code, 24 * 60);
                     } // 24 hours
-                    $country = Country::whereRaw('LOWER(`code`) = ?', strtolower($country_code))
-                        ->first() ?? Country::first();
+                    $country = Country::with('currency')->whereRaw('LOWER(`code`) = ?', strtolower($country_code))
+                        ->first();
                 }
-            } catch (\Throwable $th) { /*_*/
+            } catch (\Throwable $th) {
+                //
             }
         }
     }
 
-    return $country ?? Country::first();
+    $default_country = Cache::remember('default_country', 60 * 60, function () {
+        return Country::with('currency')->first();
+    });
+
+    return $country ?? $default_country;
 }
 
-function ad_space($type = '', $banner = false)
+function ad_space($type = '', ?Banner $banner = null)
 {
     switch ($type) {
         // case 'large_rectangle': $width = 336; $height = 280; break;
@@ -151,7 +157,16 @@ function ads($type = 'leaderboard', $limit = 1, $strict = false)
         'mobile_banner' => Banner::TYPE_MOBILE_BANNER,
     ];
 
-    $banners = Banner::valid()->localized()->where('type', $types[$type])->inRandomOrder()->limit($limit)->get();
+    $banners = Cache::remember('banners', 60 * 60, function () {
+        return Banner::get();
+    });
+
+    // $banners = Banner::valid()->localized()->where('type', $types[$type])->inRandomOrder()->limit($limit)->get();
+
+    $banners->where('type', $types[$type])->where('expires_at', '>', now())->filter(function($banner) {
+        return in_array((string) country()->id, $banner->countries);
+    })->shuffle()->take($limit);
+
 
     $ads = [];
 
@@ -162,12 +177,12 @@ function ads($type = 'leaderboard', $limit = 1, $strict = false)
     if ($strict && count($ads) < $limit) {
         $x = $limit - count($ads);
         for ($i = 0; $i < $x; $i++) {
-            $ads[] = ad_space($type, false);
+            $ads[] = ad_space($type, null);
         }
     }
 
     if (! count($ads)) {
-        $ads[] = ad_space($type, false);
+        $ads[] = ad_space($type, null);
     }
 
     return $ads;

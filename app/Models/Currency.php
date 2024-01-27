@@ -15,4 +15,14 @@ class Currency extends Model
     {
         return 'slug';
     }
+    
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saved(fn () => Cache::forget('currencies'));
+
+        static::deleted(fn () => Cache::forget('currencies'));
+    }
 }
